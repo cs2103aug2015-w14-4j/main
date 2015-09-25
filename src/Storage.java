@@ -28,8 +28,12 @@ public class Storage {
 		return taskList.contains(newTask);
 	}
 	
-	public static void delete(){
+	public static String delete(int index){
 		// TODO
+		if(taskList == null){
+			return null;
+		}
+		return taskList.remove(index).getName();
 	}
 	
 	public static void edit(){
