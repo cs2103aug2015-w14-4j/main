@@ -1,5 +1,9 @@
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Storage {
+	private static List<Task> taskList;
 
 	public static void readFile(){
 		// TODO
@@ -13,8 +17,15 @@ public class Storage {
 		// TODO
 	}
 	
-	public static void add(){
+	public static boolean add(String name, Date date){
 		// TODO
+		if(taskList == null){
+			taskList = new ArrayList<Task>();
+		}
+		Task newTask = new Task(name, date);
+		taskList.add(newTask);
+		
+		return taskList.contains(newTask);
 	}
 	
 	public static void delete(){
