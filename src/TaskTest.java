@@ -20,4 +20,9 @@ public class TaskTest {
 		String name = "test";
 		assertEquals(true,Storage.add(name, date));
 	}
+	
+	@Test
+	public void testDelete(){
+		assertEquals("test",Storage.delete(0));
+	}
 }
