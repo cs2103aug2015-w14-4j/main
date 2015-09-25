@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-public class TaskTest {
+public class StorageTest {
 
 	public void test() {
 		fail("Not yet implemented"); // TODO
