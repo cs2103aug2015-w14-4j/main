@@ -46,5 +46,11 @@ public Date getDate() {
 public void setDate(Date date) {
 	this.date = date;
 } 
+
+@Override
+public String toString() {
+   return "Task [name=" + name + ", details=" + details + ", date="
+	+ date + "]";
+}
  
 }
