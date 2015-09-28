@@ -3,24 +3,40 @@ import java.util.Date;
 public class Task {
  private String name;
  private String details;
- private Date date;
+ private Date startDate;
+ private Date endDate;
+ private boolean isAcknowledged;
  
  public Task(){
 	 this.setName(null);
-	 this.setDate(null);
+	 this.setStartDate(null);
+	 this.setEndDate(null);
 	 this.setDetails(null);
+	 this.setAcknowledged(false);
  }
  
  public Task(String name, Date date){
 	 this.setName(name);
-	 this.setDate(date);
+	 this.setStartDate(date);
+	 this.setEndDate(null);
 	 this.setDetails(null);
+	 this.setAcknowledged(false);
  }
  
  public Task(String name, String details, Date date){
 	 this.setName(name);
-	 this.setDate(date);
+	 this.setStartDate(date);
+	 this.setEndDate(null);
 	 this.setDetails(details);
+	 this.setAcknowledged(false);
+ }
+ 
+ public Task(String name, String details, Date startDate, Date endDate){
+	 this.setName(name);
+	 this.setStartDate(startDate);
+	 this.setEndDate(endDate);
+	 this.setDetails(details);
+	 this.setAcknowledged(false);
  }
 
 public String getName() {
@@ -39,18 +55,33 @@ public void setDetails(String details) {
 	this.details = details;
 }
 
-public Date getDate() {
-	return date;
+public Date getStartDate() {
+	return startDate;
 }
 
-public void setDate(Date date) {
-	this.date = date;
+public void setStartDate(Date date) {
+	this.startDate = date;
 } 
+
+public Date getEndDate() {
+	return endDate;
+}
+
+public void setEndDate(Date endDate) {
+	this.endDate = endDate;
+}
+
+public boolean isAcknowledged() {
+	return isAcknowledged;
+}
+
+public void setAcknowledged(boolean isAcknowledged) {
+	this.isAcknowledged = isAcknowledged;
+}
 
 @Override
 public String toString() {
    return "Task [name=" + name + ", details=" + details + ", date="
-	+ date + "]";
-}
- 
+	+ startDate + "]";
+} 
 }
