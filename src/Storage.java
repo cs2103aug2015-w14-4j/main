@@ -76,8 +76,15 @@ public class Storage {
 	}
 		
 	
-	public static void search(){
+	public static List<Task> search(String searchTerm){
 		// TODO
+		List<Task> searchList = new ArrayList<Task>();
+		for (Task task: taskList ) {
+			if (task.contains(searchTerm)) {
+				searchList.add(task);
+			}
+		}
+		return searchList;
 	}
 	
 	public static boolean add(String name, Date date){
