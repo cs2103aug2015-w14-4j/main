@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 
 public class MainApp extends Application {
@@ -83,6 +84,7 @@ public class MainApp extends Application {
         acc.getPanes().add(tasksList.get(0));
         acc.getPanes().add(tasksList.get(1));
         acc.getPanes().add(tasksList.get(2));
+        
         rootLayout.setRight(acc);
         
     }
