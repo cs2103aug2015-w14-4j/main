@@ -15,6 +15,11 @@ public class Storage {
 
 	private static List<Task> taskList;
 	
+	public Storage(){
+		taskList = new ArrayList<Task>();
+		readFile();
+	}
+	
 	public static boolean readFile(){
 		// TODO need to refactor further and remove sys.o.println
 		
