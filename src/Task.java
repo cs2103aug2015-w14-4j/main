@@ -85,4 +85,12 @@ public String toString() {
 	+ startDate + ", endDate=" + endDate + ", acknowledged=" 
 		   + isAcknowledged +"]";
 } 
+
+public boolean contains(String searchTerm){
+	if(name.contains(searchTerm) || details.contains(searchTerm)){
+		return true;
+	}
+	return false;
+}
+
 }
