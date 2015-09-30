@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.List;
 
 
 class Logic{
@@ -38,7 +39,11 @@ class Logic{
 	}
 	
 	public void search(){
-		store.search(content);
+		List<Task> list = store.search(content);
+		while (!list.isEmpty()){
+			System.out.println(list.get(0));
+			list.remove(0);
+		}
 	}
 	
 	public void acknowledge(){
