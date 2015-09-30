@@ -53,7 +53,7 @@ public class MainApp extends Application {
 	        // need to load before getting controller
 	        RootController controller = loader.getController();
 	        controller.setMainApp(this);
-			Scene scene = new Scene(rootLayout,600,400);
+			Scene scene = new Scene(rootLayout,850,500);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -84,7 +84,7 @@ public class MainApp extends Application {
         acc.getPanes().add(tasksList.get(0));
         acc.getPanes().add(tasksList.get(1));
         acc.getPanes().add(tasksList.get(2));
-        
+        acc.getPanes().add(tasksList.get(3));
         rootLayout.setRight(acc);
         
     }

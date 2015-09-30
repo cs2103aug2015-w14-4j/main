@@ -32,6 +32,7 @@ public class TasksListController {
     	tasksList.add(new Task("Task 1", "Details about task 1"));
     	tasksList.add(new Task("Task 2", "Details about task 2"));
     	tasksList.add(new Task("Task 3", "Details about task 3"));
+    	tasksList.add(new Task("Task 4", "Details about task 4"));
     }
     
     private TitledPane createTask(Task t){

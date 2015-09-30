@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -28,14 +30,55 @@
         </menus>
       </MenuBar>
    </top>
+   <left>
+      <VBox prefHeight="332.0" prefWidth="256.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="userName" prefHeight="46.0" prefWidth="216.0" text="Hi Joe" textAlignment="CENTER">
+               <font>
+                  <Font size="38.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" top="47.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Monday">
+               <font>
+                  <Font size="38.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="45.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </Label>
+            <Label text="29 Sep 2015">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="3 Tasks Due">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" top="40.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </left>
    <bottom>
-      <TextField BorderPane.alignment="CENTER" />
-   </bottom>
-   <center>
-      <Label fx:id="userName" text="This is some text" BorderPane.alignment="CENTER">
+      <TextField promptText="Enter your command" BorderPane.alignment="CENTER">
          <font>
-            <Font size="38.0" />
+            <Font size="20.0" />
          </font>
-      </Label>
-   </center>
+      </TextField>
+   </bottom>
 </BorderPane>
