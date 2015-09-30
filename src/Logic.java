@@ -22,19 +22,21 @@ class Logic{
 	}
 	
 	public void add(){
-		
+		store.add(content, date);
+		store.saveFile();
 	}
 	
 	public void edit(){
-		
+		store.edit();
 	}
 	
 	public void delete(){
-		
+		store.delete(Integer.parseInt(content));
+		store.saveFile();
 	}
 	
 	public void search(){
-		
+		store.search(content);
 	}
 	
 	public void acknowledge(){
