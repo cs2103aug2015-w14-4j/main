@@ -48,7 +48,7 @@ public class Storage {
 
 	}
 	
-	public static boolean saveFile(){
+	public  boolean saveFile(){
 		// TODO need to refactor further and remove sys.o.println
 		
 		String jsonTasks = "";
@@ -76,7 +76,7 @@ public class Storage {
 	}
 		
 	
-	public static List<Task> search(String searchTerm){
+	public  List<Task> search(String searchTerm){
 		// TODO
 		List<Task> searchList = new ArrayList<Task>();
 		for (Task task: taskList ) {
@@ -87,7 +87,7 @@ public class Storage {
 		return searchList;
 	}
 	
-	public static boolean add(String name, Date date){
+	public  boolean add(String name, Date date){
 		// TODO
 		if(taskList == null){
 			taskList = new ArrayList<Task>();
@@ -98,7 +98,7 @@ public class Storage {
 		return taskList.contains(newTask);
 	}
 	
-	public static String delete(int index){
+	public  String delete(int index){
 		// TODO
 		if(taskList == null){
 			return null;
@@ -106,11 +106,11 @@ public class Storage {
 		return taskList.remove(index).getName();
 	}
 	
-	public static void edit(){
+	public  void edit(){
 		// TODO
 	}
 	
-	public static void acknowledge(){
+	public  void acknowledge(){
 		// TODO
 	}
 
