@@ -12,7 +12,7 @@ public class Parser {
 	public void parse(String input){
 		String[] parts = input.split(" ");
 		for(int i = 0;i < parts.length;i++){
-			inputs.set(i, parts[i]);
+			inputs.add(parts[i]);
 		}
 	}
 	

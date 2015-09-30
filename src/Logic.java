@@ -1,3 +1,5 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -8,24 +10,38 @@ class Logic{
 	Parser parser;
 	String command;
 	String content;
-	Date date;
+
 	
 	//Constructor
 	public void Logic(){
-		store = new Storage();
-		parser = new Parser();
+		// = new Storage();
+		//parser = new Parser();
 	}
 	
 	//Methods
 	
 	public void executeCMD(String s){
+		parser = new Parser();
 		parser.parse(s);
 		command = parser.getCommand();
 		content = parser.getContent();
+		if(command.equals("add")){
+			add();
+		}
 	}
 	
 	public void add(){
-		if(store.add(content, date)){
+		store = new Storage();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
+		String dateInString = "28-09-2015 08:00";
+		Date date = null;
+		try {
+			 date = sdf.parse(dateInString);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(store.add(content,  date)){
 			System.out.println("Task added");
 		}
 		store.saveFile();
@@ -54,4 +70,6 @@ class Logic{
 	public void acknowledge(){
 		
 	}
+	
+	
 }
