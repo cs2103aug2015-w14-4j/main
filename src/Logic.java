@@ -25,8 +25,11 @@ class Logic{
 	}
 	
 	public void add(){
-		store.add(content, date);
+		if(store.add(content, date)){
+			System.out.println("Task added");
+		}
 		store.saveFile();
+		
 	}
 	
 	public void edit(){
@@ -34,7 +37,9 @@ class Logic{
 	}
 	
 	public void delete(){
-		store.delete(Integer.parseInt(content));
+		int index = Integer.parseInt(content);
+		System.out.println("Task deleted");
+		store.delete(index);
 		store.saveFile();
 	}
 	
