@@ -14,34 +14,36 @@ public class Storage {
 	private static final String FILENAME = "task.json";
 
 	private static List<Task> taskList;
-	
-	public Storage(){
+	private static TaskComparator taskComparator;
+
+	public Storage() {
 		taskList = new ArrayList<Task>();
+		taskComparator = new TaskComparator();
+
 		readFile();
 	}
-	
-	public static boolean readFile(){
+
+	public static boolean readFile() {
 		// TODO need to refactor further and remove sys.o.println
-		
-	    Gson gson = new GsonBuilder().create();
-	    JsonStreamParser parser;
-		if(taskList == null){
+
+		Gson gson = new GsonBuilder().create();
+		JsonStreamParser parser;
+		if (taskList == null) {
 			taskList = new ArrayList<Task>();
 		}
 		try {
 			parser = new JsonStreamParser(new FileReader(FILENAME));
-		    while(parser.hasNext())
-		    {
-		    	Task taskEntry = gson.fromJson(parser.next(), Task.class);
-		    	taskList.add(taskEntry);
-		    }
+			while (parser.hasNext()) {
+				Task taskEntry = gson.fromJson(parser.next(), Task.class);
+				taskList.add(taskEntry);
+			}
 		} catch (FileNotFoundException e) {
 			return false;
-		} catch(com.google.gson.JsonIOException e){
+		} catch (com.google.gson.JsonIOException e) {
 			return false;
 		}
-		
-		for(Task task: taskList){
+
+		for (Task task : taskList) {
 			// convert java object to JSON format,
 			// and returned as JSON formatted string
 			System.out.println(task.toString());
@@ -49,12 +51,12 @@ public class Storage {
 		return true;
 
 	}
-	
-	public  boolean saveFile(){
+
+	public boolean saveFile() {
 		// TODO need to refactor further and remove sys.o.println
-		
+
 		String jsonTasks = "";
-		for(Task task: taskList){
+		for (Task task : taskList) {
 			// convert java object to JSON format,
 			// and returned as JSON formatted string
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -62,7 +64,7 @@ public class Storage {
 		}
 
 		try {
-			//write converted json data to a file named "task.json"
+			// write converted json data to a file named "task.json"
 			FileWriter writer = new FileWriter(FILENAME);
 			writer.write(jsonTasks);
 			writer.close();
@@ -76,47 +78,40 @@ public class Storage {
 		return true;
 
 	}
-		
-	
-	public  List<Task> search(String searchTerm){
+
+	public List<Task> search(String searchTerm) {
 		// TODO
 		List<Task> searchList = new ArrayList<Task>();
-		for (Task task: taskList ) {
+		for (Task task : taskList) {
 			if (task.contains(searchTerm)) {
 				searchList.add(task);
 			}
 		}
 		return searchList;
 	}
-	
-	public  boolean add(String name, Date date){
+
+	public boolean add(String name, Date date) {
 		// TODO
-		if(taskList == null){
-			taskList = new ArrayList<Task>();
-		}
 		Task newTask = new Task(name, date);
-		if(!taskList.contains(newTask)){
-		taskList.add(newTask);
+		if (!taskList.contains(newTask)) {
+			taskList.add(newTask);
 		}
-		
+		taskList.sort(taskComparator);
 		return taskList.contains(newTask);
 	}
-	
-	public  String delete(int index){
+
+	public String delete(int index) {
 		// TODO
-		if(taskList == null){
-			return null;
-		}
 		String name = taskList.get(index).getName();
 		taskList.remove(index);
 		return name;
 	}
-	
-	public  void edit(){
+
+	public void edit() {
 		// TODO
 	}
-	
-	public  void acknowledge(){
+
+	public void acknowledge() {
 		// TODO
 	}
 
