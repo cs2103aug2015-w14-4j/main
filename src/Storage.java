@@ -107,12 +107,15 @@ public class Storage {
 		return name;
 	}
 
-	public void edit() {
+	public void edit(int index, String newName) {
 		// TODO
+		taskList.get(index).setName(newName);
+		
 	}
 
-	public void acknowledge() {
+	public void acknowledge(int index) {
 		// TODO
+		taskList.get(index).setAcknowledged(true);;
 	}
 
 }
