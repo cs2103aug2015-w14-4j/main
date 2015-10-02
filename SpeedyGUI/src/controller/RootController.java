@@ -1,5 +1,6 @@
 package controller;
 
+import application.Daykeeper;
 import application.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -7,6 +8,10 @@ import javafx.scene.control.Label;
 public class RootController {
 	@FXML
 	private Label userName;
+	@FXML
+	private Label todayDay;
+	@FXML
+	private Label todayDate;
 	
 	// Reference to the main application.
     private MainApp mainApp;
@@ -19,6 +24,8 @@ public class RootController {
     private void initialize() {
         // Initialize the person table with the two columns.
     	userName.setText("Hi Joe");
+    	todayDay.setText("Today's "+Daykeeper.todayDay());
+    	todayDate.setText(Daykeeper.todayDate());
     }
     
     /**
