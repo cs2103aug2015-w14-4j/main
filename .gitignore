@@ -1,6 +1,5 @@
 # ignore files
 
 *.settings
-*.classpath
 *.metadata
 *.recommenders
