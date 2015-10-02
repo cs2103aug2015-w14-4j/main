@@ -48,8 +48,8 @@ class Logic{
 		
 	}
 	
-	public void edit(){
-		store.edit();
+	public void edit(int index, String text){
+		store.edit(index, text);
 	}
 	
 	public void delete(){
