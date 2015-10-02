@@ -13,14 +13,14 @@ public class StorageTest {
 	public void testAdd() throws ParseException{
 		Storage store = new Storage();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
-		String dateInString = "27-09-2015 08:00";
+		String dateInString = "30-09-2015 08:00";
 		Date date = sdf.parse(dateInString);
 		String name = "test";
 		assertEquals(true,store.add(name, date));
 		store.saveFile();
 	}
 	
-	@Test
+	
 	public void testDelete(){
 		Storage store = new Storage();
 		assertEquals("test",store.delete(0));
