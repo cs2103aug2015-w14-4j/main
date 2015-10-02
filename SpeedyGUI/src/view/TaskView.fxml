@@ -6,36 +6,36 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TitledPane fx:id="tp" text="Task Name" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskController">
+<TitledPane fx:id="tp" text="Task Name" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskController">
   <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="220.0" prefWidth="205.0">
          <children>
-            <Label layoutX="56.0" layoutY="65.0" text="Details">
+            <Label layoutX="14.0" layoutY="14.0" text="Details">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="56.0" layoutY="161.0" text="Date">
+            <Label layoutX="14.0" layoutY="55.0" text="Date">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="55.0" layoutY="240.0" text="Time">
+            <Label layoutX="13.0" layoutY="90.0" text="Time">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Text fx:id="details" layoutX="167.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="273.6829261779785">
+            <Text fx:id="details" layoutX="103.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="273.6829261779785">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text layoutX="169.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="273.6829261779785">
+            <Text layoutX="103.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="273.6829261779785">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text layoutX="169.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="273.6829261779785">
+            <Text layoutX="103.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="273.6829261779785">
                <font>
                   <Font size="18.0" />
                </font>
