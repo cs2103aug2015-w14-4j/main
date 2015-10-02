@@ -37,6 +37,8 @@ public class Storage {
 		    }
 		} catch (FileNotFoundException e) {
 			return false;
+		} catch(com.google.gson.JsonIOException e){
+			return false;
 		}
 		
 		for(Task task: taskList){
@@ -93,7 +95,9 @@ public class Storage {
 			taskList = new ArrayList<Task>();
 		}
 		Task newTask = new Task(name, date);
+		if(!taskList.contains(newTask)){
 		taskList.add(newTask);
+		}
 		
 		return taskList.contains(newTask);
 	}
@@ -103,7 +107,9 @@ public class Storage {
 		if(taskList == null){
 			return null;
 		}
-		return taskList.remove(index).getName();
+		String name = taskList.get(index).getName();
+		taskList.remove(index);
+		return name;
 	}
 	
 	public  void edit(){
