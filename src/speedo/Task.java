@@ -1,3 +1,4 @@
+package speedo;
 import java.util.Date;
 
 import javafx.beans.property.SimpleStringProperty;

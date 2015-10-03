@@ -1,9 +1,9 @@
 package controller;
 
-import application.Daykeeper;
-import application.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import speedo.Daykeeper;
+import speedo.MainApp;
 
 public class RootController {
 	@FXML

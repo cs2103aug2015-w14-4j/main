@@ -1,4 +1,5 @@
-import java.util.*;
+package speedo;
+import java.util.Scanner;
 
 public class Speedy {
 

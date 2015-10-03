@@ -3,13 +3,13 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import application.MainApp;
-import application.Task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TitledPane;
+import speedo.MainApp;
+import speedo.Task;
 
 public class TasksListController {
 	
