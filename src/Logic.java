@@ -13,15 +13,15 @@ class Logic{
 
 	
 	//Constructor
-	public void Logic(){
-		// = new Storage();
-		//parser = new Parser();
+	public Logic(){
+		store = new Storage();
+		parser = new Parser();
 	}
 	
 	//Methods
 	
 	public void executeCMD(String s){
-		parser = new Parser();
+		//parser = new Parser();
 		parser.parse(s);
 		command = parser.getCommand();
 		content = parser.getContent();
@@ -31,7 +31,7 @@ class Logic{
 	}
 	
 	public void add(){
-		store = new Storage();
+		//store = new Storage();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
 		String dateInString = "28-09-2015 08:00";
 		Date date = null;
