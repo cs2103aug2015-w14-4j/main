@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -69,10 +69,13 @@
       </VBox>
    </left>
    <bottom>
-      <TextField promptText="Enter your command" BorderPane.alignment="CENTER">
+      <TextField fx:id="commandBox" onAction="#handleUserCommand" promptText="Enter your command" BorderPane.alignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
    </bottom>
+   <right>
+      <Accordion fx:id="listOfTasks" prefHeight="332.0" prefWidth="539.0" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>

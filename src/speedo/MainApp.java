@@ -24,8 +24,6 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("SpeeDo");
 
         initRootLayout();
-        
-        showTasksList();
 	}
 	
 	public static void main(String[] args) {
@@ -58,33 +56,6 @@ public class MainApp extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-    }
-    
-    /**
-     * Shows the TasksList view inside the root layout.
-     */
-    public void showTasksList() {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/TasksListView.fxml"));
-        Accordion acc = null;
-		try {
-			acc = (Accordion) loader.load();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-		// Give the controller access to the main app.
-        TasksListController controller = loader.getController();
-        controller.setMainApp(this);
-        
-        ArrayList<TitledPane> tasksList = controller.getTasksList();
-        acc.getPanes().add(tasksList.get(0));
-        acc.getPanes().add(tasksList.get(1));
-        acc.getPanes().add(tasksList.get(2));
-        acc.getPanes().add(tasksList.get(3));
-        rootLayout.setRight(acc);
-        
     }
     
     

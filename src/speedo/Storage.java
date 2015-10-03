@@ -14,7 +14,7 @@ import com.google.gson.JsonStreamParser;
 public class Storage {
 	private static final String FILENAME = "task.json";
 
-	private static List<Task> taskList;
+	public static List<Task> taskList;
 	private static TaskComparator taskComparator;
 
 	public Storage() {
