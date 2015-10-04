@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Hashtable;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
@@ -24,14 +26,15 @@ public class RootController {
 	@FXML
 	private Label todayDate;
 	@FXML
-	private Accordion listOfTasks;
+	private Accordion containerOfTasks;
 	@FXML
 	private TextField commandBox;
 	
 	// Reference to the main application.
     private MainApp mainApp;
-    
     private ObservableList<Task> tasks;
+    // Maps the Task to its corresponding TitledPane
+    private Hashtable<Task, TitledPane> taskLookupTable;
 	
     /**
      * Initializes the controller class. This method is automatically called
@@ -50,13 +53,15 @@ public class RootController {
             		if(c.wasAdded()){
             			System.out.println("Task was added");
             		} else if(c.wasRemoved()){
-            			System.out.println("Task was deleted");
+            			Task removed = c.getRemoved().get(0);
+            			System.out.println(removed + " was deleted");
+            			containerOfTasks.getPanes().remove(taskLookupTable.get(removed));
             		}
             	}
 			}
     	});
+    	taskLookupTable = new Hashtable<Task, TitledPane>();
     	initTasksList();
-        
     	userName.setText("Hi Joe");
     	todayDay.setText("Today's "+ Daykeeper.todayDay());
     	todayDate.setText(Daykeeper.todayDate());
@@ -84,7 +89,7 @@ public class RootController {
         TaskController tc = loader.getController();
         tc.setName(t.getName());
         tc.setDetails(t.getDetails());
-        
+        taskLookupTable.put(t, tp);
     	return tp;
     }
     
@@ -93,9 +98,10 @@ public class RootController {
 		t.getNameProperty().addListener((v, oldValue, newValue) -> {
 			System.out.println("Change in name!");
 			// Update the display
-			//listOfTasks.getPanes().get(0).setText(newValue);
+			taskLookupTable.get(t).setText(newValue);
+			System.out.println("Updated " + t);
 		});
-    	listOfTasks.getPanes().add(createTitledPane(t));
+    	containerOfTasks.getPanes().add(createTitledPane(t));
     }
     
     
@@ -109,11 +115,6 @@ public class RootController {
     private void handleUserCommand() {
         // Command was entered, do something...
         System.out.println(commandBox.getText());
-        Task t = new Task(commandBox.getText(), "Some details here");
-        tasks.add(t);
-        addTask(t);
-        //tasks.get(0).setName(commandBox.getText());
-        //System.out.println(tasks.get(0).getNameProperty());
         commandBox.clear();
     }
     

@@ -76,6 +76,6 @@
       </TextField>
    </bottom>
    <right>
-      <Accordion fx:id="listOfTasks" prefHeight="332.0" prefWidth="539.0" BorderPane.alignment="CENTER" />
+      <Accordion fx:id="containerOfTasks" prefHeight="332.0" prefWidth="539.0" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>
