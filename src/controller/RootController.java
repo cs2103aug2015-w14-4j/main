@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +43,18 @@ public class RootController {
     	// Initialize the tasks and fetch a list of tasks
     	Storage storage = new Storage();
     	tasks = FXCollections.observableList(storage.taskList);
-    	
+    	tasks.addListener(new ListChangeListener<Task>() {
+			@Override
+			public void onChanged(javafx.collections.ListChangeListener.Change<? extends Task> c) {
+            	while (c.next()) {
+            		if(c.wasAdded()){
+            			System.out.println("Task was added");
+            		} else if(c.wasRemoved()){
+            			System.out.println("Task was deleted");
+            		}
+            	}
+			}
+    	});
     	initTasksList();
         
     	userName.setText("Hi Joe");
@@ -96,9 +109,11 @@ public class RootController {
     private void handleUserCommand() {
         // Command was entered, do something...
         System.out.println(commandBox.getText());
-        //addTask(commandBox.getText());
-        tasks.get(0).setName(commandBox.getText());
-        System.out.println(tasks.get(0).getNameProperty());
+        Task t = new Task(commandBox.getText(), "Some details here");
+        tasks.add(t);
+        addTask(t);
+        //tasks.get(0).setName(commandBox.getText());
+        //System.out.println(tasks.get(0).getNameProperty());
         commandBox.clear();
     }
     
