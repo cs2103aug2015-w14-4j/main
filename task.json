@@ -1,17 +1,21 @@
 {
   "name": "test1",
+  "details": "Details about test1",
   "startDate": "Sep 27, 2015 8:00:00 AM",
   "isAcknowledged": false
 }{
   "name": "test2",
+  "details": "Details about test2",
   "startDate": "Sep 27, 2015 8:00:00 AM",
   "isAcknowledged": false
 }{
   "name": "test3",
+  "details": "Details about test3",
   "startDate": "Sep 28, 2015 8:00:00 AM",
   "isAcknowledged": false
 }{
   "name": "test4",
+  "details": "Details about test4",
   "startDate": "Sep 28, 2015 8:00:00 AM",
   "isAcknowledged": false
 }
