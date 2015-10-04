@@ -70,7 +70,8 @@ class Logic{
 	}
 	
 	public void acknowledge(){
-		
+		store.acknowledge(Integer.parseInt(content));
+		store.saveFile();
 	}
 	
 	
