@@ -1,8 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
@@ -28,6 +28,8 @@ public class RootController {
 	
 	// Reference to the main application.
     private MainApp mainApp;
+    
+    private ObservableList<Task> tasks;
 	
     /**
      * Initializes the controller class. This method is automatically called
@@ -38,8 +40,10 @@ public class RootController {
     	
     	// Initialize the tasks and fetch a list of tasks
     	Storage storage = new Storage();
-    	showTasksList((ArrayList<Task>) storage.taskList);
-            	
+    	tasks = FXCollections.observableList(storage.taskList);
+    	
+    	initTasksList();
+        
     	userName.setText("Hi Joe");
     	todayDay.setText("Today's "+ Daykeeper.todayDay());
     	todayDate.setText(Daykeeper.todayDate());
@@ -54,7 +58,7 @@ public class RootController {
         this.mainApp = mainApp;
     }
     
-    private TitledPane createTask(Task t){
+    private TitledPane createTitledPane(Task t){
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/TaskView.fxml"));
         TitledPane tp = null;
@@ -65,29 +69,37 @@ public class RootController {
 			e.printStackTrace();
 		}
         TaskController tc = loader.getController();
-        tc.setName(t.getNameProperty().get());
-        tc.setDetails(t.getDetailsProperty().get());
+        tc.setName(t.getName());
+        tc.setDetails(t.getDetails());
         
     	return tp;
     }
     
-    private void addTask(String title){
-    	listOfTasks.getPanes().add(createTask(new Task(title, "Some information")));
+    private void addTask(Task t){
+		// listening for changes to name
+		t.getNameProperty().addListener((v, oldValue, newValue) -> {
+			System.out.println("Change in name!");
+			// Update the display
+			//listOfTasks.getPanes().get(0).setText(newValue);
+		});
+    	listOfTasks.getPanes().add(createTitledPane(t));
     }
     
-    private void showTasksList(ArrayList<Task> tasksList) {
-		for (int i = 0; i < tasksList.size(); i++) {
-			listOfTasks.getPanes().add(createTask(tasksList.get(i)));
+    
+    private void initTasksList() {
+    	for (int i = 0; i < tasks.size(); i++) {
+    		addTask(tasks.get(i));
 		}
     }
-    
+            
     @FXML
     private void handleUserCommand() {
         // Command was entered, do something...
         System.out.println(commandBox.getText());
-        addTask(commandBox.getText());
+        //addTask(commandBox.getText());
+        tasks.get(0).setName(commandBox.getText());
+        System.out.println(tasks.get(0).getNameProperty());
         commandBox.clear();
-        
     }
     
 }

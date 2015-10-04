@@ -1,14 +1,9 @@
 package speedo;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import controller.RootController;
-import controller.TasksListController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
