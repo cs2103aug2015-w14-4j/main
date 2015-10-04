@@ -33,11 +33,12 @@ class Logic{
 	
 	public void add(){
 		//store = new Storage();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
-		String dateInString = "28-09-2015 08:00";
 		Date date = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
+		String date_in_string = sdf.format(new Date()); 
+		System.out.println(date);
 		try {
-			 date = sdf.parse(dateInString);
+			 date = sdf.parse(date_in_string);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
