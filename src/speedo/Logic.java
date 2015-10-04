@@ -52,6 +52,7 @@ class Logic{
 	
 	public void edit(int index, String text){
 		store.edit(index, text);
+		store.saveFile();
 	}
 	
 	public void delete(){
