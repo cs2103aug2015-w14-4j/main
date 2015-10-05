@@ -4,13 +4,15 @@ import java.util.Date;
 
 // Basic Task Object
 public class Task {
-		
+
 	private int taskId;
 	private String name;
 	private String details;
 	private Date startDate;
 	private Date endDate;
 	private boolean isAcknowledged;
+	
+	private static final String EMPTY = "Empty";
 
 	public Task() {
 		this(null, null, null, null);
@@ -40,12 +42,13 @@ public class Task {
 	public int getTaskId() {
 		return taskId;
 	}
-	
+
 	private void setTaskId() {
-		String uniqueElements = name + details + startDate.getTime() + endDate.getTime();
+		String uniqueElements = this.getName() + this.getDetails() + this.getStartDateString()
+		+ this.getEndDateString();
 		taskId = uniqueElements.hashCode();
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -68,6 +71,14 @@ public class Task {
 		return startDate;
 	}
 
+	public String getStartDateString() {
+		if (this.getStartDate() != null) {
+			return this.getStartDate().toString();
+		} else {
+			return EMPTY;
+		}
+	}
+
 	public void setStartDate(Date date) {
 		this.startDate = date;
 		this.setTaskId();
@@ -76,7 +87,15 @@ public class Task {
 	public Date getEndDate() {
 		return endDate;
 	}
-
+	
+	public String getEndDateString() {
+		if (this.getEndDate() != null) {
+			return this.getEndDate().toString();
+		} else {
+			return EMPTY;
+		}
+	}
+	
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 		this.setTaskId();
