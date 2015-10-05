@@ -7,10 +7,7 @@ import javafx.beans.property.StringProperty;
 
 // Basic Task Object
 public class Task {
-	
-	private StringProperty nameProperty = new SimpleStringProperty(this, "name", "");
-	private StringProperty detailsProperty = new SimpleStringProperty(this, "details", "");
-	
+		
 	private String name;
 	private String details;
 	private Date startDate;
@@ -47,7 +44,6 @@ public class Task {
 
 	public void setName(String name) {
 		this.name = name;
-		this.nameProperty.set(name);
 	}
 
 	public String getDetails() {
@@ -56,7 +52,6 @@ public class Task {
 
 	public void setDetails(String details) {
 		this.details = details;
-		this.detailsProperty.set(details);
 	}
 
 	public Date getStartDate() {
@@ -101,11 +96,4 @@ public class Task {
 		return false;
 	}
 
-	public StringProperty getNameProperty() {
-		return nameProperty;
-	}
-	
-	public StringProperty getDetailsProperty() {
-		return detailsProperty;
-	}
 }
