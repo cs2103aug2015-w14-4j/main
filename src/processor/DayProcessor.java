@@ -1,11 +1,11 @@
-package speedo;
+package processor;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Daykeeper {
+public class DayProcessor {
 	private final static String DAY_OF_THE_WEEK = "EEEE";
 	private final static String TODAYS_DATE = "dd MMMM";
 

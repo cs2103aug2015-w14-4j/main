@@ -9,8 +9,8 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import processor.DayProcessor;
 import processor.ErrorProcessor;
-import speedo.Daykeeper;
 import speedo.MainApp;
 import speedo.Task;
 import speedo.Logic;
@@ -44,8 +44,8 @@ public class RootController {
     	taskLookupTable = new Hashtable<Task, TitledPane>();
     	initTasksList();
     	userName.setText("Hi Joe");
-    	todayDay.setText(Daykeeper.todayDay());
-    	todayDate.setText(Daykeeper.todayDate());
+    	todayDay.setText(DayProcessor.todayDay());
+    	todayDate.setText(DayProcessor.todayDate());
     }
     
     /**
