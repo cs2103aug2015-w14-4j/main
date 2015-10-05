@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonStreamParser;
 
+import storage.FileHandler;
+
 public class Storage {
 	private static final String FILENAME = "task.json";
 
@@ -21,7 +23,7 @@ public class Storage {
 		taskList = new ArrayList<Task>();
 		taskComparator = new TaskComparator();
 
-		readFile();
+		taskList = FileHandler.readTasks();
 	}
 	
 	public Task getTask(int index){
@@ -62,29 +64,30 @@ public class Storage {
 	}
 
 	public boolean saveFile() {
-		// TODO need to refactor further and remove sys.o.println
-
-		String jsonTasks = "";
-		for (Task task : taskList) {
-			// convert java object to JSON format,
-			// and returned as JSON formatted string
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			jsonTasks += gson.toJson(task);
-		}
-
-		try {
-			// write converted json data to a file named "task.json"
-			FileWriter writer = new FileWriter(FILENAME);
-			writer.write(jsonTasks);
-			writer.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-
-		System.out.println(jsonTasks);
-		return true;
+//		// TODO need to refactor further and remove sys.o.println
+//
+//		String jsonTasks = "";
+//		for (Task task : taskList) {
+//			// convert java object to JSON format,
+//			// and returned as JSON formatted string
+//			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//			jsonTasks += gson.toJson(task);
+//		}
+//
+//		try {
+//			// write converted json data to a file named "task.json"
+//			FileWriter writer = new FileWriter(FILENAME);
+//			writer.write(jsonTasks);
+//			writer.close();
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			return false;
+//		}
+//
+//		System.out.println(jsonTasks);
+//		return true;
+		return FileHandler.saveTasks(taskList);
 
 	}
 	
