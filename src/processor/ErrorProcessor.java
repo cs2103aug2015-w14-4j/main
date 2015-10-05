@@ -7,7 +7,7 @@ public class ErrorProcessor {
 	
 	private static final String ERROR_TITLE = "Error";
 	private static final String ERROR_TRIGGERED = "Error Triggered";
-	private static final String ERROR_TRIGGERED_AT = "Error Triggered at";
+	private static final String ERROR_TRIGGERED_AT = "Error Triggered at ";
 	
 	public static void alert(String error){
 		Alert alert = new Alert(AlertType.ERROR);
