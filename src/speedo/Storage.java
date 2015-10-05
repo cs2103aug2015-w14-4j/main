@@ -102,7 +102,8 @@ public class Storage {
 	public Task add(String name, Date date) {
 		// TODO
 		Task newTask = new Task(name, date);
-		if (!taskList.contains(newTask)) {
+		
+		if (isNotDuplicate(newTask)) {
 			taskList.add(newTask);
 		}
 		taskList.sort(taskComparator);
@@ -129,6 +130,15 @@ public class Storage {
 	public void acknowledge(int index) {
 		// TODO
 		taskList.get(index).setAcknowledged(true);;
+	}
+	
+	private boolean isNotDuplicate(Task newTask){
+		for(int x=0; x<taskList.size(); x++){
+			if(taskList.get(x).getTaskId() == newTask.getTaskId()){
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
