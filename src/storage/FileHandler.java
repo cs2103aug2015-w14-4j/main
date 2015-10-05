@@ -1,5 +1,6 @@
 package storage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,76 +17,79 @@ import speedo.Task;
 
 public class FileHandler {
 	private static final String FILENAME = "task.json";
-	
-	public static List<Task> readTasks() {
 
-		Gson gson = GoogleJsonBuilder();
+	public static List<Task> readTasks() {;
+		List<Task> taskList = readJsonToList();
+		return taskList;
+	}
+
+	public static boolean saveTasks(List<Task> taskList) {
+		String jsonTasks = listToJsonString(taskList);
+		return writeToFile(FILENAME, jsonTasks);
+	}
+	
+	private static List<Task> readJsonToList(){
+		Gson googleJsonBuilder = GoogleJsonBuilder();
 		List<Task> taskList = new ArrayList<Task>();
 		JsonStreamParser jsonReader = JsonReader();
-		if(jsonReader != null){
+		if (jsonReader != null) {
 			while (hasNext(jsonReader)) {
-				Task taskEntry = gson.fromJson(jsonReader.next(), Task.class);
+				Task taskEntry = googleJsonBuilder.fromJson(jsonReader.next(), Task.class);
 				taskList.add(taskEntry);
-			}			
+			}
 		}
-
-		for (Task task : taskList) {
-			// convert java object to JSON format,
-			// and returned as JSON formatted string
-			System.out.println(task.toString());
-		}
-		return taskList;
-
+		return taskList;	
 	}
-	
-	private static Gson GoogleJsonBuilder (){
-		return new GsonBuilder().create();
-	}
-	
-	private static JsonStreamParser JsonReader (){
+
+	private static JsonStreamParser JsonReader() {
+		File fileToRead = new File(FILENAME);
 		try {
-			return new JsonStreamParser(new FileReader(FILENAME));
+			fileToRead.createNewFile();
+			return new JsonStreamParser(new FileReader(fileToRead));
 		} catch (FileNotFoundException e) {
+			ErrorProcessor.alert(FileHandler.class.getName(), e.getMessage());
+			return null;
+		} catch (IOException e) {
 			ErrorProcessor.alert(FileHandler.class.getName(), e.getMessage());
 			return null;
 		}
 	}
-	
-	private static boolean hasNext(JsonStreamParser jsonReader){
-		try{
+
+	private static boolean hasNext(JsonStreamParser jsonReader) {
+		try {
 			return jsonReader.hasNext();
-		}catch(com.google.gson.JsonIOException e){
+		} catch (com.google.gson.JsonIOException e) {
 			ErrorProcessor.alert(FileHandler.class.getName(), e.getMessage());
 			return false;
 		}
 	}
-	
 
-	public static boolean saveTasks(List<Task> taskList) {
-		// TODO need to refactor further and remove sys.o.println
-
-		String jsonTasks = "";
-		for (Task task : taskList) {
-			// convert java object to JSON format,
-			// and returned as JSON formatted string
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			jsonTasks += gson.toJson(task);
+	private static String listToJsonString(List<Task> taskList) {
+		Gson googleJsonBuilder = GoogleJsonBuilder();
+		String jsonString = "";
+		for (int x = 0; x < taskList.size(); x++) {
+			Task task = taskList.get(x);
+			jsonString += googleJsonBuilder.toJson(task);
 		}
+		return jsonString;
+	}
 
+	private static boolean writeToFile(String fileName, String content) {
 		try {
-			// write converted json data to a file named "task.json"
-			FileWriter writer = new FileWriter(FILENAME);
-			writer.write(jsonTasks);
+			FileWriter writer;
+			writer = new FileWriter(fileName);
+			writer.write(content);
 			writer.close();
-
+			return true;
 		} catch (IOException e) {
-			ErrorProcessor.alert(e.getClass().getName(), e.getMessage());
+			ErrorProcessor.alert(FileHandler.class.getName(), e.getMessage());
 			return false;
 		}
 
-		System.out.println(jsonTasks);
-		return true;
-
 	}
 	
+	private static Gson GoogleJsonBuilder() {
+		return new GsonBuilder().create();
+	}
+
 }
