@@ -9,6 +9,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import processor.ErrorProcessor;
 import speedo.Daykeeper;
 import speedo.MainApp;
 import speedo.Task;
@@ -64,7 +65,7 @@ public class RootController {
 			tp = (TitledPane) loader.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ErrorProcessor.alert(e.toString());
 		}
         TaskController tc = loader.getController();
         tc.setName(t.getName());
@@ -90,7 +91,11 @@ public class RootController {
         System.out.println(userInput);
         Task t = logic.executeCMD(userInput);
         System.out.println(t);
+        try{
         addTask(t);
+        } catch (Exception e){
+        	ErrorProcessor.alert(e.toString());
+        }
         commandBox.clear();
     }
     
