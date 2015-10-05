@@ -14,7 +14,7 @@ import com.google.gson.JsonStreamParser;
 public class Storage {
 	private static final String FILENAME = "task.json";
 
-	public static List<Task> taskList;
+	private static List<Task> taskList;
 	private static TaskComparator taskComparator;
 
 	public Storage() {
@@ -22,6 +22,14 @@ public class Storage {
 		taskComparator = new TaskComparator();
 
 		readFile();
+	}
+	
+	public Task getTask(int index){
+		return taskList.get(index);
+	}
+	
+	public int getNumOfTask(){
+		return taskList.size();
 	}
 
 	public static boolean readFile() {
@@ -79,7 +87,7 @@ public class Storage {
 		return true;
 
 	}
-
+	
 	public List<Task> search(String searchTerm) {
 		// TODO
 		List<Task> searchList = new ArrayList<Task>();
