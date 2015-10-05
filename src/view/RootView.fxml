@@ -8,22 +8,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="Import Task" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Settings">
             <items>
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
+                  <MenuItem mnemonicParsing="false" text="User Manual" />
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
@@ -33,31 +34,31 @@
    <left>
       <VBox prefHeight="332.0" prefWidth="256.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="userName" minWidth="256.0" text="Hi Joe" textAlignment="CENTER">
+            <Label fx:id="userName" alignment="CENTER" minWidth="256.0" text="Hi Joe" textAlignment="CENTER">
                <font>
                   <Font size="38.0" />
                </font>
                <VBox.margin>
-                  <Insets />
+                  <Insets top="100.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="todayDay" contentDisplay="CENTER" minWidth="256.0" text="day" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="todayDay" alignment="CENTER" contentDisplay="CENTER" minWidth="256.0" text="day" textAlignment="CENTER" wrapText="true">
             	<font>
-            		<Font size="33.0" />
+            		<Font name="Verdana Bold" size="33.0" />
             	</font>
             	<VBox.margin>
             		<Insets />
             	</VBox.margin>
             </Label>
-            <Label fx:id="todayDate" minWidth="256.0" text="date">
+            <Label fx:id="todayDate" alignment="CENTER" minWidth="256.0" text="date">
                <font>
-                  <Font size="33.0" />
+                  <Font name="Verdana Bold" size="33.0" />
                </font>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </Label>
-            <Label minWidth="256.0" text="3 Tasks Due">
+            <Label alignment="CENTER" minWidth="256.0" text="3 Tasks Due">
                <font>
                   <Font size="35.0" />
                </font>
@@ -65,6 +66,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
+            <TextFlow prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
          </children>
       </VBox>
    </left>

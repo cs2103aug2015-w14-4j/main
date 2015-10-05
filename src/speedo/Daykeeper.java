@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Daykeeper {
 	private final static String DAY_OF_THE_WEEK = "EEEE";
-	private final static String TODAYS_DATE = "dd MMMM yyyy";
+	private final static String TODAYS_DATE = "dd MMMM";
 
 	public static String todayDay(){
 		DateFormat dateFormat = new SimpleDateFormat(DAY_OF_THE_WEEK);

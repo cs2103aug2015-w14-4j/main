@@ -63,7 +63,7 @@ public class RootController {
     	taskLookupTable = new Hashtable<Task, TitledPane>();
     	initTasksList();
     	userName.setText("Hi Joe");
-    	todayDay.setText("Today's "+ Daykeeper.todayDay());
+    	todayDay.setText(Daykeeper.todayDay());
     	todayDate.setText(Daykeeper.todayDate());
     }
     
