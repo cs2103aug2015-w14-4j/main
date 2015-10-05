@@ -5,12 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 
-class Logic{
+public class Logic{
 	//Attributes
-	Storage store;
-	Parser parser;
-	String command;
-	String content;
+	private Storage store;
+	private Parser parser;
+	private String command;
+	private String content;
 
 	
 	//Constructor
@@ -18,48 +18,57 @@ class Logic{
 		store = new Storage();
 		parser = new Parser();
 	}
-	
+		
 	//Methods
-	
-	public void executeCMD(String s){
+	public Task executeCMD(String s){
 		//parser = new Parser();
 		parser.parse(s);
 		command = parser.getCommand();
 		content = parser.getContent();
 		if(command.equals("add")){
-			add();
+			return add();
 		}
+		return null;
 	}
 	
-	public void add(){
-		//store = new Storage();
+	public Task getTask(int index){
+		return store.getTask(index);
+	}
+	
+	public int getNumOfTask(){
+		return store.getNumOfTask();
+	}
+	
+	public Task add(){
 		Date date = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
 		String date_in_string = sdf.format(new Date()); 
-		System.out.println(date);
 		try {
 			 date = sdf.parse(date_in_string);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(store.add(content,  date)){
+		Task newTask = store.add(content, date);
+		if(newTask != null){
 			System.out.println("Task added");
+			//store.saveFile();
+			return newTask;
+		} else {
+			return null;
 		}
-		store.saveFile();
-		
 	}
 	
 	public void edit(int index, String text){
 		store.edit(index, text);
-		store.saveFile();
+		//store.saveFile();
 	}
 	
 	public void delete(){
 		int index = Integer.parseInt(content);
 		System.out.println("Task deleted");
 		store.delete(index);
-		store.saveFile();
+		//store.saveFile();
 	}
 	
 	public void search(){
@@ -72,8 +81,7 @@ class Logic{
 	
 	public void acknowledge(){
 		store.acknowledge(Integer.parseInt(content));
-		store.saveFile();
+		//store.saveFile();
 	}
-	
 	
 }
