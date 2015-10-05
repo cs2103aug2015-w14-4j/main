@@ -3,10 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.Hashtable;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ListChangeListener.Change;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
@@ -15,8 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import speedo.Daykeeper;
 import speedo.MainApp;
-import speedo.Storage;
 import speedo.Task;
+import speedo.Logic;
 
 public class RootController {
 	@FXML
@@ -32,9 +28,9 @@ public class RootController {
 	
 	// Reference to the main application.
     private MainApp mainApp;
-    private ObservableList<Task> tasks;
     // Maps the Task to its corresponding TitledPane
     private Hashtable<Task, TitledPane> taskLookupTable;
+    private Logic logic;
 	
     /**
      * Initializes the controller class. This method is automatically called
@@ -42,24 +38,8 @@ public class RootController {
      */
     @FXML
     private void initialize() {
-    	
     	// Initialize the tasks and fetch a list of tasks
-    	Storage storage = new Storage();
-    	tasks = FXCollections.observableList(storage.taskList);
-    	tasks.addListener(new ListChangeListener<Task>() {
-			@Override
-			public void onChanged(javafx.collections.ListChangeListener.Change<? extends Task> c) {
-            	while (c.next()) {
-            		if(c.wasAdded()){
-            			System.out.println("Task was added");
-            		} else if(c.wasRemoved()){
-            			Task removed = c.getRemoved().get(0);
-            			System.out.println(removed + " was deleted");
-            			containerOfTasks.getPanes().remove(taskLookupTable.get(removed));
-            		}
-            	}
-			}
-    	});
+    	logic = new Logic();
     	taskLookupTable = new Hashtable<Task, TitledPane>();
     	initTasksList();
     	userName.setText("Hi Joe");
@@ -94,27 +74,23 @@ public class RootController {
     }
     
     private void addTask(Task t){
-		// listening for changes to name
-		t.getNameProperty().addListener((v, oldValue, newValue) -> {
-			System.out.println("Change in name!");
-			// Update the display
-			taskLookupTable.get(t).setText(newValue);
-			System.out.println("Updated " + t);
-		});
     	containerOfTasks.getPanes().add(createTitledPane(t));
     }
     
-    
     private void initTasksList() {
-    	for (int i = 0; i < tasks.size(); i++) {
-    		addTask(tasks.get(i));
+    	for (int i = 0; i < logic.getNumOfTask(); i++) {
+    		addTask(logic.getTask(i));
 		}
     }
             
     @FXML
     private void handleUserCommand() {
         // Command was entered, do something...
-        System.out.println(commandBox.getText());
+    	String userInput = commandBox.getText();
+        System.out.println(userInput);
+        Task t = logic.executeCMD(userInput);
+        System.out.println(t);
+        addTask(t);
         commandBox.clear();
     }
     
