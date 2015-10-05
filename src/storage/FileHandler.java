@@ -59,7 +59,8 @@ public class FileHandler {
 		try {
 			return jsonReader.hasNext();
 		} catch (com.google.gson.JsonIOException e) {
-			ErrorProcessor.alert(FileHandler.class.getName(), e.getMessage());
+			// This exception will always be thrown is the json file is empty.
+			// ErrorProcessor.alert(FileHandler.class.getName(), e.getMessage());
 			return false;
 		}
 	}
