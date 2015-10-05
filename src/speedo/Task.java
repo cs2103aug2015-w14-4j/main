@@ -5,6 +5,7 @@ import java.util.Date;
 // Basic Task Object
 public class Task {
 		
+	private int taskId;
 	private String name;
 	private String details;
 	private Date startDate;
@@ -33,14 +34,25 @@ public class Task {
 		this.setEndDate(endDate);
 		this.setDetails(details);
 		this.setAcknowledged(false);
+		this.setTaskId();
 	}
 
+	public int getTaskId() {
+		return taskId;
+	}
+	
+	private void setTaskId() {
+		String uniqueElements = name + details + startDate.getTime() + endDate.getTime();
+		taskId = uniqueElements.hashCode();
+	}
+	
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+		this.setTaskId();
 	}
 
 	public String getDetails() {
@@ -49,6 +61,7 @@ public class Task {
 
 	public void setDetails(String details) {
 		this.details = details;
+		this.setTaskId();
 	}
 
 	public Date getStartDate() {
@@ -57,6 +70,7 @@ public class Task {
 
 	public void setStartDate(Date date) {
 		this.startDate = date;
+		this.setTaskId();
 	}
 
 	public Date getEndDate() {
@@ -65,6 +79,7 @@ public class Task {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+		this.setTaskId();
 	}
 
 	public boolean isAcknowledged() {
