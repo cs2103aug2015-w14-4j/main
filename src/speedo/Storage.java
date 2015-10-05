@@ -35,58 +35,12 @@ public class Storage {
 	}
 
 	public static boolean readFile() {
-		// TODO need to refactor further and remove sys.o.println
-
-		Gson gson = new GsonBuilder().create();
-		JsonStreamParser parser;
-		if (taskList == null) {
-			taskList = new ArrayList<Task>();
-		}
-		try {
-			parser = new JsonStreamParser(new FileReader(FILENAME));
-			while (parser.hasNext()) {
-				Task taskEntry = gson.fromJson(parser.next(), Task.class);
-				taskList.add(taskEntry);
-			}
-		} catch (FileNotFoundException e) {
-			return false;
-		} catch (com.google.gson.JsonIOException e) {
-			return false;
-		}
-
-		for (Task task : taskList) {
-			// convert java object to JSON format,
-			// and returned as JSON formatted string
-			System.out.println(task.toString());
-		}
+		taskList = FileHandler.readTasks();
 		return true;
 
 	}
 
 	public boolean saveFile() {
-//		// TODO need to refactor further and remove sys.o.println
-//
-//		String jsonTasks = "";
-//		for (Task task : taskList) {
-//			// convert java object to JSON format,
-//			// and returned as JSON formatted string
-//			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//			jsonTasks += gson.toJson(task);
-//		}
-//
-//		try {
-//			// write converted json data to a file named "task.json"
-//			FileWriter writer = new FileWriter(FILENAME);
-//			writer.write(jsonTasks);
-//			writer.close();
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			return false;
-//		}
-//
-//		System.out.println(jsonTasks);
-//		return true;
 		return FileHandler.saveTasks(taskList);
 
 	}
