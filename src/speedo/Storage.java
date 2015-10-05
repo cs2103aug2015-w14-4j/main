@@ -1,29 +1,19 @@
 package speedo;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonStreamParser;
-
 import storage.FileHandler;
 
 public class Storage {
-	private static final String FILENAME = "task.json";
-
 	private static List<Task> taskList;
 	private static TaskComparator taskComparator;
 
 	public Storage() {
 		taskList = new ArrayList<Task>();
 		taskComparator = new TaskComparator();
-
-		taskList = FileHandler.readTasks();
+		this.readFile();
 	}
 	
 	public Task getTask(int index){
@@ -34,7 +24,7 @@ public class Storage {
 		return taskList.size();
 	}
 
-	public static boolean readFile() {
+	public boolean readFile() {
 		taskList = FileHandler.readTasks();
 		return true;
 
