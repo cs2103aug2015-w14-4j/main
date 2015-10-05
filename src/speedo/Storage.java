@@ -99,14 +99,18 @@ public class Storage {
 		return searchList;
 	}
 
-	public boolean add(String name, Date date) {
+	public Task add(String name, Date date) {
 		// TODO
 		Task newTask = new Task(name, date);
 		if (!taskList.contains(newTask)) {
 			taskList.add(newTask);
 		}
 		taskList.sort(taskComparator);
-		return taskList.contains(newTask);
+		if(taskList.contains(newTask)){
+			return newTask;
+		} else {
+			return null;
+		}
 	}
 
 	public String delete(int index) {
