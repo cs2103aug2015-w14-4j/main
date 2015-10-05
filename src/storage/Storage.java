@@ -1,10 +1,11 @@
-package speedo;
+package storage;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import storage.FileHandler;
+import speedo.Task;
+import speedo.TaskComparator;
 
 public class Storage {
 	private static List<Task> taskList;

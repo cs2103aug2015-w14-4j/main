@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import storage.Storage;
+
 
 public class Logic{
 	//Attributes
