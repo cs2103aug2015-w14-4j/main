@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Hashtable;
 
 import javafx.fxml.FXML;
@@ -90,7 +91,7 @@ public class RootController {
     }
             
     @FXML
-    private void handleUserCommand() {
+    private void handleUserCommand() throws ParseException {
         // Command was entered, do something...
     	String userInput = commandBox.getText();
         System.out.println(userInput);

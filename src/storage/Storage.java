@@ -62,17 +62,17 @@ public class Storage {
 		}
 	}
 
-	public String delete(int index) {
+	public int delete(int index) {
 		// TODO
-		String name = taskList.get(index).getName();
+		int taskId = taskList.get(index).getTaskId();
 		taskList.remove(index);
-		return name;
+		return taskId;
 	}
 
-	public void edit(int index, String newName) {
+	public Task edit(int index, String newName) {
 		// TODO
 		taskList.get(index).setName(newName);
-		
+		return taskList.get(index);
 	}
 
 	public void acknowledge(int index) {
