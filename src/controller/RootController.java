@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class RootController {
     	logic = new Logic();
     	taskLookupTable = new Hashtable<Integer, TaskController>();
     	initTasksList();
-    	userName.setText("Hi Joe");
+    	userName.setText("Hi Jim");
     	todayDay.setText(DayProcessor.todayDay());
     	todayDate.setText(DayProcessor.todayDate());
     }
@@ -86,10 +87,14 @@ public class RootController {
     
     private void removeTask(int taskID){
     	TaskController tc = taskLookupTable.get(taskID);
-    	//System.out.println("removeTask taskID: " + taskID);
-    	//System.out.println("removeTask method removed: " + tc.getContainer().getText());
     	containerOfTasks.getPanes().remove(tc.getContainer());
     	taskLookupTable.remove(taskID);
+    }
+    
+    //TODO Can only edit the Task title
+    private void editTask(Task t){
+    	TaskController tc = taskLookupTable.get(t.getTaskId());
+    	tc.setName(t.getName());
     }
     
     private void initTasksList() {
@@ -109,11 +114,13 @@ public class RootController {
         // Command was entered, do something...
     	String userInput = commandBox.getText();
         System.out.println(userInput);
+        
         //GuiCommand gc = logic.executeCMD(userInput);
-        GuiCommand gc = new GuiCommand(COMMANDS.DELETE, "Delete", logic.getTask(0));
-        System.out.println(logic.getTask(0).getTaskId());
-        System.out.println(logic.getTask(3).getTaskId());
-        //System.out.println("Trying to delete: " + logic.getTask(0).getName());
+        
+        //GuiCommand gc = new GuiCommand(COMMANDS.DELETE, "Delete", logic.getTask(0));
+        //logic.getTask(0).setName(userInput);
+        //GuiCommand gc = new GuiCommand(COMMANDS.EDIT, "Edited", logic.getTask(0));
+        GuiCommand gc = new GuiCommand(COMMANDS.ADD, "Added", new Task(userInput, new Date()));
         COMMANDS command = gc.getCmd();
         try{
         	switch(command){
@@ -124,6 +131,11 @@ public class RootController {
         		}
         		case DELETE: {
         			removeTask(gc.getTaskId());
+        			// TODO set the feedback
+        			break;
+        		}
+        		case EDIT: {
+        			editTask(gc.getTask());
         			// TODO set the feedback
         			break;
         		}
