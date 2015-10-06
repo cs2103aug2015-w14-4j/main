@@ -79,10 +79,10 @@ public class Logic{
 		//store.saveFile();
 	}
 	
-	public void delete(){
+	public int delete(){
 		int index = Integer.parseInt(content);
 		System.out.println("Task deleted");
-		store.delete(index);
+		return store.delete(index);
 		//store.saveFile();
 	}
 	
