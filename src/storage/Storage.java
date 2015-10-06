@@ -75,9 +75,10 @@ public class Storage {
 		return taskList.get(index);
 	}
 
-	public void acknowledge(int index) {
+	public Task acknowledge(int index) {
 		// TODO
-		taskList.get(index).setAcknowledged(true);;
+		taskList.get(index).setAcknowledged(true);
+		return taskList.get(index);
 	}
 	
 	private boolean isNotDuplicate(Task newTask){

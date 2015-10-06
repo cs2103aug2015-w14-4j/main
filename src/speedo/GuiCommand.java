@@ -23,6 +23,10 @@ public class GuiCommand {
 		this(cmd, msg, task, task.getTaskId(), null);
 	}
 	
+	public GuiCommand(COMMANDS cmd, String msg, List<Task> listOfTasks){
+		this(cmd, msg, null, 0, listOfTasks);
+	}	
+	
 	public GuiCommand(COMMANDS cmd, String msg, int taskId){
 		this(cmd, msg, null, taskId, null);
 	}

@@ -31,6 +31,7 @@ public class Logic{
 		content = parser.getContent();
 		GuiCommand c = null;
 		Task t = null;
+		List<Task> list = null;
 		
 		
 		switch(command){
@@ -45,8 +46,12 @@ public class Logic{
 				  t = edit(taskIndex, s);
 				  c = new GuiCommand(COMMANDS.EDIT, "Edited", t); 
 				  break;
-		case SEARCH: ; break;
-		case ACK: ; break;
+		case SEARCH:list = search();
+		 			c =  new GuiCommand(COMMANDS.SEARCH, "Searched tasks", list); 
+		 			break;
+		case ACK: taskIndex = parser.getIndex(); 
+		  		  t = acknowledge(taskIndex);
+		  		  c = new GuiCommand(COMMANDS.ACK, "Acknowledged", t); 
 		case INVALID: ; break;
 		}
 		return c;
@@ -95,16 +100,13 @@ public class Logic{
 		//store.saveFile();
 	}
 	
-	public void search(){
+	public List<Task> search(){
 		List<Task> list = store.search(content);
-		while (!list.isEmpty()){
-			System.out.println(list.get(0));
-			list.remove(0);
-		}
+		return list;
 	}
 	
-	public void acknowledge(){
-		store.acknowledge(Integer.parseInt(content));
+	public Task acknowledge(int taskIndex){
+		return store.acknowledge(taskIndex);
 		//store.saveFile();
 	}
 	
