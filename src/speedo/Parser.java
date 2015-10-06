@@ -14,6 +14,8 @@ public class Parser {
 	private String dateString;
 	private String content;
 	private Date date;
+	private COMMANDS command;
+	private String taskName;
 	
 	private static final String ADD = "add";
 	private static final String DELETE = "remove delete";
@@ -23,74 +25,59 @@ public class Parser {
 	
 	public Parser() {
 		inputs = new ArrayList<String>();
-		sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
+		sdf = new SimpleDateFormat("ddmmyy hhmm");
 		date = new Date();
 	}
 	
 	public void parse(String input){
-		String temp = input;
-		String temp1 = "";
-		int counter = 0;
 		if(input.contains("'")){
-			temp = temp.substring(temp.indexOf("'") + 1);
-			temp = temp.substring(0, temp.indexOf("'"));
-			content = temp;
-			for(int i = 0;i < input.length();i++){
-				if(Character.toString(input.charAt(i)).equals("'")){
-					counter++;
-				}
-				if(counter==0){
-					temp1 = temp1 + Character.toString(input.charAt(i));
-				}else{
-					counter = 0;
-				}
-			}
+			String[] stringPieces = input.split("'",3);
+			content = stringPieces[1];
 		}else{
 			content = "No detail";
-			temp1 = input;
 		}
-		String[] parts = temp1.split(" ");
-		for(int i = 0;i < parts.length;i++){
-			inputs.add(parts[i]);
+		System.out.println(input);
+		String[] parts = input.split(" ");
+		processCommand(parts[0]);
+		taskName = parts[1];
+		 processDate(parts[2], parts[3]);
+	}
+	
+	private void processCommand(String stringCmd){
+		if(ADD.contains(stringCmd)){
+			command = COMMANDS.ADD;
+		} else if (DELETE.contains(stringCmd)){
+			command = COMMANDS.DELETE;
+		} else if (EDIT.contains(stringCmd)){
+			command = COMMANDS.EDIT;
+		} else if (ACK.contains(stringCmd)){
+			command = COMMANDS.ACK;
+		}else if (SEARCH.contains(stringCmd)){
+			command = COMMANDS.SEARCH;
+		} else {
+		command = COMMANDS.INVALID;
 		}
+	}
+	
+	private boolean processDate(String day, String time){
+		try {
+			this.date = sdf.parse(day+" "+time);
+		} catch (ParseException e) {
+			// invalid date format
+			return false;
+		}
+		return true;
 	}
 	
 	public COMMANDS getCommand(){
-		if(ADD.contains(inputs.get(0))){
-			return COMMANDS.ADD;
-		} else if (DELETE.contains(inputs.get(0))){
-			return COMMANDS.DELETE;
-		} else if (EDIT.contains(inputs.get(0))){
-			return COMMANDS.EDIT;
-		} else if (ACK.contains(inputs.get(0))){
-			return COMMANDS.ACK;
-		}else if (SEARCH.contains(inputs.get(0))){
-			return COMMANDS.SEARCH;
-		}
-		return COMMANDS.INVALID;
+		return command;
 	}
 	
 	public String getTaskName(){
-		return inputs.get(1);
+		return taskName;
 	}
 	
-	public Date getDate() throws ParseException{
-		String dateTemp = inputs.get(2);
-		String timeTemp = inputs.get(3);
-		String[] dateTemps = new String[3];
-		String[] timeTemps = new String[2];
-		int countDate = 0;
-		int countTime = 0;
-		for(int i = 0;i<6;i=i+2){
-			dateTemps[i-countDate] = Character.toString(dateTemp.charAt(i))+Character.toString(dateTemp.charAt(i+1));
-			countDate++; 
-		}
-		for(int j = 0;j<4;j=j+2){
-			timeTemps[j-countTime] = Character.toString(timeTemp.charAt(j))+Character.toString(timeTemp.charAt(j+1));
-			countTime++;
-		}	
-		dateString = dateTemps[0]+"-"+dateTemps[1]+"-"+"20"+dateTemps[2]+" "+timeTemps[0]+":"+timeTemps[1];
-		date = sdf.parse(dateString);
+	public Date getDate() {
 		return date;
 	}
 	
