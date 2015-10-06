@@ -40,6 +40,7 @@ public class Task {
 	}
 
 	public int getTaskId() {
+		this.setTaskId();
 		return taskId;
 	}
 
