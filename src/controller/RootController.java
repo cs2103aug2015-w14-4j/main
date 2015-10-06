@@ -78,6 +78,10 @@ public class RootController {
     	containerOfTasks.getPanes().add(createTitledPane(t));
     }
     
+    private void removeTasks (int index){
+    	containerOfTasks.getPanes().remove(index);
+    }
+    
     private void initTasksList() {
     	for (int i = 0; i < logic.getNumOfTask(); i++) {
     		addTask(logic.getTask(i));
