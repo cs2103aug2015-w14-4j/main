@@ -15,6 +15,7 @@ import processor.DayProcessor;
 import processor.ErrorProcessor;
 import speedo.MainApp;
 import speedo.Task;
+import speedo.GuiCommand;
 import speedo.Logic;
 
 public class RootController {
@@ -95,8 +96,7 @@ public class RootController {
         // Command was entered, do something...
     	String userInput = commandBox.getText();
         System.out.println(userInput);
-        String s = logic.executeCMD(userInput);
-        System.out.println(s);
+        GuiCommand gC = logic.executeCMD(userInput);
         try{
         //addTask(t);
         } catch (Exception e){

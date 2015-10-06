@@ -25,27 +25,22 @@ public class Logic{
 	}
 		
 	//Methods
-	public String executeCMD(String s) throws ParseException{
+	public GuiCommand executeCMD(String s) throws ParseException{
 		parser.parse(s);
 		command = parser.getCommand();
 		content = parser.getContent();
-		String confirmation = null;
+		GuiCommand c = null;
 		
 		switch(command){
-		case ADD: add();
-				  s = "Task " + content + "successfully added"; 
-				  break;
-		case DELETE: delete();
-					 s = "Task " + content + "has been deleted";
-					 break;
-		case EDIT: taskIndex = parser.getIndex(); edit(taskIndex, content);
-				   s = "Task " + taskIndex + "can be edited"; 
-				   break;
+		
+		case ADD: Task t = add(); c = new GuiCommand(COMMANDS.ADD, "Added " + t.getName(), t); break;
+		case DELETE: int taskId = delete(); c =  new GuiCommand(COMMANDS.DELETE, "Deleted the task", taskId); break;
+		case EDIT: Task t = edit(, s); c = new GuiCommand(COMMANDS.EDIT, "Edited", t); break;
 		case SEARCH: ; break;
 		case ACK: ; break;
 		case INVALID: ; break;
 		}
-		return confirmation;
+		return c;
 	}
 	
 	public Task getTask(int index){
