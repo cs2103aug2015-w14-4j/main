@@ -9,6 +9,10 @@ public class CmdPackage {
 	private Task task;
 	private List<Task> taskList;
 	
+	public CmdPackage(COMMANDS cmd) {
+		this.cmd = cmd;
+	}
+	
 	public CmdPackage(COMMANDS cmd, List<Task> taskList) {
 		this.cmd = cmd;
 		this.taskList = taskList;
