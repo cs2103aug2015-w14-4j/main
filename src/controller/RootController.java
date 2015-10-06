@@ -9,6 +9,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import processor.COMMANDS;
 import processor.DayProcessor;
 import processor.ErrorProcessor;
 import speedo.MainApp;
@@ -89,10 +90,10 @@ public class RootController {
         // Command was entered, do something...
     	String userInput = commandBox.getText();
         System.out.println(userInput);
-        Task t = logic.executeCMD(userInput);
-        System.out.println(t);
+        COMMANDS c = logic.executeCMD(userInput);
+        System.out.println(c);
         try{
-        addTask(t);
+        //addTask(t);
         } catch (Exception e){
         	ErrorProcessor.alert(e.toString());
         }
