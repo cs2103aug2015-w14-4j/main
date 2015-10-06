@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import processor.COMMANDS;
 import storage.Storage;
 
 
@@ -11,7 +12,7 @@ public class Logic{
 	//Attributes
 	private Storage store;
 	private Parser parser;
-	private String command;
+	private COMMANDS command;
 	private String content;
 
 	
@@ -27,9 +28,23 @@ public class Logic{
 		parser.parse(s);
 		command = parser.getCommand();
 		content = parser.getContent();
-		if(command.equals("add")){
+		if(command.equals(COMMANDS.ADD)){
 			return add();
-		}
+		} 
+//		switch (command)) {
+//		case COMMANDS.ADD:
+//			return SOMETHING
+//		case COMMANDS.EDIT:
+//			return SOMETHING
+//		case COMMANDS.DELETE:
+//			return SOMETHING
+//		case COMMANDS.SEARCH:
+//			return SOMETHING
+//		case COMMANDS.EXIT:
+//			System.exit(0);
+//		default:
+//			return SOMETHING
+//		}
 		return null;
 	}
 	
