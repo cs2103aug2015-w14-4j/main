@@ -94,8 +94,8 @@ public class RootController {
         // Command was entered, do something...
     	String userInput = commandBox.getText();
         System.out.println(userInput);
-        COMMANDS c = logic.executeCMD(userInput);
-        System.out.println(c);
+        String s = logic.executeCMD(userInput);
+        System.out.println(s);
         try{
         //addTask(t);
         } catch (Exception e){

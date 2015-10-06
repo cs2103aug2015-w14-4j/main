@@ -15,6 +15,7 @@ public class Logic{
 	private Parser parser;
 	private COMMANDS command;
 	private String content;
+	private int taskIndex;
 
 	
 	//Constructor
@@ -24,21 +25,27 @@ public class Logic{
 	}
 		
 	//Methods
-	public COMMANDS executeCMD(String s){
+	public String executeCMD(String s) throws ParseException{
 		parser.parse(s);
 		command = parser.getCommand();
 		content = parser.getContent();
-		COMMANDS c = null;
+		String confirmation = null;
 		
 		switch(command){
-		case ADD: add(); c = COMMANDS.ADD; break;
-		case DELETE: c =  COMMANDS.DELETE; break;
-		case EDIT: c = COMMANDS.EDIT; break;
-		case SEARCH: c = COMMANDS.SEARCH; break;
-		case ACK: c= COMMANDS.ACK; break;
-		case INVALID: c = COMMANDS.INVALID; break;
+		case ADD: add();
+				  s = "Task " + content + "successfully added"; 
+				  break;
+		case DELETE: delete();
+					 s = "Task " + content + "has been deleted";
+					 break;
+		case EDIT: taskIndex = parser.getIndex(); edit(taskIndex, content);
+				   s = "Task " + taskIndex + "can be edited"; 
+				   break;
+		case SEARCH: ; break;
+		case ACK: ; break;
+		case INVALID: ; break;
 		}
-		return c;
+		return confirmation;
 	}
 	
 	public Task getTask(int index){
@@ -49,7 +56,7 @@ public class Logic{
 		return store.getNumOfTask();
 	}
 	
-	public Task add(){
+	public Task add() throws ParseException{
 		/*
 		Date date = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
@@ -61,6 +68,7 @@ public class Logic{
 			e.printStackTrace();
 		}
 		*/
+		Date date = parser.getDate();
 		Task newTask = store.add(content, date);
 		if(newTask != null){
 			System.out.println("Task added");
