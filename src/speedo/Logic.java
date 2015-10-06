@@ -3,6 +3,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import processor.COMMANDS;
 
 import storage.Storage;
 
@@ -25,11 +26,9 @@ public class Logic{
 	public Task executeCMD(String s){
 		//parser = new Parser();
 		parser.parse(s);
-		command = parser.getCommand();
+		COMMANDS command = parser.getCommand();
 		content = parser.getContent();
-		if(command.equals("add")){
-			return add();
-		}
+
 		return null;
 	}
 	
