@@ -24,12 +24,21 @@ public class Logic{
 	}
 		
 	//Methods
-	public Task executeCMD(String s){
-		//parser = new Parser();
+	public COMMANDS executeCMD(String s){
 		parser.parse(s);
 		command = parser.getCommand();
 		content = parser.getContent();
-		return null;
+		COMMANDS c = null;
+		
+		switch(command){
+		case ADD: add(); c = COMMANDS.ADD; break;
+		case DELETE: c =  COMMANDS.DELETE; break;
+		case EDIT: c = COMMANDS.EDIT; break;
+		case SEARCH: c = COMMANDS.SEARCH; break;
+		case ACK: c= COMMANDS.ACK; break;
+		case INVALID: c = COMMANDS.INVALID; break;
+		}
+		return c;
 	}
 	
 	public Task getTask(int index){
@@ -41,6 +50,7 @@ public class Logic{
 	}
 	
 	public Task add(){
+		/*
 		Date date = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
 		String date_in_string = sdf.format(new Date()); 
@@ -50,6 +60,7 @@ public class Logic{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		Task newTask = store.add(content, date);
 		if(newTask != null){
 			System.out.println("Task added");
