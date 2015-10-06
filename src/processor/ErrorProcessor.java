@@ -17,6 +17,7 @@ public class ErrorProcessor {
 			alert.setContentText(error);
 			alert.showAndWait();
 		} catch (java.lang.ExceptionInInitializerError e) {
+			// Exception only thrown when javaFx 8 not properly initialised
 			System.out.println(error);
 		}
 	}
