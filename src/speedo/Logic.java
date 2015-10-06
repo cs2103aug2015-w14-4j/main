@@ -52,7 +52,8 @@ public class Logic{
 		case ACK: taskIndex = parser.getIndex(); 
 		  		  t = acknowledge(taskIndex);
 		  		  c = new GuiCommand(COMMANDS.ACK, "Acknowledged", t); 
-		case INVALID: ; break;
+		case INVALID: c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
+					  break;
 		}
 		return c;
 	}
