@@ -1,4 +1,4 @@
-package speedo;
+package junitTests;
 
 import static org.junit.Assert.*;
 import java.text.ParseException;
@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.junit.Test;
 import junit.framework.*;
+import speedo.Parser;
 
 public class ParserTest extends TestCase{
 	protected int value1, value2;
