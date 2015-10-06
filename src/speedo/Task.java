@@ -2,20 +2,17 @@ package speedo;
 
 import java.util.Date;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 // Basic Task Object
 public class Task {
-	
-	private StringProperty nameProperty = new SimpleStringProperty(this, "name", "");
-	private StringProperty detailsProperty = new SimpleStringProperty(this, "details", "");
-	
+
+	private int taskId;
 	private String name;
 	private String details;
 	private Date startDate;
 	private Date endDate;
 	private boolean isAcknowledged;
+	
+	private static final String EMPTY = "Empty";
 
 	public Task() {
 		this(null, null, null, null);
@@ -39,6 +36,17 @@ public class Task {
 		this.setEndDate(endDate);
 		this.setDetails(details);
 		this.setAcknowledged(false);
+		this.setTaskId();
+	}
+
+	public int getTaskId() {
+		return taskId;
+	}
+
+	private void setTaskId() {
+		String uniqueElements = this.getName() + this.getDetails() + this.getStartDateString()
+		+ this.getEndDateString();
+		taskId = uniqueElements.hashCode();
 	}
 
 	public String getName() {
@@ -47,7 +55,7 @@ public class Task {
 
 	public void setName(String name) {
 		this.name = name;
-		this.nameProperty.set(name);
+		this.setTaskId();
 	}
 
 	public String getDetails() {
@@ -56,23 +64,41 @@ public class Task {
 
 	public void setDetails(String details) {
 		this.details = details;
-		this.detailsProperty.set(details);
+		this.setTaskId();
 	}
 
 	public Date getStartDate() {
 		return startDate;
 	}
 
+	public String getStartDateString() {
+		if (this.getStartDate() != null) {
+			return this.getStartDate().toString();
+		} else {
+			return EMPTY;
+		}
+	}
+
 	public void setStartDate(Date date) {
 		this.startDate = date;
+		this.setTaskId();
 	}
 
 	public Date getEndDate() {
 		return endDate;
 	}
-
+	
+	public String getEndDateString() {
+		if (this.getEndDate() != null) {
+			return this.getEndDate().toString();
+		} else {
+			return EMPTY;
+		}
+	}
+	
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+		this.setTaskId();
 	}
 
 	public boolean isAcknowledged() {
@@ -101,11 +127,4 @@ public class Task {
 		return false;
 	}
 
-	public StringProperty getNameProperty() {
-		return nameProperty;
-	}
-	
-	public StringProperty getDetailsProperty() {
-		return detailsProperty;
-	}
 }

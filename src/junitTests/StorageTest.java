@@ -1,4 +1,5 @@
-package speedo;
+package junitTests;
+
 import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
@@ -6,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Test;
+
+import storage.Storage;
 
 public class StorageTest {
 	
