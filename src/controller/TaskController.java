@@ -10,6 +10,7 @@ public class TaskController {
 	private TitledPane tp;
 	@FXML 
 	private Text details;
+	private int taskId;
 	
     /**
      * Initializes the controller class. This method is automatically called
@@ -26,6 +27,14 @@ public class TaskController {
 	
 	public void setDetails(String d){
 		details.setText(d);
+	}
+	
+	public void setTaskId(int id){
+		taskId = id;
+	}
+	
+	public TitledPane getContainer(){
+		return tp;
 	}
 	
 }
