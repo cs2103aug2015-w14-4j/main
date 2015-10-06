@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import processor.COMMANDS;
+
 public class Parser {
 	
 	private ArrayList<String> inputs;
@@ -12,6 +14,12 @@ public class Parser {
 	private String dateString;
 	private String content;
 	private Date date;
+	
+	private static final String ADD = "add";
+	private static final String DELETE = "remove delete";
+	private static final String EDIT = "edit change";
+	private static final String ACK = "ack acknowledge";
+	private static final String SEARCH = "search find";
 	
 	public Parser() {
 		inputs = new ArrayList<String>();
@@ -47,8 +55,19 @@ public class Parser {
 		}
 	}
 	
-	public String getCommand(){
-		return inputs.get(0);
+	public COMMANDS getCommand(){
+		if(ADD.contains(inputs.get(0))){
+			return COMMANDS.ADD;
+		} else if (DELETE.contains(inputs.get(0))){
+			return COMMANDS.DELETE;
+		} else if (EDIT.contains(inputs.get(0))){
+			return COMMANDS.EDIT;
+		} else if (ACK.contains(inputs.get(0))){
+			return COMMANDS.ACK;
+		}else if (SEARCH.contains(inputs.get(0))){
+			return COMMANDS.SEARCH;
+		}
+		return COMMANDS.INVALID;
 	}
 	
 	public String getTaskName(){
