@@ -24,19 +24,19 @@ public class Logic{
 	}
 		
 	//Methods
-	public COMMANDS executeCMD(String s){
+	public GuiCommand executeCMD(String s){
 		parser.parse(s);
 		command = parser.getCommand();
 		content = parser.getContent();
-		COMMANDS c = null;
+		GuiCommand c = null;
 		
 		switch(command){
-		case ADD: add(); c = COMMANDS.ADD; break;
-		case DELETE: c =  COMMANDS.DELETE; break;
-		case EDIT: c = COMMANDS.EDIT; break;
-		case SEARCH: c = COMMANDS.SEARCH; break;
-		case ACK: c= COMMANDS.ACK; break;
-		case INVALID: c = COMMANDS.INVALID; break;
+		case ADD: Task t = add(); c = new GuiCommand(COMMANDS.ADD, "Added " + t.getName(), t); break;
+		case DELETE: int taskId = delete(); c =  new GuiCommand(COMMANDS.DELETE, "Deleted the task", taskId); break;
+		//case EDIT: Task t = edit(, s); c = new GuiCommand(COMMANDS.EDIT, "Edited", t); break;
+		//case SEARCH: c = COMMANDS.SEARCH; break;
+		//case ACK: c= COMMANDS.ACK; break;
+		//case INVALID: c = COMMANDS.INVALID; break;
 		}
 		return c;
 	}
@@ -71,15 +71,15 @@ public class Logic{
 		}
 	}
 	
-	public void edit(int index, String text){
-		store.edit(index, text);
+	public Task edit(int index, String text){
+		return store.edit(index, text);
 		//store.saveFile();
 	}
 	
-	public void delete(){
+	public int delete(){
 		int index = Integer.parseInt(content);
 		System.out.println("Task deleted");
-		store.delete(index);
+		return store.delete(index);
 		//store.saveFile();
 	}
 	
