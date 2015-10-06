@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import processor.COMMANDS;
 
+import processor.COMMANDS;
 import storage.Storage;
 
 
@@ -12,7 +13,7 @@ public class Logic{
 	//Attributes
 	private Storage store;
 	private Parser parser;
-	private String command;
+	private COMMANDS command;
 	private String content;
 
 	
@@ -26,9 +27,8 @@ public class Logic{
 	public Task executeCMD(String s){
 		//parser = new Parser();
 		parser.parse(s);
-		COMMANDS command = parser.getCommand();
+		command = parser.getCommand();
 		content = parser.getContent();
-
 		return null;
 	}
 	
