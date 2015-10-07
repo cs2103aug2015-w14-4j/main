@@ -41,15 +41,17 @@ public class Parser {
 		date = new Date();
 	}
 
-	public Boolean parse(String input) {
+	public Boolean parse(String str) {
 		Boolean valid = true;
-		processDetails(input);
-		String[] parts = input.split(" ", 3);
+		processDetails(str);
+		String input = str.replace(details, "");
+		input = sort(input);
+		String[] parts = input.split(" ", 4);
 		processCommand(parts[0]);
 		taskName = parts[1];
 		
 		if (parts.length > 2) {
-			valid = processDate(parts[2]);
+			valid = processDate(parts[2]+" "+parts[3]);
 		} else {
 			// No Date
 		}
@@ -131,5 +133,50 @@ public class Parser {
 	public int getIndex() {
 		int index = Integer.parseInt(taskName);
 		return index;
+	}
+	
+	public String sort(String input){
+		String[] stringArray = input.split(" "); 
+		String StringTemp = "";
+		ArrayList<Integer> check = new ArrayList<Integer>();
+		for(int i=0;i<4;i++){
+			if(ADD.contains(stringArray[i])||DELETE.contains(stringArray[i])||EDIT.contains(stringArray[i])
+					||ACK.contains(stringArray[i])||SEARCH.contains(stringArray[i])){
+				StringTemp = StringTemp + stringArray[i];
+				check.add(i);
+				//System.out.println(StringTemp+" test1");
+				break;
+			}
+		}
+		for(int j=0;j<4;j++){
+			if(Character.isLetter(stringArray[j].charAt(0))&&!check.contains(j)){
+				StringTemp = StringTemp +" "+ stringArray[j];
+				check.add(j);
+				//System.out.println(StringTemp+" test2");
+				break;
+			}
+		}
+		for(int k=0;k<4;k++){
+			if(stringArray[k].length()==6&&!check.contains(k)&&Character.isDigit(stringArray[k].charAt(0))){
+				StringTemp = StringTemp +" "+ stringArray[k];
+				check.add(k);
+				//System.out.println(StringTemp+" test3");
+				break;
+			}
+		}
+		for(int l=0;l<4;l++){
+			if(stringArray[l].length()==4&&!check.contains(l)&&Character.isDigit(stringArray[l].charAt(0))){
+				StringTemp = StringTemp +" "+ stringArray[l];
+				check.add(l);
+				/*System.out.println(StringTemp+" test4");
+				for(int t=0;t<stringArray.length;t++){
+					System.out.println(stringArray[t]+" sa");
+				}*/
+				break;
+			}
+		}
+		//System.out.println(StringTemp+" testlast");
+		//System.out.println(input+" input");
+		return StringTemp;
 	}
 }

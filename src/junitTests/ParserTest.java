@@ -20,24 +20,27 @@ public class ParserTest extends TestCase{
 
 	@Test
 	public void test() {
-		String test = "add task 061015 'detail'";
+		String test = "task 061015 add 1000 'detail for testing'";
 		parse.parse(test);
-	    assertTrue(parse.getDetails().equals("detail"));
+		System.out.println(parse.getCommand());
+		System.out.println(parse.getTaskName());
+		System.out.println(parse.getDate());
+		System.out.println(parse.getDetails());
+	    assertTrue(parse.getDetails().equals("detail for testing"));
 	}
 	
 	@Test
 	public void test1() {
-		String test = "add task 061015 'detail'";
+		String test = "add 061015 1000 task 'detail'";
 		parse.parse(test);
 	    assertTrue(parse.getTaskName().equals("task"));
 	}
 	
 	@Test
-	public void test2() throws ParseException {
-		String test = "add task 071015 1000 'detail 123 456 789'";
+	public void test2() {
+		String test = "071015 add task 1000 'detail 123 456 789'";
 		parse.parse(test);
-		System.out.println(parse.getDate());
-	    assertTrue(parse.getDate().equals("07-10-2015 10:00"));
+	    assertTrue(parse.getDetails().equals("detail 123 456 789"));
 	}
 
 }
