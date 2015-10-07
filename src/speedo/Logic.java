@@ -30,30 +30,15 @@ public class Logic{
 		command = parser.getCommand();
 		content = parser.getContent();
 		GuiCommand c = null;
-		Task t = null;
-		List<Task> list = null;
-		
 		
 		switch(command){
 		
-		case ADD: t = add();
-				  c = new GuiCommand(COMMANDS.ADD, "Added " + t.getName(), t);
-				  break;
-		case DELETE: int taskId = delete();
-					 c =  new GuiCommand(COMMANDS.DELETE, "Deleted the task", taskId); 
-					 break;
-		case EDIT:taskIndex = parser.getIndex(); 
-				  t = edit(taskIndex, s);
-				  c = new GuiCommand(COMMANDS.EDIT, "Edited", t); 
-				  break;
-		case SEARCH:list = search();
-		 			c =  new GuiCommand(COMMANDS.SEARCH, "Searched tasks", list); 
-		 			break;
-		case ACK: taskIndex = parser.getIndex(); 
-		  		  t = acknowledge(taskIndex);
-		  		  c = new GuiCommand(COMMANDS.ACK, "Acknowledged", t); 
-		case INVALID: c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
-					  break;
+		case ADD: Task t = add(); c = new GuiCommand(COMMANDS.ADD, "Added " + t.getName(), t); break;
+		case DELETE: int taskId = delete(); c =  new GuiCommand(COMMANDS.DELETE, "Deleted the task", taskId); break;
+		case EDIT: Task t = edit(, s); c = new GuiCommand(COMMANDS.EDIT, "Edited", t); break;
+		case SEARCH: ; break;
+		case ACK: ; break;
+		case INVALID: ; break;
 		}
 		return c;
 	}
@@ -89,25 +74,28 @@ public class Logic{
 		}
 	}
 	
-	public Task edit(int index, String text){
-		return store.edit(index, text);
+	public void edit(int index, String text){
+		store.edit(index, text);
 		//store.saveFile();
 	}
 	
-	public int delete(){
+	public void delete(){
 		int index = Integer.parseInt(content);
 		System.out.println("Task deleted");
-		return store.delete(index);
+		store.delete(index);
 		//store.saveFile();
 	}
 	
-	public List<Task> search(){
+	public void search(){
 		List<Task> list = store.search(content);
-		return list;
+		while (!list.isEmpty()){
+			System.out.println(list.get(0));
+			list.remove(0);
+		}
 	}
 	
-	public Task acknowledge(int taskIndex){
-		return store.acknowledge(taskIndex);
+	public void acknowledge(){
+		store.acknowledge(Integer.parseInt(content));
 		//store.saveFile();
 	}
 	

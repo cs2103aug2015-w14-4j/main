@@ -40,7 +40,7 @@ public class Parser {
 		String[] parts = input.split(" ");
 		processCommand(parts[0]);
 		taskName = parts[1];
-		 processDate(parts[2], parts[3]);
+		processDate(parts[2], parts[3]);
 	}
 	
 	private void processCommand(String stringCmd){
@@ -86,7 +86,7 @@ public class Parser {
 	}
 	
 	public int getIndex(){
-		int index = Integer.parseInt(inputs.get(1)); 
+		int index = Integer.parseInt(taskName); 
 		return index;
 	}
 }
