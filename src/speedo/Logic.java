@@ -24,7 +24,7 @@ public class Logic {
 	}
 
 	// Methods
-	public GuiCommand executeCMD(String s) throws ParseException {
+	public GuiCommand executeCMD(String s) {
 		parser = new Parser();
 		parser.parse(s);
 		command = parser.getCommand();
