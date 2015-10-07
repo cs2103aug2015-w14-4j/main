@@ -75,6 +75,8 @@ public class RootController {
 		}
         TaskController tc = loader.getController();
         tc.setName(t.getName());
+        tc.setDate(t.getDate());
+        tc.setTime(t.getTime());
         tc.setDetails(t.getDetails());
         tc.setTaskId(t.getTaskId());
         taskLookupTable.put(t.getTaskId(), tc);
@@ -120,22 +122,22 @@ public class RootController {
         //GuiCommand gc = new GuiCommand(COMMANDS.DELETE, "Delete", logic.getTask(0));
         //logic.getTask(0).setName(userInput);
         //GuiCommand gc = new GuiCommand(COMMANDS.EDIT, "Edited", logic.getTask(0));
-        GuiCommand gc = new GuiCommand(COMMANDS.ADD, "Added", new Task(userInput, new Date()));
-        COMMANDS command = gc.getCmd();
+       // GuiCommand gc = new GuiCommand(COMMANDS.ADD, "Added", new Task(userInput, new Date())); 
+        GuiCommand command = logic.executeCMD(userInput);
         try{
-        	switch(command){
+        	switch(command.getCmd()){
         		case ADD: {
-        			addTask(gc.getTask());
+        			addTask(command.getTask());
         			// TODO set the feedback
         			break;
         		}
         		case DELETE: {
-        			removeTask(gc.getTaskId());
+        			removeTask(command.getTaskId());
         			// TODO set the feedback
         			break;
         		}
         		case EDIT: {
-        			editTask(gc.getTask());
+        			editTask(command.getTask());
         			// TODO set the feedback
         			break;
         		}
