@@ -15,6 +15,7 @@ public class Logic {
 	private Parser parser;
 	private COMMANDS command;
 	private String details;
+	private String taskName;
 	private int taskIndex;
 
 	// Constructor
@@ -27,7 +28,6 @@ public class Logic {
 		parser = new Parser();
 		parser.parse(s);
 		command = parser.getCommand();
-		details = parser.getDetails();
 		GuiCommand c = null;
 		Task t = null;
 		List<Task> list = null;
@@ -35,6 +35,8 @@ public class Logic {
 		switch (command) {
 
 		case ADD:
+			taskName = parser.getTaskName();
+			details = parser.getDetails();
 			t = add();
 			c = new GuiCommand(COMMANDS.ADD, "Added " + t.getName(), t);
 			break;
@@ -78,7 +80,8 @@ public class Logic {
 		 * // TODO Auto-generated catch block e.printStackTrace(); }
 		 */
 		Date date = parser.getDate();
-		Task newTask = store.add(details, date);
+		Task newTask = store.add(taskName, date);
+		System.out.println(newTask);
 		if (newTask != null) {
 			System.out.println("Task added");
 			// store.saveFile();
