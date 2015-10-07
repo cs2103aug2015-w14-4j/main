@@ -75,7 +75,21 @@ public class Parser {
 	}
 	
 	public Date getDate() throws ParseException{
-		dateString = "06-10-2015 10:00"; 
+		String dateTemp = inputs.get(2);
+		String timeTemp = inputs.get(3);
+		String[] dateTemps = new String[3];
+		String[] timeTemps = new String[2];
+		int countDate = 0;
+		int countTime = 0;
+		for(int i = 0;i<6;i=i+2){
+			dateTemps[i-countDate] = Character.toString(dateTemp.charAt(i))+Character.toString(dateTemp.charAt(i+1));
+			countDate++; 
+		}
+		for(int j = 0;j<4;j=j+2){
+			timeTemps[j-countTime] = Character.toString(timeTemp.charAt(j))+Character.toString(timeTemp.charAt(j+1));
+			countTime++;
+		}	
+		dateString = dateTemps[0]+"-"+dateTemps[1]+"-"+"20"+dateTemps[2]+" "+timeTemps[0]+":"+timeTemps[1];
 		date = sdf.parse(dateString);
 		return date;
 	}
