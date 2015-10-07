@@ -41,8 +41,8 @@ public class Logic {
 			c = new GuiCommand(COMMANDS.ADD, "Added " + t.getName(), t);
 			break;
 		case DELETE:
-			int taskId = delete();
-			c = new GuiCommand(COMMANDS.DELETE, "Deleted the task", taskId);
+			t = delete();
+			c = new GuiCommand(COMMANDS.DELETE, "Deleted the task", t);
 			break;
 		case EDIT:
 			taskIndex = parser.getIndex();
@@ -97,7 +97,7 @@ public class Logic {
 		// store.saveFile();
 	}
 
-	public int delete(){
+	public Task delete(){
 		int index = parser.getIndex();
 		System.out.println("Task deleted");
 		return store.delete(index);

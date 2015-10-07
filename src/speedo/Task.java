@@ -7,7 +7,6 @@ import java.util.Date;
 public class Task {
 
 	private int taskId;
-	private int oldTaskId;
 	private String name;
 	private String details;
 	private Date startDate;
@@ -42,15 +41,18 @@ public class Task {
 	}
 
 	public int getTaskId() {
-		this.setOldTaskId(taskId);
 		this.setTaskId();
 		return taskId;
 	}
 
 	private void setTaskId() {
+		taskId = getHashCode();
+	}
+	
+	private int getHashCode() {
 		String uniqueElements = this.getName() + this.getDetails() + this.getStartDateString()
 		+ this.getEndDateString();
-		taskId = uniqueElements.hashCode();
+		return uniqueElements.hashCode();
 	}
 
 	public String getName() {
@@ -59,7 +61,6 @@ public class Task {
 
 	public void setName(String name) {
 		this.name = name;
-		this.setTaskId();
 	}
 
 	public String getDetails() {
@@ -68,7 +69,6 @@ public class Task {
 
 	public void setDetails(String details) {
 		this.details = details;
-		this.setTaskId();
 	}
 
 	public Date getStartDate() {
@@ -85,7 +85,6 @@ public class Task {
 
 	public void setStartDate(Date date) {
 		this.startDate = date;
-		this.setTaskId();
 	}
 
 	public Date getEndDate() {
@@ -112,7 +111,6 @@ public class Task {
 	
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-		this.setTaskId();
 	}
 
 	public boolean isAcknowledged() {
@@ -139,14 +137,6 @@ public class Task {
 			return true;
 		}
 		return false;
-	}
-
-	public int getOldTaskId() {
-		return oldTaskId;
-	}
-
-	public void setOldTaskId(int oldTaskId) {
-		this.oldTaskId = oldTaskId;
 	}
 
 }

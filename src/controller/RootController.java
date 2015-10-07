@@ -93,18 +93,22 @@ public class RootController {
     	containerOfTasks.getPanes().add(createTitledPane(t));
     }
     
-    private void removeTask(int taskID){
-    	TaskController tc = taskLookupTable.get(taskID);
+    private void removeTask(Task t){
+    	TaskController tc = taskLookupTable.get(t.getTaskId());
     	containerOfTasks.getPanes().remove(tc.getContainer());
-    	taskLookupTable.remove(taskID);
+    	taskLookupTable.remove(t.getTaskId());
     }
     
     //TODO Can only edit the Task title
-    private void editTask(Task t, int index){
+    private void editTask(Task t){
     	System.out.println(t);
-    	containerOfTasks.getPanes().get(index).setText(t.getName());
-    	//TaskController tc = taskLookupTable.get(t.getTaskId());
-    	//tc.setName(t.getName());
+    	//t.getTaskId();
+//    	TaskController tc = taskLookupTable.get(t.getOldTaskId());
+//    	taskLookupTable.remove(t.getOldTaskId());
+//    	taskLookupTable.put(t.getTaskId(), tc);
+  //  	containerOfTasks.getPanes().get(index).setText(t.getName());
+    	TaskController tc = taskLookupTable.get(t.getTaskId());
+    	tc.setName(t.getName());
     }
     
     private void initTasksList() {
@@ -143,7 +147,7 @@ public class RootController {
         			break;
         		}
         		case DELETE: {
-        			removeTask(command.getTaskId());
+        			removeTask(command.getTask());
         			Text feedback = new Text(command.getMsg());
         		    feedback.setFill(Color.GREEN);
         		    //feedbackToUser.getChildren().remove();
@@ -153,7 +157,7 @@ public class RootController {
         		case EDIT: {
 
         			System.out.println(command.getTask());
-        			editTask(command.getTask(), command.getTaskId());
+        			editTask(command.getTask());
         			// TODO set the feedback
         			break;
         		}
