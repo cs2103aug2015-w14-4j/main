@@ -100,9 +100,11 @@ public class RootController {
     }
     
     //TODO Can only edit the Task title
-    private void editTask(Task t){
-    	TaskController tc = taskLookupTable.get(t.getTaskId());
-    	tc.setName(t.getName());
+    private void editTask(Task t, int index){
+    	System.out.println(t);
+    	containerOfTasks.getPanes().get(index).setText(t.getName());
+    	//TaskController tc = taskLookupTable.get(t.getTaskId());
+    	//tc.setName(t.getName());
     }
     
     private void initTasksList() {
@@ -127,10 +129,10 @@ public class RootController {
         
         //GuiCommand gc = new GuiCommand(COMMANDS.DELETE, "Delete", logic.getTask(0));
         //logic.getTask(0).setName(userInput);
-        //GuiCommand gc = new GuiCommand(COMMANDS.EDIT, "Edited", logic.getTask(0));
+        //GuiCommand command = new GuiCommand(COMMANDS.EDIT, "Edited", logic.getTask(0));
        // GuiCommand gc = new GuiCommand(COMMANDS.ADD, "Added", new Task(userInput, new Date())); 
         GuiCommand command = logic.executeCMD(userInput);
-        try{
+//        try{
         	switch(command.getCmd()){
         		case ADD: {
         			addTask(command.getTask());
@@ -149,14 +151,16 @@ public class RootController {
         			break;
         		}
         		case EDIT: {
-        			editTask(command.getTask());
+
+        			System.out.println(command.getTask());
+        			editTask(command.getTask(), command.getTaskId());
         			// TODO set the feedback
         			break;
         		}
     		}
-        } catch (Exception e){
-        	ErrorProcessor.alert(e.toString());
-        }
+//        } catch (Exception e){
+//        	System.out.println(e.getStackTrace());
+//        }
         commandBox.clear();
     }
         

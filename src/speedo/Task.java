@@ -7,6 +7,7 @@ import java.util.Date;
 public class Task {
 
 	private int taskId;
+	private int oldTaskId;
 	private String name;
 	private String details;
 	private Date startDate;
@@ -41,6 +42,7 @@ public class Task {
 	}
 
 	public int getTaskId() {
+		this.setOldTaskId(taskId);
 		this.setTaskId();
 		return taskId;
 	}
@@ -137,6 +139,14 @@ public class Task {
 			return true;
 		}
 		return false;
+	}
+
+	public int getOldTaskId() {
+		return oldTaskId;
+	}
+
+	public void setOldTaskId(int oldTaskId) {
+		this.oldTaskId = oldTaskId;
 	}
 
 }

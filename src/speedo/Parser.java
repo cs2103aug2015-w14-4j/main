@@ -45,12 +45,13 @@ public class Parser {
 		Boolean valid = true;
 		processDetails(str);
 		String input = str.replace(details, "");
-		input = sort(input);
+		//input = sort(input);
 		String[] parts = input.split(" ", 4);
 		processCommand(parts[0]);
 		taskName = parts[1];
+
 		
-		if (parts.length > 2) {
+		if (parts.length > 3 ) {
 			valid = processDate(parts[2]+" "+parts[3]);
 		} else {
 			// No Date

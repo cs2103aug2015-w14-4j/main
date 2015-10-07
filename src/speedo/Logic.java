@@ -46,8 +46,9 @@ public class Logic {
 			break;
 		case EDIT:
 			taskIndex = parser.getIndex();
-			t = edit(taskIndex, s);
-			c = new GuiCommand(COMMANDS.EDIT, "Edited", t);
+			details = parser.getDetails();
+			t = edit(taskIndex, details);
+			c = new GuiCommand(COMMANDS.EDIT, "Edited", t, taskIndex);
 			break;
 		case SEARCH:
 			list = search();
@@ -84,7 +85,7 @@ public class Logic {
 		System.out.println(newTask);
 		if (newTask != null) {
 			System.out.println("Task added");
-			// store.saveFile();
+			store.saveFile();
 			return newTask;
 		} else {
 			return null;
