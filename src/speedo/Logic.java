@@ -20,11 +20,11 @@ public class Logic {
 	// Constructor
 	public Logic() {
 		store = new Storage();
-		parser = new Parser();
 	}
 
 	// Methods
 	public GuiCommand executeCMD(String s) throws ParseException {
+		parser = new Parser();
 		parser.parse(s);
 		command = parser.getCommand();
 		details = parser.getDetails();
