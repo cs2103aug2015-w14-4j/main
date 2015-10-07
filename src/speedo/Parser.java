@@ -10,41 +10,63 @@ import processor.COMMANDS;
 public class Parser {
 
 	private ArrayList<String> inputs;
-	private SimpleDateFormat sdf;
+
 	private String dateString;
 	private String content;
 	private Date date;
 	private COMMANDS command;
 	private String taskName;
+	private SimpleDateFormat dateVariant1;
+	private SimpleDateFormat dateVariant2;
+	private SimpleDateFormat dateVariant3;
+	private SimpleDateFormat dateVariant4;
 
 	private static final String ADD = "add";
 	private static final String DELETE = "remove delete";
 	private static final String EDIT = "edit change";
 	private static final String ACK = "ack acknowledge";
 	private static final String SEARCH = "search find";
+	
+	private static final String DATE_FORMAT_1 = "dd-M-yyyy hh:mm";
+	private static final String DATE_FORMAT_2 = "dd M yyyy hh:mm";
+	private static final String DATE_FORMAT_3 = "dd-MMMM-yyyy hh:mm";
+	private static final String DATE_FORMAT_4 = "ddmmyy hhmm";
 
 	public Parser() {
 		inputs = new ArrayList<String>();
-		sdf = new SimpleDateFormat("ddmmyy hhmm");
+		dateVariant1 = new SimpleDateFormat(DATE_FORMAT_1);
+		dateVariant2 = new SimpleDateFormat(DATE_FORMAT_2);
+		dateVariant3 = new SimpleDateFormat(DATE_FORMAT_3);
+		dateVariant4 = new SimpleDateFormat(DATE_FORMAT_4);
 		date = new Date();
 	}
 
-	public void parse(String input) {
-		if (input.contains("'")) {
-			String[] stringPieces = input.split("'", 3);
-			content = stringPieces[1];
-		} else {
-			content = "No detail";
-		}
-		System.out.println(input);
+	public Boolean parse(String input) {
+		Boolean valid = true;
+		processDetails(input);
 		String[] parts = input.split(" ", 3);
 		processCommand(parts[0]);
 		taskName = parts[1];
 		
 		if (parts.length > 2) {
-			processDate(parts[2]);
+			valid = processDate(parts[2]);
 		} else {
 			// No Date
+		}
+		
+		if(getCommand() == COMMANDS.INVALID){
+			valid = false;
+		}
+		
+		return valid;
+	}
+	
+	private void processDetails(String text){
+		if (text.contains("'")) {
+			String[] stringPieces = text.split("'", 3);
+			content = stringPieces[1];
+		} else {
+			content = "No detail";
 		}
 	}
 
@@ -65,13 +87,29 @@ public class Parser {
 	}
 
 	private boolean processDate(String dateString) {
+		Boolean success = false;
+		// Brute force date parsing
 		try {
-			this.date = sdf.parse(dateString);
+			date = dateVariant1.parse(dateString);
+			success = true;
 		} catch (ParseException e) {
-			// invalid date format
-			return false;
 		}
-		return true;
+		try {
+			date = dateVariant2.parse(dateString);
+			success = true;
+		} catch (ParseException e) {
+		}
+		try {
+			date = dateVariant3.parse(dateString);
+			success = true;
+		} catch (ParseException e) {
+		}
+		try {
+			date = dateVariant4.parse(dateString);
+			success = true;
+		} catch (ParseException e) {
+		}
+		return success;
 	}
 
 	public COMMANDS getCommand() {
