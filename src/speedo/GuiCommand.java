@@ -34,5 +34,25 @@ public class GuiCommand {
 	public GuiCommand(COMMANDS cmd, String msg){
 		this(cmd, msg, null, 0, null);
 	}
+
+	public COMMANDS getCmd() {
+		return cmd;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public Task getTask() {
+		return task;
+	}
+
+	public int getTaskId() {
+		return taskId;
+	}
+
+	public List<Task> getListOfTasks() {
+		return listOfTasks;
+	}
 		
 }

@@ -22,7 +22,7 @@ public class ParserTest extends TestCase{
 	public void test() {
 		String test = "add task 061015 'detail'";
 		parse.parse(test);
-	    assertTrue(parse.getContent().equals("detail"));
+	    assertTrue(parse.getDetails().equals("detail"));
 	}
 	
 	@Test
@@ -34,10 +34,10 @@ public class ParserTest extends TestCase{
 	
 	@Test
 	public void test2() throws ParseException {
-		String test = "add task 061015 'detail 123 456 789'";
+		String test = "add task 071015 1000 'detail 123 456 789'";
 		parse.parse(test);
 		System.out.println(parse.getDate());
-	    assertTrue(parse.getDate().equals("06-10-2015 10:00"));
+	    assertTrue(parse.getDate().equals("07-10-2015 10:00"));
 	}
 
 }

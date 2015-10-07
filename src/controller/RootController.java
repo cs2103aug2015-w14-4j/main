@@ -2,7 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Hashtable;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,8 +34,8 @@ public class RootController {
 	
 	// Reference to the main application.
     private MainApp mainApp;
-    // Maps the Task to its corresponding TitledPane
-    private Hashtable<Task, TitledPane> taskLookupTable;
+    // Maps the Task to its corresponding TaskController
+    private Hashtable<Integer, TaskController> taskLookupTable;
     private Logic logic;
 	
     /**
@@ -44,9 +46,9 @@ public class RootController {
     private void initialize() {
     	// Initialize the tasks and fetch a list of tasks
     	logic = new Logic();
-    	taskLookupTable = new Hashtable<Task, TitledPane>();
+    	taskLookupTable = new Hashtable<Integer, TaskController>();
     	initTasksList();
-    	userName.setText("Hi Joe");
+    	userName.setText("Hi Jim");
     	todayDay.setText(DayProcessor.todayDay());
     	todayDate.setText(DayProcessor.todayDate());
     }
@@ -60,6 +62,7 @@ public class RootController {
         this.mainApp = mainApp;
     }
     
+    //TODO Could move this method to TaskController
     private TitledPane createTitledPane(Task t){
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/TaskView.fxml"));
@@ -72,8 +75,11 @@ public class RootController {
 		}
         TaskController tc = loader.getController();
         tc.setName(t.getName());
+        tc.setDate(t.getDate());
+        tc.setTime(t.getTime());
         tc.setDetails(t.getDetails());
-        taskLookupTable.put(t, tp);
+        tc.setTaskId(t.getTaskId());
+        taskLookupTable.put(t.getTaskId(), tc);
     	return tp;
     }
     
@@ -81,13 +87,27 @@ public class RootController {
     	containerOfTasks.getPanes().add(createTitledPane(t));
     }
     
-    private void removeTasks (int index){
-    	containerOfTasks.getPanes().remove(index);
+    private void removeTask(int taskID){
+    	TaskController tc = taskLookupTable.get(taskID);
+    	containerOfTasks.getPanes().remove(tc.getContainer());
+    	taskLookupTable.remove(taskID);
+    }
+    
+    //TODO Can only edit the Task title
+    private void editTask(Task t){
+    	TaskController tc = taskLookupTable.get(t.getTaskId());
+    	tc.setName(t.getName());
     }
     
     private void initTasksList() {
     	for (int i = 0; i < logic.getNumOfTask(); i++) {
     		addTask(logic.getTask(i));
+		}
+    }
+    
+    private void loadTasksList(List<Task> listOfTasks) {
+    	for (int i = 0; i < listOfTasks.size(); i++) {
+    		addTask(listOfTasks.get(i));
 		}
     }
             
@@ -96,13 +116,36 @@ public class RootController {
         // Command was entered, do something...
     	String userInput = commandBox.getText();
         System.out.println(userInput);
-        GuiCommand gC = logic.executeCMD(userInput);
+        
+        //GuiCommand gc = logic.executeCMD(userInput);
+        
+        //GuiCommand gc = new GuiCommand(COMMANDS.DELETE, "Delete", logic.getTask(0));
+        //logic.getTask(0).setName(userInput);
+        //GuiCommand gc = new GuiCommand(COMMANDS.EDIT, "Edited", logic.getTask(0));
+       // GuiCommand gc = new GuiCommand(COMMANDS.ADD, "Added", new Task(userInput, new Date())); 
+        GuiCommand command = logic.executeCMD(userInput);
         try{
-        //addTask(t);
+        	switch(command.getCmd()){
+        		case ADD: {
+        			addTask(command.getTask());
+        			// TODO set the feedback
+        			break;
+        		}
+        		case DELETE: {
+        			removeTask(command.getTaskId());
+        			// TODO set the feedback
+        			break;
+        		}
+        		case EDIT: {
+        			editTask(command.getTask());
+        			// TODO set the feedback
+        			break;
+        		}
+    		}
         } catch (Exception e){
         	ErrorProcessor.alert(e.toString());
         }
         commandBox.clear();
     }
-    
+        
 }

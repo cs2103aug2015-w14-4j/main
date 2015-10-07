@@ -1,5 +1,6 @@
 package speedo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 // Basic Task Object
@@ -40,6 +41,7 @@ public class Task {
 	}
 
 	public int getTaskId() {
+		this.setTaskId();
 		return taskId;
 	}
 
@@ -86,6 +88,16 @@ public class Task {
 
 	public Date getEndDate() {
 		return endDate;
+	}
+	
+	public String getDate(){
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+		return dateFormat.format(startDate);
+	}
+	
+	public String getTime(){
+		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+		return dateFormat.format(startDate);
 	}
 	
 	public String getEndDateString() {
