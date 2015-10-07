@@ -94,7 +94,7 @@ public class Logic {
 	}
 
 	public int delete(){
-		int index = Integer.parseInt(content);
+		int index = parser.getIndex();
 		System.out.println("Task deleted");
 		return store.delete(index);
 		// store.saveFile();
