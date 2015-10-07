@@ -33,10 +33,11 @@ public class ParserTest extends TestCase{
 	}
 	
 	@Test
-	public void test2() {
+	public void test2() throws ParseException {
 		String test = "add task 061015 'detail 123 456 789'";
 		parse.parse(test);
-	    assertTrue(parse.getContent().equals("detail 123 456 789"));
+		System.out.println(parse.getDate());
+	    assertTrue(parse.getDate().equals("06-10-2015 10:00"));
 	}
 
 }
