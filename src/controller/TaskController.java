@@ -10,6 +10,11 @@ public class TaskController {
 	private TitledPane tp;
 	@FXML 
 	private Text details;
+	@FXML 
+	private Text date;
+	@FXML 
+	private Text time;
+	
 	private int taskId;
 	
     /**
@@ -22,15 +27,23 @@ public class TaskController {
     }
 	
 	public void setName(String name){
-		tp.setText(name);
+		this.tp.setText(name);
 	}
 	
 	public void setDetails(String d){
-		details.setText(d);
+		this.details.setText(d);
+	}
+	
+	public void setDate(String d){
+		this.date.setText(d);
+	}
+	
+	public void setTime(String time){
+		this.time.setText(time);
 	}
 	
 	public void setTaskId(int id){
-		taskId = id;
+		this.taskId = id;
 	}
 	
 	public TitledPane getContainer(){

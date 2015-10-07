@@ -30,12 +30,12 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text layoutX="103.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="273.6829261779785">
+            <Text fx:id="date" layoutX="103.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="273.6829261779785">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text layoutX="103.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="273.6829261779785">
+            <Text fx:id="time" layoutX="103.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="273.6829261779785">
                <font>
                   <Font size="18.0" />
                </font>
