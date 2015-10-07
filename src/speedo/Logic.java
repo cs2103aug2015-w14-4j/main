@@ -14,7 +14,7 @@ public class Logic {
 	private Storage store;
 	private Parser parser;
 	private COMMANDS command;
-	private String content;
+	private String details;
 	private int taskIndex;
 
 	// Constructor
@@ -27,7 +27,7 @@ public class Logic {
 	public GuiCommand executeCMD(String s) throws ParseException {
 		parser.parse(s);
 		command = parser.getCommand();
-		content = parser.getContent();
+		details = parser.getDetails();
 		GuiCommand c = null;
 		Task t = null;
 		List<Task> list = null;
@@ -70,7 +70,7 @@ public class Logic {
 		return store.getNumOfTask();
 	}
 
-	public Task add() throws ParseException {
+	public Task add() {
 		/*
 		 * Date date = null; SimpleDateFormat sdf = new SimpleDateFormat(
 		 * "dd-M-yyyy hh:mm"); String date_in_string = sdf.format(new Date());
@@ -78,7 +78,7 @@ public class Logic {
 		 * // TODO Auto-generated catch block e.printStackTrace(); }
 		 */
 		Date date = parser.getDate();
-		Task newTask = store.add(content, date);
+		Task newTask = store.add(details, date);
 		if (newTask != null) {
 			System.out.println("Task added");
 			// store.saveFile();
@@ -101,7 +101,7 @@ public class Logic {
 	}
 
 	public List<Task> search(){
-		List<Task> list = store.search(content);
+		List<Task> list = store.search(details);
 		return list;
 
 	}

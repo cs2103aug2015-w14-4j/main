@@ -22,7 +22,7 @@ public class ParserTest extends TestCase{
 	public void test() {
 		String test = "add task 061015 'detail'";
 		parse.parse(test);
-	    assertTrue(parse.getContent().equals("detail"));
+	    assertTrue(parse.getDetails().equals("detail"));
 	}
 	
 	@Test

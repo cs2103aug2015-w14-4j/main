@@ -12,7 +12,7 @@ public class Parser {
 	private ArrayList<String> inputs;
 
 	private String dateString;
-	private String content;
+	private String details;
 	private Date date;
 	private COMMANDS command;
 	private String taskName;
@@ -64,9 +64,9 @@ public class Parser {
 	private void processDetails(String text){
 		if (text.contains("'")) {
 			String[] stringPieces = text.split("'", 3);
-			content = stringPieces[1];
+			details = stringPieces[1];
 		} else {
-			content = "No detail";
+			details = "No detail";
 		}
 	}
 
@@ -124,8 +124,8 @@ public class Parser {
 		return date;
 	}
 
-	public String getContent() {
-		return content;
+	public String getDetails() {
+		return details;
 	}
 
 	public int getIndex() {
