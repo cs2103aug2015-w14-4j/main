@@ -84,4 +84,8 @@ public class Parser {
 		return content;
 	}
 	
+	public int getIndex(){
+		int index = Integer.parseInt(inputs.get(1)); 
+		return index;
+	}
 }
