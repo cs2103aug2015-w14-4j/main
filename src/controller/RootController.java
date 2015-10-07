@@ -124,7 +124,7 @@ public class RootController {
     }
             
     @FXML
-    private void handleUserCommand() throws ParseException {
+    private void handleUserCommand() {
         // Command was entered, do something...
     	String userInput = commandBox.getText();
         System.out.println(userInput);
@@ -136,35 +136,35 @@ public class RootController {
         //GuiCommand command = new GuiCommand(COMMANDS.EDIT, "Edited", logic.getTask(0));
        // GuiCommand gc = new GuiCommand(COMMANDS.ADD, "Added", new Task(userInput, new Date())); 
         GuiCommand command = logic.executeCMD(userInput);
-//        try{
-        	switch(command.getCmd()){
-        		case ADD: {
-        			addTask(command.getTask());
-        			Text feedback = new Text(command.getMsg());
-        		    feedback.setFill(Color.GREEN);
-        		    //feedbackToUser.getChildren().remove();
-        			feedbackToUser.getChildren().add(feedback);
-        			break;
-        		}
-        		case DELETE: {
-        			removeTask(command.getTask());
-        			Text feedback = new Text(command.getMsg());
-        		    feedback.setFill(Color.GREEN);
-        		    //feedbackToUser.getChildren().remove();
-        			feedbackToUser.getChildren().add(feedback);
-        			break;
-        		}
-        		case EDIT: {
-
-        			System.out.println(command.getTask());
-        			editTask(command.getTask());
-        			// TODO set the feedback
-        			break;
-        		}
-    		}
-//        } catch (Exception e){
-//        	System.out.println(e.getStackTrace());
-//        }
+        switch(command.getCmd()){
+	        case ADD: {
+	        	addTask(command.getTask());
+	        	Text feedback = new Text(command.getMsg());
+	        	feedback.setFill(Color.GREEN);
+	        	if(!feedbackToUser.getChildren().isEmpty()){
+	                 feedbackToUser.getChildren().remove(0);
+	            }
+	        	feedbackToUser.getChildren().add(feedback);
+	        	break;
+	        }
+	        case DELETE: {
+	        	removeTask(command.getTask());
+	        	Text feedback = new Text(command.getMsg());
+	        	feedback.setFill(Color.GREEN);
+	        	if(!feedbackToUser.getChildren().isEmpty()){
+	                 feedbackToUser.getChildren().remove(0);
+	            }
+	        	feedbackToUser.getChildren().add(feedback);
+	        	break;
+	        }
+	        case EDIT: {
+	
+	        	System.out.println(command.getTask());
+	        	editTask(command.getTask());
+	        	// TODO set the feedback
+	        	break;
+	        }
+        }
         commandBox.clear();
     }
         
