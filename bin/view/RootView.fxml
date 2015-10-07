@@ -66,7 +66,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <TextFlow prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
+            <TextFlow fx:id="feedbackToUser" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
          </children>
       </VBox>
    </left>
