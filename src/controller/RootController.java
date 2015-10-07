@@ -12,6 +12,9 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import processor.COMMANDS;
 import processor.DayProcessor;
 import processor.ErrorProcessor;
@@ -31,6 +34,8 @@ public class RootController {
 	private Accordion containerOfTasks;
 	@FXML
 	private TextField commandBox;
+	@FXML
+	private TextFlow feedbackToUser;
 	
 	// Reference to the main application.
     private MainApp mainApp;
@@ -84,6 +89,7 @@ public class RootController {
     }
     
     private void addTask(Task t){
+    	System.out.println(t);
     	containerOfTasks.getPanes().add(createTitledPane(t));
     }
     
@@ -128,12 +134,18 @@ public class RootController {
         	switch(command.getCmd()){
         		case ADD: {
         			addTask(command.getTask());
-        			// TODO set the feedback
+        			Text feedback = new Text(command.getMsg());
+        		    feedback.setFill(Color.GREEN);
+        		    //feedbackToUser.getChildren().remove();
+        			feedbackToUser.getChildren().add(feedback);
         			break;
         		}
         		case DELETE: {
         			removeTask(command.getTaskId());
-        			// TODO set the feedback
+        			Text feedback = new Text(command.getMsg());
+        		    feedback.setFill(Color.GREEN);
+        		    //feedbackToUser.getChildren().remove();
+        			feedbackToUser.getChildren().add(feedback);
         			break;
         		}
         		case EDIT: {
