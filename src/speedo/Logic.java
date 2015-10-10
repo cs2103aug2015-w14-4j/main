@@ -65,11 +65,11 @@ public class Logic {
 		return c;
 	}
 
-	private Task getTask(int index) {
+	public Task getTask(int index) {
 		return store.getTask(index);
 	}
 
-	private int getNumOfTask() {
+	public int getNumOfTask() {
 		return store.getNumOfTask();
 	}
 
