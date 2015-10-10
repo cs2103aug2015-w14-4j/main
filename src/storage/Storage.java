@@ -81,8 +81,11 @@ public class Storage {
 	
 	private boolean isNotDuplicate(Task newTask){
 		for(int x=0; x<taskList.size(); x++){
-			if(taskList.get(x).getTaskId() == newTask.getTaskId()){
+			if(taskList.get(x).getHashCode() == newTask.getHashCode()){
 				return false;
+			} else if(taskList.get(x).getTaskId() == newTask.getTaskId()){
+				newTask.resetTaskId();
+				return true;
 			}
 		}
 		return true;

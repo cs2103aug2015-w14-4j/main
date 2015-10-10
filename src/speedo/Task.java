@@ -41,7 +41,6 @@ public class Task {
 	}
 
 	public int getTaskId() {
-		this.setTaskId();
 		return taskId;
 	}
 
@@ -49,7 +48,11 @@ public class Task {
 		taskId = getHashCode();
 	}
 	
-	private int getHashCode() {
+	public void resetTaskId() {
+		taskId +=1;
+	}
+	
+	public int getHashCode() {
 		String uniqueElements = this.getName() + this.getDetails() + this.getStartDateString()
 		+ this.getEndDateString();
 		return uniqueElements.hashCode();

@@ -90,7 +90,7 @@ public class FileHandler {
 	}
 	
 	private static Gson GoogleJsonBuilder() {
-		return new GsonBuilder().create();
+		return new GsonBuilder().setPrettyPrinting().create();
 	}
 
 }
