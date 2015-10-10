@@ -65,15 +65,15 @@ public class Logic {
 		return c;
 	}
 
-	public Task getTask(int index) {
+	private Task getTask(int index) {
 		return store.getTask(index);
 	}
 
-	public int getNumOfTask() {
+	private int getNumOfTask() {
 		return store.getNumOfTask();
 	}
 
-	public Task add() {
+	private Task add() {
 		/*
 		 * Date date = null; SimpleDateFormat sdf = new SimpleDateFormat(
 		 * "dd-M-yyyy hh:mm"); String date_in_string = sdf.format(new Date());
@@ -92,25 +92,25 @@ public class Logic {
 		}
 	}
 
-	public Task edit(int index, String text){
+	private Task edit(int index, String text){
 		return store.edit(index, text);
 		// store.saveFile();
 	}
 
-	public Task delete(){
+	private Task delete(){
 		int index = parser.getIndex();
 		System.out.println("Task deleted");
 		return store.delete(index);
 		// store.saveFile();
 	}
 
-	public List<Task> search(){
+	private List<Task> search(){
 		List<Task> list = store.search(details);
 		return list;
 
 	}
 
-	public Task acknowledge(int taskIndex){
+	private Task acknowledge(int taskIndex){
 		return store.acknowledge(taskIndex);
 		// store.saveFile();
 	}
