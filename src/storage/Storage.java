@@ -3,13 +3,14 @@ package storage;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.logging.Logger;
 import speedo.Task;
 import speedo.TaskComparator;
 
 public class Storage {
 	private static List<Task> taskList;
 	private static TaskComparator taskComparator;
+	private static final Logger logger = Logger.getLogger(Storage.class.getName());
 
 	public Storage() {
 		taskList = new ArrayList<Task>();
@@ -48,11 +49,14 @@ public class Storage {
 	}
 
 	public Task add(String name, Date date) {
-		// TODO
+		// TODO		
 		Task newTask = new Task(name, date);
 		
 		if (isNotDuplicate(newTask)) {
 			taskList.add(newTask);
+			logger.info("Added: "+name);
+		} else {
+			logger.info("Duplicate, Not Added: "+name);
 		}
 		taskList.sort(taskComparator);
 		if(taskList.contains(newTask)){
@@ -64,6 +68,7 @@ public class Storage {
 
 	public Task delete(int index) {
 		// TODO
+		assert index < taskList.size();
 		return taskList.remove(index);
 	}
 
