@@ -16,8 +16,10 @@ import processor.ErrorProcessor;
 import speedo.Task;
 
 public class FileHandler {
+	private static final String NULL_ERROR = "Expected non-null Object, Received null Object";
 	private static final String FILENAME = "task.json";
-
+	private static final String EMPTY = "";
+	
 	public static List<Task> readTasks() {;
 		List<Task> taskList = readJsonToList();
 		return taskList;
@@ -56,6 +58,7 @@ public class FileHandler {
 	}
 
 	private static boolean hasNext(JsonStreamParser jsonReader) {
+		assert jsonReader != null:NULL_ERROR;
 		try {
 			return jsonReader.hasNext();
 		} catch (com.google.gson.JsonIOException e) {
@@ -66,16 +69,19 @@ public class FileHandler {
 	}
 
 	private static String listToJsonString(List<Task> taskList) {
+		assert taskList != null:NULL_ERROR;
 		Gson googleJsonBuilder = GoogleJsonBuilder();
-		String jsonString = "";
+		String jsonString = EMPTY;
 		for (int x = 0; x < taskList.size(); x++) {
 			Task task = taskList.get(x);
 			jsonString += googleJsonBuilder.toJson(task);
-		}
+		}		
 		return jsonString;
 	}
 
 	private static boolean writeToFile(String fileName, String content) {
+		assert fileName != null:NULL_ERROR;
+		assert content != null:NULL_ERROR;
 		try {
 			FileWriter writer;
 			writer = new FileWriter(fileName);
