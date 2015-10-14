@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import processor.COMMANDS;
+import java.util.logging.Logger;
 
 import processor.COMMANDS;
 import storage.Storage;
@@ -17,6 +18,7 @@ public class Logic {
 	private String details;
 	private String taskName;
 	private int taskIndex;
+	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 
 	// Constructor
 	public Logic() {
@@ -39,10 +41,12 @@ public class Logic {
 			details = parser.getDetails();
 			t = add();
 			c = new GuiCommand(COMMANDS.ADD, "Added " + t.getName(), t);
+			logger.info("Logic added " + t.getName());
 			break;
 		case DELETE:
 			t = delete();
 			c = new GuiCommand(COMMANDS.DELETE, "Deleted the task", t);
+			logger.info("Logic deleted " + t.getName());
 			break;
 		case EDIT:
 			taskIndex = parser.getIndex();
