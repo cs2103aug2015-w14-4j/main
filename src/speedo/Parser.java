@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import processor.COMMANDS;
 
@@ -31,6 +32,8 @@ public class Parser {
 	private static final String DATE_FORMAT_2 = "dd M yyyy hh:mm";
 	private static final String DATE_FORMAT_3 = "dd-MMMM-yyyy hh:mm";
 	private static final String DATE_FORMAT_4 = "ddmmyy hhmm";
+	
+	private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
 	public Parser() {
 		inputs = new ArrayList<String>();
@@ -60,7 +63,7 @@ public class Parser {
 		if(getCommand() == COMMANDS.INVALID){
 			valid = false;
 		}
-		
+		logger.info("Parsed: "+str);
 		return valid;
 	}
 	
@@ -87,6 +90,7 @@ public class Parser {
 		} else {
 			command = COMMANDS.INVALID;
 		}
+		logger.info("Command: "+stringCmd);
 	}
 
 	private boolean processDate(String dateString) {
@@ -112,6 +116,7 @@ public class Parser {
 			success = true;
 		} catch (ParseException e) {
 		}
+		logger.info("Date: "+dateString);
 		return success;
 	}
 
