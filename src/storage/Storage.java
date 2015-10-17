@@ -18,12 +18,9 @@ public class Storage {
 		this.readFile();
 	}
 	
-	public Task getTask(int index){
-		return taskList.get(index);
-	}
-	
-	public int getNumOfTask(){
-		return taskList.size();
+	public List<Task> getTaskList() {
+		// TODO Auto-generated method stub
+		return taskList;
 	}
 
 	public boolean readFile() {
