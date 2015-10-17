@@ -8,33 +8,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RootController">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Import Task" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Settings">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-                  <MenuItem mnemonicParsing="false" text="User Manual" />
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="speedo.MainApp">
    <left>
       <VBox prefHeight="332.0" prefWidth="256.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="userName" alignment="CENTER" minWidth="256.0" text="Hi Joe" textAlignment="CENTER">
+            <Label fx:id="userName" alignment="CENTER" minWidth="256.0" text="Hi Jim" textAlignment="CENTER">
                <font>
                   <Font size="38.0" />
                </font>
@@ -70,14 +48,7 @@
          </children>
       </VBox>
    </left>
-   <bottom>
-      <TextField fx:id="commandBox" onAction="#handleUserCommand" promptText="Enter your command" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </TextField>
-   </bottom>
    <right>
-      <Accordion fx:id="containerOfTasks" prefHeight="332.0" prefWidth="539.0" BorderPane.alignment="CENTER" />
+      <!--<Accordion fx:id="containerOfTasks" prefHeight="332.0" prefWidth="539.0" BorderPane.alignment="CENTER" />-->
    </right>
 </BorderPane>
