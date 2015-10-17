@@ -68,13 +68,10 @@ public class Logic {
 		}
 		return c;
 	}
-
-	public Task getTask(int index) {
-		return store.getTask(index);
-	}
-
-	public int getNumOfTask() {
-		return store.getNumOfTask();
+	
+	public List<Task> getTaskList() {
+		// TODO Auto-generated method stub
+		return store.getTaskList();
 	}
 
 	private Task add() {
