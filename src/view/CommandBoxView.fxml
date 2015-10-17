@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="81.0" prefWidth="840.0" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fx:id="feedback" strokeType="OUTSIDE" strokeWidth="0.0" text="This is some text" wrappingWidth="598.6829261779785">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="commandBox" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleUserInput" prefHeight="51.0" prefWidth="800.0" promptText="Enter your command">
+         <effect>
+            <SepiaTone>
+               <input>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </input>
+            </SepiaTone>
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+   </children>
+   <padding>
+      <Insets left="10.0" right="10.0" />
+   </padding>
+</fx:root>
