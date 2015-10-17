@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TitledPane fx:id="tp" text="Task Name" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskController">
+<fx:root type="TitledPane" text="Task Name" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="220.0" prefWidth="205.0">
          <children>
@@ -45,4 +45,4 @@
    <font>
       <Font size="27.0" />
    </font>
-</TitledPane>
+</fx:root>

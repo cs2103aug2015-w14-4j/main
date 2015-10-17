@@ -1,13 +1,18 @@
 package controller;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TitledPane;
 import javafx.scene.text.Text;
+import processor.ErrorProcessor;
+import speedo.Task;
 
-public class TaskController {
+public class TaskController extends TitledPane{
 	
-	@FXML
-	private TitledPane tp;
+	private static final String FXML_PATH = "/view/TaskView.fxml";
+	
 	@FXML 
 	private Text details;
 	@FXML 
@@ -17,17 +22,26 @@ public class TaskController {
 	
 	private int taskId;
 	
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
-    @FXML
-    private void initialize() {
-        // Initialize the Tasks List
-    }
+	public TaskController(Task t){
+    	FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(FXML_PATH));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+        	loader.load();
+	        setName(t.getName());
+	        setDate(t.getDate());
+	        setTime(t.getTime());
+	        setDetails(t.getDetails());
+	        setTaskId(t.getTaskId());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			ErrorProcessor.alert(e.toString());
+		}
+	}
 	
 	public void setName(String name){
-		this.tp.setText(name);
+		this.setText(name);
 	}
 	
 	public void setDetails(String d){
@@ -46,8 +60,8 @@ public class TaskController {
 		this.taskId = id;
 	}
 	
-	public TitledPane getContainer(){
-		return tp;
+	public int getTaskId(){
+		return taskId;
 	}
 	
 }
