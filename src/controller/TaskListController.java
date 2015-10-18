@@ -6,13 +6,17 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -24,15 +28,37 @@ import speedo.Task;
 import speedo.GuiCommand;
 import speedo.Logic;
 
-public class TaskListController extends Accordion{
+public class TaskListController extends ScrollPane{
+	
+	private static final String FXML_PATH = "/view/TaskListView.fxml";
+	
+	@FXML 
+	private VBox containerOfTask;
 		
     // Maps the Task to its corresponding TaskController
     private Hashtable<Integer, TaskController> taskLookupTable;
 
     public TaskListController() {
     	taskLookupTable = new Hashtable<Integer, TaskController>();
-    	this.setPrefHeight(332.0);
-    	this.setPrefWidth(539.0);
+    	FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(FXML_PATH));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+        	loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			ErrorProcessor.alert(e.toString());
+		}
+        this.setBackground(null);
+        this.addEventFilter(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>() {
+            @Override
+            public void handle(ScrollEvent event) {
+                if (event.getDeltaX() != 0) {
+                    event.consume();
+                }
+            }
+        });
     }
         
     private TaskController createTask(Task t){
@@ -42,13 +68,13 @@ public class TaskListController extends Accordion{
     }
         
     public void addTask(Task t){
-    	this.getPanes().add(createTask(t));
+    	containerOfTask.getChildren().add(createTask(t));
     }
     
     public void removeTask(Task t){
     	TaskController tc = taskLookupTable.get(t.getTaskId());
     	System.out.println(tc.getText() + " was deleted by removeTask");
-    	this.getPanes().remove(tc);
+    	containerOfTask.getChildren().remove(tc);
     	taskLookupTable.remove(t.getTaskId());
     }
     
