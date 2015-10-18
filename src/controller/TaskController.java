@@ -38,6 +38,7 @@ public class TaskController extends TitledPane{
 			// TODO Auto-generated catch block
 			ErrorProcessor.alert(e.toString());
 		}
+        this.setExpanded(false);
 	}
 	
 	public void setName(String name){
