@@ -393,8 +393,13 @@ public class Task {
 	 *            the string to search for
 	 */
 	public boolean contains(String searchTerm) {
-		if (name.contains(searchTerm) || details.contains(searchTerm)) {
+		System.out.println(searchTerm);
+		if (this.getName().contains(searchTerm)) {
 			return true;
+		} else if(this.getDetails() != null){
+			if (this.getDetails().contains(searchTerm)) {
+				return true;
+			} 
 		}
 		return false;
 	}

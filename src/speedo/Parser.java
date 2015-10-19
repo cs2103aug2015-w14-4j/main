@@ -27,12 +27,13 @@ public class Parser {
 	private static final String EDIT = "edit change";
 	private static final String ACK = "ack acknowledge";
 	private static final String SEARCH = "search find";
-	
+	private static final String HOME = "home";
+
 	private static final String DATE_FORMAT_1 = "dd-M-yyyy hh:mm";
 	private static final String DATE_FORMAT_2 = "dd M yyyy hh:mm";
 	private static final String DATE_FORMAT_3 = "dd-MMMM-yyyy hh:mm";
 	private static final String DATE_FORMAT_4 = "ddmmyy hhmm";
-	
+
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
 	public Parser() {
@@ -48,26 +49,27 @@ public class Parser {
 		Boolean valid = true;
 		processDetails(str);
 		String input = str.replace(details, "");
-		//input = sort(input);
+		// input = sort(input);
 		String[] parts = input.split(" ", 4);
 		processCommand(parts[0]);
-		taskName = parts[1];
+		if (parts.length > 1) { //barny: check if processing single word commands
+			taskName = parts[1]; 
+		}
 
-		
-		if (parts.length > 3 ) {
-			valid = processDate(parts[2]+" "+parts[3]);
+		if (parts.length > 3) {
+			valid = processDate(parts[2] + " " + parts[3]);
 		} else {
 			// No Date
 		}
-		
-		if(getCommand() == COMMANDS.INVALID){
+
+		if (getCommand() == COMMANDS.INVALID) {
 			valid = false;
 		}
-		logger.info("Parsed: "+str);
+		logger.info("Parsed: " + str);
 		return valid;
 	}
-	
-	private void processDetails(String text){
+
+	private void processDetails(String text) {
 		if (text.contains("'")) {
 			String[] stringPieces = text.split("'", 3);
 			details = stringPieces[1];
@@ -87,10 +89,12 @@ public class Parser {
 			command = COMMANDS.ACK;
 		} else if (SEARCH.contains(stringCmd)) {
 			command = COMMANDS.SEARCH;
+		} else if (HOME.contains(stringCmd)) {
+			command = COMMANDS.HOME;
 		} else {
 			command = COMMANDS.INVALID;
 		}
-		logger.info("Command: "+stringCmd);
+		logger.info("Command: " + command);
 	}
 
 	private boolean processDate(String dateString) {
@@ -116,7 +120,7 @@ public class Parser {
 			success = true;
 		} catch (ParseException e) {
 		}
-		logger.info("Date: "+dateString);
+		logger.info("Date: " + dateString);
 		return success;
 	}
 
@@ -140,49 +144,50 @@ public class Parser {
 		int index = Integer.parseInt(taskName);
 		return index;
 	}
-	
-	public String sort(String input){
-		String[] stringArray = input.split(" "); 
+
+	public String sort(String input) {
+		String[] stringArray = input.split(" ");
 		String StringTemp = "";
 		ArrayList<Integer> check = new ArrayList<Integer>();
-		for(int i=0;i<4;i++){
-			if(ADD.contains(stringArray[i])||DELETE.contains(stringArray[i])||EDIT.contains(stringArray[i])
-					||ACK.contains(stringArray[i])||SEARCH.contains(stringArray[i])){
+		for (int i = 0; i < 4; i++) {
+			if (ADD.contains(stringArray[i]) || DELETE.contains(stringArray[i]) || EDIT.contains(stringArray[i])
+					|| ACK.contains(stringArray[i]) || SEARCH.contains(stringArray[i])) {
 				StringTemp = StringTemp + stringArray[i];
 				check.add(i);
-				//System.out.println(StringTemp+" test1");
+				// System.out.println(StringTemp+" test1");
 				break;
 			}
 		}
-		for(int j=0;j<4;j++){
-			if(Character.isLetter(stringArray[j].charAt(0))&&!check.contains(j)){
-				StringTemp = StringTemp +" "+ stringArray[j];
+		for (int j = 0; j < 4; j++) {
+			if (Character.isLetter(stringArray[j].charAt(0)) && !check.contains(j)) {
+				StringTemp = StringTemp + " " + stringArray[j];
 				check.add(j);
-				//System.out.println(StringTemp+" test2");
+				// System.out.println(StringTemp+" test2");
 				break;
 			}
 		}
-		for(int k=0;k<4;k++){
-			if(stringArray[k].length()==6&&!check.contains(k)&&Character.isDigit(stringArray[k].charAt(0))){
-				StringTemp = StringTemp +" "+ stringArray[k];
+		for (int k = 0; k < 4; k++) {
+			if (stringArray[k].length() == 6 && !check.contains(k) && Character.isDigit(stringArray[k].charAt(0))) {
+				StringTemp = StringTemp + " " + stringArray[k];
 				check.add(k);
-				//System.out.println(StringTemp+" test3");
+				// System.out.println(StringTemp+" test3");
 				break;
 			}
 		}
-		for(int l=0;l<4;l++){
-			if(stringArray[l].length()==4&&!check.contains(l)&&Character.isDigit(stringArray[l].charAt(0))){
-				StringTemp = StringTemp +" "+ stringArray[l];
+		for (int l = 0; l < 4; l++) {
+			if (stringArray[l].length() == 4 && !check.contains(l) && Character.isDigit(stringArray[l].charAt(0))) {
+				StringTemp = StringTemp + " " + stringArray[l];
 				check.add(l);
-				/*System.out.println(StringTemp+" test4");
-				for(int t=0;t<stringArray.length;t++){
-					System.out.println(stringArray[t]+" sa");
-				}*/
+				/*
+				 * System.out.println(StringTemp+" test4"); for(int
+				 * t=0;t<stringArray.length;t++){
+				 * System.out.println(stringArray[t]+" sa"); }
+				 */
 				break;
 			}
 		}
-		//System.out.println(StringTemp+" testlast");
-		//System.out.println(input+" input");
+		// System.out.println(StringTemp+" testlast");
+		// System.out.println(input+" input");
 		return StringTemp;
 	}
 }

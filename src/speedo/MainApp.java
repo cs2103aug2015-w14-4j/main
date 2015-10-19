@@ -70,22 +70,33 @@ public class MainApp extends Application {
         GuiCommand command = logic.executeCMD(userInput);
         TaskListController tlc = (TaskListController) rootLayout.getRight(); 
         CommandBoxController cbc = (CommandBoxController) rootLayout.getBottom(); 
-        
+        System.out.println(command.getCmd());
         switch(command.getCmd()){
 	        case ADD: {
 	        	tlc.addTask(command.getTask());
 	        	cbc.setFeedback(command.getMsg());
+	        	tlc.loadTaskList(logic.getTaskList()); // barny: Testing redrawing to show sorted order
 	        	break;
 	        }
 	        case DELETE: {
 	        	tlc.removeTask(command.getTask());
 	        	cbc.setFeedback(command.getMsg());
+	        	tlc.loadTaskList(logic.getTaskList()); // barny: Testing redrawing to show sorted order
 	        	break;
 	        }
 	        case EDIT: {
 	        	tlc.editTask(command.getTask());
 	        	cbc.setFeedback(command.getMsg());
+	        	tlc.loadTaskList(logic.getTaskList()); // barny: Testing redrawing to show sorted order
 	        	break;
+	        }
+	        case SEARCH: { // barny: Search will reload with a list of searched items
+	        	tlc.loadTaskList(command.getListOfTasks());
+	        	break;
+	        }
+	        case HOME: { // barny: Home will revert to original list of tasks
+	        	tlc.loadTaskList(command.getListOfTasks());
+	        	break;	        	
 	        }
 	        default:
 	        	cbc.setFeedback("Invalid command");

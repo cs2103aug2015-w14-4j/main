@@ -1,13 +1,10 @@
 package speedo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import processor.COMMANDS;
 import java.util.logging.Logger;
 
-import processor.COMMANDS;
 import storage.Storage;
 import storage.Task;
 
@@ -18,6 +15,7 @@ public class Logic {
 	private COMMANDS command;
 	private String details;
 	private String taskName;
+	private Date date;
 	private int taskIndex;
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 
@@ -35,37 +33,50 @@ public class Logic {
 		Task t = null;
 		List<Task> list = null;
 
+		
 		switch (command) {
 
 		case ADD:
-			taskName = parser.getTaskName();
 			details = parser.getDetails();
+			taskName = parser.getTaskName();
+			date = parser.getDate();
 			t = add();
 			c = new GuiCommand(COMMANDS.ADD, "Added " + t.getName(), t);
 			logger.info("Logic added " + t.getName());
 			break;
 		case DELETE:
+			taskIndex = parser.getIndex();
 			t = delete();
 			c = new GuiCommand(COMMANDS.DELETE, "Deleted the task", t);
 			logger.info("Logic deleted " + t.getName());
 			break;
 		case EDIT:
-			taskIndex = parser.getIndex();
 			details = parser.getDetails();
-			t = edit(taskIndex, details);
+			taskIndex = parser.getIndex();
+			t = edit();
 			c = new GuiCommand(COMMANDS.EDIT, "Edited", t, taskIndex);
 			break;
 		case SEARCH:
+			details = parser.getDetails();
 			list = search();
 			c = new GuiCommand(COMMANDS.SEARCH, "Searched tasks", list);
 			break;
 		case ACK:
 			taskIndex = parser.getIndex();
-			t = acknowledge(taskIndex);
+			t = acknowledge();
 			c = new GuiCommand(COMMANDS.ACK, "Acknowledged", t);
+			break;
+		case HOME:
+			list = store.getTaskList();
+			c = new GuiCommand(COMMANDS.HOME, "Showing Original task list", list);
+			logger.info("Logic setting home view");
+			break;
 		case INVALID:
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
 			break;
+		default:
+			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
+			break;			
 		}
 		return c;
 	}
@@ -82,7 +93,6 @@ public class Logic {
 		 * try { date = sdf.parse(date_in_string); } catch (ParseException e) {
 		 * // TODO Auto-generated catch block e.printStackTrace(); }
 		 */
-		Date date = parser.getDate();
 		Task newTask = store.add(taskName, date);
 		System.out.println(newTask);
 		if (newTask != null) {
@@ -94,15 +104,14 @@ public class Logic {
 		}
 	}
 
-	private Task edit(int index, String text){
-		return store.edit(index, text);
+	private Task edit(){
+		return store.edit(taskIndex, details);
 		// store.saveFile();
 	}
 
 	private Task delete(){
-		int index = parser.getIndex();
 		System.out.println("Task deleted");
-		return store.delete(index);
+		return store.delete(taskIndex);
 		// store.saveFile();
 	}
 
@@ -112,7 +121,7 @@ public class Logic {
 
 	}
 
-	private Task acknowledge(int taskIndex){
+	private Task acknowledge(){
 		return store.acknowledge(taskIndex);
 		// store.saveFile();
 	}
