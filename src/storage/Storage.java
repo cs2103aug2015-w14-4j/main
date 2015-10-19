@@ -77,7 +77,7 @@ public class Storage {
 
 	public Task acknowledge(int index) {
 		// TODO
-		taskList.get(index).setAcknowledged(true);
+		taskList.get(index).setCompleted(true);
 		return taskList.get(index);
 	}
 	

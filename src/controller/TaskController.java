@@ -30,8 +30,8 @@ public class TaskController extends TitledPane{
         try {
         	loader.load();
 	        setName(t.getName());
-	        setDate(t.getDate());
-	        setTime(t.getTime());
+	        setDate(t.getStartDateString());
+	        setTime(t.getStartTimeString());
 	        setDetails(t.getDetails());
 	        setTaskId(t.getTaskId());
 		} catch (IOException e) {

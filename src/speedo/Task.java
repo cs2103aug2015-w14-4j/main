@@ -1,3 +1,4 @@
+//@@author A0125369Y
 package speedo;
 
 import java.text.SimpleDateFormat;
@@ -11,9 +12,10 @@ public class Task {
 	private String details;
 	private Date startDate;
 	private Date endDate;
-	private boolean isAcknowledged;
-	
+	private boolean isCompleted;
+
 	private static final String EMPTY = "Empty";
+	private static final String TASK_STRING = "Task [name= %1$s, details= %2$s, startDate= %3$s, endDate= %4$s, completed= %5$s]";
 
 	public Task() {
 		this(null, null, null, null);
@@ -36,7 +38,7 @@ public class Task {
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
 		this.setDetails(details);
-		this.setAcknowledged(false);
+		this.setCompleted(false);
 		this.setTaskId();
 	}
 
@@ -47,14 +49,14 @@ public class Task {
 	private void setTaskId() {
 		taskId = getHashCode();
 	}
-	
+
 	public void resetTaskId() {
-		taskId +=1;
+		taskId += 1;
 	}
-	
+
 	public int getHashCode() {
-		String uniqueElements = this.getName() + this.getDetails() + this.getStartDateString()
-		+ this.getEndDateString();
+		String uniqueElements = this.getName() + this.getDetails() + this.getFullStartDateString()
+				+ this.getFullEndDateString();
 		return uniqueElements.hashCode();
 	}
 
@@ -74,11 +76,24 @@ public class Task {
 		this.details = details;
 	}
 
+	// START DATE
+
 	public Date getStartDate() {
 		return startDate;
 	}
 
-	public String getStartDateString() {
+	/**
+	 * Method to retrieve a the start date in string form.
+	 * <p>
+	 * This method makes use of the toString() method of the Date Object to
+	 * return a string representation of the start date. The method does a check
+	 * to ensure that the start date is not null, in the even the start date is
+	 * null, the string "Empty" is returned instead
+	 * 
+	 * @return The string value of the start date. If no start date exists,
+	 *         returns "Empty"
+	 */
+	public String getFullStartDateString() {
 		if (this.getStartDate() != null) {
 			return this.getStartDate().toString();
 		} else {
@@ -90,50 +105,92 @@ public class Task {
 		this.startDate = date;
 	}
 
-	public Date getEndDate() {
-		return endDate;
-	}
-	
-	public String getDate(){
+	public String getStartDateString() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
 		return dateFormat.format(startDate);
 	}
-	
-	public String getTime(){
+
+	/**
+	 * Method to get the starting time of a Task Object.
+	 * <p>
+	 * This method returns the starting time in the format <i>"hh:mm"</i>. Where
+	 * hh denotes hour & mm denotes minutes. 
+	 * 
+	 * @return the start time as a String
+	 */
+	public String getStartTimeString() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
 		return dateFormat.format(startDate);
 	}
-	
-	public String getEndDateString() {
+
+	// END DATE
+
+	/**
+	 * Method to get the ending date of a Task Object.
+	 * 
+	 * @return the ending date as a Date Object
+	 */
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	/**
+	 * Method to retrieve a the ending date in string form.
+	 * <p>
+	 * This method makes use of the toString() method of the Date Object to
+	 * return a string representation of the ending date. The method does a check
+	 * to ensure that the ending date is not null, in the even the end date is
+	 * null, the string "Empty" is returned instead
+	 * 
+	 * @return the string value of the ending date, "Empty" if no ending date exists
+	 */
+	public String getFullEndDateString() {
 		if (this.getEndDate() != null) {
 			return this.getEndDate().toString();
 		} else {
 			return EMPTY;
 		}
 	}
-	
+
+	/**
+	 * Method to set the ending date of a Task Object.
+	 * 
+	 * @param endDate
+	 *            ending date of a Task
+	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
-	public boolean isAcknowledged() {
-		return isAcknowledged;
+	// IS COMPLETED
+
+	/**
+	 * Method to check the isCompleted flag of a Task Object.
+	 * 
+	 * @return truth value of the isCompleted flag
+	 */
+	public boolean isCompleted() {
+		return isCompleted;
 	}
 
-	public void setAcknowledged(boolean isAcknowledged) {
-		this.isAcknowledged = isAcknowledged;
+	/**
+	 * Method to set the completed flag of a Task Object.
+	 * 
+	 * @param isCompleted
+	 *            true to indicate completed, false to indicate not completed.
+	 */
+	public void setCompleted(boolean isCompleted) {
+		this.isCompleted = isCompleted;
 	}
 
-	@Override
-	public String toString() {
-		return "Task [name=" + name + ", details=" + details + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", acknowledged=" + isAcknowledged + "]";
-	}
+	// CONTAINS, SEARCHING
 
 	/**
 	 * Method to check if the Task Object contains a search term.
 	 * 
-	 * @return True if the search term exists
+	 * @return true if the search term exists
+	 * @param searchTerm
+	 *            the string to search for
 	 */
 	public boolean contains(String searchTerm) {
 		if (name.contains(searchTerm) || details.contains(searchTerm)) {
@@ -142,4 +199,10 @@ public class Task {
 		return false;
 	}
 
+	// TO STRING
+
+	@Override
+	public String toString() {
+		return String.format(TASK_STRING, name, details, startDate, endDate, isCompleted);
+	}
 }
