@@ -28,6 +28,7 @@ public class Parser {
 	private static final String ACK = "ack acknowledge";
 	private static final String SEARCH = "search find";
 	private static final String HOME = "home";
+	private static final String UNDO = "undo";
 
 	private static final String DATE_FORMAT_1 = "dd-M-yyyy hh:mm";
 	private static final String DATE_FORMAT_2 = "dd M yyyy hh:mm";
@@ -52,8 +53,9 @@ public class Parser {
 		// input = sort(input);
 		String[] parts = input.split(" ", 4);
 		processCommand(parts[0]);
-		if (parts.length > 1) { //barny: check if processing single word commands
-			taskName = parts[1]; 
+		if (parts.length > 1) { // barny: check if processing single word
+								// commands
+			taskName = parts[1];
 		}
 
 		if (parts.length > 3) {
@@ -91,6 +93,8 @@ public class Parser {
 			command = COMMANDS.SEARCH;
 		} else if (HOME.contains(stringCmd)) {
 			command = COMMANDS.HOME;
+		} else if (UNDO.contains(stringCmd)) {
+			command = COMMANDS.UNDO;
 		} else {
 			command = COMMANDS.INVALID;
 		}

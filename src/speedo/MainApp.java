@@ -91,10 +91,17 @@ public class MainApp extends Application {
 	        	break;
 	        }
 	        case SEARCH: { // barny: Search will reload with a list of searched items
+	        	cbc.setFeedback(command.getMsg());
 	        	tlc.loadTaskList(command.getListOfTasks());
 	        	break;
 	        }
 	        case HOME: { // barny: Home will revert to original list of tasks
+	        	cbc.setFeedback(command.getMsg());
+	        	tlc.loadTaskList(command.getListOfTasks());
+	        	break;	        	
+	        }
+	        case UNDO: { // barny: Undo will revert one change
+	        	cbc.setFeedback(command.getMsg());
 	        	tlc.loadTaskList(command.getListOfTasks());
 	        	break;	        	
 	        }

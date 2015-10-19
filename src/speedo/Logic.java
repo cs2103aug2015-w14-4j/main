@@ -67,9 +67,13 @@ public class Logic {
 			c = new GuiCommand(COMMANDS.ACK, "Acknowledged", t);
 			break;
 		case HOME:
-			list = store.getTaskList();
-			c = new GuiCommand(COMMANDS.HOME, "Showing Original task list", list);
+			c = new GuiCommand(COMMANDS.HOME, "Showing Original task list", this.getTaskList());
 			logger.info("Logic setting home view");
+			break;
+		case UNDO:
+			String message = undo();
+			c = new GuiCommand(COMMANDS.UNDO, message, this.getTaskList());
+			logger.info("Logic undo last command");
 			break;
 		case INVALID:
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
@@ -81,6 +85,15 @@ public class Logic {
 		return c;
 	}
 	
+	private String undo() {
+		boolean isValid = store.undo();
+		if(isValid){
+			return "Undo Sucessful";
+		} else{
+			return "Nothing to undo";
+		}
+	}
+
 	public List<Task> getTaskList() {
 		// TODO Auto-generated method stub
 		return store.getTaskList();
@@ -122,7 +135,7 @@ public class Logic {
 	}
 
 	private Task acknowledge(){
-		return store.acknowledge(taskIndex);
+		return store.complete(taskIndex);
 		// store.saveFile();
 	}
 
