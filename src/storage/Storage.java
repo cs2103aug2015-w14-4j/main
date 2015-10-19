@@ -18,6 +18,7 @@ public class Storage {
 	
 	public List<Task> getTaskList() {
 		// TODO Auto-generated method stub
+		taskList.sort(taskComparator);
 		return taskList;
 	}
 

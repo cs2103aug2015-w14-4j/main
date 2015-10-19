@@ -31,6 +31,8 @@ public class Task {
 
 	// Strings
 	private static final String EMPTY = "Empty";
+	private static final String DATE_FORMAT = "dd MMMM yyyy";
+	private static final String TIME_FORMAT = "hh:mm";
 	private static final String TASK_STRING = "Task [name= %1$s, details= %2$s, startDate= %3$s, endDate= %4$s, completed= %5$s]";
 
 	// *************************************** CONSTRUCTOR
@@ -243,11 +245,16 @@ public class Task {
 	 * . Where <i>dd</i> denotes day of the month, <i>MMMM</i> denotes month of
 	 * the year & <i>yyyy</i> denotes year.
 	 * 
-	 * @return the starting date as a String
+	 * @return the starting date as a String, if no starting date, returns
+	 *         "Empty"
 	 */
 	public String getStartDateString() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-		return dateFormat.format(startDate);
+		if (this.getStartDate() != null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+			return dateFormat.format(this.getStartDate());
+		} else {
+			return EMPTY;
+		}
 	}
 
 	/**
@@ -256,11 +263,16 @@ public class Task {
 	 * This method returns the starting time in the format <i>"hh:mm"</i>. Where
 	 * <i>hh</i> denotes hour & <i>mm</i> denotes minutes.
 	 * 
-	 * @return the starting time as a String
+	 * @return the starting time as a String, if no starting date, returns
+	 *         "Empty"
 	 */
 	public String getStartTimeString() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
-		return dateFormat.format(startDate);
+		if (this.getStartDate() != null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
+			return dateFormat.format(this.getStartDate());
+		} else {
+			return EMPTY;
+		}
 	}
 
 	/**
@@ -298,6 +310,43 @@ public class Task {
 	public String getFullEndDateString() {
 		if (this.getEndDate() != null) {
 			return this.getEndDate().toString();
+		} else {
+			return EMPTY;
+		}
+	}
+	
+	/**
+	 * Method to get the ending date of a Task Object.
+	 * <p>
+	 * This method returns the ending date in the format <i>"dd MMMM yyyy"</i>
+	 * . Where <i>dd</i> denotes day of the month, <i>MMMM</i> denotes month of
+	 * the year & <i>yyyy</i> denotes year.
+	 * 
+	 * @return the ending date as a String, if no ending date, returns
+	 *         "Empty"
+	 */
+	public String getEndDateString() {
+		if (this.getEndDate() != null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+			return dateFormat.format(this.getEndDate());
+		} else {
+			return EMPTY;
+		}
+	}
+
+	/**
+	 * Method to get the ending time of a Task Object.
+	 * <p>
+	 * This method returns the ending time in the format <i>"hh:mm"</i>. Where
+	 * <i>hh</i> denotes hour & <i>mm</i> denotes minutes.
+	 * 
+	 * @return the ending time as a String, if no ending date, returns
+	 *         "Empty"
+	 */
+	public String getEndTimeString() {
+		if (this.getEndDate() != null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
+			return dateFormat.format(this.getEndDate());
 		} else {
 			return EMPTY;
 		}
