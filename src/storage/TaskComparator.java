@@ -1,7 +1,18 @@
+//@@author A0125369Y
 package storage;
 
 import java.util.Comparator;
 
+/**
+ * TaskComparator handles how Tasks are sorted
+ * <p>
+ * Currently tasks are sorted in the following order; Tasks without dates are at
+ * the top (Sorted by task name, then details), followed by tasks with dates
+ * (Sorted by starting dates, then ending dates).
+ * 
+ * @author Barnabas
+ *
+ */
 public class TaskComparator implements Comparator<Task> {
 
 	public static final int SAME = 0;
@@ -37,9 +48,9 @@ public class TaskComparator implements Comparator<Task> {
 			// Both Task names are same, attempt to sort by details
 			if (result == SAME && first.getDetails() != null && second.getDetails() != null) {
 				result = first.getDetails().compareTo(second.getDetails());
-			} 
+			}
 		}
-		System.out.println("Sorting :" +first.getName() + second.getName()+ result);
+		System.out.println("Sorting :" + first.getName() + second.getName() + result);
 		return result;
 
 	}
