@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import processor.COMMANDS;
 import storage.Storage;
+import storage.Task;
 
 public class Logic {
 	// Attributes

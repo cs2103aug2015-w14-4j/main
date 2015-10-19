@@ -1,5 +1,5 @@
 //@@author A0125369Y
-package speedo;
+package storage;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

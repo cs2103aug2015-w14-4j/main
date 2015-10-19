@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
-import speedo.Task;
-import speedo.TaskComparator;
 
 public class Storage {
 	private static List<Task> taskList;

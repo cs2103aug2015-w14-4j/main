@@ -24,7 +24,7 @@ import processor.COMMANDS;
 import processor.DayProcessor;
 import processor.ErrorProcessor;
 import speedo.MainApp;
-import speedo.Task;
+import storage.Task;
 import speedo.GuiCommand;
 import speedo.Logic;
 

@@ -3,6 +3,7 @@ package speedo;
 import java.util.List;
 
 import processor.COMMANDS;
+import storage.Task;
 
 public class GuiCommand {
 	private COMMANDS cmd;

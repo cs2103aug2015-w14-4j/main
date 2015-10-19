@@ -2,7 +2,7 @@ package processor;
 
 import java.util.List;
 
-import speedo.Task;
+import storage.Task;
 
 public class CmdPackage {
 	private COMMANDS cmd;

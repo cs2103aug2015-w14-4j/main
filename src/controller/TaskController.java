@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TitledPane;
 import javafx.scene.text.Text;
 import processor.ErrorProcessor;
-import speedo.Task;
+import storage.Task;
 
 public class TaskController extends TitledPane{
 	

@@ -1,4 +1,4 @@
-package speedo;
+package storage;
 import java.util.Comparator;
 
 public class TaskComparator implements Comparator<Task> {
