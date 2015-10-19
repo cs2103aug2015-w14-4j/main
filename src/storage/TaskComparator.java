@@ -50,9 +50,6 @@ public class TaskComparator implements Comparator<Task> {
 				result = first.getDetails().compareTo(second.getDetails());
 			}
 		}
-		System.out.println("Sorting :" + first.getName() + second.getName() + result);
 		return result;
-
 	}
-
 }
