@@ -17,6 +17,7 @@ public class Parser {
 	private Date date;
 	private COMMANDS command;
 	private String taskName;
+	private int index;
 	private SimpleDateFormat dateVariant1;
 	private SimpleDateFormat dateVariant2;
 	private SimpleDateFormat dateVariant3;
@@ -62,7 +63,7 @@ public class Parser {
 		if (parts.length > 1) {
 			// date = new Date();
 			String dateCheck = parts[1].replace(" ", "");
-			if (!dateCheck.isEmpty()) {
+			if (!dateCheck.isEmpty() && !isIndex(dateCheck)) {
 				valid = processDate(parts[1]);
 				if (!valid) {
 					command = COMMANDS.INVALID;
@@ -87,6 +88,15 @@ public class Parser {
 		return input;
 	}
 
+	private boolean isIndex(String text){
+		if (text.length() == 1){ // Is a task index
+			index = Integer.parseInt(text);
+			return true;
+		} else{
+			return false;
+		}
+	}
+	
 	private void processDetails(String text) {
 		if (text.contains("'")) {
 			String[] stringPieces = text.split("'", 3);
@@ -174,7 +184,6 @@ public class Parser {
 	}
 
 	public int getIndex() {
-		int index = Integer.parseInt(taskName);
 		return index;
 	}
 
