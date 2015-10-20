@@ -33,7 +33,7 @@ public class Parser {
 	private static final String DATE_FORMAT_1 = "dd-M-yyyy hh:mm";
 	private static final String DATE_FORMAT_2 = "dd M yyyy hh:mm";
 	private static final String DATE_FORMAT_3 = "dd-MMMM-yyyy hh:mm";
-	private static final String DATE_FORMAT_4 = "ddmmyy hhmm";
+	private static final String DATE_FORMAT_4 = "ddMMyyyy hhmm";
 
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
@@ -43,23 +43,32 @@ public class Parser {
 		dateVariant2 = new SimpleDateFormat(DATE_FORMAT_2);
 		dateVariant3 = new SimpleDateFormat(DATE_FORMAT_3);
 		dateVariant4 = new SimpleDateFormat(DATE_FORMAT_4);
-		date = new Date();
+
 	}
 
 	public Boolean parse(String str) {
 		Boolean valid = true;
 		processDetails(str);
 		processTaskName(str);
-		String input = str.replace(details, "");
-		input = str.replace(taskName, "");
-		str.replace("\"", "");
-		str.replace("'", "");
+		// String input = str.replace(details, "");
+		// input = str.replace(taskName, "");
+		// str.replace("\"", "");
+		// str.replace("'", "");
+		String remainder = removeExtras(str);
 		// input = sort(input);
-		String[] parts = input.split(" ", 3);
+		String[] parts = remainder.split(" ", 2);
 		processCommand(parts[0]);
-
-		if (parts.length > 3) {
-			valid = processDate(parts[2] + " " + parts[3]);
+		System.out.println(parts.length);
+		if (parts.length > 1) {
+			// date = new Date();
+			String dateCheck = parts[1];
+			dateCheck.trim();
+			if (dateCheck.isEmpty()) {
+				valid = processDate(parts[1]);
+				if (!valid) {
+					command = COMMANDS.INVALID;
+				}
+			}
 		} else {
 			// No Date
 		}
@@ -71,6 +80,14 @@ public class Parser {
 		return valid;
 	}
 
+	private String removeExtras(String text) {
+		String input = text.replace(details, "");
+		input = input.replace(taskName, "");
+		input = input.replace("\"", "");
+		input = input.replace("'", "");
+		return input;
+	}
+
 	private void processDetails(String text) {
 		if (text.contains("'")) {
 			String[] stringPieces = text.split("'", 3);
@@ -79,7 +96,7 @@ public class Parser {
 			details = "No detail";
 		}
 	}
-	
+
 	private void processTaskName(String text) {
 		if (text.contains("\"")) {
 			String[] stringPieces = text.split("\"", 3);
@@ -117,21 +134,25 @@ public class Parser {
 			date = dateVariant1.parse(dateString);
 			success = true;
 		} catch (ParseException e) {
+			System.out.println("1");
 		}
 		try {
 			date = dateVariant2.parse(dateString);
 			success = true;
 		} catch (ParseException e) {
+			System.out.println("2");
 		}
 		try {
 			date = dateVariant3.parse(dateString);
 			success = true;
 		} catch (ParseException e) {
+			System.out.println("3");
 		}
 		try {
 			date = dateVariant4.parse(dateString);
 			success = true;
 		} catch (ParseException e) {
+			System.out.println("4");
 		}
 		logger.info("Date: " + dateString);
 		return success;
