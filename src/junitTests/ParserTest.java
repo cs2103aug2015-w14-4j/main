@@ -20,7 +20,7 @@ public class ParserTest extends TestCase{
 
 	@Test
 	public void test() {
-		String test = "task 061015 add 1000 'detail for testing'";
+		String test = "add \"task name\" 201015 1000 'detail for testing'";
 		parse.parse(test);
 		System.out.println(parse.getCommand());
 		System.out.println(parse.getTaskName());
@@ -31,16 +31,16 @@ public class ParserTest extends TestCase{
 	
 	@Test
 	public void test1() {
-		String test = "add 061015 1000 task 'detail'";
+		String test = "add 201015 1000 'detail for test' \"task\"";
 		parse.parse(test);
 	    assertTrue(parse.getTaskName().equals("task"));
 	}
 	
 	@Test
 	public void test2() {
-		String test = "071015 add task 1000 'detail 123 456 789'";
+		String test = "add \"task name\" 201015 1000 'detail'";
 		parse.parse(test);
-	    assertTrue(parse.getDetails().equals("detail 123 456 789"));
+	    assertTrue(parse.getDetails().equals("detail"));
 	}
 
 }

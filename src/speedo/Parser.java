@@ -49,14 +49,14 @@ public class Parser {
 	public Boolean parse(String str) {
 		Boolean valid = true;
 		processDetails(str);
+		processTaskName(str);
 		String input = str.replace(details, "");
+		input = str.replace(taskName, "");
+		str.replace("\"", "");
+		str.replace("'", "");
 		// input = sort(input);
-		String[] parts = input.split(" ", 4);
+		String[] parts = input.split(" ", 3);
 		processCommand(parts[0]);
-		if (parts.length > 1) { // barny: check if processing single word
-								// commands
-			taskName = parts[1];
-		}
 
 		if (parts.length > 3) {
 			valid = processDate(parts[2] + " " + parts[3]);
@@ -77,6 +77,15 @@ public class Parser {
 			details = stringPieces[1];
 		} else {
 			details = "No detail";
+		}
+	}
+	
+	private void processTaskName(String text) {
+		if (text.contains("\"")) {
+			String[] stringPieces = text.split("\"", 3);
+			taskName = stringPieces[1];
+		} else {
+			taskName = "No detail";
 		}
 	}
 

@@ -12,7 +12,7 @@
    <left>
       <VBox prefHeight="332.0" prefWidth="256.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="userName" alignment="CENTER" minWidth="256.0" text="Hi Joe" textAlignment="CENTER">
+            <Label fx:id="userName" alignment="CENTER" minWidth="256.0" text="Hi Jim" textAlignment="CENTER">
                <font>
                   <Font size="38.0" />
                </font>
