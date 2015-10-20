@@ -20,7 +20,7 @@ public class StorageTest {
 		String dateInString = "30-09-2015 08:00";
 		Date date = sdf.parse(dateInString);
 		String name = "test";
-		assertEquals(true,store.add(name, date));
+		assertEquals(true,store.add(name, "test", date));
 		store.saveFile();
 	}
 	

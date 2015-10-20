@@ -106,7 +106,7 @@ public class Logic {
 		 * try { date = sdf.parse(date_in_string); } catch (ParseException e) {
 		 * // TODO Auto-generated catch block e.printStackTrace(); }
 		 */
-		Task newTask = store.add(taskName, date);
+		Task newTask = store.add(taskName, details, date);
 		System.out.println(newTask);
 		if (newTask != null) {
 			System.out.println("Task added");

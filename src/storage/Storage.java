@@ -48,9 +48,9 @@ public class Storage {
 		return searchList;
 	}
 
-	public Task add(String name, Date date) {
+	public Task add(String name, String details, Date date) {
 		// TODO
-		Task newTask = new Task(name, date);
+		Task newTask = new Task(name, details, date);
 
 		if (isNotDuplicate(newTask)) {
 			taskList.add(newTask);

@@ -58,12 +58,11 @@ public class Parser {
 		// input = sort(input);
 		String[] parts = remainder.split(" ", 2);
 		processCommand(parts[0]);
-		System.out.println(parts.length);
+		System.out.println(remainder+" "+parts.length);
 		if (parts.length > 1) {
 			// date = new Date();
-			String dateCheck = parts[1];
-			dateCheck.trim();
-			if (dateCheck.isEmpty()) {
+			String dateCheck = parts[1].replace(" ", "");
+			if (!dateCheck.isEmpty()) {
 				valid = processDate(parts[1]);
 				if (!valid) {
 					command = COMMANDS.INVALID;
@@ -76,7 +75,7 @@ public class Parser {
 		if (getCommand() == COMMANDS.INVALID) {
 			valid = false;
 		}
-		logger.info("Parsed: " + str);
+		logger.info("Parsed: "+command+" " + taskName+" "+details+" "+date);
 		return valid;
 	}
 
