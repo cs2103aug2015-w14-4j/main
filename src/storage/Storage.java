@@ -69,21 +69,37 @@ public class Storage {
 
 	public Task delete(int index) {
 		// TODO
-		assert index < taskList.size();
-		recentChanges.push(taskList.get(index));
-		return taskList.remove(index);
+		if (isValidIndex(index)) {
+			recentChanges.push(taskList.get(index));
+			return taskList.remove(index);
+		} else {
+			return null;
+		}
 	}
 
+	/**
+	 * Method to edit a task
+	 * 
+	 * @param index
+	 *            index of the task to flag as completed
+	 * @param newName the new string to replace the previous name
+	 * @return Task that was edited, if index is not valid, return
+	 *         null
+	 */
 	public Task edit(int index, String newName) {
 		// TODO
-		Task currTask = taskList.get(index);
-		Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
-				currTask.getEndDate());
-		oldTask.setCompleted(currTask.isCompleted());
-		recentChanges.push(oldTask);
-		taskList.get(index).setName(newName);
-		assert taskList.get(index).getTaskId() == oldTask.getTaskId();
-		return taskList.get(index);
+		if (isValidIndex(index)) {
+			Task currTask = taskList.get(index);
+			Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
+					currTask.getEndDate());
+			oldTask.setCompleted(currTask.isCompleted());
+			recentChanges.push(oldTask); // Backup old task
+			taskList.get(index).setName(newName); // Edit name
+			assert taskList.get(index).getTaskId() == oldTask.getTaskId();
+			return taskList.get(index);
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -91,12 +107,17 @@ public class Storage {
 	 * 
 	 * @param index
 	 *            index of the task to flag as completed
-	 * @return Task that was flagged as complete
+	 * @return Task that was flagged as complete, if index is not valid, return
+	 *         null
 	 */
 	public Task complete(int index) {
 		// TODO
-		taskList.get(index).setCompleted(true);
-		return taskList.get(index);
+		if (isValidIndex(index)) {
+			taskList.get(index).setCompleted(true);
+			return taskList.get(index);
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -136,6 +157,14 @@ public class Storage {
 			return true;
 		}
 		return false;
+	}
+
+	private boolean isValidIndex(int index) {
+		if (index < taskList.size()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// Compare hash code, then taskId to determine if task is a duplicate
