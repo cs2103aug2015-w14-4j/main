@@ -48,7 +48,7 @@ public class FileHandler {
 			fileToRead.createNewFile();
 			return new JsonStreamParser(new FileReader(fileToRead));
 		} catch (FileNotFoundException e) {
-			ErrorProcessor.alert(FileHandler.class.getName(), e.getMessage());
+			//ErrorProcessor.alert(FileHandler.class.getName(), e.getMessage());
 			return null;
 		} catch (IOException e) {
 			ErrorProcessor.alert(FileHandler.class.getName(), e.getMessage());
