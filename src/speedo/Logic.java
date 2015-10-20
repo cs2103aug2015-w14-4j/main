@@ -41,20 +41,32 @@ public class Logic {
 			taskName = parser.getTaskName();
 			date = parser.getDate();
 			t = add();
-			c = new GuiCommand(COMMANDS.ADD, "Added " + t.getName(), t);
-			logger.info("Logic added " + t.getName());
+			if(t == null){
+				c =new GuiCommand(COMMANDS.INVALID, "Task not added");
+			} else {
+				c = new GuiCommand(COMMANDS.ADD, "Added " + t.getName(), t);
+				logger.info("Logic added " + t.getName());
+			}
 			break;
 		case DELETE:
 			taskIndex = parser.getIndex();
 			t = delete();
-			c = new GuiCommand(COMMANDS.DELETE, "Deleted the task", t);
-			logger.info("Logic deleted " + t.getName());
+			if (t == null){
+				c = new GuiCommand(COMMANDS.INVALID, "Task not deleted");
+			} else {
+				c = new GuiCommand(COMMANDS.DELETE, "Deleted the task", t);
+				logger.info("Logic deleted " + t.getName());
+			}
 			break;
 		case EDIT:
 			details = parser.getDetails();
 			taskIndex = parser.getIndex();
 			t = edit();
-			c = new GuiCommand(COMMANDS.EDIT, "Edited", t, taskIndex);
+			if (t == null){
+				c = new GuiCommand(COMMANDS.INVALID, "Task not edited");
+			} else {
+				c = new GuiCommand(COMMANDS.EDIT, "Edited", t, taskIndex);
+			}
 			break;
 		case SEARCH:
 			details = parser.getDetails();
