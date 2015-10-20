@@ -129,11 +129,13 @@ public class StorageTest {
 		store.add(name, details, date);
 
 		assertEquals(null, store.delete(-1));
+		assertNotEquals(null, store.delete(0));
 		assertNotEquals(null, store.delete(2));
 		assertEquals(null, store.delete(3));
 
 		String newName = "new test";
 		assertEquals(null, store.edit(-1, newName));
+		assertNotEquals(null, store.edit(0, newName));
 		assertNotEquals(null, store.edit(2, newName));
 		assertEquals(null, store.edit(3, newName));
 	}
