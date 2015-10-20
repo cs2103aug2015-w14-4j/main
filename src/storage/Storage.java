@@ -12,11 +12,18 @@ public class Storage {
 	private static TaskComparator taskComparator;
 	private static Stack<Task> recentChanges;
 	private static final Logger logger = Logger.getLogger(Storage.class.getName());
+	
+	private boolean isTestMode;
 
 	public Storage() {
+		this(false);
+	}
+
+	public Storage(boolean isTestMode) {
 		taskList = new ArrayList<Task>();
 		taskComparator = new TaskComparator();
 		recentChanges = new Stack<Task>();
+		this.isTestMode = isTestMode;
 		this.readFile();
 	}
 
@@ -27,14 +34,19 @@ public class Storage {
 	}
 
 	public boolean readFile() {
-		taskList = FileHandler.readTasks();
-		return true;
+		if (!isTestMode) {
+			taskList = FileHandler.readTasks();
+			return true;
+		}
+		return false;
 
 	}
 
 	public boolean saveFile() {
+		if(!isTestMode){
 		return FileHandler.saveTasks(taskList);
-
+		}
+		return false;
 	}
 
 	public List<Task> search(String searchTerm) {
@@ -71,6 +83,7 @@ public class Storage {
 		// TODO
 		if (isValidIndex(index)) {
 			recentChanges.push(taskList.get(index));
+			logger.info("Deleted: " + taskList.get(index).getName());
 			return taskList.remove(index);
 		} else {
 			return null;
@@ -82,9 +95,9 @@ public class Storage {
 	 * 
 	 * @param index
 	 *            index of the task to flag as completed
-	 * @param newName the new string to replace the previous name
-	 * @return Task that was edited, if index is not valid, return
-	 *         null
+	 * @param newName
+	 *            the new string to replace the previous name
+	 * @return Task that was edited, if index is not valid, return null
 	 */
 	public Task edit(int index, String newName) {
 		// TODO
@@ -156,11 +169,12 @@ public class Storage {
 			}
 			return true;
 		}
+		logger.info("Undo: nothing to undo");
 		return false;
 	}
 
 	private boolean isValidIndex(int index) {
-		if (index < taskList.size()) {
+		if (index < taskList.size() && index >= 0) {
 			return true;
 		} else {
 			return false;
