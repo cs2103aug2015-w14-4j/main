@@ -2,6 +2,7 @@
 package storage;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -34,6 +35,13 @@ public class Task {
 	private static final String DATE_FORMAT = "dd MMMM yyyy";
 	private static final String TIME_FORMAT = "hh:mm";
 	private static final String TASK_STRING = "Task [name= %1$s, details= %2$s, startDate= %3$s, endDate= %4$s, completed= %5$s]";
+
+	// Due tags
+	private static final int OVERDUE = -1;
+	private static final int TODAY = 0;
+	private static final int TOMORROW = 1;
+	private static final int UPCOMING = 2;
+	private static final int OTHERS = 3;
 
 	// *************************************** CONSTRUCTOR
 	/**
@@ -314,16 +322,15 @@ public class Task {
 			return EMPTY;
 		}
 	}
-	
+
 	/**
 	 * Method to get the ending date of a Task Object.
 	 * <p>
-	 * This method returns the ending date in the format <i>"dd MMMM yyyy"</i>
-	 * . Where <i>dd</i> denotes day of the month, <i>MMMM</i> denotes month of
+	 * This method returns the ending date in the format <i>"dd MMMM yyyy"</i> .
+	 * Where <i>dd</i> denotes day of the month, <i>MMMM</i> denotes month of
 	 * the year & <i>yyyy</i> denotes year.
 	 * 
-	 * @return the ending date as a String, if no ending date, returns
-	 *         "Empty"
+	 * @return the ending date as a String, if no ending date, returns "Empty"
 	 */
 	public String getEndDateString() {
 		if (this.getEndDate() != null) {
@@ -340,8 +347,7 @@ public class Task {
 	 * This method returns the ending time in the format <i>"hh:mm"</i>. Where
 	 * <i>hh</i> denotes hour & <i>mm</i> denotes minutes.
 	 * 
-	 * @return the ending time as a String, if no ending date, returns
-	 *         "Empty"
+	 * @return the ending time as a String, if no ending date, returns "Empty"
 	 */
 	public String getEndTimeString() {
 		if (this.getEndDate() != null) {
@@ -396,12 +402,47 @@ public class Task {
 		System.out.println(searchTerm);
 		if (this.getName().contains(searchTerm)) {
 			return true;
-		} else if(this.getDetails() != null){
+		} else if (this.getDetails() != null) {
 			if (this.getDetails().contains(searchTerm)) {
 				return true;
-			} 
+			}
 		}
 		return false;
+	}
+
+	// *************************************** DUE
+
+	/**
+	 * Method to check when the task Object is due relative to today
+	 * 
+	 * @return -1 if the task is overdue, 0 if the task is due today, 1 if the
+	 *         task is due tomorrow, 2 any other task is due within a week, 3
+	 *         remaining tasks
+	 */
+	public int due() {
+		Calendar endDate = Calendar.getInstance();
+		endDate.setTime(this.getEndDate());
+		int endDayInt = endDate.get(Calendar.DAY_OF_YEAR);
+		endDayInt += endDate.get(Calendar.YEAR) * 365;
+
+		// current date
+		Calendar toDay = Calendar.getInstance();
+		int toDayInt = toDay.get(Calendar.DAY_OF_YEAR);
+		toDayInt += toDay.get(Calendar.YEAR) * 365;
+
+		int diff = endDayInt - toDayInt;
+
+		if (diff < 0) {
+			return OVERDUE;
+		} else if (diff == 0) {
+			return TODAY;
+		} else if (diff == 1) {
+			return TOMORROW;
+		} else if (diff < 8) {
+			return UPCOMING;
+		} else {
+			return OTHERS;
+		}
 	}
 
 	// *************************************** TO STRING
