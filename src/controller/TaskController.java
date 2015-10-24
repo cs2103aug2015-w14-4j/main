@@ -4,8 +4,12 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import processor.ErrorProcessor;
 import storage.Task;
@@ -43,9 +47,9 @@ public class TaskController extends TitledPane{
         this.setExpanded(false);
         if(t.isCompleted()){
         	this.setId("taskCompleted");
-        	//this.setStyle("-fx-strikethrough: true;");
-        	//this.setStyle("{ -fx-underline: true; -fx-text-fill: white; fx-font-size: 30;}");
-        }
+        	this.setOpacity(0.2);
+        	//this.setBackground(new Background(new BackgroundFill(Color.RED,CornerRadii.EMPTY, Insets.EMPTY) )) ;
+        } 
 	}
 	
 	public void setName(String name){
