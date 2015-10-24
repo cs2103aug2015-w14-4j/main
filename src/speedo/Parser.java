@@ -30,6 +30,7 @@ public class Parser {
 	private static final String SEARCH = "search find";
 	private static final String HOME = "home";
 	private static final String UNDO = "undo";
+	private static final String EXPAND = "expand display show";
 
 	private static final String DATE_FORMAT_1 = "dd-M-yyyy hh:mm";
 	private static final String DATE_FORMAT_2 = "dd M yyyy hh:mm";
@@ -130,6 +131,8 @@ public class Parser {
 			command = COMMANDS.HOME;
 		} else if (UNDO.contains(stringCmd)) {
 			command = COMMANDS.UNDO;
+		} else if (EXPAND.contains(stringCmd)){
+			command = COMMANDS.EXPAND;
 		} else {
 			command = COMMANDS.INVALID;
 		}
