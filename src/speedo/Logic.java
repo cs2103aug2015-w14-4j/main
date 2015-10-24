@@ -21,7 +21,11 @@ public class Logic {
 
 	// Constructor
 	public Logic() {
-		store = new Storage();
+		this(false);
+	}
+	
+	public Logic(boolean test){
+		store = new Storage(test);
 	}
 
 	// Methods
