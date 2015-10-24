@@ -14,17 +14,19 @@ import storage.Storage;
 import storage.Task;
 
 public class StorageTest {
-	private static Storage store = new Storage(true);
-	private static Task task;
+	//private static Storage store = new Storage(true);
+	//private static Task task;
 
 	@Test
 	public void testAdd() {
 
+		Storage store = new Storage(true);
+		
 		// Adding as usual
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		task = store.add(name, details, date);
+		Task task = store.add(name, details, date);
 		assertEquals(name, task.getName()); 
 		assertEquals(details, task.getDetails()); 
 		assertEquals(date, task.getStartDate());
@@ -36,29 +38,76 @@ public class StorageTest {
 
 	@Test
 	public void testDelete() {
+		Storage store = new Storage(true);
+		
+		// Adding as usual
+		Date date = new Date();
+		String name = "test";
+		String details = "task details";
+		Task task = store.add(name, details, date);
+		
 		assertEquals(task, store.delete(0));
 	}
 
 	@Test
 	public void testUndoDelete() {
+		Storage store = new Storage(true);
+		
+		// Adding as usual
+		Date date = new Date();
+		String name = "test";
+		String details = "task details";
+		Task task = store.add(name, details, date);
+		store.delete(0);
 		assertEquals(true, store.undo());
 		assertEquals(task, store.getTaskList().get(0));
 	}
 
 	@Test
 	public void testEdit() {
+		Storage store = new Storage(true);
+		
+		// Adding as usual
+		Date date = new Date();
+		String name = "test";
+		String details = "task details";
+		Task task = store.add(name, details, date);
+		
 		String newName = "new test";
 		assertEquals(newName, store.edit(0, newName).getName());
 	}
 	
 	@Test
 	public void testUndoEdit() {
+		Storage store = new Storage(true);
+		
+		// Adding as usual
+		Date date = new Date();
+		String name = "test";
+		String details = "task details";
+		Task task = store.add(name, details, date);
+		String newName = "new test";
+		store.edit(0, newName);
 		assertEquals(true, store.undo());
 		assertEquals(task, store.getTaskList().get(0));
+	}
+	
+	@Test
+	public void testComplete() {
+		Storage store = new Storage(true);
+		
+		// Adding as usual
+		Date date = new Date();
+		String name = "test";
+		String details = "task details";
+		Task task = store.add(name, details, date);
+		store.complete(0);
+		assertEquals(true, store.getTaskList().get(0).isCompleted());
 	}
 
 	@Test
 	public void testSearch() throws ParseException {
+		Storage store = new Storage(true);
 		// Adding more entries
 		String name;
 		String details;
@@ -104,14 +153,13 @@ public class StorageTest {
 		assertEquals(0, searchList.size());
 	}
 
-	@Test
-	public void testComplete() {
-		store.complete(0);
-		assertEquals(true, store.getTaskList().get(0).isCompleted());
-	}
+
 
 	@Test
 	public void testValidIndex() {
+		// Assumes that Add, Undo, Delete, Edit works 
+		
+		Storage store = new Storage(true);
 		// Testing index via boundaries
 		Date date = new Date();
 		String name = "test 1";
@@ -127,12 +175,16 @@ public class StorageTest {
 		name = "test 3";
 		details = "this is test 3";
 		store.add(name, details, date);
-
+		for (Task task : store.getTaskList()) {
+			System.out.println(task);
+		}
 		assertEquals(null, store.delete(-1));
 		assertNotEquals(null, store.delete(0));
+		store.undo();
 		assertNotEquals(null, store.delete(2));
+		store.undo();
 		assertEquals(null, store.delete(3));
-
+		
 		String newName = "new test";
 		assertEquals(null, store.edit(-1, newName));
 		assertNotEquals(null, store.edit(0, newName));
