@@ -43,7 +43,7 @@ public class Logic {
 		case ADD:
 			details = parser.getDetails();
 			taskName = parser.getTaskName();
-			date = parser.getDate();
+			date = parser.getEndDate();
 			t = add();
 			if(t == null){
 				c =new GuiCommand(COMMANDS.INVALID, "Task not added");
