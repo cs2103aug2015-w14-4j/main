@@ -1,6 +1,42 @@
-#taskCompleted .title{
+.title{
 
+}
+
+#taskCompleted .title{
 }
 #taskCompleted .title .text { 
 	-fx-strikethrough: true;
 } 
+
+
+#taskDueToday .title{
+		-fx-background-color: 
+        linear-gradient(#ffd65b, #ffd65b),
+        linear-gradient(#ffef84, #ffef84),
+        linear-gradient(#ffea6a, #ffea6a),
+        linear-gradient(#ffe657, #ffe657);
+       
+}
+#taskDue .title .text {	
+}
+
+
+#taskDueTomorrow .title{
+		     -fx-background-color: 
+        linear-gradient(#5a61af, #5a61af),
+        linear-gradient(#e4fbff, #e4fbff);
+	
+}
+#taskDueTomorrow .title .text {
+	
+}
+
+
+#taskOverdue .title{
+     -fx-background-color: linear-gradient(#FA856E, #FA856E);
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+#taskOverdue .title .text{
+
+}
