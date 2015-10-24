@@ -1,0 +1,3 @@
+#taskCompleted .title .text { 
+	-fx-strikethrough: true;
+} 

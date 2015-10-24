@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.Background;
 import javafx.scene.text.Text;
 import processor.ErrorProcessor;
 import storage.Task;
@@ -29,6 +30,7 @@ public class TaskController extends TitledPane{
         loader.setController(this);
         try {
         	loader.load();
+        	this.getStylesheets().add("/controller/taskcontroller.css");
 	        setName(t.getName());
 	        setDate(t.getStartDateString());
 	        setTime(t.getStartTimeString());
@@ -39,6 +41,11 @@ public class TaskController extends TitledPane{
 			ErrorProcessor.alert(e.toString());
 		}
         this.setExpanded(false);
+        if(t.isCompleted()){
+        	this.setId("taskCompleted");
+        	//this.setStyle("-fx-strikethrough: true;");
+        	//this.setStyle("{ -fx-underline: true; -fx-text-fill: white; fx-font-size: 30;}");
+        }
 	}
 	
 	public void setName(String name){
