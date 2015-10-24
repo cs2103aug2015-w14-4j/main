@@ -21,20 +21,24 @@ public class TaskComparator implements Comparator<Task> {
 
 	@Override
 	public int compare(Task first, Task second) {
-		// TODO Auto-generated method stub
 		int result = SAME;
 
-		if (first.getStartDate() != null && second.getStartDate() != null) {
-			result = first.getStartDate().compareTo(second.getStartDate());
+		if (first.getEndDate() != null && second.getEndDate() != null) {
+			result = first.getEndDate().compareTo(second.getEndDate());
 
-			// If Start Dates are the same, compare End Dates
-			if (result == SAME && first.getEndDate() != null && second.getEndDate() != null) {
-				result = first.getEndDate().compareTo(second.getEndDate());
-			}
+			// If End Dates are the same, compare Start Dates
+			if (result == SAME && first.getStartDate() != null && second.getStartDate() != null) {
+				result = first.getStartDate().compareTo(second.getStartDate());
+				// TODO check if storing start dates in correct order
+			} else if (first.getStartDate() == null && second.getStartDate() != null) {
+				result = GREATER_THAN;
+			} else if (first.getStartDate() != null && second.getStartDate() == null) {
+				result = LESSER_THAN;
+			} 
 
-		} else if (first.getStartDate() == null && second.getStartDate() != null) {
+		} else if (first.getEndDate() == null && second.getEndDate() != null) {
 			result = LESSER_THAN;
-		} else if (first.getStartDate() != null && second.getStartDate() == null) {
+		} else if (first.getEndDate() != null && second.getEndDate() == null) {
 			result = GREATER_THAN;
 		} else {
 

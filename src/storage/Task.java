@@ -55,10 +55,10 @@ public class Task {
 	 * @param name
 	 *            the name of the task in String
 	 * @param date
-	 *            the date of the task as a Date Object
+	 *            the due date of the task as a Date Object
 	 */
 	public Task(String name, Date date) {
-		this(name, null, date, null);
+		this(name, null, null, date);
 	}
 
 	/**
@@ -86,11 +86,11 @@ public class Task {
 	 *            the name of the task in String
 	 * @param details
 	 *            the details of the task in String
-	 * @param startDate
-	 *            the starting date of the task as a Date Object
+	 * @param date
+	 *            the due date of the task as a Date Object
 	 */
 	public Task(String name, String details, Date date) {
-		this(name, details, date, null);
+		this(name, details, null, date);
 	}
 
 	/**
