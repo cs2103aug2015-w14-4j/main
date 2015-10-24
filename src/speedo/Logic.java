@@ -91,6 +91,10 @@ public class Logic {
 			c = new GuiCommand(COMMANDS.UNDO, message, this.getTaskList());
 			logger.info("Logic undo last command");
 			break;
+		case EXPAND:
+			taskIndex = parser.getIndex();
+			c = new GuiCommand(COMMANDS.EXPAND, "Displaying details of task " + taskIndex);
+			break;
 		case INVALID:
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
 			break;
