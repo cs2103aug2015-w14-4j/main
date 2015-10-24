@@ -12,7 +12,7 @@ public class Storage {
 	private static TaskComparator taskComparator;
 	private static Stack<Task> recentChanges;
 	private static final Logger logger = Logger.getLogger(Storage.class.getName());
-	
+
 	private boolean isTestMode;
 
 	public Storage() {
@@ -43,8 +43,8 @@ public class Storage {
 	}
 
 	public boolean saveFile() {
-		if(!isTestMode){
-		return FileHandler.saveTasks(taskList);
+		if (!isTestMode) {
+			return FileHandler.saveTasks(taskList);
 		}
 		return false;
 	}
@@ -108,6 +108,68 @@ public class Storage {
 			oldTask.setCompleted(currTask.isCompleted());
 			recentChanges.push(oldTask); // Backup old task
 			taskList.get(index).setName(newName); // Edit name
+			assert taskList.get(index).getTaskId() == oldTask.getTaskId();
+			return taskList.get(index);
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Method to edit a task
+	 * 
+	 * @param index
+	 *            index of the task to flag as completed
+	 * @param newName
+	 *            the new string to replace the previous name
+	 * @param name
+	 *            true if editing name, false if editing details
+	 * @return Task that was edited, if index is not valid, return null
+	 */
+	public Task edit(int index, String newName, boolean name) {
+		// TODO
+		if (isValidIndex(index)) {
+			Task currTask = taskList.get(index);
+			Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
+					currTask.getEndDate());
+			oldTask.setCompleted(currTask.isCompleted());
+			recentChanges.push(oldTask); // Backup old task
+			if (name) {
+				taskList.get(index).setName(newName); // Edit name
+			} else {
+				taskList.get(index).setDetails(newName); // Edit details
+			}
+			assert taskList.get(index).getTaskId() == oldTask.getTaskId();
+			return taskList.get(index);
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Method to edit a task
+	 * 
+	 * @param index
+	 *            index of the task to flag as completed
+	 * @param newDate
+	 *            the new date to replace the previous date
+	 * @param startDate
+	 *            true if replacing the starting date, false otherwise
+	 * @return Task that was edited, if index is not valid, return null
+	 */
+	public Task edit(int index, Date newDate, boolean startDate) {
+		// TODO
+		if (isValidIndex(index)) {
+			Task currTask = taskList.get(index);
+			Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
+					currTask.getEndDate());
+			oldTask.setCompleted(currTask.isCompleted());
+			recentChanges.push(oldTask); // Backup old task
+			if (startDate) {
+				taskList.get(index).setStartDate(newDate); // Edit starting date
+			} else {
+				taskList.get(index).setEndDate(newDate); // Edit ending date
+			}
 			assert taskList.get(index).getTaskId() == oldTask.getTaskId();
 			return taskList.get(index);
 		} else {
