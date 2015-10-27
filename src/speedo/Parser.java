@@ -56,11 +56,16 @@ public class Parser {
 		for(int i=1;i<inputsSplitSpace.length;i++){
 			taskName=taskName+" "+inputsSplitSpace[i]; 
 		}
+		if(inputsSplitSpace.length > 1){
 		taskName=removeSpace(taskName);
+		}
 		if(inputsSplitDash.length==1){
 			startDate=null;
 			endDate=null;
 			details="No Information";
+			if(inputsSplitSpace.length == 2){
+			this.isIndex(inputsSplitSpace[1]);
+			}
 		}else if(inputsSplitDash.length==2){
 			if(inputsSplitDash[1].charAt(0)=='d'||inputsSplitDash[1].charAt(0)=='D'){
 				String correctInfo=removeSpace(removeFirst(inputsSplitDash[1]));
