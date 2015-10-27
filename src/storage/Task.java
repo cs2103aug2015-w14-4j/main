@@ -37,11 +37,13 @@ public class Task {
 	private static final String TASK_STRING = "Task [name= %1$s, details= %2$s, startDate= %3$s, endDate= %4$s, completed= %5$s]";
 
 	// Due tags
+	private static final int NODATE = -2;
 	private static final int OVERDUE = -1;
 	private static final int TODAY = 0;
 	private static final int TOMORROW = 1;
 	private static final int UPCOMING = 2;
 	private static final int OTHERS = 3;
+	
 
 	// *************************************** CONSTRUCTOR
 	/**
@@ -420,28 +422,32 @@ public class Task {
 	 *         remaining tasks
 	 */
 	public int due() {
-		Calendar endDate = Calendar.getInstance();
-		endDate.setTime(this.getEndDate());
-		int endDayInt = endDate.get(Calendar.DAY_OF_YEAR);
-		endDayInt += endDate.get(Calendar.YEAR) * 365;
+		if (this.getEndDate() != null) {
+			Calendar endDate = Calendar.getInstance();
+			endDate.setTime(this.getEndDate());
+			int endDayInt = endDate.get(Calendar.DAY_OF_YEAR);
+			endDayInt += endDate.get(Calendar.YEAR) * 365;
 
-		// current date
-		Calendar toDay = Calendar.getInstance();
-		int toDayInt = toDay.get(Calendar.DAY_OF_YEAR);
-		toDayInt += toDay.get(Calendar.YEAR) * 365;
+			// current date
+			Calendar toDay = Calendar.getInstance();
+			int toDayInt = toDay.get(Calendar.DAY_OF_YEAR);
+			toDayInt += toDay.get(Calendar.YEAR) * 365;
 
-		int diff = endDayInt - toDayInt;
+			int diff = endDayInt - toDayInt;
 
-		if (diff < 0) {
-			return OVERDUE;
-		} else if (diff == 0) {
-			return TODAY;
-		} else if (diff == 1) {
-			return TOMORROW;
-		} else if (diff < 8) {
-			return UPCOMING;
+			if (diff < 0) {
+				return OVERDUE;
+			} else if (diff == 0) {
+				return TODAY;
+			} else if (diff == 1) {
+				return TOMORROW;
+			} else if (diff < 8) {
+				return UPCOMING;
+			} else {
+				return OTHERS;
+			}
 		} else {
-			return OTHERS;
+			return NODATE;
 		}
 	}
 
