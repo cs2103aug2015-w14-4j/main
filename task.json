@@ -1,73 +1,29 @@
 {
-  "taskId": -1252771683,
-  "name": "No detail",
-  "details": "No Information",
-  "isCompleted": false
-}{
-  "taskId": 2096608819,
-  "name": "t1",
-  "details": "No detail",
-  "isCompleted": false
-}{
   "taskId": 306574343,
-  "name": "task",
-  "details": "lololc wincoiwnc",
-  "startDate": "Oct 24, 0015 3:08:00 AM",
+  "name": "Overdue",
+  "details": "This task is long overdue",
+  "startDate": "Oct 24, 2015 3:08:00 AM",
+  "endDate": "Oct 25, 2015 3:08:00 AM",
   "isCompleted": false
 }{
-  "taskId": 191834825,
-  "name": "test for fun",
-  "details": "detail for fun",
-  "startDate": "Oct 24, 0015 3:11:00 AM",
+  "taskId": 306574342,
+  "name": "Today",
+  "details": "This task needs to be done by today",
+  "startDate": "Oct 27, 2015 3:08:00 AM",
+  "endDate": "Oct 28, 2015 3:08:00 AM",
   "isCompleted": false
 }{
-  "taskId": -1253118094,
-  "name": "lol",
-  "details": "test",
-  "startDate": "Sep 2, 0016 1:33:00 PM",
+  "taskId": 306574344,
+  "name": "Tomorrow",
+  "details": "This task needs to be done by tomorrow",
+  "startDate": "Oct 27, 2015 3:08:00 AM",
+  "endDate": "Oct 29, 2015 3:08:00 AM",
   "isCompleted": false
 }{
-  "taskId": 131189409,
-  "name": "t1",
-  "startDate": "Jan 14, 2015 10:00:00 AM",
-  "isCompleted": false
-}{
-  "taskId": 143378148,
-  "name": "task1",
-  "startDate": "Jan 18, 2015 10:00:00 AM",
-  "isCompleted": false
-}{
-  "taskId": -1152972242,
-  "name": "test1",
-  "details": "Details about test1",
-  "startDate": "Sep 27, 2015 8:00:00 AM",
-  "isCompleted": false
-}{
-  "taskId": -1152972242,
-  "name": "test2",
-  "details": "Details about test2",
-  "startDate": "Sep 27, 2015 8:00:00 AM",
-  "isCompleted": false
-}{
-  "taskId": -1152972242,
-  "name": "test3",
-  "details": "Details about test3",
-  "startDate": "Sep 28, 2015 8:00:00 AM",
-  "isCompleted": false
-}{
-  "taskId": -1152972242,
-  "name": "test4",
-  "details": "Details about test4",
-  "startDate": "Sep 28, 2015 8:00:00 AM",
-  "isCompleted": false
-}{
-  "taskId": 1402949743,
-  "name": "t2",
-  "startDate": "Oct 18, 2015 8:45:07 PM",
-  "isCompleted": false
-}{
-  "taskId": -340701983,
-  "name": "test 1ddf",
-  "startDate": "Oct 20, 2015 4:09:53 PM",
+  "taskId": 306574345,
+  "name": "Normal task",
+  "details": "This is just a normal task",
+  "startDate": "Oct 29, 2015 3:08:00 AM",
+  "endDate": "Oct 30, 2015 3:08:00 AM",
   "isCompleted": false
 }
