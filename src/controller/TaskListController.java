@@ -1,32 +1,17 @@
 package controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-import processor.COMMANDS;
-import processor.DayProcessor;
 import processor.ErrorProcessor;
-import speedo.MainApp;
 import storage.Task;
-import speedo.GuiCommand;
-import speedo.Logic;
 
 public class TaskListController extends ScrollPane{
 	
@@ -37,9 +22,11 @@ public class TaskListController extends ScrollPane{
 		
     // Maps the Task to its corresponding TaskController
     private Hashtable<Integer, TaskController> taskLookupTable;
+    private int numOfTaskDue;
 
     public TaskListController() {
     	taskLookupTable = new Hashtable<Integer, TaskController>();
+    	numOfTaskDue = 0;
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(FXML_PATH));
         loader.setRoot(this);
@@ -61,14 +48,21 @@ public class TaskListController extends ScrollPane{
         });
     }
         
-    private TaskController createTask(Task t){
-    	TaskController tc = new TaskController(t);
+    private TaskController createTask(Task t, int index){
+    	TaskController tc = new TaskController(t, index);
     	taskLookupTable.put(tc.getTaskId(), tc);
     	return tc;
     }
-        
+    
     public void addTask(Task t){
-    	containerOfTask.getChildren().add(createTask(t));
+    	addTask(t, containerOfTask.getChildren().size());
+    }
+    
+    public void addTask(Task t, int index){
+    	containerOfTask.getChildren().add(createTask(t, index));
+    	if(t.due() == 0){
+    		numOfTaskDue++;
+    	}
     }
     
     public void removeTask(Task t){
@@ -87,8 +81,12 @@ public class TaskListController extends ScrollPane{
     public void loadTaskList(List<Task> listOfTasks) {
     	containerOfTask.getChildren().clear(); // barny: Testing redrawing to show sorted order
     	for (int i = 0; i < listOfTasks.size(); i++) {
-    		addTask(listOfTasks.get(i));
+    		addTask(listOfTasks.get(i), i);
 		}
+    }
+    
+    public int getNumOfTaskDue(){
+    	return numOfTaskDue;
     }
         
 }
