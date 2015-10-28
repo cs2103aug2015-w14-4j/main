@@ -3,12 +3,14 @@ package speedo;
 import java.io.IOException;
 
 import controller.CommandBoxController;
+import controller.InfoPanelController;
 import controller.TaskListController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import processor.DayProcessor;
 
 public class MainApp extends Application {
     
@@ -27,7 +29,6 @@ public class MainApp extends Application {
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		System.out.println(rootLayout.getBottom().getScene().widthProperty());
 	}
 	
 	public static void main(String[] args) {
@@ -59,9 +60,12 @@ public class MainApp extends Application {
     	cbc.setMainApp(this);
     	rootLayout.setBottom(cbc);
     	
-    	//userName.setText("Hi Jim");
-    	//todayDay.setText(DayProcessor.todayDay());
-    	//todayDate.setText(DayProcessor.todayDate());
+    	// sets up the info panel
+    	InfoPanelController ipc = new InfoPanelController("Hi Jim", 
+    			DayProcessor.todayDay(), 
+    			DayProcessor.todayDate(), 
+    			tlc.getNumOfTaskDue());
+    	rootLayout.setLeft(ipc);
     }
     
     public void handleUserCommand(String userInput) {

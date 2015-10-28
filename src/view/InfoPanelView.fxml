@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.0" prefWidth="256.0" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<Label fx:id="userName" alignment="CENTER" contentDisplay="CENTER" text="Hi Jim">
+         <font>
+            <Font size="33.0" />
+         </font>
+         <VBox.margin>
+            <Insets top="100.0" />
+         </VBox.margin>
+      </Label>
+		<Label fx:id="todayDay" alignment="CENTER" contentDisplay="CENTER" text="day" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
+		<Label fx:id="todayDate" alignment="CENTER" text="date">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
+		<Label fx:id="numTasksDue" alignment="CENTER" text="3 Tasks Due">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
+	</children>
+   <padding>
+      <Insets left="50.0" />
+   </padding>
+</fx:root>

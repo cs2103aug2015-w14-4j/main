@@ -9,46 +9,4 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="speedo.MainApp">
-   <left>
-      <VBox prefHeight="332.0" prefWidth="256.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="userName" alignment="CENTER" minWidth="256.0" text="Hi Jim" textAlignment="CENTER">
-               <font>
-                  <Font size="38.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="100.0" />
-               </VBox.margin>
-            </Label>
-            <Label fx:id="todayDay" alignment="CENTER" contentDisplay="CENTER" minWidth="256.0" text="day" textAlignment="CENTER" wrapText="true">
-            	<font>
-            		<Font name="Verdana Bold" size="33.0" />
-            	</font>
-            	<VBox.margin>
-            		<Insets />
-            	</VBox.margin>
-            </Label>
-            <Label fx:id="todayDate" alignment="CENTER" minWidth="256.0" text="date">
-               <font>
-                  <Font name="Verdana Bold" size="33.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Label>
-            <Label alignment="CENTER" minWidth="256.0" text="3 Tasks Due">
-               <font>
-                  <Font size="35.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Label>
-            <TextFlow fx:id="feedbackToUser" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" />
-         </children>
-      </VBox>
-   </left>
-   <right>
-      <!--<Accordion fx:id="containerOfTasks" prefHeight="332.0" prefWidth="539.0" BorderPane.alignment="CENTER" />-->
-   </right>
 </BorderPane>
