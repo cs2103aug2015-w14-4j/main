@@ -4,6 +4,7 @@
 
 #taskCompleted .title{
 }
+
 #taskCompleted .title .text { 
 	-fx-strikethrough: true;
 } 
@@ -22,7 +23,7 @@
 
 
 #taskDueTomorrow .title{
-		     -fx-background-color: 
+		-fx-background-color: 
         linear-gradient(#5a61af, #5a61af),
         linear-gradient(#e4fbff, #e4fbff);
 	
@@ -33,7 +34,7 @@
 
 
 #taskOverdue .title{
-     -fx-background-color: linear-gradient(#FA856E, #FA856E);
+    -fx-background-color: linear-gradient(#FA856E, #FA856E);
     -fx-background-insets: 0;
     -fx-text-fill: white;
 }

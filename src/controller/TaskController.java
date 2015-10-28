@@ -4,12 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import processor.ErrorProcessor;
 import storage.Task;
@@ -26,8 +21,9 @@ public class TaskController extends TitledPane{
 	private Text time;
 	
 	private int taskId;
+	private int taskIndex;
 	
-	public TaskController(Task t){
+	public TaskController(Task t, int index){
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(FXML_PATH));
         loader.setRoot(this);
@@ -35,7 +31,8 @@ public class TaskController extends TitledPane{
         try {
         	loader.load();
         	this.getStylesheets().add("/controller/taskcontroller.css");
-	        setName(t.getName());
+	        setTaskIndex(index);
+        	setName(t.getName());
 	        setDate(t.getStartDateString());
 	        setTime(t.getStartTimeString());
 	        setDetails(t.getDetails());
@@ -48,12 +45,17 @@ public class TaskController extends TitledPane{
         if(t.isCompleted()){
         	this.setId("taskCompleted");
         	this.setOpacity(0.2);
-        	//this.setBackground(new Background(new BackgroundFill(Color.RED,CornerRadii.EMPTY, Insets.EMPTY) )) ;
-        } 
+        } else if(t.due() == -1){
+        	this.setId("taskOverdue");
+        } else if(t.due() == 0){
+        	this.setId("taskDueToday");
+        } else if(t.due() == 1){
+        	this.setId("taskDueTomorrow");
+        }
 	}
 	
 	public void setName(String name){
-		this.setText(name);
+		this.setText(taskIndex + ". " + name);
 	}
 	
 	public void setDetails(String d){
@@ -74,6 +76,10 @@ public class TaskController extends TitledPane{
 	
 	public int getTaskId(){
 		return taskId;
+	}
+	
+	public void setTaskIndex(int index){
+		this.taskIndex = index;
 	}
 	
 }
