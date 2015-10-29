@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
@@ -23,10 +24,12 @@ public class TaskListController extends ScrollPane{
     // Maps the Task to its corresponding TaskController
     private Hashtable<Integer, TaskController> taskLookupTable;
     private int numOfTaskDue;
+    boolean[] isTaskTitleDisplayed;
 
     public TaskListController() {
     	taskLookupTable = new Hashtable<Integer, TaskController>();
     	numOfTaskDue = 0;
+    	isTaskTitleDisplayed = new boolean[6];
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(FXML_PATH));
         loader.setRoot(this);
@@ -81,6 +84,7 @@ public class TaskListController extends ScrollPane{
     public void loadTaskList(List<Task> listOfTasks) {
     	containerOfTask.getChildren().clear(); // barny: Testing redrawing to show sorted order
     	for (int i = 0; i < listOfTasks.size(); i++) {
+    		addTitle(listOfTasks.get(i));
     		addTask(listOfTasks.get(i), i);
 		}
     }
@@ -88,5 +92,32 @@ public class TaskListController extends ScrollPane{
     public int getNumOfTaskDue(){
     	return numOfTaskDue;
     }
-        
+     
+    public void addTitle(Task t){
+    	if(t.due() == Task.NODATE && !isTaskTitleDisplayed[Task.NODATE]){
+    		Label title = new Label("FLOATING TASKS");
+    		containerOfTask.getChildren().add(title);
+    		isTaskTitleDisplayed[Task.NODATE] = true;
+    	
+    	} else if(t.due() == Task.OVERDUE && !isTaskTitleDisplayed[Task.OVERDUE]){
+    		Label title = new Label("OVERDUE TASKS");
+    		containerOfTask.getChildren().add(title);
+    		isTaskTitleDisplayed[Task.OVERDUE] = true;
+    	
+    	} else if(t.due() == Task.TODAY && !isTaskTitleDisplayed[Task.TODAY]){
+    		Label title = new Label("TODAY TASKS");
+    		containerOfTask.getChildren().add(title);
+    		isTaskTitleDisplayed[Task.TODAY] = true;
+    	
+    	} else if(t.due() == Task.TOMORROW && !isTaskTitleDisplayed[Task.TOMORROW]){
+    		Label title = new Label("TOMORROW TASKS");
+    		containerOfTask.getChildren().add(title);
+    		isTaskTitleDisplayed[Task.TOMORROW] = true;
+    	
+    	} else if(t.due() == Task.UPCOMING && !isTaskTitleDisplayed[Task.UPCOMING]){
+    		Label title = new Label("UPCOMING TASKS");
+    		containerOfTask.getChildren().add(title);
+    		isTaskTitleDisplayed[Task.UPCOMING] = true;
+    	}
+    }
 }
