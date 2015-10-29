@@ -30,9 +30,9 @@ public class TaskComparator implements Comparator<Task> {
 			if (result == SAME && first.getStartDate() != null && second.getStartDate() != null) {
 				result = first.getStartDate().compareTo(second.getStartDate());
 				// TODO check if storing start dates in correct order
-			} else if (first.getStartDate() == null && second.getStartDate() != null) {
+			} else if (result == SAME && first.getStartDate() == null && second.getStartDate() != null) {
 				result = GREATER_THAN;
-			} else if (first.getStartDate() != null && second.getStartDate() == null) {
+			} else if (result == SAME && first.getStartDate() != null && second.getStartDate() == null) {
 				result = LESSER_THAN;
 			} 
 
