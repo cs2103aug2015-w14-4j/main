@@ -37,12 +37,12 @@ public class Task {
 	private static final String TASK_STRING = "Task [name= %1$s, details= %2$s, startDate= %3$s, endDate= %4$s, completed= %5$s]";
 
 	// Due tags
-	private static final int NODATE = -2;
-	private static final int OVERDUE = -1;
-	private static final int TODAY = 0;
-	private static final int TOMORROW = 1;
-	private static final int UPCOMING = 2;
-	private static final int OTHERS = 3;
+	public static final int NODATE = 0;
+	public static final int OVERDUE = 1;
+	public static final int TODAY = 2;
+	public static final int TOMORROW = 3;
+	public static final int UPCOMING = 4;
+	public static final int OTHERS = 5;
 	
 
 	// *************************************** CONSTRUCTOR
