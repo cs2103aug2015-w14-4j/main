@@ -45,11 +45,11 @@ public class TaskController extends TitledPane{
         if(t.isCompleted()){
         	this.setId("taskCompleted");
         	this.setOpacity(0.2);
-        } else if(t.due() == -1){
+        } else if(t.due() == Task.OVERDUE){
         	this.setId("taskOverdue");
-        } else if(t.due() == 0){
+        } else if(t.due() == Task.TODAY){
         	this.setId("taskDueToday");
-        } else if(t.due() == 1){
+        } else if(t.due() == Task.TOMORROW){
         	this.setId("taskDueTomorrow");
         }
 	}
