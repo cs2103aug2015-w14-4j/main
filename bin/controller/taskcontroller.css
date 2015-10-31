@@ -1,5 +1,7 @@
 .title{
-
+-fx-background-color:
+        linear-gradient(C9C9C9, C9C9C9),
+        linear-gradient(DBDBDB, DBDBDB);
 }
 
 #taskCompleted .title{
@@ -23,8 +25,8 @@
 
 
 #taskDueTomorrow .title{
-		-fx-background-color: 
-        linear-gradient(#5a61af, #5a61af),
+		-fx-background-color:
+        linear-gradient(C2E7ED, C2E7ED),
         linear-gradient(#e4fbff, #e4fbff);
 	
 }
@@ -34,9 +36,9 @@
 
 
 #taskOverdue .title{
-    -fx-background-color: linear-gradient(#FA856E, #FA856E);
-    -fx-background-insets: 0;
-    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(ED7E68, ED7E68),linear-gradient(#FA856E, #FA856E);
+    /*-fx-background-insets: 0;
+    -fx-text-fill: white;*/
 }
 #taskOverdue .title .text{
 
