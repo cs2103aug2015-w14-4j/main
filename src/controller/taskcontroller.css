@@ -11,7 +11,6 @@
 	-fx-strikethrough: true;
 } 
 
-
 #taskDueToday .title{
 		-fx-background-color: 
         linear-gradient(#ffd65b, #ffd65b),
@@ -20,6 +19,7 @@
         linear-gradient(#ffe657, #ffe657);
        
 }
+
 #taskDue .title .text {	
 }
 
@@ -30,6 +30,7 @@
         linear-gradient(#e4fbff, #e4fbff);
 	
 }
+
 #taskDueTomorrow .title .text {
 	
 }
@@ -37,9 +38,10 @@
 
 #taskOverdue .title{
     -fx-background-color: linear-gradient(ED7E68, ED7E68),linear-gradient(#FA856E, #FA856E);
-    /*-fx-background-insets: 0;
-    -fx-text-fill: white;*/
+    /*-fx-background-insets: 0; */
+    /*-fx-text-fill: white;*/
 }
+
 #taskOverdue .title .text{
 
 }

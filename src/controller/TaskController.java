@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.text.Text;
 import processor.ErrorProcessor;
@@ -16,9 +17,11 @@ public class TaskController extends TitledPane{
 	@FXML 
 	private Text details;
 	@FXML 
-	private Text date;
+	private Label dateLabel;
 	@FXML 
-	private Text time;
+	private Text startDate;
+	@FXML 
+	private Text endDate;
 	
 	private int taskId;
 	private int taskIndex;
@@ -33,8 +36,8 @@ public class TaskController extends TitledPane{
         	this.getStylesheets().add("/controller/taskcontroller.css");
 	        setTaskIndex(index);
         	setName(t.getName());
-	        setDate(t.getEndDateString());
-	        setTime(t.getEndTimeString());
+	        setStartDate(t.getEndDateString());
+	        setEndDate(t.getEndTimeString());
 	        setDetails(t.getDetails());
 	        setTaskId(t.getTaskId());
 		} catch (IOException e) {
@@ -62,12 +65,12 @@ public class TaskController extends TitledPane{
 		this.details.setText(d);
 	}
 	
-	public void setDate(String d){
-		this.date.setText(d);
+	public void setStartDate(String d){
+		this.startDate.setText(d);
 	}
 	
-	public void setTime(String time){
-		this.time.setText(time);
+	public void setEndDate(String d){
+		this.endDate.setText(d);
 	}
 	
 	public void setTaskId(int id){
