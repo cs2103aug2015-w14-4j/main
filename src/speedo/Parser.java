@@ -22,6 +22,7 @@ public class Parser {
 	private SimpleDateFormat dateVariant2;
 	private SimpleDateFormat dateVariant3;
 	private SimpleDateFormat dateVariant4;
+	private String inputString;
 
 	private static final String ADD = "add";
 	private static final String DELETE = "remove delete";
@@ -49,6 +50,7 @@ public class Parser {
 	}
 
 	public Boolean parse(String str) {
+		inputString=str;
 		Boolean valid = true;
 		String[] inputsSplitDash=str.split("-");
 		String[] inputsSplitSpace=inputsSplitDash[0].split(" ");
@@ -297,7 +299,13 @@ public class Parser {
 	}
 
 	public int getIndex() {
-		return index;
+		String[] temp=inputString.split(" ");
+		if(temp.length<2){
+			return -1;
+		}else{
+			return index;
+		}
+
 	}
 
 	public String sort(String input) {

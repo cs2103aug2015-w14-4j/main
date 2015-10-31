@@ -20,13 +20,14 @@ public class ParserTest extends TestCase{
 
 	@Test
 	public void test() {
-		String test = "add test -d 241015 0306 201015 0123 -i detail for testing";
+		String test = "delete";
 		parse.parse(test);
 		System.out.println(parse.getCommand());
 		System.out.println(parse.getTaskName());
 		System.out.println(parse.getStartDate());
 		System.out.println(parse.getEndDate());
 		System.out.println(parse.getDetails());
+		System.out.println(parse.getIndex());
 	    assertTrue(parse.getDetails().equals("detail for testing"));
 	}
 	
