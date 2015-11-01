@@ -114,7 +114,7 @@ public class MainApp extends Application {
 	        }
 	        case ACK: {
 	        	cbc.setFeedback(command.getMsg());
-	        	tlc.loadTaskList(logic.getTaskList());
+	        	refresh();
 	        	break;
 	        }
 	        default:
