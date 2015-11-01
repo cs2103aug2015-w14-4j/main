@@ -109,6 +109,11 @@ public class MainApp extends Application {
 	        	tlc.loadTaskList(command.getListOfTasks());
 	        	break;	        	
 	        }
+	        case ACK: {
+	        	cbc.setFeedback(command.getMsg());
+	        	tlc.loadTaskList(logic.getTaskList());
+	        	break;
+	        }
 	        default:
 	        	cbc.setFeedback("Invalid command");
 			break;
