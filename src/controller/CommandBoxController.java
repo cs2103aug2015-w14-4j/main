@@ -62,4 +62,9 @@ public class CommandBoxController extends VBox{
     	feedback.setFill(Color.GREEN);
     }
     
+    public void setErrorFeedback(String txt){
+    	feedback.setText(txt);
+    	feedback.setFill(Color.RED);
+    }
+    
 }
