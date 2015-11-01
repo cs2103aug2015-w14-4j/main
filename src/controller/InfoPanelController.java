@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 public class InfoPanelController extends VBox{
 	
 	private static final String FXML_PATH = "/view/InfoPanelView.fxml";
+	private static final String TASK_DUE_MESSAGE = "%d Task(s) due";
 	
 	@FXML 
 	private Label userName;
@@ -30,10 +31,14 @@ public class InfoPanelController extends VBox{
         	userName.setText(user);
         	todayDay.setText(day);
         	todayDate.setText(date);
-        	numTasksDue.setText(numTasks + " Task(s) due");
+        	setTaskDue(numTasks);
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+	}
+	
+	public void setTaskDue(int numTasks){
+		numTasksDue.setText(String.format(TASK_DUE_MESSAGE, numTasks));
 	}
 		
 }
