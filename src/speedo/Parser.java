@@ -167,7 +167,10 @@ public class Parser {
 
 	private void processCommand(String stringCmd) {
 		stringCmd = stringCmd.toLowerCase();
-		if (ADD.contains(stringCmd)) {
+		stringCmd = stringCmd.trim();
+		if(stringCmd.length() == 0){
+			command = COMMANDS.INVALID;
+		} else if (ADD.contains(stringCmd)) {
 			command = COMMANDS.ADD;
 		} else if (DELETE.contains(stringCmd)) {
 			command = COMMANDS.DELETE;
