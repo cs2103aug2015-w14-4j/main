@@ -237,6 +237,7 @@ public class Storage {
 			Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
 					currTask.getEndDate());
 			oldTask.setCompleted(currTask.isCompleted());
+			oldTask.setTaskId(currTask.getTaskId());
 			recentChanges.push(oldTask); // Backup old task
 			taskList.get(index).setCompleted(true);
 			return taskList.get(index);

@@ -95,7 +95,7 @@ public class TaskListController extends ScrollPane{
      
     public void addTitle(Task t){
     	if(t.due() == Task.NODATE && !isTaskTitleDisplayed[Task.NODATE]){
-    		Label title = new Label("FLOATING TASKS");
+    		Label title = new Label("TO-DOS");
     		containerOfTask.getChildren().add(title);
     		isTaskTitleDisplayed[Task.NODATE] = true;
     	

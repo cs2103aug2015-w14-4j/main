@@ -62,8 +62,8 @@ public class MainApp extends Application {
     	
     	// sets up the info panel
     	InfoPanelController ipc = new InfoPanelController("Hi Barny", 
-    			DayProcessor.todayDay(), 
-    			DayProcessor.todayDate(), 
+    			"Monday", 
+    			"02 November", 
     			tlc.getNumOfTaskDue());
     	rootLayout.setLeft(ipc);
     }

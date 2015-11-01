@@ -236,6 +236,8 @@ public class Parser {
 			
 		} catch (ParseException e) {
 			System.out.println("1");
+			firstDate = null;
+			secondDate = null;
 		}
 		try {
 			if(dates.length==4){
@@ -255,6 +257,8 @@ public class Parser {
 				}
 		} catch (ParseException e) {
 			System.out.println("2");
+			firstDate = null;
+			secondDate = null;
 		}
 		try {
 			if(dates.length==4){
@@ -274,6 +278,8 @@ public class Parser {
 				}
 		} catch (ParseException e) {
 			System.out.println("3");
+			firstDate = null;
+			secondDate = null;
 		}
 		try {
 			if(dates.length==4){
@@ -293,6 +299,8 @@ public class Parser {
 				}
 		} catch (ParseException e) {
 			System.out.println("4");
+			firstDate = null;
+			secondDate = null;
 		}
 		logger.info("Date: " + dateString);
 		if(identity==0){
