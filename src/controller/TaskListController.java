@@ -85,7 +85,7 @@ public class TaskListController extends ScrollPane{
     	containerOfTask.getChildren().clear(); // barny: Testing redrawing to show sorted order
     	for (int i = 0; i < listOfTasks.size(); i++) {
     		addTitle(listOfTasks.get(i));
-    		addTask(listOfTasks.get(i), i);
+    		addTask(listOfTasks.get(i), i+1);
 		}
     }
     

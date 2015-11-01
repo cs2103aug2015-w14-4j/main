@@ -141,6 +141,7 @@ public class Parser {
 	private boolean isIndex(String text){
 		if (text.length() == 1){ // Is a task index
 			index = Integer.parseInt(text);
+			index--;
 			return true;
 		} else{
 			return false;
