@@ -15,7 +15,8 @@ public class Logic {
 	private COMMANDS command;
 	private String details;
 	private String taskName;
-	private Date date;
+	private Date startDate;
+	private Date endDate;
 	private int taskIndex;
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 
@@ -43,7 +44,8 @@ public class Logic {
 		case ADD:
 			details = parser.getDetails();
 			taskName = parser.getTaskName();
-			date = parser.getEndDate();
+			startDate = parser.getStartDate();
+			endDate = parser.getEndDate();
 			t = add();
 			if(t == null){
 				c =new GuiCommand(COMMANDS.INVALID, "Task not added");
@@ -126,7 +128,7 @@ public class Logic {
 		 * try { date = sdf.parse(date_in_string); } catch (ParseException e) {
 		 * // TODO Auto-generated catch block e.printStackTrace(); }
 		 */
-		Task newTask = store.add(taskName, details, date);
+		Task newTask = store.add(taskName, details, startDate, endDate);
 		System.out.println(newTask);
 		if (newTask != null) {
 			System.out.println("Task added");
