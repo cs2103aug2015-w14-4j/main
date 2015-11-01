@@ -99,7 +99,8 @@ public class MainApp extends Application {
 	        }
 	        case SEARCH: { // barny: Search will reload with a list of searched items
 	        	cbc.setFeedback(command.getMsg());
-	        	refresh();
+	        	TaskListController tlc = (TaskListController) rootLayout.getRight(); 
+	        	tlc.loadTaskList(command.getListOfTasks());
 	        	break;
 	        }
 	        case HOME: { // barny: Home will revert to original list of tasks
