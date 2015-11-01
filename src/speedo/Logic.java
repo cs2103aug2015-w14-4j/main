@@ -65,12 +65,17 @@ public class Logic {
 			}
 			break;
 		case EDIT:
+			taskName = parser.getTaskName();
 			details = parser.getDetails();
 			taskIndex = parser.getIndex();
+			startDate = parser.getStartDate();
+			endDate = parser.getEndDate();
 			t = edit();
 			if (t == null){
 				c = new GuiCommand(COMMANDS.INVALID, "Task not edited");
-			} else {
+			} else if(taskName == null && details == null && startDate == null && endDate == null){
+				
+			}else {
 				c = new GuiCommand(COMMANDS.EDIT, "Edited", t, taskIndex);
 			}
 			break;
@@ -140,7 +145,7 @@ public class Logic {
 	}
 
 	private Task edit(){
-		return store.edit(taskIndex, details);
+		return store.edit(taskIndex, taskName,details, startDate, endDate);
 		// store.saveFile();
 	}
 

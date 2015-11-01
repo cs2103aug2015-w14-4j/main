@@ -60,12 +60,13 @@ public class Parser {
 			taskName=taskName+" "+inputsSplitSpace[i]; 
 		}
 		if(EDIT.contains(commandString)){
+			if(inputsSplitSpace.length > 1){
 			this.isIndex(inputsSplitSpace[1]);
 			taskName="";
 			for(int i=2;i<inputsSplitSpace.length;i++){
 				taskName=taskName+" "+inputsSplitSpace[i]; 
 			}
-			
+			}
 		}
 		if(inputsSplitSpace.length > 1){
 			if(taskName.equals("")){

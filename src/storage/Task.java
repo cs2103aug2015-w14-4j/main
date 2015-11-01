@@ -147,6 +147,10 @@ public class Task {
 	private void setTaskId() {
 		taskId = getHashCode();
 	}
+	
+	public void setTaskId(int taskId){
+		this.taskId = taskId;
+	}
 
 	/**
 	 * Method to reset the Task Id

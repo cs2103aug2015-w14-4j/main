@@ -113,6 +113,7 @@ public class Storage {
 			Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
 					currTask.getEndDate());
 			oldTask.setCompleted(currTask.isCompleted());
+			oldTask.setTaskId(currTask.getTaskId());
 			recentChanges.push(oldTask); // Backup old task
 			if (taskName != null) {
 				currTask.setName(taskName);
@@ -127,6 +128,7 @@ public class Storage {
 				currTask.setEndDate(endDate);
 			}
 			assert taskList.get(index).getTaskId() == oldTask.getTaskId();
+			logger.info("Edited: "+oldTask.toString()+" to "+taskList.get(index).toString());
 			return taskList.get(index);
 		} else {
 			return null;
