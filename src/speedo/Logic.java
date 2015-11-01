@@ -108,7 +108,7 @@ public class Logic {
 	private String undo() {
 		boolean isValid = store.undo();
 		if(isValid){
-			return "Undo Sucessful";
+			return "Undo Successful";
 		} else{
 			return "Nothing to undo";
 		}
