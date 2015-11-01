@@ -28,8 +28,6 @@ public class TaskListController extends ScrollPane{
 
     public TaskListController() {
     	taskLookupTable = new Hashtable<Integer, TaskController>();
-    	numOfTaskDue = 0;
-    	isTaskTitleDisplayed = new boolean[6];
     	FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(FXML_PATH));
         loader.setRoot(this);
@@ -63,7 +61,7 @@ public class TaskListController extends ScrollPane{
     
     public void addTask(Task t, int index){
     	containerOfTask.getChildren().add(createTask(t, index));
-    	if(t.due() == 0){
+    	if(t.due() == Task.TODAY){
     		numOfTaskDue++;
     	}
     }
@@ -82,6 +80,8 @@ public class TaskListController extends ScrollPane{
     }
         
     public void loadTaskList(List<Task> listOfTasks) {
+    	numOfTaskDue = 0;
+    	isTaskTitleDisplayed = new boolean[6];
     	containerOfTask.getChildren().clear(); // barny: Testing redrawing to show sorted order
     	for (int i = 0; i < listOfTasks.size(); i++) {
     		addTitle(listOfTasks.get(i));

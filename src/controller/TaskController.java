@@ -36,8 +36,8 @@ public class TaskController extends TitledPane{
         	this.getStylesheets().add("/controller/taskcontroller.css");
 	        setTaskIndex(index);
         	setName(t.getName());
-	        setStartDate(t.getEndDateString());
-	        setEndDate(t.getEndTimeString());
+	        setStartDate(t.getStartDateString() + "   " + t.getStartTimeString());
+	        setEndDate(t.getEndDateString() + "   " + t.getEndTimeString());
 	        setDetails(t.getDetails());
 	        setTaskId(t.getTaskId());
 		} catch (IOException e) {

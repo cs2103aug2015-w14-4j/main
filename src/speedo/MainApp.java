@@ -34,7 +34,7 @@ public class MainApp extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-    
+	
     /**
      * Initializes the root layout.
      */
@@ -68,45 +68,48 @@ public class MainApp extends Application {
     	rootLayout.setLeft(ipc);
     }
     
+    public void refresh(){
+    	TaskListController tlc = (TaskListController) rootLayout.getRight(); 
+    	tlc.loadTaskList(logic.getTaskList());
+    	InfoPanelController ipc = (InfoPanelController) rootLayout.getLeft();
+    	ipc.setTaskDue(tlc.getNumOfTaskDue());
+    }
+    
     public void handleUserCommand(String userInput) {
         // Command was entered, do something...
         System.out.println(userInput);
         GuiCommand command = logic.executeCMD(userInput);
-        TaskListController tlc = (TaskListController) rootLayout.getRight(); 
         CommandBoxController cbc = (CommandBoxController) rootLayout.getBottom(); 
         System.out.println(command.getCmd());
         switch(command.getCmd()){
 	        case ADD: {
-	        	tlc.addTask(command.getTask());
 	        	cbc.setFeedback(command.getMsg());
-	        	tlc.loadTaskList(logic.getTaskList()); // barny: Testing redrawing to show sorted order
+	        	refresh();
 	        	break;
 	        }
 	        case DELETE: {
-	        	tlc.removeTask(command.getTask());
 	        	cbc.setFeedback(command.getMsg());
-	        	tlc.loadTaskList(logic.getTaskList()); // barny: Testing redrawing to show sorted order
+	        	refresh();
 	        	break;
 	        }
 	        case EDIT: {
-	        	tlc.editTask(command.getTask());
 	        	cbc.setFeedback(command.getMsg());
-	        	tlc.loadTaskList(logic.getTaskList()); // barny: Testing redrawing to show sorted order
+	        	refresh();
 	        	break;
 	        }
 	        case SEARCH: { // barny: Search will reload with a list of searched items
 	        	cbc.setFeedback(command.getMsg());
-	        	tlc.loadTaskList(command.getListOfTasks());
+	        	refresh();
 	        	break;
 	        }
 	        case HOME: { // barny: Home will revert to original list of tasks
 	        	cbc.setFeedback(command.getMsg());
-	        	tlc.loadTaskList(command.getListOfTasks());
+	        	refresh();
 	        	break;	        	
 	        }
 	        case UNDO: { // barny: Undo will revert one change
 	        	cbc.setFeedback(command.getMsg());
-	        	tlc.loadTaskList(command.getListOfTasks());
+	        	refresh();
 	        	break;	        	
 	        }
 	        case ACK: {
@@ -115,7 +118,7 @@ public class MainApp extends Application {
 	        	break;
 	        }
 	        default:
-	        	cbc.setFeedback("Invalid command");
+	        	cbc.setErrorFeedback("Invalid command");
 			break;
         }
     }
