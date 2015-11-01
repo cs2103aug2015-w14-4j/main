@@ -73,7 +73,7 @@ public class Logic {
 			}
 			break;
 		case SEARCH:
-			details = parser.getDetails();
+			taskName = parser.getTaskName();
 			list = search();
 			c = new GuiCommand(COMMANDS.SEARCH, "Searched tasks", list);
 			break;
@@ -149,7 +149,7 @@ public class Logic {
 	}
 
 	private List<Task> search(){
-		List<Task> list = store.search(details);
+		List<Task> list = store.search(taskName);
 		return list;
 
 	}
