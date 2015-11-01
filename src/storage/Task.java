@@ -402,10 +402,10 @@ public class Task {
 	 */
 	public boolean contains(String searchTerm) {
 		System.out.println(searchTerm);
-		if (this.getName().contains(searchTerm)) {
+		if (this.getName().toLowerCase().contains(searchTerm)) {
 			return true;
 		} else if (this.getDetails() != null) {
-			if (this.getDetails().contains(searchTerm)) {
+			if (this.getDetails().toLowerCase().contains(searchTerm)) {
 				return true;
 			}
 		}
