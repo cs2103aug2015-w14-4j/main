@@ -60,9 +60,9 @@ public class Storage {
 		return searchList;
 	}
 
-	public Task add(String name, String details, Date date) {
+	public Task add(String name, String details, Date startDate, Date endDate) {
 		// TODO
-		Task newTask = new Task(name, details, date);
+		Task newTask = new Task(name, details, startDate, endDate);
 
 		if (isNotDuplicate(newTask)) {
 			taskList.add(newTask);
@@ -188,6 +188,11 @@ public class Storage {
 	public Task complete(int index) {
 		// TODO
 		if (isValidIndex(index)) {
+			Task currTask = taskList.get(index);
+			Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
+					currTask.getEndDate());
+			oldTask.setCompleted(currTask.isCompleted());
+			recentChanges.push(oldTask); // Backup old task
 			taskList.get(index).setCompleted(true);
 			return taskList.get(index);
 		} else {
