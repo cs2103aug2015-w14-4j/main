@@ -15,7 +15,14 @@ public class Storage {
 	private static final Logger logger = Logger.getLogger(Storage.class.getName());
 
 	private boolean isTestMode;
-
+	
+	private static final String TASK_ADDED = "Task added: ";
+	private static final String TASK_BACKUP = "Backup mode: ";
+	private static final String TASK_DUPLICATE = "Duplicate task, not added: ";
+	private static final String TASK_DELETED = "Task deleted: ";
+	private static final String TASK_UNDO = "Undo: ";
+	private static final String TASK_NO_UNDO = "Nothing to undo: ";
+	
 	public Storage() {
 		this(false);
 	}
@@ -29,16 +36,31 @@ public class Storage {
 		this.readFile();
 	}
 
+	/**
+	 * Method to get the list of tasks
+	 * 
+	 * @return the list of tasks
+	 */
 	public List<Task> getTaskList() {
 		taskList.sort(taskComparator);
 		return taskList;
 	}
 
+	/**
+	 * Method to get the list of completed tasks
+	 * 
+	 * @return the list of completed tasks
+	 */
 	public List<Task> getCompletedList() {
 		completedList.sort(taskComparator);
 		return completedList;
 	}
 
+	/**
+	 * Method to read the taskList from a json file
+	 * 
+	 * @return true if read successfully, false if in test mode
+	 */
 	public boolean readFile() {
 		if (!isTestMode) {
 			taskList = FileHandler.readTasks();
@@ -54,6 +76,11 @@ public class Storage {
 
 	}
 
+	/**
+	 * Method to save the taskList to a json file
+	 * 
+	 * @return true if saved successfully, false if in test mode
+	 */
 	public boolean saveFile() {
 		if (!isTestMode) {
 			return FileHandler.saveTasks(taskList);
@@ -61,6 +88,13 @@ public class Storage {
 		return false;
 	}
 
+	/**
+	 * Method to search for tasks
+	 * 
+	 * @param searchTerm
+	 *            the string to find
+	 * @return searchList containing the tasks that has the string
+	 */
 	public List<Task> search(String searchTerm) {
 		List<Task> searchList = new ArrayList<Task>();
 		for (Task task : taskList) {
@@ -89,9 +123,9 @@ public class Storage {
 		if (isNotDuplicate(newTask)) {
 			taskList.add(newTask);
 			recentChanges.push(newTask);
-			logger.info("Added: " + name);
+			logger.info(TASK_ADDED + name);
 		} else {
-			logger.info("Duplicate, Not Added: " + name);
+			logger.info(TASK_DUPLICATE + name);
 		}
 		taskList.sort(taskComparator);
 		if (taskList.contains(newTask)) {
@@ -111,7 +145,7 @@ public class Storage {
 	public Task delete(int index) {
 		if (isValidIndex(index)) {
 			recentChanges.push(taskList.get(index));
-			logger.info("Deleted: "+index+" " + taskList.get(index).getName());
+			logger.info(TASK_DELETED + index + " " + taskList.get(index).getName());
 			return taskList.remove(index);
 		} else {
 			return null;
@@ -199,7 +233,6 @@ public class Storage {
 
 			if (taskList.contains(oldTask)) {
 				taskList.remove(oldTask);
-				logger.info("Undo: add");
 			} else {
 				for (Task currTask : taskList) {
 					if (currTask.getTaskId() == oldTask.getTaskId()) {
@@ -209,7 +242,6 @@ public class Storage {
 						currTask.setEndDate(oldTask.getEndDate());
 						currTask.setCompleted(oldTask.isCompleted());
 						edited = true;
-						logger.info("Undo: edit");
 						break;
 					}
 				}
@@ -224,9 +256,10 @@ public class Storage {
 					taskList.add(oldTask);
 				}
 			}
+			logger.info(TASK_UNDO);
 			return true;
 		}
-		logger.info("Undo: nothing to undo");
+		logger.info(TASK_NO_UNDO);
 		return false;
 	}
 
@@ -240,7 +273,7 @@ public class Storage {
 		oldTask.setTaskId(currTask.getTaskId());
 		recentChanges.push(oldTask);
 		assert currTask.getTaskId() == oldTask.getTaskId();
-		logger.info("Backup Made: " + oldTask);
+		logger.info(TASK_BACKUP + oldTask);
 		return currTask;
 	}
 
