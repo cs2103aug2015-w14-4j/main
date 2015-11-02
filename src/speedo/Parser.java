@@ -59,11 +59,15 @@ public class Parser {
 		for(int i=1;i<inputsSplitSpace.length;i++){
 			taskName=taskName+" "+inputsSplitSpace[i]; 
 		}
-		if(inputsSplitSpace.length > 1){
-		taskName=removeSpace(taskName);
-		}
 		if(EDIT.contains(commandString)){
 			this.isIndex(inputsSplitSpace[1]);
+			taskName="";
+			for(int i=2;i<inputsSplitSpace.length;i++){
+				taskName=taskName+" "+inputsSplitSpace[i]; 
+			}
+		}
+		if(inputsSplitSpace.length > 1){
+			taskName=removeSpace(taskName);
 		}
 		if(inputsSplitDash.length==1){
 			startDate=null;
