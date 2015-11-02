@@ -33,7 +33,7 @@ public class Storage {
 		taskList.sort(taskComparator);
 		return taskList;
 	}
-	
+
 	public List<Task> getCompletedList() {
 		completedList.sort(taskComparator);
 		return completedList;
@@ -62,7 +62,6 @@ public class Storage {
 	}
 
 	public List<Task> search(String searchTerm) {
-		// TODO
 		List<Task> searchList = new ArrayList<Task>();
 		for (Task task : taskList) {
 			if (task.contains(searchTerm)) {
@@ -72,10 +71,21 @@ public class Storage {
 		return searchList;
 	}
 
+	/**
+	 * Method to add a task
+	 * 
+	 * @param name
+	 *            name of the task to add
+	 * @param details
+	 *            details of the task to add
+	 * @param startDate
+	 *            starting date of the task to add
+	 * @param endDate
+	 *            ending date of the task to add
+	 * @return Task that was added, if not added, return null
+	 */
 	public Task add(String name, String details, Date startDate, Date endDate) {
-		// TODO
 		Task newTask = new Task(name, details, startDate, endDate);
-
 		if (isNotDuplicate(newTask)) {
 			taskList.add(newTask);
 			recentChanges.push(newTask);
@@ -91,11 +101,17 @@ public class Storage {
 		}
 	}
 
+	/**
+	 * Method to delete a task
+	 * 
+	 * @param index
+	 *            index of the task to delete
+	 * @return Task that was deleted, if not deleted, return null
+	 */
 	public Task delete(int index) {
-		// TODO
 		if (isValidIndex(index)) {
 			recentChanges.push(taskList.get(index));
-			logger.info("Deleted: " + taskList.get(index).getName());
+			logger.info("Deleted: "+index+" " + taskList.get(index).getName());
 			return taskList.remove(index);
 		} else {
 			return null;
@@ -117,11 +133,9 @@ public class Storage {
 	 *            the new ending date to replace the previous ending date
 	 * @return Task that was edited, if index is not valid, return null
 	 */
-
 	public Task edit(int index, String taskName, String details, Date startDate, Date endDate) {
-		// TODO
 		if (isValidIndex(index)) {
-			Task currTask = backup(index);// Backup old task
+			Task currTask = backup(index);
 			if (taskName != null) {
 				currTask.setName(taskName);
 			}
@@ -157,7 +171,6 @@ public class Storage {
 	 *         null
 	 */
 	public Task complete(int index) {
-		// TODO
 		if (isValidIndex(index)) {
 			Task currTask = backup(index);
 			completedList.add(currTask);
@@ -180,7 +193,6 @@ public class Storage {
 	 * @return true if there are changes to undo, false otherwise
 	 */
 	public boolean undo() {
-		System.out.println("yoo");
 		if (!recentChanges.isEmpty()) {
 			Task oldTask = recentChanges.pop();
 			boolean edited = false;
@@ -265,7 +277,6 @@ public class Storage {
 	// * @return Task that was edited, if index is not valid, return null
 	// */
 	// public Task edit(int index, String newName) {
-	// // TODO
 	// if (isValidIndex(index)) {
 	// Task currTask = taskList.get(index);
 	// Task oldTask = new Task(currTask.getName(), currTask.getDetails(),
@@ -293,7 +304,6 @@ public class Storage {
 	// * @return Task that was edited, if index is not valid, return null
 	// */
 	// public Task edit(int index, String newName, boolean name) {
-	// // TODO
 	// if (isValidIndex(index)) {
 	// Task currTask = taskList.get(index);
 	// Task oldTask = new Task(currTask.getName(), currTask.getDetails(),
@@ -325,7 +335,6 @@ public class Storage {
 	// * @return Task that was edited, if index is not valid, return null
 	// */
 	// public Task edit(int index, Date newDate, boolean startDate) {
-	// // TODO
 	// if (isValidIndex(index)) {
 	// Task currTask = taskList.get(index);
 	// Task oldTask = new Task(currTask.getName(), currTask.getDetails(),
