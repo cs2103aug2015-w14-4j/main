@@ -22,7 +22,7 @@ public class Parser {
 	private SimpleDateFormat dateVariant2;
 	private SimpleDateFormat dateVariant3;
 	private SimpleDateFormat dateVariant4;
-	private String inputString;
+	private String inputString,commandString;
 
 	private static final String ADD = "add";
 	private static final String DELETE = "remove delete";
@@ -54,6 +54,7 @@ public class Parser {
 		Boolean valid = true;
 		String[] inputsSplitDash=str.split("-");
 		String[] inputsSplitSpace=inputsSplitDash[0].split(" ");
+		commandString=inputsSplitSpace[0];
 		processCommand(inputsSplitSpace[0]);
 		for(int i=1;i<inputsSplitSpace.length;i++){
 			taskName=taskName+" "+inputsSplitSpace[i]; 
@@ -66,7 +67,7 @@ public class Parser {
 			endDate=null;
 			details="No Information";
 			if(inputsSplitSpace.length == 2){
-			this.isIndex(inputsSplitSpace[1]);
+				this.isIndex(inputsSplitSpace[1]);
 			}
 		}else if(inputsSplitDash.length==2){
 			if(inputsSplitDash[1].charAt(0)=='d'||inputsSplitDash[1].charAt(0)=='D'){
@@ -139,11 +140,14 @@ public class Parser {
 	}
 
 	private boolean isIndex(String text){
-		if (text.length() == 1){ // Is a task index
+		if (text.length() == 1&&!SEARCH.contains(commandString)){ // Is a task index
 			index = Integer.parseInt(text);
 			index--;
 			return true;
-		} else{
+		}else if(SEARCH.contains(commandString)){
+			taskName = text;
+			return true;
+		}else{
 			return false;
 		}
 	}
@@ -177,6 +181,7 @@ public class Parser {
 			command = COMMANDS.DELETE;
 		} else if (EDIT.contains(stringCmd)) {
 			command = COMMANDS.EDIT;
+			//index = Integer.parseInt(taskName);
 		} else if (ACK.contains(stringCmd)) {
 			command = COMMANDS.ACK;
 		} else if (SEARCH.contains(stringCmd)) {

@@ -20,7 +20,7 @@ public class ParserTest extends TestCase{
 
 	@Test
 	public void test() {
-		String test = "delete";
+		String test = "search csdknc";
 		parse.parse(test);
 		System.out.println(parse.getCommand());
 		System.out.println(parse.getTaskName());
