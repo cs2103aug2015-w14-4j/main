@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 public class Storage {
 	private static List<Task> taskList;
+	private static List<Task> completedList;
 	private static TaskComparator taskComparator;
 	private static Stack<Task> recentChanges;
 	private static final Logger logger = Logger.getLogger(Storage.class.getName());
@@ -21,6 +22,7 @@ public class Storage {
 
 	public Storage(boolean isTestMode) {
 		taskList = new ArrayList<Task>();
+		completedList = new ArrayList<Task>();
 		taskComparator = new TaskComparator();
 		recentChanges = new Stack<Task>();
 		this.isTestMode = isTestMode;
@@ -28,14 +30,24 @@ public class Storage {
 	}
 
 	public List<Task> getTaskList() {
-		// TODO Auto-generated method stub
 		taskList.sort(taskComparator);
 		return taskList;
+	}
+	
+	public List<Task> getCompletedList() {
+		completedList.sort(taskComparator);
+		return completedList;
 	}
 
 	public boolean readFile() {
 		if (!isTestMode) {
 			taskList = FileHandler.readTasks();
+			for (int x = 0; x < taskList.size(); x++) {
+				if (taskList.get(x).isCompleted()) {
+					completedList.add(taskList.get(x));
+					taskList.remove(x);
+				}
+			}
 			return true;
 		}
 		return false;
@@ -89,7 +101,7 @@ public class Storage {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Method to edit a task
 	 * 
@@ -109,12 +121,7 @@ public class Storage {
 	public Task edit(int index, String taskName, String details, Date startDate, Date endDate) {
 		// TODO
 		if (isValidIndex(index)) {
-			Task currTask = taskList.get(index);
-			Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
-					currTask.getEndDate());
-			oldTask.setCompleted(currTask.isCompleted());
-			oldTask.setTaskId(currTask.getTaskId());
-			recentChanges.push(oldTask); // Backup old task
+			Task currTask = backup(index);// Backup old task
 			if (taskName != null) {
 				currTask.setName(taskName);
 			}
@@ -125,102 +132,21 @@ public class Storage {
 				currTask.setStartDate(startDate);
 			}
 			if (endDate != null) {
-				currTask.setEndDate(endDate);
+				if (currTask.getStartDate() != null) {
+					if (currTask.getStartDate().after(endDate)) {
+						Date tempDate = currTask.getStartDate();
+						currTask.setEndDate(tempDate);
+						currTask.setStartDate(endDate);
+					}
+				} else {
+					currTask.setEndDate(endDate);
+				}
 			}
-			assert taskList.get(index).getTaskId() == oldTask.getTaskId();
-			logger.info("Edited: "+oldTask.toString()+" to "+taskList.get(index).toString());
 			return taskList.get(index);
 		} else {
 			return null;
 		}
 	}
-
-//	/**
-//	 * Method to edit a task
-//	 * 
-//	 * @param index
-//	 *            index of the task to flag as completed
-//	 * @param newName
-//	 *            the new string to replace the previous name
-//	 * @return Task that was edited, if index is not valid, return null
-//	 */
-//	public Task edit(int index, String newName) {
-//		// TODO
-//		if (isValidIndex(index)) {
-//			Task currTask = taskList.get(index);
-//			Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
-//					currTask.getEndDate());
-//			oldTask.setCompleted(currTask.isCompleted());
-//			recentChanges.push(oldTask); // Backup old task
-//			taskList.get(index).setName(newName); // Edit name
-//			assert taskList.get(index).getTaskId() == oldTask.getTaskId();
-//			return taskList.get(index);
-//		} else {
-//			return null;
-//		}
-//	}
-//
-//	/**
-//	 * Method to edit a task
-//	 * 
-//	 * @param index
-//	 *            index of the task to flag as completed
-//	 * @param newName
-//	 *            the new string to replace the previous name
-//	 * @param name
-//	 *            true if editing name, false if editing details
-//	 * @return Task that was edited, if index is not valid, return null
-//	 */
-//	public Task edit(int index, String newName, boolean name) {
-//		// TODO
-//		if (isValidIndex(index)) {
-//			Task currTask = taskList.get(index);
-//			Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
-//					currTask.getEndDate());
-//			oldTask.setCompleted(currTask.isCompleted());
-//			recentChanges.push(oldTask); // Backup old task
-//			if (name) {
-//				taskList.get(index).setName(newName); // Edit name
-//			} else {
-//				taskList.get(index).setDetails(newName); // Edit details
-//			}
-//			assert taskList.get(index).getTaskId() == oldTask.getTaskId();
-//			return taskList.get(index);
-//		} else {
-//			return null;
-//		}
-//	}
-//
-//	/**
-//	 * Method to edit a task
-//	 * 
-//	 * @param index
-//	 *            index of the task to flag as completed
-//	 * @param newDate
-//	 *            the new date to replace the previous date
-//	 * @param startDate
-//	 *            true if replacing the starting date, false otherwise
-//	 * @return Task that was edited, if index is not valid, return null
-//	 */
-//	public Task edit(int index, Date newDate, boolean startDate) {
-//		// TODO
-//		if (isValidIndex(index)) {
-//			Task currTask = taskList.get(index);
-//			Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
-//					currTask.getEndDate());
-//			oldTask.setCompleted(currTask.isCompleted());
-//			recentChanges.push(oldTask); // Backup old task
-//			if (startDate) {
-//				taskList.get(index).setStartDate(newDate); // Edit starting date
-//			} else {
-//				taskList.get(index).setEndDate(newDate); // Edit ending date
-//			}
-//			assert taskList.get(index).getTaskId() == oldTask.getTaskId();
-//			return taskList.get(index);
-//		} else {
-//			return null;
-//		}
-//	}
 
 	/**
 	 * Method to flag a task as complete
@@ -233,13 +159,10 @@ public class Storage {
 	public Task complete(int index) {
 		// TODO
 		if (isValidIndex(index)) {
-			Task currTask = taskList.get(index);
-			Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
-					currTask.getEndDate());
-			oldTask.setCompleted(currTask.isCompleted());
-			oldTask.setTaskId(currTask.getTaskId());
-			recentChanges.push(oldTask); // Backup old task
-			taskList.get(index).setCompleted(true);
+			Task currTask = backup(index);
+			completedList.add(currTask);
+			currTask.setCompleted(true);
+			taskList.remove(index);
 			return taskList.get(index);
 		} else {
 			return null;
@@ -257,12 +180,14 @@ public class Storage {
 	 * @return true if there are changes to undo, false otherwise
 	 */
 	public boolean undo() {
+		System.out.println("yoo");
 		if (!recentChanges.isEmpty()) {
 			Task oldTask = recentChanges.pop();
 			boolean edited = false;
 
 			if (taskList.contains(oldTask)) {
 				taskList.remove(oldTask);
+				logger.info("Undo: add");
 			} else {
 				for (Task currTask : taskList) {
 					if (currTask.getTaskId() == oldTask.getTaskId()) {
@@ -272,11 +197,18 @@ public class Storage {
 						currTask.setEndDate(oldTask.getEndDate());
 						currTask.setCompleted(oldTask.isCompleted());
 						edited = true;
+						logger.info("Undo: edit");
 						break;
 					}
 				}
 
 				if (!edited) {
+					for (Task completedTask : completedList) {
+						if (completedTask.getTaskId() == oldTask.getTaskId()) {
+							completedList.remove(completedTask);
+							break;
+						}
+					}
 					taskList.add(oldTask);
 				}
 			}
@@ -284,6 +216,20 @@ public class Storage {
 		}
 		logger.info("Undo: nothing to undo");
 		return false;
+	}
+
+	// Backs up a task to recentChanges, returns a new instance of the old task
+	// for editing
+	private Task backup(int index) {
+		Task currTask = taskList.get(index);
+		Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
+				currTask.getEndDate());
+		oldTask.setCompleted(currTask.isCompleted());
+		oldTask.setTaskId(currTask.getTaskId());
+		recentChanges.push(oldTask);
+		assert currTask.getTaskId() == oldTask.getTaskId();
+		logger.info("Backup Made: " + oldTask);
+		return currTask;
 	}
 
 	private boolean isValidIndex(int index) {
@@ -306,5 +252,97 @@ public class Storage {
 		}
 		return true;
 	}
+
+	// The following code have been removed due to changes in the way the dates
+	// are handled. They are left here in case there is a need to refer to them.
+	// /**
+	// * Method to edit a task
+	// *
+	// * @param index
+	// * index of the task to flag as completed
+	// * @param newName
+	// * the new string to replace the previous name
+	// * @return Task that was edited, if index is not valid, return null
+	// */
+	// public Task edit(int index, String newName) {
+	// // TODO
+	// if (isValidIndex(index)) {
+	// Task currTask = taskList.get(index);
+	// Task oldTask = new Task(currTask.getName(), currTask.getDetails(),
+	// currTask.getStartDate(),
+	// currTask.getEndDate());
+	// oldTask.setCompleted(currTask.isCompleted());
+	// recentChanges.push(oldTask); // Backup old task
+	// taskList.get(index).setName(newName); // Edit name
+	// assert taskList.get(index).getTaskId() == oldTask.getTaskId();
+	// return taskList.get(index);
+	// } else {
+	// return null;
+	// }
+	// }
+	//
+	// /**
+	// * Method to edit a task
+	// *
+	// * @param index
+	// * index of the task to flag as completed
+	// * @param newName
+	// * the new string to replace the previous name
+	// * @param name
+	// * true if editing name, false if editing details
+	// * @return Task that was edited, if index is not valid, return null
+	// */
+	// public Task edit(int index, String newName, boolean name) {
+	// // TODO
+	// if (isValidIndex(index)) {
+	// Task currTask = taskList.get(index);
+	// Task oldTask = new Task(currTask.getName(), currTask.getDetails(),
+	// currTask.getStartDate(),
+	// currTask.getEndDate());
+	// oldTask.setCompleted(currTask.isCompleted());
+	// recentChanges.push(oldTask); // Backup old task
+	// if (name) {
+	// taskList.get(index).setName(newName); // Edit name
+	// } else {
+	// taskList.get(index).setDetails(newName); // Edit details
+	// }
+	// assert taskList.get(index).getTaskId() == oldTask.getTaskId();
+	// return taskList.get(index);
+	// } else {
+	// return null;
+	// }
+	// }
+	//
+	// /**
+	// * Method to edit a task
+	// *
+	// * @param index
+	// * index of the task to flag as completed
+	// * @param newDate
+	// * the new date to replace the previous date
+	// * @param startDate
+	// * true if replacing the starting date, false otherwise
+	// * @return Task that was edited, if index is not valid, return null
+	// */
+	// public Task edit(int index, Date newDate, boolean startDate) {
+	// // TODO
+	// if (isValidIndex(index)) {
+	// Task currTask = taskList.get(index);
+	// Task oldTask = new Task(currTask.getName(), currTask.getDetails(),
+	// currTask.getStartDate(),
+	// currTask.getEndDate());
+	// oldTask.setCompleted(currTask.isCompleted());
+	// recentChanges.push(oldTask); // Backup old task
+	// if (startDate) {
+	// taskList.get(index).setStartDate(newDate); // Edit starting date
+	// } else {
+	// taskList.get(index).setEndDate(newDate); // Edit ending date
+	// }
+	// assert taskList.get(index).getTaskId() == oldTask.getTaskId();
+	// return taskList.get(index);
+	// } else {
+	// return null;
+	// }
+	// }
 
 }
