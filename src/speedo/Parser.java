@@ -62,6 +62,9 @@ public class Parser {
 		if(inputsSplitSpace.length > 1){
 		taskName=removeSpace(taskName);
 		}
+		if(EDIT.contains(commandString)){
+			this.isIndex(inputsSplitSpace[1]);
+		}
 		if(inputsSplitDash.length==1){
 			startDate=null;
 			endDate=null;
@@ -182,6 +185,7 @@ public class Parser {
 		} else if (EDIT.contains(stringCmd)) {
 			command = COMMANDS.EDIT;
 			//index = Integer.parseInt(taskName);
+			//index--;
 		} else if (ACK.contains(stringCmd)) {
 			command = COMMANDS.ACK;
 		} else if (SEARCH.contains(stringCmd)) {
