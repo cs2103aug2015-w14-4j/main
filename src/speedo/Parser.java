@@ -14,7 +14,7 @@ public class Parser {
 
 	private String dateString;
 	private String details;
-	private Date startDate,endDate;
+	private Date startDate, endDate;
 	private COMMANDS command;
 	private String taskName;
 	private int index;
@@ -22,7 +22,7 @@ public class Parser {
 	private SimpleDateFormat dateVariant2;
 	private SimpleDateFormat dateVariant3;
 	private SimpleDateFormat dateVariant4;
-	private String inputString,commandString;
+	private String inputString, commandString;
 
 	private static final String ADD = "add";
 	private static final String DELETE = "remove delete";
@@ -50,101 +50,101 @@ public class Parser {
 	}
 
 	public Boolean parse(String str) {
-		inputString=str;
+		inputString = str;
 		Boolean valid = true;
-		String[] inputsSplitDash=str.split("-");
-		String[] inputsSplitSpace=inputsSplitDash[0].split(" ");
-		commandString=inputsSplitSpace[0];
+		String[] inputsSplitDash = str.split("-");
+		String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
+		commandString = inputsSplitSpace[0];
 		processCommand(inputsSplitSpace[0]);
-		for(int i=1;i<inputsSplitSpace.length;i++){
-			taskName=taskName+" "+inputsSplitSpace[i]; 
+		for (int i = 1; i < inputsSplitSpace.length; i++) {
+			taskName = taskName + " " + inputsSplitSpace[i];
 		}
-		if(EDIT.contains(commandString)){
-			if(inputsSplitSpace.length > 1){
-			this.isIndex(inputsSplitSpace[1]);
-			taskName="";
-			for(int i=2;i<inputsSplitSpace.length;i++){
-				taskName=taskName+" "+inputsSplitSpace[i]; 
-			}
+		if (EDIT.contains(commandString)) {
+			if (inputsSplitSpace.length > 1) {
+				this.isIndex(inputsSplitSpace[1]);
+				taskName = "";
+				for (int i = 2; i < inputsSplitSpace.length; i++) {
+					taskName = taskName + " " + inputsSplitSpace[i];
+				}
 			}
 		}
-		if(inputsSplitSpace.length > 1){
-			if(taskName.equals("")){
-				taskName= null;
-			}else{
-				taskName=removeSpace(taskName);
+		if (inputsSplitSpace.length > 1) {
+			if (taskName.equals("")) {
+				taskName = null;
+			} else {
+				taskName = removeSpace(taskName);
 			}
-			
+
 		}
-		if(inputsSplitDash.length==1){
-			startDate=null;
-			endDate=null;
-			details=null;
-			if(inputsSplitSpace.length == 2){
+		if (inputsSplitDash.length == 1) {
+			startDate = null;
+			endDate = null;
+			details = null;
+			if (inputsSplitSpace.length == 2) {
 				this.isIndex(inputsSplitSpace[1]);
 			}
-		}else if(inputsSplitDash.length==2){
-			if(inputsSplitDash[1].charAt(0)=='d'||inputsSplitDash[1].charAt(0)=='D'){
-				String correctInfo=removeSpace(removeFirst(inputsSplitDash[1]));
-				startDate=processDate(correctInfo,0);
-				endDate=processDate(correctInfo,1);
-				details=null;
-			}else if(inputsSplitDash[1].charAt(0)=='i'||inputsSplitDash[0].charAt(0)=='I'){
-				startDate=null;
-				endDate=null;
-				details=removeSpace(removeFirst(inputsSplitDash[1]));
-			}else{
-				startDate=null;
-				endDate=null;
-				details=null;
+		} else if (inputsSplitDash.length == 2) {
+			if (inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D') {
+				String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
+				startDate = processDate(correctInfo, 0);
+				endDate = processDate(correctInfo, 1);
+				details = null;
+			} else if (inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[0].charAt(0) == 'I') {
+				startDate = null;
+				endDate = null;
+				details = removeSpace(removeFirst(inputsSplitDash[1]));
+			} else {
+				startDate = null;
+				endDate = null;
+				details = null;
 			}
-		}else{
-			if((inputsSplitDash[1].charAt(0)=='d'||inputsSplitDash[1].charAt(0)=='D')
-					&&(inputsSplitDash[2].charAt(0)=='i'||inputsSplitDash[2].charAt(0)=='I')){
-				String correctInfo=removeSpace(removeFirst(inputsSplitDash[1]));
-				startDate=processDate(correctInfo,0);
-				endDate=processDate(correctInfo,1);
-				details=removeSpace(removeFirst(inputsSplitDash[2]));
-			}else if((inputsSplitDash[1].charAt(0)=='i'||inputsSplitDash[1].charAt(0)=='I')
-					&&(inputsSplitDash[2].charAt(0)=='d'||inputsSplitDash[2].charAt(0)=='D')){
-				String correctInfo=removeSpace(removeFirst(inputsSplitDash[2]));
-				startDate=processDate(correctInfo,0);
-				endDate=processDate(correctInfo,1);
-				details=removeSpace(removeFirst(inputsSplitDash[1]));
-			}else{
-				startDate=null;
-				endDate=null;
-				details=null;
+		} else {
+			if ((inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D')
+					&& (inputsSplitDash[2].charAt(0) == 'i' || inputsSplitDash[2].charAt(0) == 'I')) {
+				String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
+				startDate = processDate(correctInfo, 0);
+				endDate = processDate(correctInfo, 1);
+				details = removeSpace(removeFirst(inputsSplitDash[2]));
+			} else if ((inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[1].charAt(0) == 'I')
+					&& (inputsSplitDash[2].charAt(0) == 'd' || inputsSplitDash[2].charAt(0) == 'D')) {
+				String correctInfo = removeSpace(removeFirst(inputsSplitDash[2]));
+				startDate = processDate(correctInfo, 0);
+				endDate = processDate(correctInfo, 1);
+				details = removeSpace(removeFirst(inputsSplitDash[1]));
+			} else {
+				startDate = null;
+				endDate = null;
+				details = null;
 			}
 		}
 
 		if (getCommand() == COMMANDS.INVALID) {
 			valid = false;
 		}
-		logger.info("Parsed: "+command+" " + taskName+" "+details+" "+endDate);
+		logger.info("Parsed: " + command + " " + taskName + " " + details + " " + endDate);
 		return valid;
 	}
-	
-	private String removeFirst(String text){
+
+	private String removeFirst(String text) {
 		return text.substring(1);
 	}
-	
+
 	private String removeSpace(String text) {
 		String[] inputwithSpace = text.split(" ");
-		String output="";
-		for(int i=1;i<inputwithSpace.length;i++){
-			if(i==1){
-				output=inputwithSpace[1];
-			}else{
-				output=output+" "+inputwithSpace[i];
+		String output = "";
+		for (int i = 1; i < inputwithSpace.length; i++) {
+			if (i == 1) {
+				output = inputwithSpace[1];
+			} else {
+				output = output + " " + inputwithSpace[i];
 			}
 		}
-		//System.out.println("input1:"+inputwithSpace[0]);
-		//System.out.println("input2:"+inputwithSpace[1]);
-		//System.out.println("output:"+output);
+		// System.out.println("input1:"+inputwithSpace[0]);
+		// System.out.println("input2:"+inputwithSpace[1]);
+		// System.out.println("output:"+output);
 		return output;
 	}
-	
+
 	private String removeExtras(String text) {
 		String input = text.replace(details, "");
 		input = input.replace(taskName, "");
@@ -154,10 +154,14 @@ public class Parser {
 	}
 
 	private boolean isIndex(String text){
-		if (text.length() == 1&&!SEARCH.contains(commandString)){ // Is a task index
-			index = Integer.parseInt(text);
+		if (!SEARCH.contains(commandString)){ // Is a task index
+			if(text.matches("\\d+")){
+				index = Integer.parseInt(text);
 			index--;
 			return true;
+			} else {
+				return false;
+			}
 		}else if(SEARCH.contains(commandString)){
 			taskName = text;
 			return true;
@@ -165,7 +169,7 @@ public class Parser {
 			return false;
 		}
 	}
-	
+
 	private void processDetails(String text) {
 		if (text.contains("'")) {
 			String[] stringPieces = text.split("'", 3);
@@ -187,7 +191,7 @@ public class Parser {
 	private void processCommand(String stringCmd) {
 		stringCmd = stringCmd.toLowerCase();
 		stringCmd = stringCmd.trim();
-		if(stringCmd.length() == 0){
+		if (stringCmd.length() == 0) {
 			command = COMMANDS.INVALID;
 		} else if (ADD.contains(stringCmd)) {
 			command = COMMANDS.ADD;
@@ -195,8 +199,8 @@ public class Parser {
 			command = COMMANDS.DELETE;
 		} else if (EDIT.contains(stringCmd)) {
 			command = COMMANDS.EDIT;
-			//index = Integer.parseInt(taskName);
-			//index--;
+			// index = Integer.parseInt(taskName);
+			// index--;
 		} else if (ACK.contains(stringCmd)) {
 			command = COMMANDS.ACK;
 		} else if (SEARCH.contains(stringCmd)) {
@@ -205,7 +209,7 @@ public class Parser {
 			command = COMMANDS.HOME;
 		} else if (UNDO.contains(stringCmd)) {
 			command = COMMANDS.UNDO;
-		} else if (EXPAND.contains(stringCmd)){
+		} else if (EXPAND.contains(stringCmd)) {
 			command = COMMANDS.EXPAND;
 		} else {
 			command = COMMANDS.INVALID;
@@ -214,98 +218,98 @@ public class Parser {
 	}
 
 	private Date processDate(String dateString, int identity) {
-		Date firstDate = new Date(),secondDate = new Date(),tempDate;
-		String dates[]=dateString.split(" ");
+		Date firstDate = new Date(), secondDate = new Date(), tempDate;
+		String dates[] = dateString.split(" ");
 		// Brute force date parsing
 		try {
-			if(dates.length==4){
-			firstDate = dateVariant1.parse(dates[0]+" "+dates[1]);
-			secondDate = dateVariant1.parse(dates[2]+" "+dates[3]);
-				if(firstDate.after(secondDate)){
-					tempDate=firstDate;
-					firstDate=secondDate;
-					secondDate=tempDate;
+			if (dates.length == 4) {
+				firstDate = dateVariant1.parse(dates[0] + " " + dates[1]);
+				secondDate = dateVariant1.parse(dates[2] + " " + dates[3]);
+				if (firstDate.after(secondDate)) {
+					tempDate = firstDate;
+					firstDate = secondDate;
+					secondDate = tempDate;
 				}
-			}else if(dates.length==2){
+			} else if (dates.length == 2) {
 				firstDate = null;
-				secondDate = dateVariant1.parse(dates[0]+" "+dates[1]);
-			}else{
+				secondDate = dateVariant1.parse(dates[0] + " " + dates[1]);
+			} else {
 				firstDate = null;
 				secondDate = null;
 			}
-			
+
 		} catch (ParseException e) {
 			System.out.println("1");
 			firstDate = null;
 			secondDate = null;
 		}
 		try {
-			if(dates.length==4){
-				firstDate = dateVariant2.parse(dates[0]+" "+dates[1]);
-				secondDate = dateVariant2.parse(dates[2]+" "+dates[3]);
-					if(firstDate.after(secondDate)){
-						tempDate=firstDate;
-						firstDate=secondDate;
-						secondDate=tempDate;
-					}
-				}else if(dates.length==2){
-					firstDate = null;
-					secondDate = dateVariant2.parse(dates[0]+" "+dates[1]);
-				}else{
-					firstDate = null;
-					secondDate = null;
+			if (dates.length == 4) {
+				firstDate = dateVariant2.parse(dates[0] + " " + dates[1]);
+				secondDate = dateVariant2.parse(dates[2] + " " + dates[3]);
+				if (firstDate.after(secondDate)) {
+					tempDate = firstDate;
+					firstDate = secondDate;
+					secondDate = tempDate;
 				}
+			} else if (dates.length == 2) {
+				firstDate = null;
+				secondDate = dateVariant2.parse(dates[0] + " " + dates[1]);
+			} else {
+				firstDate = null;
+				secondDate = null;
+			}
 		} catch (ParseException e) {
 			System.out.println("2");
 			firstDate = null;
 			secondDate = null;
 		}
 		try {
-			if(dates.length==4){
-				firstDate = dateVariant3.parse(dates[0]+" "+dates[1]);
-				secondDate = dateVariant3.parse(dates[2]+" "+dates[3]);
-					if(firstDate.after(secondDate)){
-						tempDate=firstDate;
-						firstDate=secondDate;
-						secondDate=tempDate;
-					}
-				}else if(dates.length==2){
-					firstDate = null;
-					secondDate = dateVariant3.parse(dates[0]+" "+dates[1]);
-				}else{
-					firstDate = null;
-					secondDate = null;
+			if (dates.length == 4) {
+				firstDate = dateVariant3.parse(dates[0] + " " + dates[1]);
+				secondDate = dateVariant3.parse(dates[2] + " " + dates[3]);
+				if (firstDate.after(secondDate)) {
+					tempDate = firstDate;
+					firstDate = secondDate;
+					secondDate = tempDate;
 				}
+			} else if (dates.length == 2) {
+				firstDate = null;
+				secondDate = dateVariant3.parse(dates[0] + " " + dates[1]);
+			} else {
+				firstDate = null;
+				secondDate = null;
+			}
 		} catch (ParseException e) {
 			System.out.println("3");
 			firstDate = null;
 			secondDate = null;
 		}
 		try {
-			if(dates.length==4){
-				firstDate = dateVariant4.parse(dates[0]+" "+dates[1]);
-				secondDate = dateVariant4.parse(dates[2]+" "+dates[3]);
-					if(firstDate.after(secondDate)){
-						tempDate=firstDate;
-						firstDate=secondDate;
-						secondDate=tempDate;
-					}
-				}else if(dates.length==2){
-					firstDate = null;
-					secondDate = dateVariant4.parse(dates[0]+" "+dates[1]);
-				}else{
-					firstDate = null;
-					secondDate = null;
+			if (dates.length == 4) {
+				firstDate = dateVariant4.parse(dates[0] + " " + dates[1]);
+				secondDate = dateVariant4.parse(dates[2] + " " + dates[3]);
+				if (firstDate.after(secondDate)) {
+					tempDate = firstDate;
+					firstDate = secondDate;
+					secondDate = tempDate;
 				}
+			} else if (dates.length == 2) {
+				firstDate = null;
+				secondDate = dateVariant4.parse(dates[0] + " " + dates[1]);
+			} else {
+				firstDate = null;
+				secondDate = null;
+			}
 		} catch (ParseException e) {
 			System.out.println("4");
 			firstDate = null;
 			secondDate = null;
 		}
 		logger.info("Date: " + dateString);
-		if(identity==0){
+		if (identity == 0) {
 			return firstDate;
-		}else{
+		} else {
 			return secondDate;
 		}
 	}
@@ -317,11 +321,11 @@ public class Parser {
 	public String getTaskName() {
 		return taskName;
 	}
-	
+
 	public Date getStartDate() {
 		return startDate;
 	}
-	
+
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -331,10 +335,10 @@ public class Parser {
 	}
 
 	public int getIndex() {
-		String[] temp=inputString.split(" ");
-		if(temp.length<2){
+		String[] temp = inputString.split(" ");
+		if (temp.length < 2) {
 			return -1;
-		}else{
+		} else {
 			return index;
 		}
 
@@ -385,5 +389,5 @@ public class Parser {
 		// System.out.println(input+" input");
 		return StringTemp;
 	}
-	
+
 }
