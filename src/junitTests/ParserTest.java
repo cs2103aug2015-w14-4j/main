@@ -20,7 +20,7 @@ public class ParserTest extends TestCase{
 
 	@Test
 	public void test() {
-		String test = "edit 2 lalala lala -i lol";
+		String test = "edit 2";
 		parse.parse(test);
 		System.out.println(parse.getCommand());
 		System.out.println(parse.getTaskName());

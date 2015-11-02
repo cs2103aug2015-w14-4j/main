@@ -65,14 +65,20 @@ public class Parser {
 			for(int i=2;i<inputsSplitSpace.length;i++){
 				taskName=taskName+" "+inputsSplitSpace[i]; 
 			}
+			
 		}
 		if(inputsSplitSpace.length > 1){
-			taskName=removeSpace(taskName);
+			if(taskName.equals("")){
+				taskName= null;
+			}else{
+				taskName=removeSpace(taskName);
+			}
+			
 		}
 		if(inputsSplitDash.length==1){
 			startDate=null;
 			endDate=null;
-			details="No Information";
+			details=null;
 			if(inputsSplitSpace.length == 2){
 				this.isIndex(inputsSplitSpace[1]);
 			}
@@ -81,7 +87,7 @@ public class Parser {
 				String correctInfo=removeSpace(removeFirst(inputsSplitDash[1]));
 				startDate=processDate(correctInfo,0);
 				endDate=processDate(correctInfo,1);
-				details="No Information";
+				details=null;
 			}else if(inputsSplitDash[1].charAt(0)=='i'||inputsSplitDash[0].charAt(0)=='I'){
 				startDate=null;
 				endDate=null;
@@ -89,7 +95,7 @@ public class Parser {
 			}else{
 				startDate=null;
 				endDate=null;
-				details="No Information";
+				details=null;
 			}
 		}else{
 			if((inputsSplitDash[1].charAt(0)=='d'||inputsSplitDash[1].charAt(0)=='D')
@@ -107,7 +113,7 @@ public class Parser {
 			}else{
 				startDate=null;
 				endDate=null;
-				details="No Information";
+				details=null;
 			}
 		}
 
