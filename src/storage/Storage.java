@@ -12,6 +12,7 @@ public class Storage {
 	private static List<Task> completedList;
 	private static TaskComparator taskComparator;
 	private static Stack<Task> recentChanges;
+	private static FileHandler fileHandler;
 	private static final Logger logger = Logger.getLogger(Storage.class.getName());
 
 	private boolean isTestMode;
@@ -32,8 +33,13 @@ public class Storage {
 		completedList = new ArrayList<Task>();
 		taskComparator = new TaskComparator();
 		recentChanges = new Stack<Task>();
+		fileHandler = new FileHandler();
 		this.isTestMode = isTestMode;
 		this.readFile();
+	}
+	
+	public void setSettings(String userName, String filePath){
+		fileHandler.saveSettings(new Settings(filePath, userName));
 	}
 
 	/**
@@ -63,7 +69,7 @@ public class Storage {
 	 */
 	public boolean readFile() {
 		if (!isTestMode) {
-			taskList = FileHandler.readTasks();
+			taskList = fileHandler.readTasks();
 			for (int x = 0; x < taskList.size(); x++) {
 				if (taskList.get(x).isCompleted()) {
 					completedList.add(taskList.get(x));
@@ -83,7 +89,7 @@ public class Storage {
 	 */
 	public boolean saveFile() {
 		if (!isTestMode) {
-			return FileHandler.saveTasks(taskList);
+			return fileHandler.saveTasks(taskList);
 		}
 		return false;
 	}
