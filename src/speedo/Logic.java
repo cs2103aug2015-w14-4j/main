@@ -115,6 +115,9 @@ public class Logic {
 			list = completed();
 			c = new GuiCommand(COMMANDS.COMPLETED, "Showing Completed tasks", list);
 			break;
+		case HELP:
+			c = new GuiCommand(COMMANDS.HELP, "Displaying help screen");
+			break
 		case INVALID:
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
 			break;
