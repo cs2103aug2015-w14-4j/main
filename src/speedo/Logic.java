@@ -20,6 +20,7 @@ public class Logic {
 	private int taskIndex;
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 
+	
 	// Constructor
 	public Logic() {
 		this(false);
@@ -27,6 +28,14 @@ public class Logic {
 	
 	public Logic(boolean test){
 		store = new Storage(test);
+	}
+	
+	public String getUser(){
+		return store.readFile();
+	}
+	
+	public void setSettings(String userName, String filePath){
+		store.setSettings(userName, filePath);
 	}
 
 	// Methods
