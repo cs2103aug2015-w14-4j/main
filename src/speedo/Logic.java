@@ -117,7 +117,7 @@ public class Logic {
 			break;
 		case HELP:
 			c = new GuiCommand(COMMANDS.HELP, "Displaying help screen");
-			break
+			break;
 		case INVALID:
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
 			break;
