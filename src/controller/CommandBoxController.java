@@ -24,7 +24,7 @@ public class CommandBoxController extends VBox{
 	private TextField commandBox;
 	
 	public CommandBoxController(){
-    	FXMLLoader loader = new FXMLLoader();
+		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(FXML_PATH));
         loader.setRoot(this);
         loader.setController(this);
@@ -48,6 +48,12 @@ public class CommandBoxController extends VBox{
 		commandBox.clear();
 	}
 	
+	@FXML
+	public void parseUserInput(){
+		String userInput = commandBox.getText();
+		mainApp.parseUserCommand(userInput);
+	}
+	
     /**
      * Is called by the main application to give a reference back to itself
      * 
@@ -56,7 +62,7 @@ public class CommandBoxController extends VBox{
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
-	
+    	
     public void setFeedback(String txt){
     	feedback.setText(txt);
     	feedback.setFill(Color.GREEN);
@@ -65,6 +71,11 @@ public class CommandBoxController extends VBox{
     public void setErrorFeedback(String txt){
     	feedback.setText(txt);
     	feedback.setFill(Color.RED);
+    }
+    
+    public void setPredictionFeedback(String txt){
+    	feedback.setText(txt);
+    	feedback.setFill(Color.BLUE);
     }
     
 }

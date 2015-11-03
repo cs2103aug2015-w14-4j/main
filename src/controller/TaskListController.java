@@ -100,22 +100,22 @@ public class TaskListController extends ScrollPane{
     		isTaskTitleDisplayed[Task.NODATE] = true;
     	
     	} else if(t.due() == Task.OVERDUE && !isTaskTitleDisplayed[Task.OVERDUE]){
-    		Label title = new Label("OVERDUE TASKS");
+    		Label title = new Label("OVERDUE");
     		containerOfTask.getChildren().add(title);
     		isTaskTitleDisplayed[Task.OVERDUE] = true;
     	
     	} else if(t.due() == Task.TODAY && !isTaskTitleDisplayed[Task.TODAY]){
-    		Label title = new Label("TODAY TASKS");
+    		Label title = new Label("TODAY");
     		containerOfTask.getChildren().add(title);
     		isTaskTitleDisplayed[Task.TODAY] = true;
     	
     	} else if(t.due() == Task.TOMORROW && !isTaskTitleDisplayed[Task.TOMORROW]){
-    		Label title = new Label("TOMORROW TASKS");
+    		Label title = new Label("TOMORROW");
     		containerOfTask.getChildren().add(title);
     		isTaskTitleDisplayed[Task.TOMORROW] = true;
     	
     	} else if(t.due() == Task.UPCOMING && !isTaskTitleDisplayed[Task.UPCOMING]){
-    		Label title = new Label("UPCOMING TASKS");
+    		Label title = new Label("UPCOMING");
     		containerOfTask.getChildren().add(title);
     		isTaskTitleDisplayed[Task.UPCOMING] = true;
     	}
