@@ -12,19 +12,17 @@ import processor.DayProcessor;
 
 public class Parser {
 
-	private ArrayList<String> inputs;
 
-	private String dateString;
 	private String details;
 	private Date startDate, endDate;
 	private COMMANDS command;
-	private String taskName, name, filePath, searchSentence;
+	private String taskName; 
+	private String name; 
+	private String filePath;
+	private String searchSentence;
 	private int index;
-	private SimpleDateFormat dateVariant1;
-	private SimpleDateFormat dateVariant2;
-	private SimpleDateFormat dateVariant3;
-	private SimpleDateFormat dateVariant4;
-	private String inputString, commandString;
+	private String inputString;
+	private String commandString;
 
 	private static final String ADD = "add";
 	private static final String DELETE = "remove delete";
@@ -39,19 +37,13 @@ public class Parser {
 	private static final String NAME = "name";
 	private static final String FILEPATH = "filepath";
 
-	private static final String DATE_FORMAT_1 = "dd-M-yyyy hh:mm";
-	private static final String DATE_FORMAT_2 = "dd/M/yyyy hh:mm";
-	private static final String DATE_FORMAT_3 = "dd-MMMM-yyyy hh:mm";
-	private static final String DATE_FORMAT_4 = "ddMMyyyy hhmm";
+	private static final String DATE_DELIMITER = " -d ";
+	private static final String DETAIL_DELIMITER = " -i ";
+	private static final String INT_REGEX = "\\d+";
 
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
 	public Parser() {
-		inputs = new ArrayList<String>();
-		dateVariant1 = new SimpleDateFormat(DATE_FORMAT_1);
-		dateVariant2 = new SimpleDateFormat(DATE_FORMAT_2);
-		dateVariant3 = new SimpleDateFormat(DATE_FORMAT_3);
-		dateVariant4 = new SimpleDateFormat(DATE_FORMAT_4);
 
 	}
 
@@ -62,9 +54,12 @@ public class Parser {
 		String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
 		commandString = inputsSplitSpace[0];
 		processCommand(inputsSplitSpace[0]);
+		processDetails(str);
+		processIndex(inputsSplitSpace);
+		checkForDate(str);
 		if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
 				||COMPLETED.contains(commandString)){
-			this.isIndex(inputsSplitSpace[1]);
+			//this.isIndex(inputsSplitSpace[1]);
 		}else if(NAME.contains(commandString)){
 			for (int i = 1; i < inputsSplitSpace.length; i++) {
 				name = name + " " + inputsSplitSpace[i];
@@ -86,7 +81,7 @@ public class Parser {
 			}
 			if (EDIT.contains(commandString)) {
 				if (inputsSplitSpace.length > 1) {
-					this.isIndex(inputsSplitSpace[1]);
+					//this.isIndex(inputsSplitSpace[1]);
 					taskName = "";
 					for (int i = 2; i < inputsSplitSpace.length; i++) {
 						taskName = taskName + " " + inputsSplitSpace[i];
@@ -101,44 +96,44 @@ public class Parser {
 				}
 	
 			}
-			if (inputsSplitDash.length == 1) {
-				startDate = null;
-				endDate = null;
-				details = null;
-				if (inputsSplitSpace.length == 2) {
-					this.isIndex(inputsSplitSpace[1]);
-				}
-			} else if (inputsSplitDash.length == 2) {
-				if (inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D') {
-					String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
-					processDate(correctInfo);
-					details = null;
-				} else if (inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[0].charAt(0) == 'I') {
-					startDate = null;
-					endDate = null;
-					details = removeSpace(removeFirst(inputsSplitDash[1]));
-				} else {
-					startDate = null;
-					endDate = null;
-					details = null;
-				}
-			} else {
-				if ((inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D')
-						&& (inputsSplitDash[2].charAt(0) == 'i' || inputsSplitDash[2].charAt(0) == 'I')) {
-					String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
-					processDate(correctInfo);
-					details = removeSpace(removeFirst(inputsSplitDash[2]));
-				} else if ((inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[1].charAt(0) == 'I')
-						&& (inputsSplitDash[2].charAt(0) == 'd' || inputsSplitDash[2].charAt(0) == 'D')) {
-					String correctInfo = removeSpace(removeFirst(inputsSplitDash[2]));
-					processDate(correctInfo);
-					details = removeSpace(removeFirst(inputsSplitDash[1]));
-				} else {
-					startDate = null;
-					endDate = null;
-					details = null;
-				}
-			}
+//			if (inputsSplitDash.length == 1) {
+//				startDate = null;
+//				endDate = null;
+//				details = null;
+//				if (inputsSplitSpace.length == 2) {
+//					this.isIndex(inputsSplitSpace[1]);
+//				}
+//			} else if (inputsSplitDash.length == 2) {
+//				if (inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D') {
+//					String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
+//					processDate(correctInfo);
+//					details = null;
+//				} else if (inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[0].charAt(0) == 'I') {
+//					startDate = null;
+//					endDate = null;
+//					details = removeSpace(removeFirst(inputsSplitDash[1]));
+//				} else {
+//					startDate = null;
+//					endDate = null;
+//					details = null;
+//				}
+//			} else {
+//				if ((inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D')
+//						&& (inputsSplitDash[2].charAt(0) == 'i' || inputsSplitDash[2].charAt(0) == 'I')) {
+//					String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
+//					processDate(correctInfo);
+//					details = removeSpace(removeFirst(inputsSplitDash[2]));
+//				} else if ((inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[1].charAt(0) == 'I')
+//						&& (inputsSplitDash[2].charAt(0) == 'd' || inputsSplitDash[2].charAt(0) == 'D')) {
+//					String correctInfo = removeSpace(removeFirst(inputsSplitDash[2]));
+//					processDate(correctInfo);
+//					details = removeSpace(removeFirst(inputsSplitDash[1]));
+//				} else {
+//					startDate = null;
+//					endDate = null;
+//					details = null;
+//				}
+//			}
 		}
 
 		if (getCommand() == COMMANDS.INVALID) {
@@ -168,49 +163,6 @@ public class Parser {
 		return output;
 	}
 
-	private String removeExtras(String text) {
-		String input = text.replace(details, "");
-		input = input.replace(taskName, "");
-		input = input.replace("\"", "");
-		input = input.replace("'", "");
-		return input;
-	}
-
-	private boolean isIndex(String text){
-		if (!SEARCH.contains(commandString)){ // Is a task index
-			if(text.matches("\\d+")){
-				index = Integer.parseInt(text);
-			index--;
-			return true;
-			} else {
-				return false;
-			}
-		}else if(SEARCH.contains(commandString)){
-			taskName = text;
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-	private void processDetails(String text) {
-		if (text.contains("'")) {
-			String[] stringPieces = text.split("'", 3);
-			details = stringPieces[1];
-		} else {
-			details = "No detail";
-		}
-	}
-
-	private void processTaskName(String text) {
-		if (text.contains("\"")) {
-			String[] stringPieces = text.split("\"", 3);
-			taskName = stringPieces[1];
-		} else {
-			taskName = "No detail";
-		}
-	}
-
 	private void processCommand(String stringCmd) {
 		stringCmd = stringCmd.toLowerCase();
 		stringCmd = stringCmd.trim();
@@ -222,8 +174,6 @@ public class Parser {
 			command = COMMANDS.DELETE;
 		} else if (EDIT.contains(stringCmd)) {
 			command = COMMANDS.EDIT;
-			// index = Integer.parseInt(taskName);
-			// index--;
 		} else if (ACK.contains(stringCmd)) {
 			command = COMMANDS.ACK;
 		} else if (SEARCH.contains(stringCmd)) {
@@ -247,7 +197,43 @@ public class Parser {
 		}
 		logger.info("Command: " + command);
 	}
-
+	
+	//@@author A0125369Y
+	private void processIndex(String[] input) {
+		if(input.length > 1){
+			String possibleIndex = input[1];
+			if(possibleIndex.matches(INT_REGEX)){
+				index = Integer.parseInt(input[1])-1;
+			} 
+		}
+	}
+	
+	//@@author A0125369Y
+	private void checkForDate(String input){
+		String[] inputPieces = input.split(DATE_DELIMITER);
+		if(inputPieces.length == 2){
+			String[] datePieces = inputPieces[1].split(DETAIL_DELIMITER);
+			processDate(datePieces[0]);
+		} else {
+			// Invalid Format
+		}
+	}
+	
+	//@@author A0125369Y
+	private void processDetails(String input){
+		String[] inputPieces = input.split(DETAIL_DELIMITER);
+		if(inputPieces.length == 2){
+			String[] detailPieces = inputPieces[1].split(DATE_DELIMITER);
+			if(detailPieces[0].trim().length() > 0){
+				details = detailPieces[0];
+			} else {
+				details = null;
+			}
+		} else {
+			// Invalid Format
+		}
+	}
+	
 	//@@author A0125369Y
 	private void processDate(String dateString) {
 		DatePair datePair = DayProcessor.stringToDate(dateString);
@@ -305,6 +291,49 @@ public class Parser {
 		}
 
 	}
+	
+	/*	private String removeExtras(String text) {
+	String input = text.replace(details, "");
+	input = input.replace(taskName, "");
+	input = input.replace("\"", "");
+	input = input.replace("'", "");
+	return input;
+}
+
+private boolean isIndex(String text){
+	if (!SEARCH.contains(commandString)){ // Is a task index
+		if(text.matches("\\d+")){
+			index = Integer.parseInt(text);
+		index--;
+		return true;
+		} else {
+			return false;
+		}
+	}else if(SEARCH.contains(commandString)){
+		taskName = text;
+		return true;
+	}else{
+		return false;
+	}
+}
+
+private void processDetailsOld(String text) {
+	if (text.contains("'")) {
+		String[] stringPieces = text.split("'", 3);
+		details = stringPieces[1];
+	} else {
+		details = "No detail";
+	}
+}
+
+private void processTaskName(String text) {
+	if (text.contains("\"")) {
+		String[] stringPieces = text.split("\"", 3);
+		taskName = stringPieces[1];
+	} else {
+		taskName = "No detail";
+	}
+}*/
 	
 /*	
 	public String sort(String input) {
