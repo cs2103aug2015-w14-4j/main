@@ -1,6 +1,7 @@
 package speedo;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import controller.CommandBoxController;
 import controller.InfoPanelController;
@@ -8,6 +9,9 @@ import controller.TaskListController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import processor.DayProcessor;
@@ -15,6 +19,7 @@ import processor.DayProcessor;
 public class MainApp extends Application {
     
 	private static final String FXML_PATH = "/view/RootView.fxml";
+	private static final String WELCOME = "Hi ";
 
     private Stage primaryStage;
     private BorderPane rootLayout;
@@ -59,13 +64,33 @@ public class MainApp extends Application {
     	CommandBoxController cbc = new CommandBoxController();
     	cbc.setMainApp(this);
     	rootLayout.setBottom(cbc);
-    	
+    	if(logic.getUser() == null){
+    		//TODO prompt user to set name
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error Dialog");
+    		alert.setHeaderText("NEED TO SET USERNAME");
+    		alert.setContentText("NEED TO SET USERNAME");
+
+    		alert.showAndWait();
+    		
+    		TextInputDialog dialog = new TextInputDialog("Your Name");
+    		dialog.setTitle("Welcome!");
+    		dialog.setHeaderText("It seems be your first time here.");
+    		dialog.setContentText("Please enter your name:");
+
+    		// Traditional way to get the response value.
+    		Optional<String> result = dialog.showAndWait();
+    		if (result.isPresent()){
+    		    logic.setSettings(result.get());
+    		}
+    	}
     	// sets up the info panel
-    	InfoPanelController ipc = new InfoPanelController("Hi Barny", 
-    			"Monday", 
-    			"02 November", 
+    	InfoPanelController ipc = new InfoPanelController(WELCOME+logic.getUser(), 
+    			DayProcessor.todayDay(), 
+    			DayProcessor.todayDate(), 
     			tlc.getNumOfTaskDue());
     	rootLayout.setLeft(ipc);
+    	this.refresh();
     }
     
     public void refresh(){

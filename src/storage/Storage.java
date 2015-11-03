@@ -16,14 +16,14 @@ public class Storage {
 	private static final Logger logger = Logger.getLogger(Storage.class.getName());
 
 	private boolean isTestMode;
-	
+
 	private static final String TASK_ADDED = "Task added: ";
 	private static final String TASK_BACKUP = "Backup mode: ";
 	private static final String TASK_DUPLICATE = "Duplicate task, not added: ";
 	private static final String TASK_DELETED = "Task deleted: ";
 	private static final String TASK_UNDO = "Undo: ";
 	private static final String TASK_NO_UNDO = "Nothing to undo: ";
-	
+
 	public Storage() {
 		this(false);
 	}
@@ -35,11 +35,16 @@ public class Storage {
 		recentChanges = new Stack<Task>();
 		fileHandler = new FileHandler();
 		this.isTestMode = isTestMode;
-		this.readFile();
+		// this.readFile();
+	}
+
+	public void setSettings(String userName, String filePath) {
+		fileHandler.saveSettings(new Settings(filePath, userName));
 	}
 	
-	public void setSettings(String userName, String filePath){
-		fileHandler.saveSettings(new Settings(filePath, userName));
+	public void setSettings(String userName) {
+		fileHandler.saveSettings(new Settings(null, userName));
+		fileHandler.getSettings();
 	}
 
 	/**
@@ -67,7 +72,7 @@ public class Storage {
 	 * 
 	 * @return true if read successfully, false if in test mode
 	 */
-	public boolean readFile() {
+	public String readFile() {
 		if (!isTestMode) {
 			taskList = fileHandler.readTasks();
 			for (int x = 0; x < taskList.size(); x++) {
@@ -76,9 +81,13 @@ public class Storage {
 					taskList.remove(x);
 				}
 			}
-			return true;
+			if (fileHandler.getSettings() != null) {
+				return fileHandler.getSettings().getUserName();
+			} else {
+				return null;
+			}
 		}
-		return false;
+		return null;
 
 	}
 

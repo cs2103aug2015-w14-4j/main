@@ -41,7 +41,7 @@ public class FileHandler {
 	public boolean saveTasks(List<Task> taskList) {
 		assert taskList != null : NULL_ERROR;
 		String jsonTasks = listToJson(taskList);
-		return writeToFile(FILENAME, jsonTasks);
+		return writeToFile(fileName, jsonTasks);
 	}
 	
 	public boolean readSettings() {
@@ -55,7 +55,7 @@ public class FileHandler {
 	public boolean saveSettings(Settings settings) {
 		assert settings != null : NULL_ERROR;
 		String jsonTasks = settingsToJson(settings);
-		return writeToFile(FILENAME, jsonTasks);
+		return writeToFile(SETTINGS_FILE, jsonTasks);
 	}
 
 	public Settings getSettings() {
@@ -79,7 +79,7 @@ public class FileHandler {
 	private List<Task> readJsonToList() {
 //		Gson googleJsonBuilder = GoogleJsonBuilder();
 		List<Task> taskList = new ArrayList<Task>();
-		JsonStreamParser jsonReader = JsonReader(FILENAME);
+		JsonStreamParser jsonReader = JsonReader(fileName);
 		if (jsonReader != null) {
 			while (hasNext(jsonReader)) {
 				Task taskEntry = googleJsonBuilder.fromJson(jsonReader.next(), Task.class);

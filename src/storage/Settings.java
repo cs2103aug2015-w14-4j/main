@@ -36,6 +36,9 @@ public class Settings {
 	}
 	
 	public void setTaskFilePath(String taskFilePath) {
+		if(taskFilePath == null){
+			taskFilePath = TEST_FILEPATH;
+		}
 		TaskFilePath = taskFilePath;
 	}
 	
