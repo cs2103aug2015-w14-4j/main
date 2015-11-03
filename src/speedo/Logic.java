@@ -37,9 +37,6 @@ public class Logic {
 	public void setSettings(String userName, String filePath){
 		store.setSettings(userName, filePath);
 	}
-	public void setSettings(String userName){
-		store.setSettings(userName);
-	}
 
 	// Methods
 	public GuiCommand executeCMD(String s) {

@@ -38,13 +38,14 @@ public class Storage {
 		// this.readFile();
 	}
 
-	public void setSettings(String userName, String filePath) {
-		fileHandler.saveSettings(new Settings(filePath, userName));
+	public String setSettings(String userName, String filePath) {
+		fileHandler.updateSettings(filePath, userName);
+		return fileHandler.getSettings().getUserName();
 	}
 	
-	public void setSettings(String userName) {
-		fileHandler.saveSettings(new Settings(null, userName));
-		fileHandler.getSettings();
+	public String setUser(String userName) {
+		fileHandler.updateSettings(null, userName);
+		return fileHandler.getSettings().getUserName();
 	}
 
 	/**
@@ -68,9 +69,9 @@ public class Storage {
 	}
 
 	/**
-	 * Method to read the taskList from a json file
+	 * Method to read the taskList and settings from a json file
 	 * 
-	 * @return true if read successfully, false if in test mode
+	 * @return returns the user name, returns null if no settings found
 	 */
 	public String readFile() {
 		if (!isTestMode) {

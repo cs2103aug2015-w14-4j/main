@@ -81,7 +81,7 @@ public class MainApp extends Application {
     		// Traditional way to get the response value.
     		Optional<String> result = dialog.showAndWait();
     		if (result.isPresent()){
-    		    logic.setSettings(result.get());
+    		    logic.setSettings(result.get(), null);
     		}
     	}
     	// sets up the info panel

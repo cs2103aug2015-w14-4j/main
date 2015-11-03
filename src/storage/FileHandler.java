@@ -52,12 +52,27 @@ public class FileHandler {
 		}
 	}
 	
-	public boolean saveSettings(Settings settings) {
+	public Settings saveSettings(Settings settings) {
 		assert settings != null : NULL_ERROR;
 		String jsonTasks = settingsToJson(settings);
-		return writeToFile(SETTINGS_FILE, jsonTasks);
+		writeToFile(SETTINGS_FILE, jsonTasks);
+		return this.getSettings();
 	}
-
+	
+	public Settings updateSettings(String filePath, String userName) {
+		if(settings == null){
+			settings = new Settings();
+		}
+		if(filePath != null){
+			settings.setTaskFilePath(filePath);
+		}	
+		if(userName != null){
+			settings.setUserName(userName);
+		}
+		return this.saveSettings(settings);
+		
+	}
+	
 	public Settings getSettings() {
 		settings = readSettingJson();
 		if (settings != null) {
@@ -154,5 +169,8 @@ public class FileHandler {
 	private static Gson GoogleJsonBuilder() {
 		return new GsonBuilder().setPrettyPrinting().create();
 	}
+
+
+
 
 }
