@@ -16,8 +16,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import processor.DayProcessor;
-import speedo.Parser;
+import parser.DayProcessor;
+import parser.Parser;
+import parser.Predictive;
 
 public class MainApp extends Application {
     
@@ -28,6 +29,7 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
     private Logic logic;
     //private Parser parser;
+    private Predictive predictor;
         
 	@Override
 	public void start(Stage primaryStage) {
@@ -58,6 +60,7 @@ public class MainApp extends Application {
 		}
 		
     	logic = new Logic();
+    	predictor = new Predictive();
 		
 		// sets up the list of tasks to display
 		TaskListController tlc = new TaskListController();
@@ -160,49 +163,51 @@ public class MainApp extends Application {
     public void parseUserCommand(String userInput) {
     	CommandBoxController cbc = (CommandBoxController) rootLayout.getBottom();
     	InfoPanelController ipc = (InfoPanelController) rootLayout.getLeft();
-    	System.out.println("From parseUserCommand: " + userInput);
-    	Parser parser = new Parser();
-    	parser.parse(userInput);
-    	switch(parser.getCommand()){
-	        case ADD: {
-	        	cbc.setPredictionFeedback("add <Task name> -d <date> -i <info>");
-	        	String taskName = parser.getTaskName();
-	        	String taskDetails = parser.getDetails();
-	        	//String taskStart = parser.getStartDate().toString();
-	        	//String taskEnd = parser.getEndDate().toString();
-	        	if(!(taskName == null)){
-	        		ipc.setTaskName(taskName);
-	        	}
-	        	if(!(taskDetails == null)){
-	        		ipc.setTaskInfo(taskDetails);
-	        	}
-	        	/*
-	        	if(!taskStart.equals("")){
-	        		ipc.setTaskInfo(taskStart);
-	        	}
-	        	if(!taskEnd.equals("")){
-	        		ipc.setTaskName(taskEnd);
-	        	}
-	        	*/
-	        	break;
-	        }
-	        case DELETE: {
-	        	cbc.setPredictionFeedback("delete <Task index>");
-	        	break;
-	        }
-	        case EDIT: {
-	        	cbc.setPredictionFeedback("edit <Task index>");
-	        	break;
-	        }
-	        default:
-	        	ipc.clearDetails();
-	        	if(userInput.equals("")){
-	        		// do nothing
-	        	} else {
-	        		cbc.setFeedback("");
-		        	break;
-	        	}
-	    }
+
+    	cbc.setPredictionFeedback(predictor.processInput(userInput));
+//    	System.out.println("From parseUserCommand: " + userInput);
+//    	Parser parser = new Parser();
+//    	parser.parse(userInput);
+//    	switch(parser.getCommand()){
+//	        case ADD: {
+//	        	cbc.setPredictionFeedback("add <Task name> -d <date> -i <info>");
+//	        	String taskName = parser.getTaskName();
+//	        	String taskDetails = parser.getDetails();
+//	        	//String taskStart = parser.getStartDate().toString();
+//	        	//String taskEnd = parser.getEndDate().toString();
+//	        	if(!(taskName == null)){
+//	        		ipc.setTaskName(taskName);
+//	        	}
+//	        	if(!(taskDetails == null)){
+//	        		ipc.setTaskInfo(taskDetails);
+//	        	}
+//	        	/*
+//	        	if(!taskStart.equals("")){
+//	        		ipc.setTaskInfo(taskStart);
+//	        	}
+//	        	if(!taskEnd.equals("")){
+//	        		ipc.setTaskName(taskEnd);
+//	        	}
+//	        	*/
+//	        	break;
+//	        }
+//	        case DELETE: {
+//	        	cbc.setPredictionFeedback("delete <Task index>");
+//	        	break;
+//	        }
+//	        case EDIT: {
+//	        	cbc.setPredictionFeedback("edit <Task index>");
+//	        	break;
+//	        }
+//	        default:
+//	        	ipc.clearDetails();
+//	        	if(userInput.equals("")){
+//	        		// do nothing
+//	        	} else {
+//	        		cbc.setFeedback("");
+//		        	break;
+//	        	}
+//	    }
     }
     
     //TODO Remember to delete this later 

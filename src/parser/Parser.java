@@ -1,4 +1,4 @@
-package speedo;
+package parser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import processor.COMMANDS;
-import processor.DatePair;
-import processor.DayProcessor;
 
 public class Parser {
 
@@ -24,22 +22,23 @@ public class Parser {
 	private String inputString;
 	private String commandString;
 
-	private static final String ADD = "add";
-	private static final String DELETE = "remove delete";
-	private static final String EDIT = "edit change";
-	private static final String ACK = "ack acknowledge";
-	private static final String SEARCH = "search find";
-	private static final String HOME = "home";
-	private static final String UNDO = "undo";
-	private static final String EXPAND = "expand display show";
-	private static final String COMPLETED = "completed";
-	private static final String HELP = "help";
-	private static final String NAME = "name";
-	private static final String FILEPATH = "filepath";
+	public static final String ADD = "add insert";
+	public static final String DELETE = "remove delete";
+	public static final String EDIT = "edit change";
+	public static final String ACK = "ack acknowledge";
+	public static final String SEARCH = "search find";
+	public static final String HOME = "home";
+	public static final String UNDO = "undo";
+	public static final String EXPAND = "expand display show";
+	public static final String COMPLETED = "completed";
+	public static final String HELP = "help";
+	public static final String NAME = "name";
+	public static final String FILEPATH = "filepath";
 
 	private static final String DATE_DELIMITER = " -d ";
 	private static final String DETAIL_DELIMITER = " -i ";
 	private static final String INT_REGEX = "\\d+";
+	private static final String BOUNDARY = ".*\\b%1$s\\b.*";
 
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
@@ -166,31 +165,32 @@ public class Parser {
 	private void processCommand(String stringCmd) {
 		stringCmd = stringCmd.toLowerCase();
 		stringCmd = stringCmd.trim();
+		stringCmd = String.format(BOUNDARY, stringCmd);
 		if (stringCmd.length() == 0) {
 			command = COMMANDS.INVALID;
-		} else if (ADD.contains(stringCmd)) {
+		} else if (ADD.matches(stringCmd)) {
 			command = COMMANDS.ADD;
-		} else if (DELETE.contains(stringCmd)) {
+		} else if (DELETE.matches(stringCmd)) {
 			command = COMMANDS.DELETE;
-		} else if (EDIT.contains(stringCmd)) {
+		} else if (EDIT.matches(stringCmd)) {
 			command = COMMANDS.EDIT;
-		} else if (ACK.contains(stringCmd)) {
+		} else if (ACK.matches(stringCmd)) {
 			command = COMMANDS.ACK;
-		} else if (SEARCH.contains(stringCmd)) {
+		} else if (SEARCH.matches(stringCmd)) {
 			command = COMMANDS.SEARCH;
-		} else if (HOME.contains(stringCmd)) {
+		} else if (HOME.matches(stringCmd)) {
 			command = COMMANDS.HOME;
-		} else if (UNDO.contains(stringCmd)) {
+		} else if (UNDO.matches(stringCmd)) {
 			command = COMMANDS.UNDO;
-		} else if (EXPAND.contains(stringCmd)) {
+		} else if (EXPAND.matches(stringCmd)) {
 			command = COMMANDS.EXPAND;
-		} else if (COMPLETED.contains(stringCmd)) {
+		} else if (COMPLETED.matches(stringCmd)) {
 			command = COMMANDS.COMPLETED;
-		} else if (HELP.contains(stringCmd)) {
+		} else if (HELP.matches(stringCmd)) {
 			command = COMMANDS.HELP;
-		} else if (NAME.contains(stringCmd)) {
+		} else if (NAME.matches(stringCmd)) {
 			command = COMMANDS.NAME;
-		} else if (FILEPATH.contains(stringCmd)) {
+		} else if (FILEPATH.matches(stringCmd)) {
 			command = COMMANDS.FILEPATH;
 		} else {
 			command = COMMANDS.INVALID;

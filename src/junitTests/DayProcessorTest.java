@@ -9,8 +9,8 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import processor.DatePair;
-import processor.DayProcessor;
+import parser.DatePair;
+import parser.DayProcessor;
 
 public class DayProcessorTest {
 
