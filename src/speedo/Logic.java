@@ -119,6 +119,11 @@ public class Logic {
 		case HELP:
 			c = new GuiCommand(COMMANDS.HELP, "Displaying help screen");
 			break;
+		case FILEPATH:
+			taskName = parser.getTaskName();
+			filePath();
+			c = new GuiCommand(COMMANDS.FILEPATH, "Changed Filepath");
+			break;
 		case INVALID:
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
 			break;
@@ -129,6 +134,11 @@ public class Logic {
 		return c;
 	}
 	
+	private void filePath() {
+		store.setSettings(this.getUser(), taskName);
+		
+	}
+
 	private List<Task> completed() {
 		List<Task> list = store.getCompletedList();
 		return list;

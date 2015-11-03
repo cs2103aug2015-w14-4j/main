@@ -40,7 +40,7 @@ public class Storage {
 
 	public String setSettings(String userName, String filePath) {
 		fileHandler.updateSettings(filePath, userName);
-		return fileHandler.getSettings().getUserName();
+		return this.readFile();
 	}
 	
 	public String setUser(String userName) {

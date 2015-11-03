@@ -230,8 +230,8 @@ public class DayProcessor {
 				stringDateOne = processDate(pieces[DATE]);
 				stringDateTwo = processDate(pieces[DATE1]);
 			} else {
-				// Length 2: One date with spaces with time
-				stringDateTwo = pieces[DAY] + pieces[MTH1] + pieces[YR2] + SPACE + processTime(pieces[TIME3]);
+				// Length 2: One date without spaces with time
+				stringDateTwo = pieces[DATE] + SPACE + processTime(pieces[TIME1]);
 			}
 		} else if (pieces.length == 1) {
 			// Length 1: One date without spaces

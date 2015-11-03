@@ -41,60 +41,78 @@ public class Parser {
 	private static final String BOUNDARY = ".*\\b%1$s\\b.*";
 
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
+	private static final String EMPTY = "";
 
 	public Parser() {
 
 	}
 
+	//@@author A0125369Y
 	public Boolean parse(String str) {
 		inputString = str;
 		Boolean valid = true;
-		String[] inputsSplitDash = str.split("-");
-		String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
-		commandString = inputsSplitSpace[0];
-		processCommand(inputsSplitSpace[0]);
-		processDetails(str);
-		processIndex(inputsSplitSpace);
-		checkForDate(str);
-		if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
-				||COMPLETED.contains(commandString)){
-			//this.isIndex(inputsSplitSpace[1]);
-		}else if(NAME.contains(commandString)){
-			for (int i = 1; i < inputsSplitSpace.length; i++) {
-				name = name + " " + inputsSplitSpace[i];
+//		String[] inputsSplitDash = str.split("-");
+//		String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
+//		commandString = inputsSplitSpace[0];
+		String[] inputPieces = str.split(" ", 2);
+		processCommand(inputPieces[0]);
+
+		String remaining = null;
+		if(inputPieces.length == 2){		
+			String unprocessedDetails = processDetails(inputPieces);
+			String unprocessedIndex = processIndex(inputPieces);
+			String unprocessedDate =checkForDate(inputPieces);
+			remaining = inputPieces[1];
+			remaining = remaining.replace(unprocessedDetails, "");
+			remaining = remaining.replace(unprocessedDate, "");
+			remaining = remaining.replace(unprocessedIndex, "");
+			
+			remaining = remaining.replace(DATE_DELIMITER, "");
+			remaining = remaining.replace(DETAIL_DELIMITER, "");
+			if(remaining.trim().length() == 0){
+				remaining = null;
 			}
-			name = removeSpace(name);
-		}else if(FILEPATH.contains(commandString)){
-			for (int i = 1; i < inputsSplitSpace.length; i++) {
-				filePath = filePath + " " + inputsSplitSpace[i];
-			}
-			filePath = removeSpace(filePath);
-		}else if(SEARCH.contains(commandString)){
-			for (int i = 1; i < inputsSplitSpace.length; i++) {
-				searchSentence = searchSentence + " " + inputsSplitSpace[i];
-			}
-			searchSentence = removeSpace(searchSentence);
-		}else{
-			for (int i = 1; i < inputsSplitSpace.length; i++) {
-				taskName = taskName + " " + inputsSplitSpace[i];
-			}
-			if (EDIT.contains(commandString)) {
-				if (inputsSplitSpace.length > 1) {
-					//this.isIndex(inputsSplitSpace[1]);
-					taskName = "";
-					for (int i = 2; i < inputsSplitSpace.length; i++) {
-						taskName = taskName + " " + inputsSplitSpace[i];
-					}
-				}
-			}
-			if (inputsSplitSpace.length > 1) {
-				if (taskName.equals("")) {
-					taskName = null;
-				} else {
-					taskName = removeSpace(taskName);
-				}
-	
-			}
+		}
+		taskName = remaining;
+//		if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
+//				||COMPLETED.contains(commandString)){
+//			//this.isIndex(inputsSplitSpace[1]);
+//		}else if(NAME.contains(commandString)){
+//			for (int i = 1; i < inputsSplitSpace.length; i++) {
+//				name = name + " " + inputsSplitSpace[i];
+//			}
+//			name = removeSpace(name);
+//		}else if(FILEPATH.contains(commandString)){
+//			for (int i = 1; i < inputsSplitSpace.length; i++) {
+//				filePath = filePath + " " + inputsSplitSpace[i];
+//			}
+//			filePath = removeSpace(filePath);
+//		}else if(SEARCH.contains(commandString)){
+//			for (int i = 1; i < inputsSplitSpace.length; i++) {
+//				searchSentence = searchSentence + " " + inputsSplitSpace[i];
+//			}
+//			searchSentence = removeSpace(searchSentence);
+//		}else{
+//			for (int i = 1; i < inputsSplitSpace.length; i++) {
+//				taskName = taskName + " " + inputsSplitSpace[i];
+//			}
+//			if (EDIT.contains(commandString)) {
+//				if (inputsSplitSpace.length > 1) {
+//					//this.isIndex(inputsSplitSpace[1]);
+//					taskName = "";
+//					for (int i = 2; i < inputsSplitSpace.length; i++) {
+//						taskName = taskName + " " + inputsSplitSpace[i];
+//					}
+//				}
+//			}
+//			if (inputsSplitSpace.length > 1) {
+//				if (taskName.equals("")) {
+//					taskName = null;
+//				} else {
+//					taskName = removeSpace(taskName);
+//				}
+//	
+//			}
 //			if (inputsSplitDash.length == 1) {
 //				startDate = null;
 //				endDate = null;
@@ -133,7 +151,7 @@ public class Parser {
 //					details = null;
 //				}
 //			}
-		}
+//		}
 
 		if (getCommand() == COMMANDS.INVALID) {
 			valid = false;
@@ -142,25 +160,25 @@ public class Parser {
 		return valid;
 	}
 
-	private String removeFirst(String text) {
-		return text.substring(1);
-	}
-
-	private String removeSpace(String text) {
-		String[] inputwithSpace = text.split(" ");
-		String output = "";
-		for (int i = 1; i < inputwithSpace.length; i++) {
-			if (i == 1) {
-				output = inputwithSpace[1];
-			} else {
-				output = output + " " + inputwithSpace[i];
-			}
-		}
-		// System.out.println("input1:"+inputwithSpace[0]);
-		// System.out.println("input2:"+inputwithSpace[1]);
-		// System.out.println("output:"+output);
-		return output;
-	}
+//	private String removeFirst(String text) {
+//		return text.substring(1);
+//	}
+//
+//	private String removeSpace(String text) {
+//		String[] inputwithSpace = text.split(" ");
+//		String output = "";
+//		for (int i = 1; i < inputwithSpace.length; i++) {
+//			if (i == 1) {
+//				output = inputwithSpace[1];
+//			} else {
+//				output = output + " " + inputwithSpace[i];
+//			}
+//		}
+//		// System.out.println("input1:"+inputwithSpace[0]);
+//		// System.out.println("input2:"+inputwithSpace[1]);
+//		// System.out.println("output:"+output);
+//		return output;
+//	}
 
 	private void processCommand(String stringCmd) {
 		stringCmd = stringCmd.toLowerCase();
@@ -199,29 +217,35 @@ public class Parser {
 	}
 	
 	//@@author A0125369Y
-	private void processIndex(String[] input) {
+	private String processIndex(String[] input) {
 		if(input.length > 1){
 			String possibleIndex = input[1];
-			if(possibleIndex.matches(INT_REGEX)){
-				index = Integer.parseInt(input[1])-1;
+			String[] indexPiece = possibleIndex.split(" ");
+			if(indexPiece[0].matches(INT_REGEX)){
+				index = Integer.parseInt(indexPiece[0]);
+				index--;
+				return indexPiece[0];
 			} 
 		}
+		return EMPTY;
 	}
 	
 	//@@author A0125369Y
-	private void checkForDate(String input){
-		String[] inputPieces = input.split(DATE_DELIMITER);
+	private String checkForDate(String[] input){
+		String[] inputPieces = input[1].split(DATE_DELIMITER);
 		if(inputPieces.length == 2){
 			String[] datePieces = inputPieces[1].split(DETAIL_DELIMITER);
 			processDate(datePieces[0]);
+			return datePieces[0];
 		} else {
 			// Invalid Format
+			return EMPTY;
 		}
 	}
 	
 	//@@author A0125369Y
-	private void processDetails(String input){
-		String[] inputPieces = input.split(DETAIL_DELIMITER);
+	private String processDetails(String[] input){
+		String[] inputPieces = input[1].split(DETAIL_DELIMITER);
 		if(inputPieces.length == 2){
 			String[] detailPieces = inputPieces[1].split(DATE_DELIMITER);
 			if(detailPieces[0].trim().length() > 0){
@@ -229,8 +253,10 @@ public class Parser {
 			} else {
 				details = null;
 			}
+			return details;
 		} else {
 			// Invalid Format
+			return EMPTY;
 		}
 	}
 	

@@ -155,6 +155,7 @@ public class MainApp extends Application {
 	        	break;
 	        }
 	        default:
+	        	refresh();
 	        	cbc.setErrorFeedback("Invalid command");
 			break;
         }
