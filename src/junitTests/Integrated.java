@@ -22,6 +22,16 @@ public class Integrated {
 	String inputAdd8 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
 	String inputAdd9 = "add Testing  dd-M-yyyy hh:mm dd-M-yyyy hh:mm";
 	
+	Task outputAdd1 = new Task("Floating task 1", null);
+	Task outputAdd2 = new Task("Floating task 1", "");
+	Task outputAdd3 = new Task("Floating task 1", "");
+	Task outputAdd4 = new Task("Floating task 1", "");
+	Task outputAdd5 = new Task("Floating task 1", "");
+	Task outputAdd6 = new Task("Floating task 1", "");
+	Task outputAdd7 = new Task("Floating task 1", "");
+	Task outputAdd8 = new Task("Floating task 1", "");
+	Task outputAdd9 = new Task("Floating task 1", "");
+	
 	@Test
 	public void testAdd() {
 		//test start
@@ -29,11 +39,15 @@ public class Integrated {
 		GuiCommand testOutput = logic.executeCMD(inputAdd1);
 		
 		//supposed outcome should return guiCommand for output
-		Task refereeTask = new Task();
-		GuiCommand testReferee = new GuiCommand(COMMANDS.INVALID, "Invalid");
+		GuiCommand testReferee = new GuiCommand(COMMANDS.ADD, "Added " + outputAdd1.getName(), outputAdd1);
 	
 		//assert
-		assertEquals(testOutput, testReferee);
+		assertEquals(testOutput.getCmd(), testReferee.getCmd());
+		assertEquals(testOutput.getMsg(), testReferee.getMsg());
+		assertEquals(testOutput.getTask().getName(), testReferee.getTask().getName());
+		assertEquals(testOutput.getTask().getDetails(), testReferee.getTask().getDetails());
+		assertEquals(testOutput.getTask().getEndDate(), testReferee.getTask().getEndDate());
+		assertEquals(testOutput.getTask().getStartDate(), testReferee.getTask().getStartDate());
 	}
 	
 	
