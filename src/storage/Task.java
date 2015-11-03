@@ -33,7 +33,7 @@ public class Task {
 	// Strings
 	private static final String EMPTY = "Empty";
 	private static final String DATE_FORMAT = "dd MMMM yyyy";
-	private static final String TIME_FORMAT = "hh:mm";
+	private static final String TIME_FORMAT = "hh:mm a";
 	private static final String TASK_STRING = "Task [name= %1$s, details= %2$s, startDate= %3$s, endDate= %4$s, completed= %5$s]";
 
 	// Due tags
