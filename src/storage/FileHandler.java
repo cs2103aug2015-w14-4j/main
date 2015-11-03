@@ -1,3 +1,4 @@
+//@@author A0125369Y
 package storage;
 
 import java.io.File;
@@ -16,7 +17,6 @@ import processor.ErrorProcessor;
 
 public class FileHandler {
 	private static final String NULL_ERROR = "Expected non-null Object, Received null Object";
-	private static final String FILENAME = "task.json";
 	private static final String SETTINGS_FILE = "settings.json";
 	private static final String EMPTY = "";
 
@@ -27,23 +27,39 @@ public class FileHandler {
 	
 	public FileHandler() {
 		// Default filename
-		fileName = FILENAME;
+		fileName = Settings.DEFAULT_FILEPATH;
 		
 		googleJsonBuilder = GoogleJsonBuilder();
 	}
 	
-
+	/**
+	 * Method to read the list of tasks.
+	 * 
+	 * @return list of tasks
+	 */
 	public List<Task> readTasks() {
 		List<Task> taskList = readJsonToList();
 		return taskList;
 	}
 
+	/**
+	 * Method to save the list of tasks.
+	 * 
+	 * @return true if the file is successfully written, false otherwise
+	 */
 	public boolean saveTasks(List<Task> taskList) {
 		assert taskList != null : NULL_ERROR;
 		String jsonTasks = listToJson(taskList);
 		return writeToFile(fileName, jsonTasks);
 	}
 	
+	/**
+	 * Method to read settings.
+	 * 
+	 * Refer to {@link #getSettings()} for more details.
+	 * 
+	 * @return true if settings can be read, false otherwise
+	 */
 	public boolean readSettings() {
 		if(this.getSettings() != null){
 			return true;
@@ -51,7 +67,14 @@ public class FileHandler {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Method to save settings.
+	 * 
+	 * Refer to {@link #getSettings()} for more details.
+	 * 
+	 * @return returns the settings that have been saved
+	 */
 	public Settings saveSettings(Settings settings) {
 		assert settings != null : NULL_ERROR;
 		String jsonTasks = settingsToJson(settings);
@@ -81,8 +104,22 @@ public class FileHandler {
 		return settings;
 	}
 
+	public static boolean writeToFile(String fileName, String content) {
+		assert fileName != null : NULL_ERROR;
+		assert content != null : NULL_ERROR;
+		try {
+			FileWriter writer;
+			writer = new FileWriter(fileName);
+			writer.write(content);
+			writer.close();
+			return true;
+		} catch (IOException e) {
+			ErrorProcessor.alert(FileHandler.class.getName(), e.getMessage());
+			return false;
+		}
+	}
+	
 	private Settings readSettingJson() {
-//		Gson googleJsonBuilder = GoogleJsonBuilder();
 		JsonStreamParser jsonReader = JsonReader(SETTINGS_FILE);
 		if (hasNext(jsonReader)) {
 			Settings settingEntry = googleJsonBuilder.fromJson(jsonReader.next(), Settings.class);
@@ -92,7 +129,6 @@ public class FileHandler {
 	}
 
 	private List<Task> readJsonToList() {
-//		Gson googleJsonBuilder = GoogleJsonBuilder();
 		List<Task> taskList = new ArrayList<Task>();
 		JsonStreamParser jsonReader = JsonReader(fileName);
 		if (jsonReader != null) {
@@ -134,7 +170,6 @@ public class FileHandler {
 
 	private String listToJson(List<Task> taskList) {
 		assert taskList != null : NULL_ERROR;
-//		Gson googleJsonBuilder = GoogleJsonBuilder();
 		String jsonString = EMPTY;
 		for (int x = 0; x < taskList.size(); x++) {
 			Task task = taskList.get(x);
@@ -145,32 +180,12 @@ public class FileHandler {
 	
 	private String settingsToJson(Settings settings) {
 		assert settings != null : NULL_ERROR;
-//		Gson googleJsonBuilder = GoogleJsonBuilder();
 		String jsonString = googleJsonBuilder.toJson(settings);
 		return jsonString;
-	}
-
-	private static boolean writeToFile(String fileName, String content) {
-		assert fileName != null : NULL_ERROR;
-		assert content != null : NULL_ERROR;
-		try {
-			FileWriter writer;
-			writer = new FileWriter(fileName);
-			writer.write(content);
-			writer.close();
-			return true;
-		} catch (IOException e) {
-			ErrorProcessor.alert(FileHandler.class.getName(), e.getMessage());
-			return false;
-		}
-
 	}
 
 	private static Gson GoogleJsonBuilder() {
 		return new GsonBuilder().setPrettyPrinting().create();
 	}
-
-
-
 
 }

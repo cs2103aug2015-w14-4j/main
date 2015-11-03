@@ -18,12 +18,10 @@ public class Settings {
 	private String UserName;
 	
 	// Default values for testing purposes
-	private static final String TEST_FILEPATH = "task.json";
-	private static final String TEST_USERNAME = "Jim";
-	
+	public static final String DEFAULT_FILEPATH = "task.json";
 	
 	public Settings(){
-		this(TEST_FILEPATH, TEST_USERNAME);
+		this(DEFAULT_FILEPATH, null);
 	}
 	
 	public Settings(String taskFilePath, String userName){
@@ -37,7 +35,7 @@ public class Settings {
 	
 	public void setTaskFilePath(String taskFilePath) {
 		if(taskFilePath == null){
-			taskFilePath = TEST_FILEPATH;
+			taskFilePath = DEFAULT_FILEPATH;
 		}
 		TaskFilePath = taskFilePath;
 	}

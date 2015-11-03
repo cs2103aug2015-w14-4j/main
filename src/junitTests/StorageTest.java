@@ -26,13 +26,13 @@ public class StorageTest {
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, date);
+		Task task = store.add(name, details, null, date);
 		assertEquals(name, task.getName()); 
 		assertEquals(details, task.getDetails()); 
 		assertEquals(date, task.getStartDate());
 
 		// Duplicated task
-		Task duplicate = store.add(name, details, date);
+		Task duplicate = store.add(name, details, null, date);
 		assertEquals(null, duplicate); 
 	}
 
@@ -44,7 +44,7 @@ public class StorageTest {
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, date);
+		Task task = store.add(name, details, null, date);
 		
 		assertEquals(task, store.delete(0));
 	}
@@ -57,7 +57,7 @@ public class StorageTest {
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, date);
+		Task task = store.add(name, details, null, date);
 		store.delete(0);
 		assertEquals(true, store.undo());
 		assertEquals(task, store.getTaskList().get(0));
@@ -71,10 +71,10 @@ public class StorageTest {
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, date);
+		Task task = store.add(name, details, null, date);
 		
 		String newName = "new test";
-		assertEquals(newName, store.edit(0, newName).getName());
+		assertEquals(newName, store.edit(0, newName, null, null, null).getName());
 	}
 	
 	@Test
@@ -85,9 +85,9 @@ public class StorageTest {
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, date);
+		Task task = store.add(name, details, null, date);
 		String newName = "new test";
-		store.edit(0, newName);
+		store.edit(0, newName, null, null, null);
 		assertEquals(true, store.undo());
 		assertEquals(task, store.getTaskList().get(0));
 	}
@@ -100,7 +100,7 @@ public class StorageTest {
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, date);
+		Task task = store.add(name, details, null, date);
 		store.complete(0);
 		assertEquals(true, store.getTaskList().get(0).isCompleted());
 	}
@@ -118,21 +118,21 @@ public class StorageTest {
 		date = sdf.parse(dateInString);
 		name = "test 2";
 		details = "this is test 2";
-		store.add(name, details, date);
+		store.add(name, details, null, date);
 
 		sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
 		dateInString = "21-10-2015 02:00";
 		date = sdf.parse(dateInString);
 		name = "Sleep";
 		details = "Get sleep to prepare for tutorial";
-		store.add(name, details, date);
+		store.add(name, details, null, date);
 
 		sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
 		dateInString = "24-10-2015 02:00";
 		date = sdf.parse(dateInString);
 		name = "2103 Meeting";
 		details = "Get more coding done before 2010 written & online quiz";
-		store.add(name, details, date);
+		store.add(name, details, null, date);
 
 		List<Task> searchList = store.search("2103");
 		for (Task task : searchList) {
@@ -164,17 +164,17 @@ public class StorageTest {
 		Date date = new Date();
 		String name = "test 1";
 		String details = "this is test 1";
-		store.add(name, details, date);
+		store.add(name, details, null, date);
 
 		date = new Date();
 		name = "test 2";
 		details = "this is test 2";
-		store.add(name, details, date);
+		store.add(name, details, null, date);
 
 		date = new Date();
 		name = "test 3";
 		details = "this is test 3";
-		store.add(name, details, date);
+		store.add(name, details, null, date);
 		for (Task task : store.getTaskList()) {
 			System.out.println(task);
 		}
@@ -184,12 +184,12 @@ public class StorageTest {
 		assertNotEquals(null, store.delete(2));
 		store.undo();
 		assertEquals(null, store.delete(3));
-		
+
 		String newName = "new test";
-		assertEquals(null, store.edit(-1, newName));
-		assertNotEquals(null, store.edit(0, newName));
-		assertNotEquals(null, store.edit(2, newName));
-		assertEquals(null, store.edit(3, newName));
+		assertEquals(null, store.edit(-1, newName, null, null, null));
+		assertNotEquals(null, store.edit(0, newName, null, null, null));
+		assertNotEquals(null, store.edit(2, newName, null, null, null));
+		assertEquals(null, store.edit(3, newName, null, null, null));
 	}
 
 	// @Test
