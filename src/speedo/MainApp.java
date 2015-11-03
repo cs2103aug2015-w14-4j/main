@@ -143,6 +143,12 @@ public class MainApp extends Application {
 	        	refresh();
 	        	break;
 	        }
+	        case COMPLETED: {
+	        	cbc.setFeedback(command.getMsg());
+	        	TaskListController tlc = (TaskListController) rootLayout.getRight(); 
+	        	tlc.loadTaskList(command.getListOfTasks());
+	        	break;
+	        }
 	        default:
 	        	cbc.setErrorFeedback("Invalid command");
 			break;

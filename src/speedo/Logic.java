@@ -111,6 +111,10 @@ public class Logic {
 			taskIndex = parser.getIndex();
 			c = new GuiCommand(COMMANDS.EXPAND, "Displaying details of task " + taskIndex);
 			break;
+		case COMPLETED:
+			list = completed();
+			c = new GuiCommand(COMMANDS.COMPLETED, "Showing Completed tasks", list);
+			break;
 		case INVALID:
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
 			break;
@@ -121,6 +125,11 @@ public class Logic {
 		return c;
 	}
 	
+	private List<Task> completed() {
+		List<Task> list = store.getCompletedList();
+		return list;
+	}
+
 	private String undo() {
 		boolean isValid = store.undo();
 		if(isValid){
