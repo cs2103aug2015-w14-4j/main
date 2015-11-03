@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import processor.COMMANDS;
+import processor.DatePair;
+import processor.DayProcessor;
 
 public class Parser {
 
@@ -109,8 +111,7 @@ public class Parser {
 			} else if (inputsSplitDash.length == 2) {
 				if (inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D') {
 					String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
-					startDate = processDate(correctInfo, 0);
-					endDate = processDate(correctInfo, 1);
+					processDate(correctInfo);
 					details = null;
 				} else if (inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[0].charAt(0) == 'I') {
 					startDate = null;
@@ -125,14 +126,12 @@ public class Parser {
 				if ((inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D')
 						&& (inputsSplitDash[2].charAt(0) == 'i' || inputsSplitDash[2].charAt(0) == 'I')) {
 					String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
-					startDate = processDate(correctInfo, 0);
-					endDate = processDate(correctInfo, 1);
+					processDate(correctInfo);
 					details = removeSpace(removeFirst(inputsSplitDash[2]));
 				} else if ((inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[1].charAt(0) == 'I')
 						&& (inputsSplitDash[2].charAt(0) == 'd' || inputsSplitDash[2].charAt(0) == 'D')) {
 					String correctInfo = removeSpace(removeFirst(inputsSplitDash[2]));
-					startDate = processDate(correctInfo, 0);
-					endDate = processDate(correctInfo, 1);
+					processDate(correctInfo);
 					details = removeSpace(removeFirst(inputsSplitDash[1]));
 				} else {
 					startDate = null;
@@ -249,102 +248,21 @@ public class Parser {
 		logger.info("Command: " + command);
 	}
 
-	private Date processDate(String dateString, int identity) {
-		Date firstDate = new Date(), secondDate = new Date(), tempDate;
-		String dates[] = dateString.split(" ");
-		// Brute force date parsing
-		try {
-			if (dates.length == 4) {
-				firstDate = dateVariant1.parse(dates[0] + " " + dates[1]);
-				secondDate = dateVariant1.parse(dates[2] + " " + dates[3]);
-				if (firstDate.after(secondDate)) {
-					tempDate = firstDate;
-					firstDate = secondDate;
-					secondDate = tempDate;
-				}
-			} else if (dates.length == 2) {
-				firstDate = null;
-				secondDate = dateVariant1.parse(dates[0] + " " + dates[1]);
-			} else {
-				firstDate = null;
-				secondDate = null;
+	//@@author A0125369Y
+	private void processDate(String dateString) {
+		DatePair datePair = DayProcessor.stringToDate(dateString);
+		Date firstDate = datePair.getDateOne();
+		Date secondDate = datePair.getDateTwo();
+		if(firstDate != null && secondDate != null){
+			if (firstDate.after(secondDate)) {
+				firstDate = datePair.getDateTwo();
+				secondDate = datePair.getDateOne();
 			}
-
-		} catch (ParseException e) {
-			System.out.println("1");
-			firstDate = null;
-			secondDate = null;
 		}
-		try {
-			if (dates.length == 4) {
-				firstDate = dateVariant2.parse(dates[0] + " " + dates[1]);
-				secondDate = dateVariant2.parse(dates[2] + " " + dates[3]);
-				if (firstDate.after(secondDate)) {
-					tempDate = firstDate;
-					firstDate = secondDate;
-					secondDate = tempDate;
-				}
-			} else if (dates.length == 2) {
-				firstDate = null;
-				secondDate = dateVariant2.parse(dates[0] + " " + dates[1]);
-			} else {
-				firstDate = null;
-				secondDate = null;
-			}
-		} catch (ParseException e) {
-			System.out.println("2");
-			firstDate = null;
-			secondDate = null;
-		}
-		try {
-			if (dates.length == 4) {
-				firstDate = dateVariant3.parse(dates[0] + " " + dates[1]);
-				secondDate = dateVariant3.parse(dates[2] + " " + dates[3]);
-				if (firstDate.after(secondDate)) {
-					tempDate = firstDate;
-					firstDate = secondDate;
-					secondDate = tempDate;
-				}
-			} else if (dates.length == 2) {
-				firstDate = null;
-				secondDate = dateVariant3.parse(dates[0] + " " + dates[1]);
-			} else {
-				firstDate = null;
-				secondDate = null;
-			}
-		} catch (ParseException e) {
-			System.out.println("3");
-			firstDate = null;
-			secondDate = null;
-		}
-		try {
-			if (dates.length == 4) {
-				firstDate = dateVariant4.parse(dates[0] + " " + dates[1]);
-				secondDate = dateVariant4.parse(dates[2] + " " + dates[3]);
-				if (firstDate.after(secondDate)) {
-					tempDate = firstDate;
-					firstDate = secondDate;
-					secondDate = tempDate;
-				}
-			} else if (dates.length == 2) {
-				firstDate = null;
-				secondDate = dateVariant4.parse(dates[0] + " " + dates[1]);
-			} else {
-				firstDate = null;
-				secondDate = null;
-			}
-		} catch (ParseException e) {
-			System.out.println("4");
-			firstDate = null;
-			secondDate = null;
-		}
-		logger.info("Date: " + dateString);
-		if (identity == 0) {
-			return firstDate;
-		} else {
-			return secondDate;
-		}
+		startDate = firstDate;
+		endDate = secondDate;
 	}
+	
 
 	public COMMANDS getCommand() {
 		return command;
@@ -387,7 +305,8 @@ public class Parser {
 		}
 
 	}
-
+	
+/*	
 	public String sort(String input) {
 		String[] stringArray = input.split(" ");
 		String StringTemp = "";
@@ -426,6 +345,7 @@ public class Parser {
 				 * t=0;t<stringArray.length;t++){
 				 * System.out.println(stringArray[t]+" sa"); }
 				 */
+	/*
 				break;
 			}
 		}
@@ -433,5 +353,105 @@ public class Parser {
 		// System.out.println(input+" input");
 		return StringTemp;
 	}
+*/
+	
+/*	
+	private Date processDate(String dateString, int identity) {
+	Date firstDate = new Date(), secondDate = new Date(), tempDate;
+	String dates[] = dateString.split(" ");
+	// Brute force date parsing
+	try {
+		if (dates.length == 4) {
+			firstDate = dateVariant1.parse(dates[0] + " " + dates[1]);
+			secondDate = dateVariant1.parse(dates[2] + " " + dates[3]);
+			if (firstDate.after(secondDate)) {
+				tempDate = firstDate;
+				firstDate = secondDate;
+				secondDate = tempDate;
+			}
+		} else if (dates.length == 2) {
+			firstDate = null;
+			secondDate = dateVariant1.parse(dates[0] + " " + dates[1]);
+		} else {
+			firstDate = null;
+			secondDate = null;
+		}
+
+	} catch (ParseException e) {
+		System.out.println("1");
+		firstDate = null;
+		secondDate = null;
+	}
+	try {
+		if (dates.length == 4) {
+			firstDate = dateVariant2.parse(dates[0] + " " + dates[1]);
+			secondDate = dateVariant2.parse(dates[2] + " " + dates[3]);
+			if (firstDate.after(secondDate)) {
+				tempDate = firstDate;
+				firstDate = secondDate;
+				secondDate = tempDate;
+			}
+		} else if (dates.length == 2) {
+			firstDate = null;
+			secondDate = dateVariant2.parse(dates[0] + " " + dates[1]);
+		} else {
+			firstDate = null;
+			secondDate = null;
+		}
+	} catch (ParseException e) {
+		System.out.println("2");
+		firstDate = null;
+		secondDate = null;
+	}
+	try {
+		if (dates.length == 4) {
+			firstDate = dateVariant3.parse(dates[0] + " " + dates[1]);
+			secondDate = dateVariant3.parse(dates[2] + " " + dates[3]);
+			if (firstDate.after(secondDate)) {
+				tempDate = firstDate;
+				firstDate = secondDate;
+				secondDate = tempDate;
+			}
+		} else if (dates.length == 2) {
+			firstDate = null;
+			secondDate = dateVariant3.parse(dates[0] + " " + dates[1]);
+		} else {
+			firstDate = null;
+			secondDate = null;
+		}
+	} catch (ParseException e) {
+		System.out.println("3");
+		firstDate = null;
+		secondDate = null;
+	}
+	try {
+		if (dates.length == 4) {
+			firstDate = dateVariant4.parse(dates[0] + " " + dates[1]);
+			secondDate = dateVariant4.parse(dates[2] + " " + dates[3]);
+			if (firstDate.after(secondDate)) {
+				tempDate = firstDate;
+				firstDate = secondDate;
+				secondDate = tempDate;
+			}
+		} else if (dates.length == 2) {
+			firstDate = null;
+			secondDate = dateVariant4.parse(dates[0] + " " + dates[1]);
+		} else {
+			firstDate = null;
+			secondDate = null;
+		}
+	} catch (ParseException e) {
+		System.out.println("4");
+		firstDate = null;
+		secondDate = null;
+	}
+	logger.info("Date: " + dateString);
+	if (identity == 0) {
+		return firstDate;
+	} else {
+		return secondDate;
+	}
+}
+*/
 
 }

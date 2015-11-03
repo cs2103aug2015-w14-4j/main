@@ -27,7 +27,7 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private Logic logic;
-    private Parser parser;
+    //private Parser parser;
         
 	@Override
 	public void start(Stage primaryStage) {
@@ -58,7 +58,6 @@ public class MainApp extends Application {
 		}
 		
     	logic = new Logic();
-    	parser = new Parser();
 		
 		// sets up the list of tasks to display
 		TaskListController tlc = new TaskListController();
@@ -162,7 +161,7 @@ public class MainApp extends Application {
     	CommandBoxController cbc = (CommandBoxController) rootLayout.getBottom();
     	InfoPanelController ipc = (InfoPanelController) rootLayout.getLeft();
     	System.out.println("From parseUserCommand: " + userInput);
-    	
+    	Parser parser = new Parser();
     	parser.parse(userInput);
     	switch(parser.getCommand()){
 	        case ADD: {
