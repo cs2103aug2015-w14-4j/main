@@ -110,7 +110,7 @@ public class MainApp extends Application {
     public void handleUserCommand(String userInput) {
         // Command was entered, do something...
         GuiCommand command = logic.executeCMD(userInput);
-        CommandBoxController cbc = (CommandBoxController) rootLayout.getBottom(); 
+        CommandBoxController cbc = (CommandBoxController) rootLayout.getBottom();
         switch(command.getCmd()){
 	        case ADD: {
 	        	cbc.setFeedback(command.getMsg());
@@ -160,11 +160,33 @@ public class MainApp extends Application {
         }
     }
     
+    //@@author A0125369Y
     public void parseUserCommand(String userInput) {
     	CommandBoxController cbc = (CommandBoxController) rootLayout.getBottom();
     	InfoPanelController ipc = (InfoPanelController) rootLayout.getLeft();
 
     	cbc.setPredictionFeedback(predictor.processInput(userInput));
+    	String taskName = predictor.getTaskName();
+    	String taskDetails = predictor.getTaskDetails();
+    	String taskStart = predictor.getTaskStart();
+    	String taskEnd = predictor.getTaskEnd();
+    	if(!(taskName == null)){
+    		ipc.setTaskName(taskName);
+    	}
+    	if(!(taskDetails == null)){
+    		ipc.setTaskInfo(taskDetails);
+    	}
+    	
+    	if(!(taskStart == null)){
+    		ipc.setTaskInfo(taskStart);
+    	}
+    	if(!(taskEnd == null)){
+    		ipc.setTaskName(taskEnd);
+    	}
+    	if(taskName == null && taskDetails == null 
+    			&& taskStart == null && taskEnd == null){
+            ipc.clearDetails();
+    	}
 //    	System.out.println("From parseUserCommand: " + userInput);
 //    	Parser parser = new Parser();
 //    	parser.parse(userInput);

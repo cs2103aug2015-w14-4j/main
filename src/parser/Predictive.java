@@ -20,6 +20,11 @@ public class Predictive {
 //	private static final String EXIT_TIP = "";
 	private static final String EMPTY = "";
 	
+	private String taskName;
+	private String taskDetails;
+	private String taskStart;
+	private String taskEnd;
+	
 	public Predictive(){
 		
 	}
@@ -31,8 +36,18 @@ public class Predictive {
 			command = unstrictCommand(inputPieces[0]);
 		} else {
 			Parser parser = new Parser();
+			parser.parse(input);
 			command = parser.getCommand();
+			this.setTaskName(parser.getTaskName());
+			this.setTaskDetails(parser.getDetails());
+			if(parser.getStartDate() != null){
+				this.setTaskStart(parser.getStartDate().toString());
+			}
+			if(parser.getEndDate() != null){
+				this.setTaskEnd(parser.getEndDate().toString());
+			}
 		}
+
 		switch (command) {
 		case ACK:
 			return ACK_TIP;
@@ -91,5 +106,45 @@ public class Predictive {
 		} else {
 			return  COMMANDS.INVALID;
 		}
+	}
+
+	public String getTaskName() {
+		String returnValue = taskName;
+		taskName = null;
+		return returnValue;
+	}
+
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
+
+	public String getTaskDetails() {
+		String returnValue = taskDetails;
+		taskDetails = null;
+		return returnValue;
+	}
+
+	public void setTaskDetails(String taskDetails) {
+		this.taskDetails = taskDetails;
+	}
+
+	public String getTaskStart() {
+		String returnValue = taskStart;
+		taskStart = null;
+		return returnValue;
+	}
+
+	public void setTaskStart(String taskStart) {
+		this.taskStart = taskStart;
+	}
+
+	public String getTaskEnd() {
+		String returnValue = taskEnd;
+		taskEnd = null;
+		return returnValue;
+	}
+
+	public void setTaskEnd(String taskEnd) {
+		this.taskEnd = taskEnd;
 	}
 }
