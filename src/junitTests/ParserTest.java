@@ -20,14 +20,17 @@ public class ParserTest extends TestCase{
 
 	@Test
 	public void test() {
-		String test = "edit 2";
+		String test = "add haha -d 03112015 0800 -i iwbi";
 		parse.parse(test);
-		System.out.println(parse.getCommand());
-		System.out.println(parse.getTaskName());
-		System.out.println(parse.getStartDate());
-		System.out.println(parse.getEndDate());
-		System.out.println(parse.getDetails());
-		System.out.println(parse.getIndex());
+		System.out.println("command "+parse.getCommand());
+		System.out.println("taskname "+parse.getTaskName());
+		System.out.println("start date "+parse.getStartDate());
+		System.out.println("end date "+parse.getEndDate());
+		System.out.println("detail "+parse.getDetails());
+		System.out.println("index "+parse.getIndex());
+		System.out.println("search "+parse.getSearch());
+		System.out.println("name "+parse.getName());
+		System.out.println("filepath "+parse.getFilePath());
 	    assertTrue(parse.getDetails().equals("detail for testing"));
 	}
 	

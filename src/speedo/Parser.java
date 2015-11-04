@@ -16,7 +16,7 @@ public class Parser {
 	private String details;
 	private Date startDate, endDate;
 	private COMMANDS command;
-	private String taskName;
+	private String taskName, name, filePath, searchSentence;
 	private int index;
 	private SimpleDateFormat dateVariant1;
 	private SimpleDateFormat dateVariant2;
@@ -33,6 +33,9 @@ public class Parser {
 	private static final String UNDO = "undo";
 	private static final String EXPAND = "expand display show";
 	private static final String COMPLETED = "completed";
+	private static final String HELP = "help";
+	private static final String NAME = "name";
+	private static final String FILEPATH = "filepath";
 
 	private static final String DATE_FORMAT_1 = "dd-M-yyyy hh:mm";
 	private static final String DATE_FORMAT_2 = "dd/M/yyyy hh:mm";
@@ -57,65 +60,85 @@ public class Parser {
 		String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
 		commandString = inputsSplitSpace[0];
 		processCommand(inputsSplitSpace[0]);
-		for (int i = 1; i < inputsSplitSpace.length; i++) {
-			taskName = taskName + " " + inputsSplitSpace[i];
-		}
-		if (EDIT.contains(commandString)) {
-			if (inputsSplitSpace.length > 1) {
-				this.isIndex(inputsSplitSpace[1]);
-				taskName = "";
-				for (int i = 2; i < inputsSplitSpace.length; i++) {
-					taskName = taskName + " " + inputsSplitSpace[i];
+		if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
+				||COMPLETED.contains(commandString)){
+			this.isIndex(inputsSplitSpace[1]);
+		}else if(NAME.contains(commandString)){
+			for (int i = 1; i < inputsSplitSpace.length; i++) {
+				name = name + " " + inputsSplitSpace[i];
+			}
+			name = removeSpace(name);
+		}else if(FILEPATH.contains(commandString)){
+			for (int i = 1; i < inputsSplitSpace.length; i++) {
+				filePath = filePath + " " + inputsSplitSpace[i];
+			}
+			filePath = removeSpace(filePath);
+		}else if(SEARCH.contains(commandString)){
+			for (int i = 1; i < inputsSplitSpace.length; i++) {
+				searchSentence = searchSentence + " " + inputsSplitSpace[i];
+			}
+			searchSentence = removeSpace(searchSentence);
+		}else{
+			for (int i = 1; i < inputsSplitSpace.length; i++) {
+				taskName = taskName + " " + inputsSplitSpace[i];
+			}
+			if (EDIT.contains(commandString)) {
+				if (inputsSplitSpace.length > 1) {
+					this.isIndex(inputsSplitSpace[1]);
+					taskName = "";
+					for (int i = 2; i < inputsSplitSpace.length; i++) {
+						taskName = taskName + " " + inputsSplitSpace[i];
+					}
 				}
 			}
-		}
-		if (inputsSplitSpace.length > 1) {
-			if (taskName.equals("")) {
-				taskName = null;
-			} else {
-				taskName = removeSpace(taskName);
+			if (inputsSplitSpace.length > 1) {
+				if (taskName.equals("")) {
+					taskName = null;
+				} else {
+					taskName = removeSpace(taskName);
+				}
+	
 			}
-
-		}
-		if (inputsSplitDash.length == 1) {
-			startDate = null;
-			endDate = null;
-			details = null;
-			if (inputsSplitSpace.length == 2) {
-				this.isIndex(inputsSplitSpace[1]);
-			}
-		} else if (inputsSplitDash.length == 2) {
-			if (inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D') {
-				String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
-				startDate = processDate(correctInfo, 0);
-				endDate = processDate(correctInfo, 1);
-				details = null;
-			} else if (inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[0].charAt(0) == 'I') {
-				startDate = null;
-				endDate = null;
-				details = removeSpace(removeFirst(inputsSplitDash[1]));
-			} else {
+			if (inputsSplitDash.length == 1) {
 				startDate = null;
 				endDate = null;
 				details = null;
-			}
-		} else {
-			if ((inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D')
-					&& (inputsSplitDash[2].charAt(0) == 'i' || inputsSplitDash[2].charAt(0) == 'I')) {
-				String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
-				startDate = processDate(correctInfo, 0);
-				endDate = processDate(correctInfo, 1);
-				details = removeSpace(removeFirst(inputsSplitDash[2]));
-			} else if ((inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[1].charAt(0) == 'I')
-					&& (inputsSplitDash[2].charAt(0) == 'd' || inputsSplitDash[2].charAt(0) == 'D')) {
-				String correctInfo = removeSpace(removeFirst(inputsSplitDash[2]));
-				startDate = processDate(correctInfo, 0);
-				endDate = processDate(correctInfo, 1);
-				details = removeSpace(removeFirst(inputsSplitDash[1]));
+				if (inputsSplitSpace.length == 2) {
+					this.isIndex(inputsSplitSpace[1]);
+				}
+			} else if (inputsSplitDash.length == 2) {
+				if (inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D') {
+					String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
+					startDate = processDate(correctInfo, 0);
+					endDate = processDate(correctInfo, 1);
+					details = null;
+				} else if (inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[0].charAt(0) == 'I') {
+					startDate = null;
+					endDate = null;
+					details = removeSpace(removeFirst(inputsSplitDash[1]));
+				} else {
+					startDate = null;
+					endDate = null;
+					details = null;
+				}
 			} else {
-				startDate = null;
-				endDate = null;
-				details = null;
+				if ((inputsSplitDash[1].charAt(0) == 'd' || inputsSplitDash[1].charAt(0) == 'D')
+						&& (inputsSplitDash[2].charAt(0) == 'i' || inputsSplitDash[2].charAt(0) == 'I')) {
+					String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
+					startDate = processDate(correctInfo, 0);
+					endDate = processDate(correctInfo, 1);
+					details = removeSpace(removeFirst(inputsSplitDash[2]));
+				} else if ((inputsSplitDash[1].charAt(0) == 'i' || inputsSplitDash[1].charAt(0) == 'I')
+						&& (inputsSplitDash[2].charAt(0) == 'd' || inputsSplitDash[2].charAt(0) == 'D')) {
+					String correctInfo = removeSpace(removeFirst(inputsSplitDash[2]));
+					startDate = processDate(correctInfo, 0);
+					endDate = processDate(correctInfo, 1);
+					details = removeSpace(removeFirst(inputsSplitDash[1]));
+				} else {
+					startDate = null;
+					endDate = null;
+					details = null;
+				}
 			}
 		}
 
@@ -214,6 +237,12 @@ public class Parser {
 			command = COMMANDS.EXPAND;
 		} else if (COMPLETED.contains(stringCmd)) {
 			command = COMMANDS.COMPLETED;
+		} else if (HELP.contains(stringCmd)) {
+			command = COMMANDS.HELP;
+		} else if (NAME.contains(stringCmd)) {
+			command = COMMANDS.NAME;
+		} else if (FILEPATH.contains(stringCmd)) {
+			command = COMMANDS.FILEPATH;
 		} else {
 			command = COMMANDS.INVALID;
 		}
@@ -336,7 +365,19 @@ public class Parser {
 	public String getDetails() {
 		return details;
 	}
-
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getFilePath() {
+		return filePath;
+	}
+	
+	public String getSearch() {
+		return searchSentence;
+	}
+	
 	public int getIndex() {
 		String[] temp = inputString.split(" ");
 		if (temp.length < 2) {
