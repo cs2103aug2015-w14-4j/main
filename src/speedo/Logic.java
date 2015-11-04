@@ -110,7 +110,7 @@ public class Logic {
 			break;
 		case EXPAND:
 			taskIndex = parser.getIndex();
-			c = new GuiCommand(COMMANDS.EXPAND, "Displaying details of task " + taskIndex);
+			c = new GuiCommand(COMMANDS.EXPAND, "Displaying details of task " + taskIndex, taskIndex);
 			break;
 		case COMPLETED:
 			list = completed();
