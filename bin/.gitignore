@@ -1,6 +1,5 @@
+/view/
 /controller/
-/junitTests/
-/processor/
 /speedo/
 /storage/
-/view/
+/junitTests/

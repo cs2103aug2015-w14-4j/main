@@ -31,14 +31,18 @@ public class ParserTest extends TestCase{
 		System.out.println("search "+parse.getSearch());
 		System.out.println("name "+parse.getName());
 		System.out.println("filepath "+parse.getFilePath());
-	    assertTrue(parse.getDetails().equals("detail for testing"));
+	    assertTrue(parse.getDetails().equals("iwbi"));
 	}
 	
 	@Test
-	public void test1() {
+	public void test1() throws ParseException {
 		String test = "add test -d 241015 0306 -i detail for testing";
+		Date date;
+		SimpleDateFormat dateVariant;
+		dateVariant = new SimpleDateFormat("ddMMyyyy hhmm");
+		date=dateVariant.parse("241015 0306");
 		parse.parse(test);
-	    assertTrue(parse.getTaskName().equals("test"));
+	    assertTrue(parse.getEndDate().equals(date));
 	}
 	
 	@Test
