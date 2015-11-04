@@ -104,7 +104,10 @@ public class MainApp extends Application {
     	TaskListController tlc = (TaskListController) rootLayout.getRight(); 
     	tlc.loadTaskList(logic.getTaskList());
     	InfoPanelController ipc = (InfoPanelController) rootLayout.getLeft();
+    	ipc.setUserName(WELCOME + logic.getUser());
     	ipc.setTaskDue(tlc.getNumOfTaskDue());
+    	
+    	
     }
     
     public void handleUserCommand(String userInput) {

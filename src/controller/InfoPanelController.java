@@ -53,6 +53,10 @@ public class InfoPanelController extends VBox{
 		}
 	}
 	
+	public void setUserName(String userName){
+		this.userName.setText(userName);
+	}
+	
 	public void setTaskDue(int numTasks){
 		numTasksDue.setText(String.format(TASK_DUE_MESSAGE, numTasks));
 	}

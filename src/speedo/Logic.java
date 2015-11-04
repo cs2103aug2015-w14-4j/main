@@ -18,6 +18,7 @@ public class Logic {
 	private String taskName;
 	private Date startDate;
 	private Date endDate;
+	private String userName;
 	private int taskIndex;
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 
@@ -32,7 +33,7 @@ public class Logic {
 	}
 	
 	public String getUser(){
-		return store.readFile();
+		return userName;
 	}
 	
 	public void setSettings(String userName, String filePath){
@@ -124,6 +125,11 @@ public class Logic {
 			filePath();
 			c = new GuiCommand(COMMANDS.FILEPATH, "Changed Filepath");
 			break;
+		case NAME:
+			taskName = parser.getTaskName();
+			name();
+			c = new GuiCommand(COMMANDS.FILEPATH, "Changed Filepath");
+			break;
 		case INVALID:
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
 			break;
@@ -134,6 +140,11 @@ public class Logic {
 		return c;
 	}
 	
+	private void name() {
+		store.setUser(taskName);
+		
+	}
+
 	private void filePath() {
 		store.setSettings(this.getUser(), taskName);
 		
@@ -155,6 +166,7 @@ public class Logic {
 
 	public List<Task> getTaskList() {
 		// TODO Auto-generated method stub
+		userName = store.readFile();
 		return store.getTaskList();
 	}
 
