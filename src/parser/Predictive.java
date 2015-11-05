@@ -15,24 +15,25 @@ public class Predictive {
 	private static final String SEARCH_TIP = "Find/Search <Keywords> : Displays the list of items containing the keywords";
 	private static final String NAME_TIP = "Name <User Name> : Changes the user name";
 	private static final String UNDO_TIP = "Undo : Reverts your last changes.";
-//	private static final String EXPAND_TIP = "";
-//	private static final String HELP_TIP = "";
-//	private static final String EXIT_TIP = "";
+	// private static final String EXPAND_TIP = "";
+	// private static final String HELP_TIP = "";
+	// private static final String EXIT_TIP = "";
 	private static final String EMPTY = "";
-	
+
 	private String taskName;
 	private String taskDetails;
 	private String taskStart;
 	private String taskEnd;
-	
-	public Predictive(){
-		
+
+	public Predictive() {
+
 	}
-	
+
 	public String processInput(String input) {
+		this.resetValues();
 		String[] inputPieces = input.split(" ");
 		COMMANDS command;
-		if (inputPieces.length == 1){
+		if (inputPieces.length == 1) {
 			command = unstrictCommand(inputPieces[0]);
 		} else {
 			Parser parser = new Parser();
@@ -40,10 +41,10 @@ public class Predictive {
 			command = parser.getCommand();
 			this.setTaskName(parser.getTaskName());
 			this.setTaskDetails(parser.getDetails());
-			if(parser.getStartDate() != null){
+			if (parser.getStartDate() != null) {
 				this.setTaskStart(parser.getStartDate().toString());
 			}
-			if(parser.getEndDate() != null){
+			if (parser.getEndDate() != null) {
 				this.setTaskEnd(parser.getEndDate().toString());
 			}
 		}
@@ -73,7 +74,7 @@ public class Predictive {
 			return EMPTY;
 		}
 	}
-	
+
 	private COMMANDS unstrictCommand(String stringCmd) {
 		stringCmd = stringCmd.toLowerCase();
 		stringCmd = stringCmd.trim();
@@ -88,63 +89,66 @@ public class Predictive {
 		} else if (Parser.ACK.contains(stringCmd)) {
 			return COMMANDS.ACK;
 		} else if (Parser.SEARCH.contains(stringCmd)) {
-			return  COMMANDS.SEARCH;
+			return COMMANDS.SEARCH;
 		} else if (Parser.HOME.contains(stringCmd)) {
-			return  COMMANDS.HOME;
+			return COMMANDS.HOME;
 		} else if (Parser.UNDO.contains(stringCmd)) {
-			return  COMMANDS.UNDO;
+			return COMMANDS.UNDO;
 		} else if (Parser.EXPAND.contains(stringCmd)) {
-			return  COMMANDS.EXPAND;
+			return COMMANDS.EXPAND;
 		} else if (Parser.COMPLETED.contains(stringCmd)) {
-			return  COMMANDS.COMPLETED;
+			return COMMANDS.COMPLETED;
 		} else if (Parser.HELP.contains(stringCmd)) {
-			return  COMMANDS.HELP;
+			return COMMANDS.HELP;
 		} else if (Parser.NAME.contains(stringCmd)) {
-			return  COMMANDS.NAME;
+			return COMMANDS.NAME;
 		} else if (Parser.FILEPATH.contains(stringCmd)) {
-			return  COMMANDS.FILEPATH;
+			return COMMANDS.FILEPATH;
 		} else {
-			return  COMMANDS.INVALID;
+			return COMMANDS.INVALID;
 		}
 	}
 
 	public String getTaskName() {
 		String returnValue = taskName;
-		taskName = null;
 		return returnValue;
 	}
 
-	public void setTaskName(String taskName) {
+	private void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}
 
 	public String getTaskDetails() {
 		String returnValue = taskDetails;
-		taskDetails = null;
 		return returnValue;
 	}
 
-	public void setTaskDetails(String taskDetails) {
+	private void setTaskDetails(String taskDetails) {
 		this.taskDetails = taskDetails;
 	}
 
 	public String getTaskStart() {
 		String returnValue = taskStart;
-		taskStart = null;
 		return returnValue;
 	}
 
-	public void setTaskStart(String taskStart) {
+	private void setTaskStart(String taskStart) {
 		this.taskStart = taskStart;
 	}
 
 	public String getTaskEnd() {
 		String returnValue = taskEnd;
-		taskEnd = null;
 		return returnValue;
 	}
 
-	public void setTaskEnd(String taskEnd) {
+	private void setTaskEnd(String taskEnd) {
 		this.taskEnd = taskEnd;
+	}
+
+	private void resetValues() {
+		this.setTaskName(null);
+		this.setTaskDetails(null);
+		this.setTaskStart(null);
+		this.setTaskEnd(null);
 	}
 }

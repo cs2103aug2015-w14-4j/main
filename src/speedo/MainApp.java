@@ -28,8 +28,6 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private Logic logic;
-    //private Parser parser;
-    private Predictive predictor;
         
 	@Override
 	public void start(Stage primaryStage) {
@@ -60,7 +58,6 @@ public class MainApp extends Application {
 		}
 		
     	logic = new Logic();
-    	predictor = new Predictive();
 		
 		// sets up the list of tasks to display
 		TaskListController tlc = new TaskListController();
