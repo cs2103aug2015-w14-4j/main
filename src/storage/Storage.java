@@ -34,12 +34,13 @@ public class Storage {
 		taskComparator = new TaskComparator();
 		recentChanges = new Stack<Task>();
 		fileHandler = new FileHandler();
+		this.readSettings();
+		this.readFile();
 		this.isTestMode = isTestMode;
-		// this.readFile();
+		//this.readFile();
 	}
 
 	public String setSettings(String userName, String filePath) {
-		logger.info(filePath);
 		fileHandler.updateSettings(filePath, userName);
 		return this.readFile();
 	}
@@ -83,14 +84,17 @@ public class Storage {
 					taskList.remove(x);
 				}
 			}
-			if (fileHandler.getSettings() != null) {
-				return fileHandler.getSettings().getUserName();
-			} else {
-				return null;
-			}
 		}
 		return null;
 
+	}
+	
+	public String readSettings(){
+		if (fileHandler.getSettings() != null) {
+			return fileHandler.getSettings().getUserName();
+		} else {
+			return null;
+		}		
 	}
 
 	/**

@@ -100,6 +100,7 @@ public class FileHandler {
 		settings = readSettingJson();
 		if (settings != null) {
 			fileName = settings.getTaskFilePath();
+			System.out.println(fileName);
 		}
 		return settings;
 	}

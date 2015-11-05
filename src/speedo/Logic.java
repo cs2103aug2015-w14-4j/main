@@ -30,9 +30,11 @@ public class Logic {
 	
 	public Logic(boolean test){
 		store = new Storage(test);
+		userName = store.readSettings();
 	}
 	
 	public String getUser(){
+		userName = store.readSettings();
 		return userName;
 	}
 	
@@ -137,6 +139,7 @@ public class Logic {
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
 			break;			
 		}
+		store.saveFile();
 		return c;
 	}
 	
@@ -166,7 +169,6 @@ public class Logic {
 
 	public List<Task> getTaskList() {
 		// TODO Auto-generated method stub
-		userName = store.readFile();
 		return store.getTaskList();
 	}
 
