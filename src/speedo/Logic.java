@@ -6,6 +6,7 @@ import processor.COMMANDS;
 import java.util.logging.Logger;
 
 import parser.Parser;
+import parser.Predictive;
 import storage.Storage;
 import storage.Task;
 
@@ -20,6 +21,7 @@ public class Logic {
 	private Date endDate;
 	private String userName;
 	private int taskIndex;
+	private Predictive predictor;
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 
 	
@@ -29,6 +31,7 @@ public class Logic {
 	}
 	
 	public Logic(boolean test){
+		predictor = new Predictive();
 		store = new Storage(test);
 		userName = store.readSettings();
 	}
@@ -142,6 +145,17 @@ public class Logic {
 		store.saveFile();
 		return c;
 	}
+	
+	public GuiCommand predictCMD(String input){
+	
+	String message = predictor.processInput(input);
+	GuiCommand guiCommand = new GuiCommand(null, message);
+	guiCommand.setTaskName(predictor.getTaskName());
+	guiCommand.setTaskDetails(predictor.getTaskDetails());
+	guiCommand.setTaskStart(predictor.getTaskStart());
+	guiCommand.setTaskEnd(predictor.getTaskEnd());
+	return guiCommand;
+}
 	
 	private void name() {
 		store.setUser(taskName);

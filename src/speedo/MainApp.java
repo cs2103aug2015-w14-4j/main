@@ -160,11 +160,12 @@ public class MainApp extends Application {
     	CommandBoxController cbc = (CommandBoxController) rootLayout.getBottom();
     	InfoPanelController ipc = (InfoPanelController) rootLayout.getLeft();
 
-    	cbc.setPredictionFeedback(predictor.processInput(userInput));
-    	String taskName = predictor.getTaskName();
-    	String taskDetails = predictor.getTaskDetails();
-    	String taskStart = predictor.getTaskStart();
-    	String taskEnd = predictor.getTaskEnd();
+    	GuiCommand guiCommand = logic.predictCMD(userInput);
+    	cbc.setPredictionFeedback(guiCommand.getMsg());
+    	String taskName = guiCommand.getTaskName();
+    	String taskDetails = guiCommand.getTaskDetails();
+    	String taskStart = guiCommand.getTaskStart();
+    	String taskEnd = guiCommand.getTaskEnd();
     	if(!(taskName == null)){
     		ipc.setTaskName(taskName);
     	}

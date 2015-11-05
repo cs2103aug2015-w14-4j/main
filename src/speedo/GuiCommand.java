@@ -12,6 +12,12 @@ public class GuiCommand {
 	private int taskId;
 	private List<Task> listOfTasks; 
 	
+	// For dynamic task display
+	private String taskName;
+	private String taskDetails;
+	private String taskStart;
+	private String taskEnd;
+	
 	public GuiCommand(COMMANDS cmd, String msg, Task task, int taskId, List<Task> listOfTasks){
 		this.cmd = cmd;
 		this.msg = msg;
@@ -58,6 +64,38 @@ public class GuiCommand {
 
 	public List<Task> getListOfTasks() {
 		return listOfTasks;
+	}
+
+	public String getTaskName() {
+		return taskName;
+	}
+
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
+
+	public String getTaskDetails() {
+		return taskDetails;
+	}
+
+	public void setTaskDetails(String taskDetails) {
+		this.taskDetails = taskDetails;
+	}
+
+	public String getTaskStart() {
+		return taskStart;
+	}
+
+	public void setTaskStart(String taskStart) {
+		this.taskStart = taskStart;
+	}
+
+	public String getTaskEnd() {
+		return taskEnd;
+	}
+
+	public void setTaskEnd(String taskEnd) {
+		this.taskEnd = taskEnd;
 	}
 		
 }
