@@ -71,21 +71,12 @@ public class MainApp extends Application {
     	CommandBoxController cbc = new CommandBoxController();
     	cbc.setMainApp(this);
     	rootLayout.setBottom(cbc);
-    	if(logic.getUser() == null){
-    		//TODO prompt user to set name
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setTitle("Error Dialog");
-    		alert.setHeaderText("NEED TO SET USERNAME");
-    		alert.setContentText("NEED TO SET USERNAME");
-
-    		alert.showAndWait();
-    		
+    	if(logic.getUser() == null){ 		
     		TextInputDialog dialog = new TextInputDialog("Your Name");
     		dialog.setTitle("Welcome!");
     		dialog.setHeaderText("It seems be your first time here.");
     		dialog.setContentText("Please enter your name:");
 
-    		// Traditional way to get the response value.
     		Optional<String> result = dialog.showAndWait();
     		if (result.isPresent()){
     		    logic.setSettings(result.get(), null);

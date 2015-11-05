@@ -39,6 +39,7 @@ public class Storage {
 	}
 
 	public String setSettings(String userName, String filePath) {
+		logger.info(filePath);
 		fileHandler.updateSettings(filePath, userName);
 		return this.readFile();
 	}
