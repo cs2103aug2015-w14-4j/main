@@ -32,6 +32,7 @@ public class Task {
 
 	// Strings
 	private static final String EMPTY = "Empty";
+	private static final String SPACE = "%1$s ";
 	private static final String DATE_FORMAT = "dd MMMM yyyy";
 	private static final String TIME_FORMAT = "hh:mm a";
 	private static final String TASK_STRING = "Task [name= %1$s, details= %2$s, startDate= %3$s, endDate= %4$s, completed= %5$s]";
@@ -43,7 +44,6 @@ public class Task {
 	public static final int TOMORROW = 3;
 	public static final int UPCOMING = 4;
 	public static final int OTHERS = 5;
-	
 
 	// *************************************** CONSTRUCTOR
 	/**
@@ -59,8 +59,8 @@ public class Task {
 	/**
 	 * Constructor to create a Task Object without details and an ending date.
 	 * <p>
-	 * The ending date and details are set to null, other than that refer to
-	 * {@link #Task(String, String, Date, Date)}
+	 * The starting date and details are set to null, other than that refer to
+	 * {@link #Task(String, String, Date, Date)}.
 	 * 
 	 * @param name
 	 *            the name of the task in String
@@ -75,7 +75,7 @@ public class Task {
 	 * Constructor to create a Task Object without any dates.
 	 * <p>
 	 * The dates is set to null, other than that refer to
-	 * {@link #Task(String, String, Date, Date)}
+	 * {@link #Task(String, String, Date, Date)}.
 	 * 
 	 * @param name
 	 *            the name of the task in String
@@ -89,8 +89,8 @@ public class Task {
 	/**
 	 * Constructor to create a Task Object without an ending date.
 	 * <p>
-	 * The ending date is set to null, other than that refer to
-	 * {@link #Task(String, String, Date, Date)}
+	 * The starting date is set to null, other than that refer to
+	 * {@link #Task(String, String, Date, Date)}.
 	 * 
 	 * @param name
 	 *            the name of the task in String
@@ -147,13 +147,19 @@ public class Task {
 	private void setTaskId() {
 		taskId = getHashCode();
 	}
-	
-	public void setTaskId(int taskId){
+
+	/**
+	 * Method to set the Task Id.
+	 * 
+	 * @param taskId
+	 *            the int representation of the Task Id
+	 */
+	public void setTaskId(int taskId) {
 		this.taskId = taskId;
 	}
 
 	/**
-	 * Method to reset the Task Id
+	 * Method to reset the Task Id.
 	 * <p>
 	 * This method should only be called if the task id collides. This method
 	 * simply increments the original task id by 1 to prevent collision.
@@ -405,13 +411,10 @@ public class Task {
 	 *            the string to search for
 	 */
 	public boolean contains(String searchTerm) {
-		System.out.println(searchTerm);
-		if (this.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
+		searchTerm = searchTerm.toLowerCase();
+		String searchString = this.toStringNoNull();
+		if (searchString.contains(searchTerm)) {
 			return true;
-		} else if (this.getDetails() != null) {
-			if (this.getDetails().toLowerCase().contains(searchTerm.toLowerCase())) {
-				return true;
-			}
 		}
 		return false;
 	}
@@ -456,6 +459,31 @@ public class Task {
 	}
 
 	// *************************************** TO STRING
+
+	private String toStringNoNull() {
+
+		String fullString = "";
+
+		if (this.getName() != null) {
+			fullString += String.format(SPACE, this.getName().toLowerCase());
+		}
+		if (this.getDetails() != null) {
+			fullString += String.format(SPACE, this.getDetails().toLowerCase());
+		}
+		if (this.getStartDateString() != null) {
+			fullString += String.format(SPACE, this.getStartDateString().toLowerCase());
+		}
+		if (this.getStartTimeString() != null) {
+			fullString += String.format(SPACE, this.getStartTimeString().toLowerCase());
+		}
+		if (this.getEndDateString() != null) {
+			fullString += String.format(SPACE, this.getEndDateString().toLowerCase());
+		}
+		if (this.getEndTimeString() != null) {
+			fullString += String.format(SPACE, this.getEndTimeString().toLowerCase());
+		}
+		return fullString;
+	}
 
 	@Override
 	public String toString() {
