@@ -8,9 +8,9 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import logic.GuiCommand;
+import logic.Logic;
 import parser.DayProcessor;
-import speedo.GuiCommand;
-import speedo.Logic;
 
 public class MainApp extends Application {
     

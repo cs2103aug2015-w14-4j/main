@@ -1,4 +1,4 @@
-package speedo;
+package logic;
 
 import java.util.List;
 

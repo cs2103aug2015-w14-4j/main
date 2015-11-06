@@ -1,4 +1,4 @@
-package speedo;
+package logic;
 
 import java.util.Date;
 import java.util.List;
@@ -116,7 +116,8 @@ public class Logic {
 			break;
 		case EXPAND:
 			taskIndex = parser.getIndex();
-			c = new GuiCommand(COMMANDS.EXPAND, "Displaying details of task " + taskIndex, taskIndex);
+			int taskId = store.getTaskList().get(taskIndex).getTaskId();
+			c = new GuiCommand(COMMANDS.EXPAND, "Displaying details of task " + taskIndex, taskId);
 			break;
 		case COMPLETED:
 			list = completed();

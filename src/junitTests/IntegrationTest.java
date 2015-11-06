@@ -1,8 +1,8 @@
 package junitTests;
 
+import logic.GuiCommand;
+import logic.Logic;
 import processor.COMMANDS;
-import speedo.GuiCommand;
-import speedo.Logic;
 import storage.Task;
 
 public class IntegrationTest {

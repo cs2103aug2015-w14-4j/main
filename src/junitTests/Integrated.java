@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import logic.GuiCommand;
+import logic.Logic;
 import processor.COMMANDS;
-import speedo.GuiCommand;
-import speedo.Logic;
 import storage.Task;
 
 public class Integrated {
