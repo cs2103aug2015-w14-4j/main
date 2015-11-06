@@ -53,6 +53,8 @@ public class TaskController extends TitledPane{
         	this.setId("taskDueToday");
         } else if(t.due() == Task.TOMORROW){
         	this.setId("taskDueTomorrow");
+        } else if(t.due() == Task.NODATE){
+        	this.setCollapsible(false);
         }
 	}
 	

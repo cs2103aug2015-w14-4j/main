@@ -1,12 +1,17 @@
 package controller;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ScrollEvent;
@@ -18,27 +23,30 @@ public class TaskListController extends ScrollPane{
 	
 	private static final String FXML_PATH = "/view/TaskListView.fxml";
 	
+	private static final String NODATE_LABEL = "TO-DO's";
+	private static final String OVERDUE_LABEL = "OVERDUE";
+	private static final String TODAY_LABEL = "TODAY";
+	private static final String TOMORROW_LABEL = "TOMORROW";
+	private static final String UPCOMING_LABEL = "UPCOMING";
+	
 	@FXML 
 	private VBox containerOfTask;
-		
-    // Maps the Task to its corresponding TaskController
-    private Hashtable<Integer, TaskController> taskLookupTable;
+	
+	private ObservableList<Node> listOfTask;
+    private Hashtable<Integer, TaskController> taskLookupTable;		// Maps the Task to its corresponding TaskController
+    private boolean[] isTaskTitleDisplayed;
     private int numOfTaskDue;
-    boolean[] isTaskTitleDisplayed;
 
     public TaskListController() {
-    	taskLookupTable = new Hashtable<Integer, TaskController>();
-    	FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(FXML_PATH));
-        loader.setRoot(this);
-        loader.setController(this);
         try {
+        	FXMLLoader loader = new FXMLLoader();
+        	loader.setLocation(getClass().getResource(FXML_PATH));
+            loader.setRoot(this);
+            loader.setController(this);
         	loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			ErrorProcessor.alert(e.toString());
 		}
-        this.setBackground(null);
         this.addEventFilter(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
@@ -48,6 +56,16 @@ public class TaskListController extends ScrollPane{
             }
         });
     }
+    
+    @FXML
+    public void initialize() {
+    	listOfTask = containerOfTask.getChildren();
+    	taskLookupTable = new Hashtable<Integer, TaskController>();
+    }
+    
+    public int getNumOfTaskDue(){
+    	return numOfTaskDue;
+    }
         
     private TaskController createTask(Task t, int index){
     	TaskController tc = new TaskController(t, index);
@@ -56,68 +74,70 @@ public class TaskListController extends ScrollPane{
     }
     
     public void addTask(Task t){
-    	addTask(t, containerOfTask.getChildren().size());
+    	addTask(t, listOfTask.size());
     }
     
     public void addTask(Task t, int index){
-    	containerOfTask.getChildren().add(createTask(t, index));
+    	listOfTask.add(createTask(t, index));
     	if(t.due() == Task.TODAY){
     		numOfTaskDue++;
     	}
     }
+            
+    public void loadTaskList(List<Task> list) {
+    	numOfTaskDue = 0;
+    	isTaskTitleDisplayed = new boolean[6];
+    	listOfTask.clear(); 
+    	for (int i = 0; i < list.size(); i++) {
+    		generateLabel(list.get(i));
+    		addTask(list.get(i), i + 1);
+		}
+    }
+         
+    private void generateLabel(Task t){
+    	if(t.due() == Task.NODATE && !isTaskTitleDisplayed[Task.NODATE]){
+    		addLabel(NODATE_LABEL, Task.NODATE);
+    	} else if(t.due() == Task.OVERDUE && !isTaskTitleDisplayed[Task.OVERDUE]){
+    		addLabel(OVERDUE_LABEL, Task.OVERDUE);
+    	} else if(t.due() == Task.TODAY && !isTaskTitleDisplayed[Task.TODAY]){
+    		addLabel(TODAY_LABEL, Task.TODAY);
+    	} else if(t.due() == Task.TOMORROW && !isTaskTitleDisplayed[Task.TOMORROW]){
+    		addLabel(TOMORROW_LABEL, Task.TOMORROW);
+    	} else if(t.due() == Task.UPCOMING && !isTaskTitleDisplayed[Task.UPCOMING]){
+    		addLabel(UPCOMING_LABEL, Task.UPCOMING);
+    	}
+    }
     
+    private void addLabel(String title, int taskType){
+		Label label = new Label(title);
+		containerOfTask.getChildren().add(label);
+		isTaskTitleDisplayed[taskType] = true;
+    }
+
+	public void expand(int taskId) {		
+		try {
+			Robot r = new Robot();
+			r.keyPress(KeyEvent.VK_TAB);
+			r.keyPress(KeyEvent.VK_SPACE);
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Expanded!");
+	}
+	
+	/*
+	 * DEPRECIATED METHODS
+	 * */
+	
     public void removeTask(Task t){
     	TaskController tc = taskLookupTable.get(t.getTaskId());
-    	System.out.println(tc.getText() + " was deleted by removeTask");
-    	containerOfTask.getChildren().remove(tc);
+    	listOfTask.remove(tc);
     	taskLookupTable.remove(t.getTaskId());
     }
     
-    //TODO Can only edit the Task title
     public void editTask(Task t){
     	TaskController tc = taskLookupTable.get(t.getTaskId());
     	tc.setName(t.getName());
-    }
-        
-    public void loadTaskList(List<Task> listOfTasks) {
-    	numOfTaskDue = 0;
-    	isTaskTitleDisplayed = new boolean[6];
-    	containerOfTask.getChildren().clear(); // barny: Testing redrawing to show sorted order
-    	for (int i = 0; i < listOfTasks.size(); i++) {
-    		addTitle(listOfTasks.get(i));
-    		addTask(listOfTasks.get(i), i+1);
-		}
-    }
-    
-    public int getNumOfTaskDue(){
-    	return numOfTaskDue;
-    }
-     
-    public void addTitle(Task t){
-    	if(t.due() == Task.NODATE && !isTaskTitleDisplayed[Task.NODATE]){
-    		Label title = new Label("TO-DOS");
-    		containerOfTask.getChildren().add(title);
-    		isTaskTitleDisplayed[Task.NODATE] = true;
-    	
-    	} else if(t.due() == Task.OVERDUE && !isTaskTitleDisplayed[Task.OVERDUE]){
-    		Label title = new Label("OVERDUE");
-    		containerOfTask.getChildren().add(title);
-    		isTaskTitleDisplayed[Task.OVERDUE] = true;
-    	
-    	} else if(t.due() == Task.TODAY && !isTaskTitleDisplayed[Task.TODAY]){
-    		Label title = new Label("TODAY");
-    		containerOfTask.getChildren().add(title);
-    		isTaskTitleDisplayed[Task.TODAY] = true;
-    	
-    	} else if(t.due() == Task.TOMORROW && !isTaskTitleDisplayed[Task.TOMORROW]){
-    		Label title = new Label("TOMORROW");
-    		containerOfTask.getChildren().add(title);
-    		isTaskTitleDisplayed[Task.TOMORROW] = true;
-    	
-    	} else if(t.due() == Task.UPCOMING && !isTaskTitleDisplayed[Task.UPCOMING]){
-    		Label title = new Label("UPCOMING");
-    		containerOfTask.getChildren().add(title);
-    		isTaskTitleDisplayed[Task.UPCOMING] = true;
-    	}
     }
 }

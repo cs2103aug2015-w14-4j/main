@@ -32,11 +32,11 @@
             <Font size="33.0" />
          </font>
       </Label>
-      <TextFlow fx:id="taskDetails" prefHeight="72.0" prefWidth="242.0" textAlignment="CENTER">
-         <padding>
+      <VBox fx:id="taskInfo" prefHeight="200.0" prefWidth="100.0">
+         <VBox.margin>
             <Insets top="50.0" />
-         </padding>
-      </TextFlow>
+         </VBox.margin>
+      </VBox>
 	</children>
    <padding>
       <Insets left="50.0" />
