@@ -16,14 +16,14 @@ import com.google.gson.JsonStreamParser;
 import processor.ErrorProcessor;
 
 public class FileHandler {
-	private static final String NULL_ERROR = "Expected non-null Object, Received null Object";
-	private static final String SETTINGS_FILE = "settings.json";
-	private static final String EMPTY = "";
 
 	private String fileName;
 	private Settings settings;
 	private Gson googleJsonBuilder;
 	
+	private static final String NULL_ERROR = "Expected non-null Object, Received null Object";
+	private static final String SETTINGS_FILE = "settings.json";
+	private static final String EMPTY = "";
 	
 	public FileHandler() {
 		// Default filename
@@ -70,8 +70,8 @@ public class FileHandler {
 
 	/**
 	 * Method to save settings.
-	 * 
-	 * Refer to {@link #getSettings()} for more details.
+	 * <p>
+	 * Refer to {@link #getSettings()} for more details on what is returned.
 	 * 
 	 * @return returns the settings that have been saved
 	 */
@@ -82,6 +82,14 @@ public class FileHandler {
 		return this.getSettings();
 	}
 	
+	/**
+	 * Method to update settings.
+	 * <p>
+	 * Refer to {@link #saveSettings()} and {@link #getSettings()} for more details.
+	 * @param filePath location of settings file
+	 * @param userName the user name of the user in String
+	 * @return returns the settings that have been saved
+	 */
 	public Settings updateSettings(String filePath, String userName) {
 		if(settings == null){
 			settings = new Settings();
