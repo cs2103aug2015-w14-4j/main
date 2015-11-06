@@ -7,51 +7,62 @@ import java.util.List;
 import java.util.Stack;
 import java.util.logging.Logger;
 
+/**
+ * Storage is a class that provides the basic add/remove/delete/edit functions.
+ * <p>
+ * It depends on the FileHandler class for retrieving and storing the data to a
+ * file.
+ * 
+ * @author Barnabas
+ *
+ */
+
 public class Storage {
 	private static List<Task> taskList;
 	private static List<Task> completedList;
-	private static TaskComparator taskComparator;
 	private static Stack<Task> recentChanges;
+	private static TaskComparator taskComparator;
 	private static FileHandler fileHandler;
-	private static final Logger logger = Logger.getLogger(Storage.class.getName());
 
 	private boolean isTestMode;
 
+	// Assert message
 	private static final String NULL_ERROR = "Expected non-null Object, Received null Object";
-	
-	private static final String TASK_ADDED = "Task added: ";
-	private static final String TASK_BACKUP = "Backup mode: ";
-	private static final String TASK_DUPLICATE = "Duplicate task, not added: ";
-	private static final String TASK_DELETED = "Task deleted: ";
-	private static final String TASK_UNDO = "Undo: ";
-	private static final String TASK_NO_UNDO = "Nothing to undo: ";
 
+	// Logging, and Log messages
+	private static final Logger logger = Logger.getLogger(Storage.class.getName());
+	private static final String TASK_ADDED = "Task added: %1$s";
+	private static final String TASK_BACKUP = "Backup mode: %1$s";
+	private static final String TASK_DUPLICATE = "Duplicate task, not added: %1$s";
+	private static final String TASK_DELETED = "Task deleted: %1$s";
+	private static final String TASK_UNDO = "Task has been undone ";
+	private static final String TASK_NO_UNDO = "Nothing to undo";
+
+	/**
+	 * Default constructor for a Storage Object.
+	 * <p>
+	 * The testing parameter is set to false by default.
+	 */
 	public Storage() {
 		this(false);
 	}
 
+	/**
+	 * Constructor for a Storage Object.
+	 * <p>
+	 * If the test mode is true, there is testing in progress. The data processed will not be read from or saved to a file.
+	 * 
+	 * @param isTestMode enter true if testing, false otherwise
+	 */
 	public Storage(boolean isTestMode) {
 		this.isTestMode = isTestMode;
 		taskList = new ArrayList<Task>();
 		completedList = new ArrayList<Task>();
 		taskComparator = new TaskComparator();
 		recentChanges = new Stack<Task>();
-		if(!isTestMode){
-		fileHandler = new FileHandler();
-		this.readSettings();
-		this.readFile();
+		if (!isTestMode) {
+			this.init();
 		}
-		
-	}
-
-	public String setSettings(String userName, String filePath) {
-		fileHandler.updateSettings(filePath, userName);
-		return this.readFile();
-	}
-	
-	public String setUser(String userName) {
-		fileHandler.updateSettings(null, userName);
-		return fileHandler.getSettings().getUserName();
 	}
 
 	/**
@@ -75,42 +86,57 @@ public class Storage {
 	}
 
 	/**
-	 * Method to read the taskList and settings from a json file
+	 * Method to read the taskList from a json file
 	 * 
-	 * @return returns the user name, returns null if no settings found
+	 * @return returns the user name, returns null if in test mode
 	 */
 	public String readFile() {
 		if (!isTestMode) {
 			taskList = fileHandler.readTasks();
-			for (int x = 0; x < taskList.size(); x++) {
-				if (taskList.get(x).isCompleted()) {
-					completedList.add(taskList.get(x));
-					taskList.remove(x);
-				}
-			}
+			this.shiftCompleted();
 		}
 		return null;
-
 	}
-	
-	public String readSettings(){
+
+	/**
+	 * Method to read the settings from a json file
+	 * 
+	 * @return returns the user name, returns null if no settings found
+	 */
+	public String readSettings() {
 		if (fileHandler.getSettings() != null) {
 			return fileHandler.getSettings().getUserName();
 		} else {
 			return null;
-		}		
+		}
 	}
 
 	/**
-	 * Method to save the taskList to a json file
+	 * Method to set the settings
 	 * 
-	 * @return true if saved successfully, false if in test mode
+	 * @param userName
+	 *            the user name in String
+	 * @param filePath
+	 *            the file location in string
+	 * 
+	 * @return the current user name
 	 */
-	public boolean saveFile() {
-		if (!isTestMode) {
-			return fileHandler.saveTasks(taskList);
-		}
-		return false;
+	public void setSettings(String userName, String filePath) {
+		fileHandler.updateSettings(filePath, userName);
+		this.readFile();
+	}
+
+	/**
+	 * Method to set the user name
+	 * 
+	 * @param userName
+	 *            the user name in String
+	 * 
+	 * @return the current user name
+	 */
+	public String setUser(String userName) {
+		fileHandler.updateSettings(null, userName);
+		return fileHandler.getSettings().getUserName();
 	}
 
 	/**
@@ -148,14 +174,12 @@ public class Storage {
 		if (isNotDuplicate(newTask)) {
 			taskList.add(newTask);
 			recentChanges.push(newTask);
-			logger.info(TASK_ADDED + name);
-		} else {
-			logger.info(TASK_DUPLICATE + name);
-		}
-		taskList.sort(taskComparator);
-		if (taskList.contains(newTask)) {
+			taskList.sort(taskComparator);
+			this.saveFile();
+			logger.info(String.format(TASK_ADDED, name));
 			return newTask;
 		} else {
+			logger.info(TASK_DUPLICATE + name);
 			return null;
 		}
 	}
@@ -170,7 +194,8 @@ public class Storage {
 	public Task delete(int index) {
 		if (isValidIndex(index)) {
 			recentChanges.push(taskList.get(index));
-			logger.info(TASK_DELETED + index + " " + taskList.get(index).getName());
+			this.saveFile();
+			logger.info(String.format(TASK_DELETED, taskList.get(index).getName()));
 			return taskList.remove(index);
 		} else {
 			return null;
@@ -215,6 +240,7 @@ public class Storage {
 					currTask.setEndDate(endDate);
 				}
 			}
+			this.saveFile();
 			return taskList.get(index);
 		} else {
 			return null;
@@ -235,7 +261,8 @@ public class Storage {
 			completedList.add(currTask);
 			currTask.setCompleted(true);
 			taskList.remove(index);
-	}
+			this.saveFile();
+		}
 		return null;
 	}
 
@@ -252,32 +279,35 @@ public class Storage {
 	public boolean undo() {
 		if (!recentChanges.isEmpty()) {
 			Task oldTask = recentChanges.pop();
-			if (!this.undoAdd(oldTask)) {
-				if (!this.undoEdit(oldTask)) {
-					if(!this.undoAck(oldTask)){
+			if (!this.isUndoAdd(oldTask)) {
+				if (!this.isUndoEdit(oldTask)) {
+					if (!this.isUndoAck(oldTask)) {
 						this.undoDelete(oldTask);
 					}
 				}
-			} 
+			}
+			this.saveFile();
 			logger.info(TASK_UNDO);
 			return true;
 		}
 		logger.info(TASK_NO_UNDO);
 		return false;
 	}
-	
-	private boolean undoAdd(Task oldTask){
+
+	// **SUPPORTING FUNCTIONS FOR UNDO**
+
+	private boolean isUndoAdd(Task oldTask) {
 		assert oldTask != null : NULL_ERROR;
 		if (taskList.contains(oldTask)) {
 			taskList.remove(oldTask);
 			return true;
-		} 
+		}
 		return false;
 	}
-	
-	private boolean undoEdit(Task oldTask){
+
+	private boolean isUndoEdit(Task oldTask) {
 		assert oldTask != null : NULL_ERROR;
-		for (int i = 0; i < taskList.size() ; i++) {
+		for (int i = 0; i < taskList.size(); i++) {
 			if (taskList.get(i).getTaskId() == oldTask.getTaskId()) {
 				this.clone(taskList.get(i), oldTask);
 				return true;
@@ -285,10 +315,10 @@ public class Storage {
 		}
 		return false;
 	}
-	
-	private boolean undoAck(Task oldTask){
+
+	private boolean isUndoAck(Task oldTask) {
 		assert oldTask != null : NULL_ERROR;
-		for (int i = 0; i < completedList.size() ; i++) {
+		for (int i = 0; i < completedList.size(); i++) {
 			if (completedList.get(i).getTaskId() == oldTask.getTaskId()) {
 				completedList.remove(completedList.get(i));
 				taskList.add(oldTask);
@@ -297,12 +327,12 @@ public class Storage {
 		}
 		return false;
 	}
-	
-	private void undoDelete(Task oldTask){
+
+	private void undoDelete(Task oldTask) {
 		taskList.add(oldTask);
 	}
-	
-	private void clone(Task currTask, Task oldTask){
+
+	private void clone(Task currTask, Task oldTask) {
 		assert currTask != null : NULL_ERROR;
 		assert oldTask != null : NULL_ERROR;
 		currTask.setName(oldTask.getName());
@@ -312,18 +342,68 @@ public class Storage {
 		currTask.setCompleted(oldTask.isCompleted());
 	}
 
+	// **SUPPORTING FUNCTIONS FOR COMPLETE**
+
 	// Backs up a task to recentChanges, returns a new instance of the old task
 	// for editing
 	private Task backup(int index) {
 		Task currTask = taskList.get(index);
+		Task oldTask = this.backupTask(currTask);
+		recentChanges.push(oldTask);
+		assert currTask.getTaskId() == oldTask.getTaskId();
+		logger.info(String.format(TASK_BACKUP, oldTask));
+		return currTask;
+	}
+
+	private Task backupTask(Task currTask) {
 		Task oldTask = new Task(currTask.getName(), currTask.getDetails(), currTask.getStartDate(),
 				currTask.getEndDate());
 		oldTask.setCompleted(currTask.isCompleted());
 		oldTask.setTaskId(currTask.getTaskId());
-		recentChanges.push(oldTask);
-		assert currTask.getTaskId() == oldTask.getTaskId();
-		logger.info(TASK_BACKUP + oldTask);
-		return currTask;
+		return oldTask;
+	}
+
+	// **SUPPORTING FUNCTION FOR ADD**
+
+	// Compare hash code, then taskId to determine if task is a duplicate
+	private boolean isNotDuplicate(Task newTask) {
+		for (int i = 0; i < taskList.size(); i++) {
+			if (taskList.get(i).getHashCode() == newTask.getHashCode()) {
+				return false;
+			} else if (taskList.get(i).getTaskId() == newTask.getTaskId()) {
+				newTask.resetTaskId();
+				return true;
+			}
+		}
+		return true;
+	}
+
+	// **SUPPORTING FUNCTION FOR READFILE**
+
+	private void shiftCompleted() {
+		for (int i = 0; i < taskList.size(); i++) {
+			if (taskList.get(i).isCompleted()) {
+				completedList.add(taskList.get(i));
+				taskList.remove(i);
+			}
+		}
+	}
+	
+	// **SUPPORTING FUNCTIONS FOR CONSTRUCTOR**
+	
+	private void init() {
+		fileHandler = new FileHandler();
+		this.readSettings();
+		this.readFile();
+	}
+
+	// **SUPPORTING FUNCTIONS FOR ALL**
+
+	private boolean saveFile() {
+		if (!isTestMode) {
+			return fileHandler.saveTasks(taskList);
+		}
+		return false;
 	}
 
 	private boolean isValidIndex(int index) {
@@ -333,20 +413,7 @@ public class Storage {
 			return false;
 		}
 	}
-
-	// Compare hash code, then taskId to determine if task is a duplicate
-	private boolean isNotDuplicate(Task newTask) {
-		for (int x = 0; x < taskList.size(); x++) {
-			if (taskList.get(x).getHashCode() == newTask.getHashCode()) {
-				return false;
-			} else if (taskList.get(x).getTaskId() == newTask.getTaskId()) {
-				newTask.resetTaskId();
-				return true;
-			}
-		}
-		return true;
-	}
-
+	
 	// The following code have been removed due to changes in the way the dates
 	// are handled. They are left here in case there is a need to refer to them.
 	// /**

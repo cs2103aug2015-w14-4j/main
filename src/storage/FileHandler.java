@@ -134,6 +134,8 @@ public class FileHandler {
 		}
 		if (filePath != null) {
 			settings.setTaskFilePath(filePath);
+		} else {
+			settings.setTaskFilePath(fileName);
 		}
 		if (userName != null) {
 			settings.setUserName(userName);
@@ -209,8 +211,8 @@ public class FileHandler {
 	private String listToJson(List<Task> taskList) {
 		assert taskList != null : NULL_ERROR;
 		String jsonString = EMPTY;
-		for (int x = 0; x < taskList.size(); x++) {
-			Task task = taskList.get(x);
+		for (int i = 0; i < taskList.size(); i++) {
+			Task task = taskList.get(i);
 			jsonString += googleJsonBuilder.toJson(task);
 		}
 		return jsonString;

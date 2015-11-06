@@ -143,7 +143,7 @@ public class Logic {
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
 			break;			
 		}
-		store.saveFile();
+		
 		return c;
 	}
 	
@@ -198,7 +198,6 @@ public class Logic {
 		System.out.println(newTask);
 		if (newTask != null) {
 			System.out.println("Task added");
-			store.saveFile();
 			return newTask;
 		} else {
 			return null;
