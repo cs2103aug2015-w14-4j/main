@@ -2,22 +2,19 @@ package speedo;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.Date;
-
 
 import controller.CommandBoxController;
+import controller.HelpBoxController;
 import controller.InfoPanelController;
 import controller.TaskListController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import parser.DayProcessor;
-import parser.Parser;
 import parser.Predictive;
 
 public class MainApp extends Application {
@@ -28,12 +25,15 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private Logic logic;
+    private Predictive predictor;
+    private Popup helpPopup;
         
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("SpeeDo");
+        this.primaryStage.setTitle("Spee-Do");
         initRootLayout();
+        initHelpBox();
         Scene scene = new Scene(rootLayout,850,500);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
@@ -88,20 +88,25 @@ public class MainApp extends Application {
     	this.refresh();
     }
     
+    public void initHelpBox(){
+		helpPopup = new Popup();
+		helpPopup.getContent().add(new HelpBoxController());
+    }
+    
     public void refresh(){
     	TaskListController tlc = (TaskListController) rootLayout.getRight(); 
     	tlc.loadTaskList(logic.getTaskList());
     	InfoPanelController ipc = (InfoPanelController) rootLayout.getLeft();
     	ipc.setUserName(WELCOME + logic.getUser());
     	ipc.setTaskDue(tlc.getNumOfTaskDue());
-    	
-    	
     }
     
     public void handleUserCommand(String userInput) {
         // Command was entered, do something...
         GuiCommand command = logic.executeCMD(userInput);
         CommandBoxController cbc = (CommandBoxController) rootLayout.getBottom();
+        TaskListController tlc = (TaskListController) rootLayout.getRight();
+        
         switch(command.getCmd()){
 	        case ADD: {
 	        	cbc.setFeedback(command.getMsg());
@@ -120,7 +125,6 @@ public class MainApp extends Application {
 	        }
 	        case SEARCH: { // barny: Search will reload with a list of searched items
 	        	cbc.setFeedback(command.getMsg());
-	        	TaskListController tlc = (TaskListController) rootLayout.getRight(); 
 	        	tlc.loadTaskList(command.getListOfTasks());
 	        	break;
 	        }
@@ -140,10 +144,15 @@ public class MainApp extends Application {
 	        	break;
 	        }
 	        case COMPLETED: {
-	        	cbc.setFeedback(command.getMsg());
-	        	TaskListController tlc = (TaskListController) rootLayout.getRight(); 
+	        	cbc.setFeedback(command.getMsg()); 
 	        	tlc.loadTaskList(command.getListOfTasks());
 	        	break;
+	        }
+	        case EXPAND: {
+	        	tlc.expand(command.getTaskId());
+	        }
+	        case HELP: {
+	        	helpPopup.show(primaryStage);
 	        }
 	        default:
 	        	refresh();
@@ -180,49 +189,6 @@ public class MainApp extends Application {
     			&& taskStart == null && taskEnd == null){
             ipc.clearDetails();
     	}
-//    	System.out.println("From parseUserCommand: " + userInput);
-//    	Parser parser = new Parser();
-//    	parser.parse(userInput);
-//    	switch(parser.getCommand()){
-//	        case ADD: {
-//	        	cbc.setPredictionFeedback("add <Task name> -d <date> -i <info>");
-//	        	String taskName = parser.getTaskName();
-//	        	String taskDetails = parser.getDetails();
-//	        	//String taskStart = parser.getStartDate().toString();
-//	        	//String taskEnd = parser.getEndDate().toString();
-//	        	if(!(taskName == null)){
-//	        		ipc.setTaskName(taskName);
-//	        	}
-//	        	if(!(taskDetails == null)){
-//	        		ipc.setTaskInfo(taskDetails);
-//	        	}
-//	        	/*
-//	        	if(!taskStart.equals("")){
-//	        		ipc.setTaskInfo(taskStart);
-//	        	}
-//	        	if(!taskEnd.equals("")){
-//	        		ipc.setTaskName(taskEnd);
-//	        	}
-//	        	*/
-//	        	break;
-//	        }
-//	        case DELETE: {
-//	        	cbc.setPredictionFeedback("delete <Task index>");
-//	        	break;
-//	        }
-//	        case EDIT: {
-//	        	cbc.setPredictionFeedback("edit <Task index>");
-//	        	break;
-//	        }
-//	        default:
-//	        	ipc.clearDetails();
-//	        	if(userInput.equals("")){
-//	        		// do nothing
-//	        	} else {
-//	        		cbc.setFeedback("");
-//		        	break;
-//	        	}
-//	    }
     }
     
     //TODO Remember to delete this later 

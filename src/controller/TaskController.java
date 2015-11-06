@@ -33,7 +33,6 @@ public class TaskController extends TitledPane{
         loader.setController(this);
         try {
         	loader.load();
-        	this.getStylesheets().add("/controller/taskcontroller.css");
 	        setTaskIndex(index);
         	setName(t.getName());
 	        setStartDate(t.getStartDateString() + "   " + t.getStartTimeString());
