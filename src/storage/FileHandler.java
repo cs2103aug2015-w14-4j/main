@@ -26,9 +26,6 @@ public class FileHandler {
 	private static final String EMPTY = "";
 	
 	public FileHandler() {
-		// Default filename
-		fileName = Settings.DEFAULT_FILEPATH;
-		
 		googleJsonBuilder = GoogleJsonBuilder();
 	}
 	
@@ -108,6 +105,8 @@ public class FileHandler {
 		settings = readSettingJson();
 		if (settings != null) {
 			fileName = settings.getTaskFilePath();
+		} else {
+			fileName = Settings.DEFAULT_FILEPATH;
 		}
 		return settings;
 	}
