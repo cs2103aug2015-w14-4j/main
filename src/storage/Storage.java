@@ -17,6 +17,8 @@ public class Storage {
 
 	private boolean isTestMode;
 
+	private static final String NULL_ERROR = "Expected non-null Object, Received null Object";
+	
 	private static final String TASK_ADDED = "Task added: ";
 	private static final String TASK_BACKUP = "Backup mode: ";
 	private static final String TASK_DUPLICATE = "Duplicate task, not added: ";
@@ -233,7 +235,6 @@ public class Storage {
 			completedList.add(currTask);
 			currTask.setCompleted(true);
 			taskList.remove(index);
-			logger.info("Completed:" + completedList.get(index).getName());
 	}
 		return null;
 	}
@@ -251,38 +252,64 @@ public class Storage {
 	public boolean undo() {
 		if (!recentChanges.isEmpty()) {
 			Task oldTask = recentChanges.pop();
-			boolean edited = false;
-
-			if (taskList.contains(oldTask)) {
-				taskList.remove(oldTask);
-			} else {
-				for (Task currTask : taskList) {
-					if (currTask.getTaskId() == oldTask.getTaskId()) {
-						currTask.setName(oldTask.getName());
-						currTask.setDetails(oldTask.getDetails());
-						currTask.setStartDate(oldTask.getStartDate());
-						currTask.setEndDate(oldTask.getEndDate());
-						currTask.setCompleted(oldTask.isCompleted());
-						edited = true;
-						break;
+			if (!this.undoAdd(oldTask)) {
+				if (!this.undoEdit(oldTask)) {
+					if(!this.undoAck(oldTask)){
+						this.undoDelete(oldTask);
 					}
 				}
-
-				if (!edited) {
-					for (Task completedTask : completedList) {
-						if (completedTask.getTaskId() == oldTask.getTaskId()) {
-							completedList.remove(completedTask);
-							break;
-						}
-					}
-					taskList.add(oldTask);
-				}
-			}
+			} 
 			logger.info(TASK_UNDO);
 			return true;
 		}
 		logger.info(TASK_NO_UNDO);
 		return false;
+	}
+	
+	private boolean undoAdd(Task oldTask){
+		assert oldTask != null : NULL_ERROR;
+		if (taskList.contains(oldTask)) {
+			taskList.remove(oldTask);
+			return true;
+		} 
+		return false;
+	}
+	
+	private boolean undoEdit(Task oldTask){
+		assert oldTask != null : NULL_ERROR;
+		for (int i = 0; i < taskList.size() ; i++) {
+			if (taskList.get(i).getTaskId() == oldTask.getTaskId()) {
+				this.clone(taskList.get(i), oldTask);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean undoAck(Task oldTask){
+		assert oldTask != null : NULL_ERROR;
+		for (int i = 0; i < completedList.size() ; i++) {
+			if (completedList.get(i).getTaskId() == oldTask.getTaskId()) {
+				completedList.remove(completedList.get(i));
+				taskList.add(oldTask);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void undoDelete(Task oldTask){
+		taskList.add(oldTask);
+	}
+	
+	private void clone(Task currTask, Task oldTask){
+		assert currTask != null : NULL_ERROR;
+		assert oldTask != null : NULL_ERROR;
+		currTask.setName(oldTask.getName());
+		currTask.setDetails(oldTask.getDetails());
+		currTask.setStartDate(oldTask.getStartDate());
+		currTask.setEndDate(oldTask.getEndDate());
+		currTask.setCompleted(oldTask.isCompleted());
 	}
 
 	// Backs up a task to recentChanges, returns a new instance of the old task

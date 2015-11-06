@@ -103,7 +103,7 @@ public class Logic {
 		case ACK:
 			taskIndex = parser.getIndex();
 			t = acknowledge();
-			c = new GuiCommand(COMMANDS.ACK, "Acknowledged", t);
+			c = new GuiCommand(COMMANDS.ACK, "Acknowledged");
 			break;
 		case HOME:
 			c = new GuiCommand(COMMANDS.HOME, "Showing Original task list", this.getTaskList());
