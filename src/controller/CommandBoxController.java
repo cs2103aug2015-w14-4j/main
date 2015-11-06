@@ -9,7 +9,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import processor.ErrorProcessor;
-import speedo.MainApp;
 
 public class CommandBoxController extends VBox{
 	
