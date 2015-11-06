@@ -30,7 +30,7 @@ public class StorageTest {
 		Task task = store.add(name, details, null, date);
 		assertEquals(name, task.getName()); 
 		assertEquals(details, task.getDetails()); 
-		assertEquals(date, task.getStartDate());
+		assertEquals(date, task.getEndDate());
 
 		// Duplicated task
 		Task duplicate = store.add(name, details, null, date);
@@ -103,7 +103,7 @@ public class StorageTest {
 		String details = "task details";
 		Task task = store.add(name, details, null, date);
 		store.complete(0);
-		assertEquals(true, store.getTaskList().get(0).isCompleted());
+		assertEquals(true, store.getCompletedList().get(0).isCompleted());
 	}
 
 	@Test

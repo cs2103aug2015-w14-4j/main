@@ -29,15 +29,17 @@ public class Storage {
 	}
 
 	public Storage(boolean isTestMode) {
+		this.isTestMode = isTestMode;
 		taskList = new ArrayList<Task>();
 		completedList = new ArrayList<Task>();
 		taskComparator = new TaskComparator();
 		recentChanges = new Stack<Task>();
+		if(!isTestMode){
 		fileHandler = new FileHandler();
 		this.readSettings();
 		this.readFile();
-		this.isTestMode = isTestMode;
-		//this.readFile();
+		}
+		
 	}
 
 	public String setSettings(String userName, String filePath) {
@@ -231,10 +233,9 @@ public class Storage {
 			completedList.add(currTask);
 			currTask.setCompleted(true);
 			taskList.remove(index);
-			return taskList.get(index);
-		} else {
-			return null;
-		}
+			logger.info("Completed:" + completedList.get(index).getName());
+	}
+		return null;
 	}
 
 	/**
