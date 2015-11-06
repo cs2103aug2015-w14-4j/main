@@ -1,31 +1,22 @@
-package speedo;
+package controller;
 
-import java.io.IOException;
 import java.util.Optional;
 
-import controller.CommandBoxController;
-import controller.HelpBoxController;
-import controller.InfoPanelController;
-import controller.TaskListController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import parser.DayProcessor;
-import parser.Predictive;
+import speedo.GuiCommand;
+import speedo.Logic;
 
 public class MainApp extends Application {
     
-	private static final String FXML_PATH = "/view/RootView.fxml";
-	private static final String WELCOME = "Hi ";
-
     private Stage primaryStage;
     private BorderPane rootLayout;
     private Logic logic;
-    private Predictive predictor;
     private Popup helpPopup;
         
 	@Override
@@ -48,15 +39,7 @@ public class MainApp extends Application {
      * Initializes the root layout.
      */
     public void initRootLayout() {
-    	FXMLLoader loader = new FXMLLoader();         
-        loader.setLocation(getClass().getResource(FXML_PATH));
-		try {
-			rootLayout = (BorderPane) loader.load();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+    	rootLayout = new BorderPane();
     	logic = new Logic();
 		
 		// sets up the list of tasks to display
@@ -80,7 +63,7 @@ public class MainApp extends Application {
     		}
     	}
     	// sets up the info panel
-    	InfoPanelController ipc = new InfoPanelController(WELCOME + logic.getUser(), 
+    	InfoPanelController ipc = new InfoPanelController(logic.getUser(), 
     			DayProcessor.todayDay(), 
     			DayProcessor.todayDate(), 
     			tlc.getNumOfTaskDue());
@@ -97,7 +80,7 @@ public class MainApp extends Application {
     	TaskListController tlc = (TaskListController) rootLayout.getRight(); 
     	tlc.loadTaskList(logic.getTaskList());
     	InfoPanelController ipc = (InfoPanelController) rootLayout.getLeft();
-    	ipc.setUserName(WELCOME + logic.getUser());
+    	ipc.setUserName(logic.getUser());
     	ipc.setTaskDue(tlc.getNumOfTaskDue());
     }
     
@@ -172,30 +155,7 @@ public class MainApp extends Application {
     	String taskDetails = guiCommand.getTaskDetails();
     	String taskStart = guiCommand.getTaskStart();
     	String taskEnd = guiCommand.getTaskEnd();
-    	if(!(taskName == null)){
-    		ipc.setTaskName(taskName);
-    	}
-    	if(!(taskDetails == null)){
-    		ipc.setTaskInfo(taskDetails);
-    	}
-    	
-    	if(!(taskStart == null)){
-    		ipc.setTaskInfo(taskStart);
-    	}
-    	if(!(taskEnd == null)){
-    		ipc.setTaskName(taskEnd);
-    	}
-    	if(taskName == null && taskDetails == null 
-    			&& taskStart == null && taskEnd == null){
-            ipc.clearDetails();
-    	}
+    	ipc.displayTaskInfo(taskName, taskDetails, taskStart, taskEnd);
     }
-    
-    //TODO Remember to delete this later 
-    public void displayCommandBoxText(String input){
-    	CommandBoxController cbc = (CommandBoxController) rootLayout.getBottom();
-    	cbc.setPredictionFeedback(input);
-    	System.out.println(input);
-    }
-    
+        
 }
