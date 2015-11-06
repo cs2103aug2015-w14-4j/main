@@ -60,11 +60,18 @@ public class FileHandler {
 	/**
 	 * Method to save the list of tasks.
 	 * 
+	 * @param taskList
+	 *            list of tasks
+	 * @param completedList
+	 *            list of completed tasks
+	 * 
 	 * @return true if the file is successfully written, false otherwise
 	 */
-	public boolean saveTasks(List<Task> taskList) {
+	public boolean saveTasks(List<Task> taskList, List<Task> completedList) {
 		assert taskList != null : NULL_ERROR;
+		assert completedList != null : NULL_ERROR;
 		String jsonTasks = listToJson(taskList);
+		jsonTasks += listToJson(completedList);
 		return writeToFile(fileName, jsonTasks);
 	}
 

@@ -71,6 +71,7 @@ public class Storage {
 	 * @return the list of tasks
 	 */
 	public List<Task> getTaskList() {
+		this.shiftCompleted();
 		taskList.sort(taskComparator);
 		return taskList;
 	}
@@ -262,6 +263,7 @@ public class Storage {
 			currTask.setCompleted(true);
 			taskList.remove(index);
 			this.saveFile();
+			return currTask;
 		}
 		return null;
 	}
@@ -401,7 +403,7 @@ public class Storage {
 
 	private boolean saveFile() {
 		if (!isTestMode) {
-			return fileHandler.saveTasks(taskList);
+			return fileHandler.saveTasks(taskList, completedList);
 		}
 		return false;
 	}
