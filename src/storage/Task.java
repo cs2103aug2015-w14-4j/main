@@ -44,6 +44,11 @@ public class Task {
 	public static final int TOMORROW = 3;
 	public static final int UPCOMING = 4;
 	public static final int OTHERS = 5;
+	
+	private static final int DAYS_IN_YEAR = 365;
+	private static final int ZERO_DAYS = 0;
+	private static final int ONE_DAY = 1;
+	private static final int ONE_WEEK = 8;
 
 	// *************************************** CONSTRUCTOR
 	/**
@@ -433,22 +438,22 @@ public class Task {
 			Calendar endDate = Calendar.getInstance();
 			endDate.setTime(this.getEndDate());
 			int endDayInt = endDate.get(Calendar.DAY_OF_YEAR);
-			endDayInt += endDate.get(Calendar.YEAR) * 365;
+			endDayInt += endDate.get(Calendar.YEAR) * DAYS_IN_YEAR;
 
 			// current date
 			Calendar toDay = Calendar.getInstance();
 			int toDayInt = toDay.get(Calendar.DAY_OF_YEAR);
-			toDayInt += toDay.get(Calendar.YEAR) * 365;
+			toDayInt += toDay.get(Calendar.YEAR) * DAYS_IN_YEAR;
 
 			int diff = endDayInt - toDayInt;
 
-			if (diff < 0) {
+			if (diff < ZERO_DAYS) {
 				return OVERDUE;
-			} else if (diff == 0) {
+			} else if (diff == ZERO_DAYS) {
 				return TODAY;
-			} else if (diff == 1) {
+			} else if (diff == ONE_DAY) {
 				return TOMORROW;
-			} else if (diff < 8) {
+			} else if (diff < ONE_WEEK) {
 				return UPCOMING;
 			} else {
 				return OTHERS;
