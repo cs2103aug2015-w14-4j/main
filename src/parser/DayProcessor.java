@@ -153,27 +153,27 @@ public class DayProcessor {
 
 		if (pieces.length == 8) {
 			// Length 8: two dates with spaces E.g. 12 oct 2015 08:00
-			stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2] + SPACE + processTime(pieces[TIME3]);
-			stringDateTwo = pieces[DAY4] + pieces[MTH5] + pieces[YR6] + SPACE + processTime(pieces[TIME7]);
+			stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2] + SPACE + pieces[TIME3];
+			stringDateTwo = pieces[DAY4] + pieces[MTH5] + pieces[YR6] + SPACE + pieces[TIME7];
 		} else if (pieces.length == 7) {
 			if (pieces[TIME3].length() >= TIME_LEN && pieces[DAY4].length() <= DAY_LEN) {
 				// Length 7: Mixture, date with spaces with time first & date with spaces without time second
-				stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2] + SPACE + processTime(pieces[TIME3]);
+				stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2] + SPACE + pieces[TIME3];
 				stringDateTwo = pieces[DAY4] + pieces[MTH5] + pieces[YR6];
 			} else if (pieces[YR5].length() >= YEAR_LEN && pieces[TIME6].length() >= TIME_LEN) {
 				// Length 7: Mixture, date with spaces with time second & date with spaces without time first
 				stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2];
-				stringDateTwo = pieces[DAY3] + pieces[MTH4] + pieces[YR5] + SPACE + processTime(pieces[TIME6]);
+				stringDateTwo = pieces[DAY3] + pieces[MTH4] + pieces[YR5] + SPACE + pieces[TIME6];
 			}
 		} else if (pieces.length == 6) {
 			if (pieces[DATE].length() >= DATE_LEN) {
 				// Length 6: Mixture, date without spaces with time first & date with spaces with time second
-				stringDateOne = processDate(pieces[DATE]) + SPACE + processTime(pieces[TIME1]);
-				stringDateTwo = pieces[DAY2] + pieces[MTH3] + pieces[YR4] + SPACE + processTime(pieces[TIME5]);
+				stringDateOne = pieces[DATE] + SPACE + pieces[TIME1];
+				stringDateTwo = pieces[DAY2] + pieces[MTH3] + pieces[YR4] + SPACE + pieces[TIME5];
 			} else if (pieces[DATE4].length() >= DATE_LEN) {
 				// Length 6: Mixture, date without spaces with time second & date with spaces with time first
-				stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2] + SPACE + processTime(pieces[TIME3]);
-				stringDateTwo = processDate(pieces[DATE4]) + SPACE + processTime(pieces[TIME5]);
+				stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2] + SPACE + pieces[TIME3];
+				stringDateTwo = pieces[DATE4] + SPACE + pieces[TIME5];
 			} else {
 				// Length 6: Two dates with spaces without time
 				stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2];
@@ -183,42 +183,42 @@ public class DayProcessor {
 			if (pieces[DATE].length() >= DATE_LEN && pieces[TIME4].length() >= TIME_LEN) {
 				// Length 5: Mixture, date with spaces with time second & date
 				// without spaces without time first
-				stringDateOne = processDate(pieces[DATE]);
-				stringDateTwo = pieces[DAY1] + pieces[MTH2] + pieces[YR3] + SPACE + processTime(pieces[TIME4]);
+				stringDateOne = pieces[DATE];
+				stringDateTwo = pieces[DAY1] + pieces[MTH2] + pieces[YR3] + SPACE + pieces[TIME4];
 			} else if (pieces[DATE4].length() >= DATE_LEN && pieces[3].length() >= TIME_LEN) {
 				// Length 5: Mixture, date with spaces with time first & without
 				// spaces without time second
-				stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2] + SPACE + processTime(pieces[TIME3]);
-				stringDateTwo = processDate(pieces[DATE4]);
+				stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2] + SPACE + pieces[TIME3];
+				stringDateTwo = pieces[DATE4];
 			} else if (pieces[DATE].length() >= DATE_LEN && pieces[TIME1].length() >= TIME_LEN) {
 				// Length 5: Mixture, date with spaces without time second &
 				// date without spaces with time first
-				stringDateOne = processDate(pieces[DATE]) + SPACE + processTime(pieces[TIME1]);
+				stringDateOne = pieces[DATE] + SPACE + pieces[TIME1];
 				stringDateTwo = pieces[DAY2] + pieces[MTH3] + pieces[YR4];
 			} else if (pieces[DATE3].length() >= DATE_LEN && pieces[4].length() >= TIME_LEN) {
 				// Length 5: Mixture, date with spaces without time first & date
 				// without spaces with time second
 				stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2];
-				stringDateTwo = processDate(pieces[DATE3]) + SPACE + processTime(pieces[TIME4]);
+				stringDateTwo = pieces[DATE3] + SPACE + pieces[TIME4];
 			}
 		} else if (pieces.length == 4) {
 			if (pieces[DATE].length() >= DATE_LEN && pieces[DATE2].length() >= DATE_LEN) {
 				// Length 4: Two dates with time
-				stringDateOne = processDate(pieces[DATE]) + SPACE + processTime(pieces[TIME1]);
-				stringDateTwo = processDate(pieces[DATE2]) + SPACE + processTime(pieces[TIME3]);
+				stringDateOne = pieces[DATE] + SPACE + pieces[TIME1];
+				stringDateTwo = pieces[DATE2] + SPACE + pieces[TIME3];
 			} else if (pieces[DATE].length() >= DATE_LEN && pieces[DAY1].length() <= DAY_LEN) {
 				// Length 4: Mixture, date without spaces first & date with
 				// spaces second, both without time
-				stringDateOne = processDate(pieces[DATE]);
+				stringDateOne = pieces[DATE];
 				stringDateTwo = pieces[DAY1] + pieces[MTH2] + pieces[YR3];
 			} else if (pieces[DAY].length() <= DAY_LEN && pieces[DATE3].length() >= DATE_LEN) {
 				// Length 4: Mixture, date without spaces second & date with
 				// spaces first, both without time
 				stringDateOne = pieces[DAY] + pieces[MTH1] + pieces[YR2];
-				stringDateTwo = processDate(pieces[DATE3]);
+				stringDateTwo = pieces[DATE3];
 			} else {
 				// Length 4: One date with spaces with time
-				stringDateTwo = pieces[DAY] + pieces[MTH1] + pieces[YR2] + SPACE + processTime(pieces[TIME3]);
+				stringDateTwo = pieces[DAY] + pieces[MTH1] + pieces[YR2] + SPACE + pieces[TIME3];
 			}
 		} else if (pieces.length == 3) {
 			// Length 3: One date with spaces
@@ -227,16 +227,19 @@ public class DayProcessor {
 		} else if (pieces.length == 2) {
 			if (pieces[DATE].length() >= DATE_LEN && pieces[DATE1].length() >= DATE_LEN) {
 				// Length 2: Two dates without spaces without time
-				stringDateOne = processDate(pieces[DATE]);
-				stringDateTwo = processDate(pieces[DATE1]);
+				stringDateOne = pieces[DATE];
+				stringDateTwo = pieces[DATE1];
 			} else {
 				// Length 2: One date without spaces with time
-				stringDateTwo = pieces[DATE] + SPACE + processTime(pieces[TIME1]);
+				stringDateTwo = pieces[DATE] + SPACE + pieces[TIME1];
 			}
 		} else if (pieces.length == 1) {
 			// Length 1: One date without spaces
 			stringDateTwo = pieces[DATE];
 		}
+
+		stringDateOne = processDate(stringDateOne);
+		stringDateTwo = processDate(stringDateTwo);
 
 		try {
 			dateOne = dateStringMthTime.parse(stringDateOne);
@@ -273,12 +276,6 @@ public class DayProcessor {
 		}
 
 		return new DatePair(dateOne, dateTwo);
-	}
-
-	private static String processTime(String time) {
-		time = time.replaceAll(":", "");
-		time = time.trim();
-		return time;
 	}
 
 	private static String processDate(String date) {
