@@ -7,6 +7,6 @@
 
 <fx:root fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" type="ScrollPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox fx:id="containerOfTask" />
+      <VBox id="taskListBox" fx:id="containerOfTask" />
    </content>
 </fx:root>

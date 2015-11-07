@@ -43,7 +43,7 @@ public class InfoPanelController extends VBox{
     	setUserName(user);
     	todayDay.setText(day);
     	todayDate.setText(date);
-    	setTaskDue(numTasks);	
+    	setTaskDue(numTasks);
 	}
 	
 	public void setUserName(String userName){

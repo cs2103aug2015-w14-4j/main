@@ -8,6 +8,7 @@ import javafx.scene.control.PopupControl;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import logic.GuiCommand;
@@ -47,6 +48,7 @@ public class MainApp extends Application {
      */
     public void initRootLayout() {
     	rootLayout = new BorderPane();
+    	rootLayout.setId("rootLayout");
     	logic = new Logic();
 		
 		// sets up the list of tasks to display

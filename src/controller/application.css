@@ -1,3 +1,24 @@
+#rootLayout {
+	-fx-background-color: linear-gradient(#ffffff, #ffffff);
+}
+
+#infoPanel {
+	-fx-background-color: linear-gradient(#ffffff, #ffffff);
+}
+
+#taskListBox {
+	-fx-background-color: linear-gradient(#ffffff, #ffffff);
+	-fx-border-color: white ;
+} 
+
+#taskList {
+	-fx-background-color: linear-gradient(#ffffff, #ffffff);
+} 
+
+#commandBox {
+	-fx-background-color: linear-gradient(#ffffff, #ffffff);
+}
+
 #helpBox {
 	-fx-background-color: 
 		linear-gradient(#ffd65b, #ffd65b),
@@ -28,8 +49,8 @@
 
 .title{
 	-fx-background-color:
-		linear-gradient(C9C9C9, C9C9C9),
-        linear-gradient(DBDBDB, DBDBDB);
+		linear-gradient(#C9C9C9, #C9C9C9),
+        linear-gradient(#DBDBDB, #DBDBDB);
 }
 
 #taskCompleted .title .text { 
