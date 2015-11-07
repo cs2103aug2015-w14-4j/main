@@ -1,3 +1,4 @@
+//@@author A0121823R
 package junitTests;
 
 import static org.junit.Assert.*;
@@ -84,22 +85,5 @@ public class LogicTest {
 //	}
 //	
 		
-	@Test
-	public void testExecuteCmd() {
-//		try{
-//			date = dateVariant4.parse(" 20102015 1000");
-//		} catch (Exception e){
-//				
-//		}
-//		testT = new Task(name, details, date);
-//		testGCommand = new GuiCommand(COMMANDS.ADD, "Added task1");
-//		
-//		GuiCommand get = l.executeCMD(input);
-//		System.out.println(get.getMsg() + " " + get.getTask());
-//		System.out.println("TestT: " + testT);
-//		 assertEquals(testT.getName(), get.getTask().getName());
-//		 assertEquals(testT.getDetails(), get.getTask().getDetails());
-//		 assertEquals(testT.getStartDate(), get.getTask().getStartDate());
-//		}
-	}
+
 }
