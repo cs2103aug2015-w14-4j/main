@@ -9,6 +9,18 @@
         -fx-background-radius: 20 20 20 20;
 }
 
+#errorMsg .text {
+	-fx-text-fill: red; 
+}
+
+#successMsg .text {
+	-fx-text-fill: green;
+}
+
+#predictionMsg .text {
+	-fx-text-fill: blue;
+}
+
 .title{
 -fx-background-color:
         linear-gradient(C9C9C9, C9C9C9),

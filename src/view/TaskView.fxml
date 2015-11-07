@@ -15,7 +15,7 @@
                <children>
                   <HBox fx:id="details">
                      <children>
-                        <Label text="Details">
+                        <Label fx:id="detailsLabel" text="Details">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -35,7 +35,7 @@
                   </HBox>
                   <HBox fx:id="startDate">
                      <children>
-                        <Label text="Start">
+                        <Label fx:id="startDateLabel" text="Start">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -58,7 +58,7 @@
                   </HBox>
                   <HBox fx:id="endDate" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label text="End">
+                        <Label fx:id="endDateLabel" text="End">
                            <font>
                               <Font size="24.0" />
                            </font>
