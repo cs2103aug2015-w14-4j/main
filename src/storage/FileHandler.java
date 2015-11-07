@@ -34,6 +34,7 @@ public class FileHandler {
 	private Settings settings;
 	private Gson googleJsonBuilder;
 
+	private static final String FILEPATH = "%1$s.json";
 	private static final String NULL_ERROR = "Expected non-null Object, Received null Object";
 	private static final String SETTINGS_FILE = "settings.json";
 	private static final String EMPTY = "";
@@ -72,7 +73,7 @@ public class FileHandler {
 		assert completedList != null : NULL_ERROR;
 		String jsonTasks = listToJson(taskList);
 		jsonTasks += listToJson(completedList);
-		return writeToFile(fileName, jsonTasks);
+		return writeToFile(filePath(fileName), jsonTasks);
 	}
 
 	/**
@@ -116,9 +117,9 @@ public class FileHandler {
 	public Settings getSettings() {
 		settings = readSettingJson();
 		if (settings != null) {
-			fileName = settings.getTaskFilePath();
+			fileName = settings.getFileName();
 		} else {
-			fileName = Settings.DEFAULT_FILEPATH;
+			fileName =Settings.DEFAULT_FILENAME;
 		}
 		return settings;
 	}
@@ -129,20 +130,20 @@ public class FileHandler {
 	 * Refer to {@link #saveSettings()} and {@link #getSettings()} for more
 	 * details.
 	 * 
-	 * @param filePath
-	 *            location of settings file
+	 * @param fileName
+	 *            name of settings file
 	 * @param userName
 	 *            the user name of the user in String
 	 * @return returns the settings that have been saved
 	 */
-	public Settings updateSettings(String filePath, String userName) {
+	public Settings updateSettings(String fileName, String userName) {
 		if (settings == null) {
 			settings = new Settings();
 		}
-		if (filePath != null) {
-			settings.setTaskFilePath(filePath);
+		if (fileName != null) {
+			settings.getFileName(fileName);
 		} else {
-			settings.setTaskFilePath(fileName);
+			settings.getFileName(this.fileName);
 		}
 		if (userName != null) {
 			settings.setUserName(userName);
@@ -179,7 +180,7 @@ public class FileHandler {
 	// Use GSON API to read from tasks json file
 	private List<Task> readJsonToList() {
 		List<Task> taskList = new ArrayList<Task>();
-		JsonStreamParser jsonReader = JsonReader(fileName);
+		JsonStreamParser jsonReader = JsonReader(filePath(fileName));
 		if (jsonReader != null) {
 			while (hasNext(jsonReader)) {
 				Task taskEntry = googleJsonBuilder.fromJson(jsonReader.next(), Task.class);
@@ -231,6 +232,9 @@ public class FileHandler {
 		return jsonString;
 	}
 
+	private String filePath(String fileName){
+		return String.format(FILEPATH, fileName);
+	}
 	private static Gson GoogleJsonBuilder() {
 		return new GsonBuilder().setPrettyPrinting().create();
 	}

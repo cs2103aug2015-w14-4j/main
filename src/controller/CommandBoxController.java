@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import processor.ErrorProcessor;
 
@@ -39,8 +38,8 @@ public class CommandBoxController extends VBox{
 	
 	@FXML
 	public void initialize(){
-		feedback.setText("");
-		prediction.setText("");
+		clearFeedback();
+		clearPredictionFeedback();
 	}
 	
 	@FXML
@@ -67,16 +66,24 @@ public class CommandBoxController extends VBox{
     	
     public void setFeedback(String txt){
     	feedback.setText(txt);
-    	feedback.setFill(Color.GREEN);
+    	feedback.setId("successMsg");
     }
     
     public void setErrorFeedback(String txt){
     	feedback.setText(txt);
-    	feedback.setFill(Color.RED);
+    	feedback.setId("errorMsg");
     }
     
     public void setPredictionFeedback(String txt){
     	prediction.setText(txt);
-    	prediction.setFill(Color.BLUE);
+    	feedback.setId("predictionMsg");
     }
+
+	public void clearFeedback() {
+		feedback.setText("");
+	}
+	
+	public void clearPredictionFeedback() {
+		prediction.setText("");
+	}
 }
