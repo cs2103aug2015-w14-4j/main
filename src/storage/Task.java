@@ -33,8 +33,7 @@ public class Task {
 	// Strings
 	private static final String EMPTY = null;
 	private static final String SPACE = "%1$s ";
-	private static final String DATE_FORMAT = "dd MMMM yyyy";
-	private static final String TIME_FORMAT = "hh:mm a";
+	private static final String DATE_FORMAT = "dd MMMM yyyy hh:mm a";
 	private static final String TASK_STRING = "Task [name= %1$s, details= %2$s, startDate= %3$s, endDate= %4$s, completed= %5$s]";
 
 	// Due tags
@@ -44,7 +43,7 @@ public class Task {
 	public static final int TOMORROW = 3;
 	public static final int UPCOMING = 4;
 	public static final int OTHERS = 5;
-	
+
 	private static final int DAYS_IN_YEAR = 365;
 	private static final int ZERO_DAYS = 0;
 	private static final int ONE_DAY = 1;
@@ -189,8 +188,8 @@ public class Task {
 	 * @return the hash code as a String
 	 */
 	public int getHashCode() {
-		String uniqueElements = this.getName() + this.getDetails() + this.getFullStartDateString()
-				+ this.getFullEndDateString();
+		String uniqueElements = this.getName() + this.getDetails() + this.getStartDateString()
+				+ this.getEndDateString();
 		return uniqueElements.hashCode();
 	}
 
@@ -247,54 +246,19 @@ public class Task {
 	/**
 	 * Method to retrieve a the starting date in string form.
 	 * <p>
-	 * This method makes use of the toString() method of the Date Object to
-	 * return a string representation of the starting date. The method does a
-	 * check to ensure that the starting date is not null, in the even the start
-	 * date is null, the string "Empty" is returned instead
+	 * This method returns the starting date in the format <i>
+	 * "dd MMMM yyyy hh:mm a"</i> . Where <i>dd</i> denotes day of the month,
+	 * <i>MMMM</i> denotes month of the year, <i>yyyy</i> denotes year,
+	 * <i>hh</i> denotes hour, <i>mm</i> denotes minutes & <i>a</i> denotes
+	 * am/pm.
 	 * 
 	 * @return The string value of the starting date. If no starting date
 	 *         exists, returns "Empty"
 	 */
-	public String getFullStartDateString() {
-		if (this.getStartDate() != null) {
-			return this.getStartDate().toString();
-		} else {
-			return EMPTY;
-		}
-	}
-
-	/**
-	 * Method to get the starting date of a Task Object.
-	 * <p>
-	 * This method returns the starting date in the format <i>"dd MMMM yyyy"</i>
-	 * . Where <i>dd</i> denotes day of the month, <i>MMMM</i> denotes month of
-	 * the year & <i>yyyy</i> denotes year.
-	 * 
-	 * @return the starting date as a String, if no starting date, returns
-	 *         "Empty"
-	 */
 	public String getStartDateString() {
-		if (this.getStartDate() != null) {
-			SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-			return dateFormat.format(this.getStartDate());
-		} else {
-			return EMPTY;
-		}
-	}
-
-	/**
-	 * Method to get the starting time of a Task Object.
-	 * <p>
-	 * This method returns the starting time in the format <i>"hh:mm"</i>. Where
-	 * <i>hh</i> denotes hour & <i>mm</i> denotes minutes.
-	 * 
-	 * @return the starting time as a String, if no starting date, returns
-	 *         "Empty"
-	 */
-	public String getStartTimeString() {
-		if (this.getStartDate() != null) {
-			SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
-			return dateFormat.format(this.getStartDate());
+		Date startDate = this.getStartDate();
+		if (startDate != null) {
+			return this.getDateString(startDate);
 		} else {
 			return EMPTY;
 		}
@@ -322,54 +286,21 @@ public class Task {
 	}
 
 	/**
-	 * Method to retrieve a the full ending date in string form.
+	 * Method to retrieve a the ending date in string form.
 	 * <p>
-	 * This method makes use of the toString() method of the Date Object to
-	 * return a string representation of the full ending date. The method does a
-	 * check to ensure that the ending date is not null, in the even the end
-	 * date is null, the string "Empty" is returned instead
+	 * This method returns the ending date in the format <i>
+	 * "dd MMMM yyyy hh:mm a"</i> . Where <i>dd</i> denotes day of the month,
+	 * <i>MMMM</i> denotes month of the year, <i>yyyy</i> denotes year,
+	 * <i>hh</i> denotes hour, <i>mm</i> denotes minutes & <i>a</i> denotes
+	 * am/pm.
 	 * 
 	 * @return the string value of the full ending date, "Empty" if no ending
 	 *         date exists
 	 */
-	public String getFullEndDateString() {
-		if (this.getEndDate() != null) {
-			return this.getEndDate().toString();
-		} else {
-			return EMPTY;
-		}
-	}
-
-	/**
-	 * Method to get the ending date of a Task Object.
-	 * <p>
-	 * This method returns the ending date in the format <i>"dd MMMM yyyy"</i> .
-	 * Where <i>dd</i> denotes day of the month, <i>MMMM</i> denotes month of
-	 * the year & <i>yyyy</i> denotes year.
-	 * 
-	 * @return the ending date as a String, if no ending date, returns "Empty"
-	 */
 	public String getEndDateString() {
-		if (this.getEndDate() != null) {
-			SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-			return dateFormat.format(this.getEndDate());
-		} else {
-			return EMPTY;
-		}
-	}
-
-	/**
-	 * Method to get the ending time of a Task Object.
-	 * <p>
-	 * This method returns the ending time in the format <i>"hh:mm"</i>. Where
-	 * <i>hh</i> denotes hour & <i>mm</i> denotes minutes.
-	 * 
-	 * @return the ending time as a String, if no ending date, returns "Empty"
-	 */
-	public String getEndTimeString() {
-		if (this.getEndDate() != null) {
-			SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
-			return dateFormat.format(this.getEndDate());
+		Date endDate = this.getEndDate();
+		if (endDate != null) {
+			return this.getDateString(endDate);
 		} else {
 			return EMPTY;
 		}
@@ -463,7 +394,7 @@ public class Task {
 		}
 	}
 
-	// *************************************** TO STRING
+	// *************************************** LOW LEVEL FUNCTIONS
 
 	private String toStringNoNull() {
 
@@ -478,16 +409,16 @@ public class Task {
 		if (this.getStartDateString() != null) {
 			fullString += String.format(SPACE, this.getStartDateString().toLowerCase());
 		}
-		if (this.getStartTimeString() != null) {
-			fullString += String.format(SPACE, this.getStartTimeString().toLowerCase());
-		}
 		if (this.getEndDateString() != null) {
 			fullString += String.format(SPACE, this.getEndDateString().toLowerCase());
 		}
-		if (this.getEndTimeString() != null) {
-			fullString += String.format(SPACE, this.getEndTimeString().toLowerCase());
-		}
 		return fullString;
+	}
+
+	private String getDateString(Date date) {
+		assert date != null;
+		SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+		return dateFormat.format(date);
 	}
 
 	@Override
