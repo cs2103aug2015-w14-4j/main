@@ -11,9 +11,9 @@
   <content>
     <AnchorPane>
          <children>
-            <VBox layoutX="184.0" layoutY="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox fx:id="expandedBox" layoutX="184.0" layoutY="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox>
+                  <HBox fx:id="details">
                      <children>
                         <Label text="Details">
                            <font>
@@ -23,7 +23,7 @@
                               <Insets />
                            </HBox.margin>
                         </Label>
-                        <Text fx:id="details" strokeType="OUTSIDE" strokeWidth="0.0" text="hi" wrappingWidth="412.56097412109375">
+                        <Text fx:id="detailsText" strokeType="OUTSIDE" strokeWidth="0.0" text="hi" wrappingWidth="412.56097412109375">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -33,9 +33,9 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox>
+                  <HBox fx:id="startDate">
                      <children>
-                        <Label fx:id="dateLabel" text="Start">
+                        <Label text="Start">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -43,7 +43,7 @@
                               <Insets />
                            </HBox.margin>
                         </Label>
-                        <Text fx:id="startDate" strokeType="OUTSIDE" strokeWidth="0.0" text="31 October 2015 10:00 AM" wrappingWidth="412.56097412109375">
+                        <Text fx:id="startDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="31 October 2015 10:00 AM" wrappingWidth="412.56097412109375">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -56,7 +56,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox VBox.vgrow="ALWAYS">
+                  <HBox fx:id="endDate" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="End">
                            <font>
@@ -66,7 +66,7 @@
                               <Insets />
                            </HBox.margin>
                         </Label>
-                        <Text fx:id="endDate" strokeType="OUTSIDE" strokeWidth="0.0" text="31 October 2015 9:00 PM" wrappingWidth="412.56097412109375">
+                        <Text fx:id="endDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="31 October 2015 9:00 PM" wrappingWidth="412.56097412109375">
                            <font>
                               <Font size="18.0" />
                            </font>
