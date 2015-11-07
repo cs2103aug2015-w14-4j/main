@@ -27,13 +27,13 @@ public class GuiCommand {
 		this.listOfTasks = listOfTasks;
 	}
 	
-	public GuiCommand(COMMANDS cmd, String msg, Task task, int index){
-		this(cmd, msg, task, index, null);
-	}
-	
-	public GuiCommand(COMMANDS cmd, String msg, Task task){
-		this(cmd, msg, task, task.getTaskId(), null);
-	}
+//	public GuiCommand(COMMANDS cmd, String msg, Task task, int index){
+//		this(cmd, msg, task, index, null);
+//	}
+//	
+//	public GuiCommand(COMMANDS cmd, String msg, Task task){
+//		this(cmd, msg, task, task.getTaskId(), null);
+//	}
 	
 	public GuiCommand(COMMANDS cmd, String msg, List<Task> listOfTasks){
 		this(cmd, msg, null, 0, listOfTasks);
