@@ -147,16 +147,62 @@ public class Logic {
 		return c;
 	}
 	
+	//@@author A0124791A
 	public GuiCommand predictCMD(String input){
-	
-	String message = predictor.processInput(input);
-	GuiCommand guiCommand = new GuiCommand(null, message);
-	guiCommand.setTaskName(predictor.getTaskName());
-	guiCommand.setTaskDetails(predictor.getTaskDetails());
-	guiCommand.setTaskStart(predictor.getTaskStart());
-	guiCommand.setTaskEnd(predictor.getTaskEnd());
-	return guiCommand;
-}
+		String message = predictor.processInput(input);
+		GuiCommand guiCommand = new GuiCommand(null, message);
+		guiCommand.setTitle(predictor.getCommandMsg());
+		int index = predictor.getIndex();
+		
+		switch (predictor.getCommand()) {
+			case ADD:
+				guiCommand.setTaskName(predictor.getTaskName());
+				guiCommand.setTaskDetails(predictor.getTaskDetails());
+				guiCommand.setTaskStart(predictor.getTaskStart());
+				guiCommand.setTaskEnd(predictor.getTaskEnd());
+				break;
+			case DELETE:
+				if(index != -1){
+					Task task = store.getTaskList().get(index);
+					guiCommand.setTaskName(task.getName());
+					guiCommand.setTaskDetails(task.getDetails());
+					guiCommand.setTaskStart(task.getStartDateString());
+					guiCommand.setTaskEnd(task.getEndDateString());
+				}
+				break;
+			case EDIT:
+				if(index != -1){
+					Task task = store.getTaskList().get(index);
+					if(predictor.getTaskName() != null){
+						guiCommand.setTaskName(predictor.getTaskName());
+					} else {
+						guiCommand.setTaskName(task.getName());
+					}
+					
+					if(predictor.getTaskDetails() != null){
+						guiCommand.setTaskDetails(predictor.getTaskDetails());
+					} else {
+						guiCommand.setTaskDetails(task.getDetails());
+					}
+					
+					if(predictor.getTaskStart() != null){
+						guiCommand.setTaskStart(predictor.getTaskStart());
+					} else {
+						guiCommand.setTaskStart(task.getStartDateString());
+					}
+					
+					if(predictor.getTaskEnd() != null){
+						guiCommand.setTaskEnd(predictor.getTaskEnd());
+					} else {
+						guiCommand.setTaskEnd(task.getEndDateString());
+					}
+				}
+				break;
+			default:
+				break;
+		}
+		return guiCommand;
+	}
 	
 	private void name() {
 		store.setUser(taskName);

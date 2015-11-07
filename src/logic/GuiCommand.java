@@ -13,6 +13,7 @@ public class GuiCommand {
 	private List<Task> listOfTasks; 
 	
 	// For dynamic task display
+	private String title;
 	private String taskName;
 	private String taskDetails;
 	private String taskStart;
@@ -65,11 +66,19 @@ public class GuiCommand {
 	public List<Task> getListOfTasks() {
 		return listOfTasks;
 	}
+	
+	public String getTitle(){
+		return title;
+	}
 
 	public String getTaskName() {
 		return taskName;
 	}
-
+	
+	public void setTitle(String title){
+		this.title = title;
+	}
+	
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}

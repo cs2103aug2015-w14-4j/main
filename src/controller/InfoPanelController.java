@@ -58,13 +58,12 @@ public class InfoPanelController extends VBox{
 	/*
 	 * All code beyond this point deals with the prediction
 	 * */
-	
-	public void clearTaskInfo(){
-		taskInfo.getChildren().clear();
-	}
-	
-	public void displayTaskInfo(String taskName, String taskDetails, String taskStart, String taskEnd){
+		
+	public void displayTaskInfo(String title, String taskName, String taskDetails, String taskStart, String taskEnd){
 		clearTaskInfo();
+		if(title != null){
+			createTaskInfoEntry(title, "%s");
+		}
 		if(taskName != null){
 			createTaskInfoEntry(taskName, TASK_NAME_DISPLAY);
 		}
@@ -83,5 +82,8 @@ public class InfoPanelController extends VBox{
 		Text txt = new Text(String.format(stringFormat, entry));
 		taskInfo.getChildren().add(txt);
 	}
-		
+	
+	public void clearTaskInfo(){
+		taskInfo.getChildren().clear();
+	}	
 }

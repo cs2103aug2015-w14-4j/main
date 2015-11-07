@@ -19,7 +19,14 @@ public class Predictive {
 	// private static final String HELP_TIP = "";
 	// private static final String EXIT_TIP = "";
 	private static final String EMPTY = "";
-
+	
+	private static final String ADD_MSG = "Adding Task...";
+	private static final String EDIT_MSG = "Editing Task...";
+	private static final String DELETE_MSG = "Deleting Task...";
+	
+	private COMMANDS command;
+	private int index;
+	private String commandMsg;
 	private String taskName;
 	private String taskDetails;
 	private String taskStart;
@@ -32,13 +39,13 @@ public class Predictive {
 	public String processInput(String input) {
 		this.resetValues();
 		String[] inputPieces = input.split(" ");
-		COMMANDS command;
 		if (inputPieces.length == 1) {
 			command = unstrictCommand(inputPieces[0]);
 		} else {
 			Parser parser = new Parser();
 			parser.parse(input);
-			command = parser.getCommand();
+			this.setCommand(parser.getCommand());
+			this.setIndex(parser.getIndex());
 			this.setTaskName(parser.getTaskName());
 			this.setTaskDetails(parser.getDetails());
 			if (parser.getStartDate() != null) {
@@ -53,12 +60,15 @@ public class Predictive {
 		case ACK:
 			return ACK_TIP;
 		case ADD:
+			this.setCommandMsg(ADD_MSG);
 			return ADD_TIP;
 		case COMPLETED:
 			return COMPLETED_TIP;
 		case DELETE:
+			this.setCommandMsg(DELETE_MSG);
 			return DELETE_TIP;
 		case EDIT:
+			this.setCommandMsg(EDIT_MSG);
 			return EDIT_TIP;
 		case FILEPATH:
 			return FILEPATH_TIP;
@@ -108,6 +118,18 @@ public class Predictive {
 			return COMMANDS.INVALID;
 		}
 	}
+	
+	public COMMANDS getCommand(){
+		return command;
+	}
+	
+	public int getIndex(){
+		return index;
+	}
+	
+	public String getCommandMsg(){
+		return commandMsg;
+	}
 
 	public String getTaskName() {
 		String returnValue = taskName;
@@ -144,8 +166,23 @@ public class Predictive {
 	private void setTaskEnd(String taskEnd) {
 		this.taskEnd = taskEnd;
 	}
+	
+	private void setCommand(COMMANDS cmd) {
+		this.command = cmd;
+	}
+
+	private void setCommandMsg(String msg) {
+		this.commandMsg = msg;
+	}
+
+	private void setIndex(int i) {
+		this.index = i;
+	}
 
 	private void resetValues() {
+		this.setIndex(-1);
+		this.setCommand(null);
+		this.setCommandMsg(null);
 		this.setTaskName(null);
 		this.setTaskDetails(null);
 		this.setTaskStart(null);

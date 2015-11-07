@@ -144,18 +144,19 @@ public class MainApp extends Application {
         }
     }
     
-    //@@author A0125369Y
     public void parseUserCommand(String userInput) {
     	CommandBoxController cbc = (CommandBoxController) rootLayout.getBottom();
     	InfoPanelController ipc = (InfoPanelController) rootLayout.getLeft();
 
     	GuiCommand guiCommand = logic.predictCMD(userInput);
     	cbc.setPredictionFeedback(guiCommand.getMsg());
+    	String title = guiCommand.getTitle();
     	String taskName = guiCommand.getTaskName();
     	String taskDetails = guiCommand.getTaskDetails();
     	String taskStart = guiCommand.getTaskStart();
     	String taskEnd = guiCommand.getTaskEnd();
-    	ipc.displayTaskInfo(taskName, taskDetails, taskStart, taskEnd);
+    	
+    	ipc.displayTaskInfo(title, taskName, taskDetails, taskStart, taskEnd);
     }
         
 }
