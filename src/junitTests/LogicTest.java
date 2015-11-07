@@ -17,11 +17,14 @@ public class LogicTest {
 	String input = "add \"task1\" 20102015 1000 'detail'";
 	static String details = "detail";
 	static String name = "task1";
-	static SimpleDateFormat dateVariant4 = new SimpleDateFormat("ddMMyyyy hhmm");
 	static Date date;
 	static Task testT;
 	static 	GuiCommand testGCommand;
 	
+	static SimpleDateFormat dateVariant1 = new SimpleDateFormat("ddMMMMyyyy");
+	static SimpleDateFormat dateVariant2 = new SimpleDateFormat("ddMMyyyy");
+	static SimpleDateFormat dateVariant3 = new SimpleDateFormat("ddMMMMyyyy hhmm");
+	static SimpleDateFormat dateVariant4 = new SimpleDateFormat("ddMMyyyy hhmm");
 	/*
 	@Test
 	public void testAdd() {
