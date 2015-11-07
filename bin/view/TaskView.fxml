@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root maxWidth="1.7976931348623157E308" minWidth="551.0" prefWidth="551.0" text="Task Name" type="TitledPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="Task Name" type="TitledPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
   <content>
     <AnchorPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="549.0">
          <children>

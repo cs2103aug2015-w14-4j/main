@@ -29,7 +29,7 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("Spee-Do");
         initRootLayout();
         initHelpBox();
-        Scene scene = new Scene(rootLayout, 850, 500);
+        Scene scene = new Scene(rootLayout, 850, 600);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -49,7 +49,7 @@ public class MainApp extends Application {
 		// sets up the list of tasks to display
 		taskList = new TaskListController();
     	taskList.loadTaskList(logic.getTaskList());
-    	rootLayout.setRight(taskList);
+    	rootLayout.setCenter(taskList);
     	
     	// sets up the command box
     	commandBox = new CommandBoxController();
