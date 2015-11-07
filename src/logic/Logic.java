@@ -33,7 +33,9 @@ public class Logic {
 	public Logic(boolean test){
 		predictor = new Predictive();
 		store = new Storage(test);
-		userName = store.readSettings();
+		if(test == false){
+			userName = store.readSettings();
+		}
 	}
 	
 	public String getUser(){
