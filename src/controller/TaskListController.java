@@ -47,6 +47,12 @@ public class TaskListController extends ScrollPane{
 		} catch (IOException e) {
 			ErrorProcessor.alert(e.toString());
 		}
+    }
+    
+    @FXML
+    public void initialize() {
+    	listOfTask = containerOfTask.getChildren();
+    	taskLookupTable = new Hashtable<Integer, TaskController>();
         this.addEventFilter(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
@@ -55,12 +61,6 @@ public class TaskListController extends ScrollPane{
                 }
             }
         });
-    }
-    
-    @FXML
-    public void initialize() {
-    	listOfTask = containerOfTask.getChildren();
-    	taskLookupTable = new Hashtable<Integer, TaskController>();
     }
     
     public int getNumOfTaskDue(){

@@ -1,12 +1,17 @@
 #helpBox {
-		-fx-background-color: 
-        linear-gradient(#ffd65b, #ffd65b),
-        linear-gradient(#ffef84, #ffef84),
-        linear-gradient(#ffea6a, #ffea6a),
-        linear-gradient(#ffe657, #ffe657);
+	-fx-background-color: 
+		linear-gradient(#ffd65b, #ffd65b),
+		linear-gradient(#ffef84, #ffef84),
+		linear-gradient(#ffea6a, #ffea6a),
+		linear-gradient(#ffe657, #ffe657);
         
-        -fx-border-radius: 20 20 20 20;
-        -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 20.0 20.0 20.0 20.0;
+    -fx-background-radius: 20.0 20.0 20.0 20.0;
+    -fx-padding: 50.0;
+}
+
+#helpEntry {
+	-fx-font-size: 30.0;
 }
 
 #errorMsg .text {
@@ -22,8 +27,8 @@
 }
 
 .title{
--fx-background-color:
-        linear-gradient(C9C9C9, C9C9C9),
+	-fx-background-color:
+		linear-gradient(C9C9C9, C9C9C9),
         linear-gradient(DBDBDB, DBDBDB);
 }
 
@@ -32,7 +37,7 @@
 } 
 
 #taskDueToday .title{
-		-fx-background-color: 
+	-fx-background-color: 
         linear-gradient(#ffd65b, #ffd65b),
         linear-gradient(#ffef84, #ffef84),
         linear-gradient(#ffea6a, #ffea6a),
@@ -41,14 +46,14 @@
 }
 
 #taskDueTomorrow .title{
-		-fx-background-color:
+	-fx-background-color:
         linear-gradient(C2E7ED, C2E7ED),
         linear-gradient(#e4fbff, #e4fbff);
 	
 }
 
 #taskOverdue .title{
-    -fx-background-color: linear-gradient(ED7E68, ED7E68),linear-gradient(#FA856E, #FA856E);
-    /*-fx-background-insets: 0; */
-    /*-fx-text-fill: white;*/
+	-fx-background-color: 
+	    linear-gradient(ED7E68, ED7E68),
+	    linear-gradient(#FA856E, #FA856E);
 }
