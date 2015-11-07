@@ -39,8 +39,8 @@ public class GuiCommand {
 		this(cmd, msg, null, 0, listOfTasks);
 	}	
 	
-	public GuiCommand(COMMANDS cmd, String msg, int taskId){
-		this(cmd, msg, null, taskId, null);
+	public GuiCommand(COMMANDS cmd, String msg, int index){
+		this(cmd, msg, null, index, null);
 	}
 	
 	public GuiCommand(COMMANDS cmd, String msg){

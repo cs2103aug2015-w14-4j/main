@@ -50,9 +50,11 @@ public class Storage {
 	/**
 	 * Constructor for a Storage Object.
 	 * <p>
-	 * If the test mode is true, there is testing in progress. The data processed will not be read from or saved to a file.
+	 * If the test mode is true, there is testing in progress. The data
+	 * processed will not be read from or saved to a file.
 	 * 
-	 * @param isTestMode enter true if testing, false otherwise
+	 * @param isTestMode
+	 *            enter true if testing, false otherwise
 	 */
 	public Storage(boolean isTestMode) {
 		this.isTestMode = isTestMode;
@@ -170,7 +172,7 @@ public class Storage {
 	 *            ending date of the task to add
 	 * @return Task that was added, if not added, return null
 	 */
-	public Task add(String name, String details, Date startDate, Date endDate) {
+	public String add(String name, String details, Date startDate, Date endDate) {
 		Task newTask = new Task(name, details, startDate, endDate);
 		if (isNotDuplicate(newTask)) {
 			taskList.add(newTask);
@@ -178,7 +180,7 @@ public class Storage {
 			taskList.sort(taskComparator);
 			this.saveFile();
 			logger.info(String.format(TASK_ADDED, name));
-			return newTask;
+			return newTask.getName();
 		} else {
 			logger.info(TASK_DUPLICATE + name);
 			return null;
@@ -192,12 +194,12 @@ public class Storage {
 	 *            index of the task to delete
 	 * @return Task that was deleted, if not deleted, return null
 	 */
-	public Task delete(int index) {
+	public String delete(int index) {
 		if (isValidIndex(index)) {
 			recentChanges.push(taskList.get(index));
 			this.saveFile();
 			logger.info(String.format(TASK_DELETED, taskList.get(index).getName()));
-			return taskList.remove(index);
+			return taskList.remove(index).getName();
 		} else {
 			return null;
 		}
@@ -218,7 +220,7 @@ public class Storage {
 	 *            the new ending date to replace the previous ending date
 	 * @return Task that was edited, if index is not valid, return null
 	 */
-	public Task edit(int index, String taskName, String details, Date startDate, Date endDate) {
+	public String edit(int index, String taskName, String details, Date startDate, Date endDate) {
 		if (isValidIndex(index)) {
 			Task currTask = backup(index);
 			if (taskName != null) {
@@ -242,7 +244,7 @@ public class Storage {
 				}
 			}
 			this.saveFile();
-			return taskList.get(index);
+			return taskList.get(index).getName();
 		} else {
 			return null;
 		}
@@ -256,16 +258,17 @@ public class Storage {
 	 * @return Task that was flagged as complete, if index is not valid, return
 	 *         null
 	 */
-	public Task complete(int index) {
+	public String complete(int index) {
 		if (isValidIndex(index)) {
 			Task currTask = backup(index);
 			completedList.add(currTask);
 			currTask.setCompleted(true);
 			taskList.remove(index);
 			this.saveFile();
-			return currTask;
+			return currTask.getName();
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	/**
@@ -278,7 +281,7 @@ public class Storage {
 	 * 
 	 * @return true if there are changes to undo, false otherwise
 	 */
-	public boolean undo() {
+	public String undo() {
 		if (!recentChanges.isEmpty()) {
 			Task oldTask = recentChanges.pop();
 			if (!this.isUndoAdd(oldTask)) {
@@ -290,10 +293,10 @@ public class Storage {
 			}
 			this.saveFile();
 			logger.info(TASK_UNDO);
-			return true;
+			return oldTask.getName();
 		}
 		logger.info(TASK_NO_UNDO);
-		return false;
+		return null;
 	}
 
 	// **SUPPORTING FUNCTIONS FOR UNDO**
@@ -390,9 +393,9 @@ public class Storage {
 			}
 		}
 	}
-	
+
 	// **SUPPORTING FUNCTIONS FOR CONSTRUCTOR**
-	
+
 	private void init() {
 		fileHandler = new FileHandler();
 		this.readSettings();
@@ -415,7 +418,7 @@ public class Storage {
 			return false;
 		}
 	}
-	
+
 	// The following code have been removed due to changes in the way the dates
 	// are handled. They are left here in case there is a need to refer to them.
 	// /**

@@ -54,7 +54,7 @@ public class Logic {
 		Task t = null;
 		List<Task> list = null;
 
-		
+		String name;
 		switch (command) {
 
 		case ADD:
@@ -62,22 +62,22 @@ public class Logic {
 			taskName = parser.getTaskName();
 			startDate = parser.getStartDate();
 			endDate = parser.getEndDate();
-			t = add();
-			if(t == null){
+			 name = add();
+			if(name == null){
 				c =new GuiCommand(COMMANDS.INVALID, "Task not added");
 			} else {
-				c = new GuiCommand(COMMANDS.ADD, "Added " + t.getName(), t);
-				logger.info("Logic added " + t.getName());
+				c = new GuiCommand(COMMANDS.ADD, "Added " + name);
+				logger.info("Logic added " + name);
 			}
 			break;
 		case DELETE:
 			taskIndex = parser.getIndex();
-			t = delete();
-			if (t == null){
+			 name = delete();
+			if (name == null){
 				c = new GuiCommand(COMMANDS.INVALID, "Task not deleted");
 			} else {
-				c = new GuiCommand(COMMANDS.DELETE, "Deleted the task", t);
-				logger.info("Logic deleted " + t.getName());
+				c = new GuiCommand(COMMANDS.DELETE, "Deleted "+name);
+				logger.info("Logic deleted " + name);
 			}
 			break;
 		case EDIT:
@@ -86,13 +86,13 @@ public class Logic {
 			taskIndex = parser.getIndex();
 			startDate = parser.getStartDate();
 			endDate = parser.getEndDate();
-			t = edit();
-			if (t == null){
+			name = edit();
+			if (name == null){
 				c = new GuiCommand(COMMANDS.INVALID, "Task not edited");
 			} else if(taskName == null && details == null && startDate == null && endDate == null){
 				
 			}else {
-				c = new GuiCommand(COMMANDS.EDIT, "Edited", t, taskIndex);
+				c = new GuiCommand(COMMANDS.EDIT, "Edited "+name, taskIndex);
 			}
 			break;
 		case SEARCH:
@@ -102,7 +102,7 @@ public class Logic {
 			break;
 		case ACK:
 			taskIndex = parser.getIndex();
-			t = acknowledge();
+			name = acknowledge();
 			c = new GuiCommand(COMMANDS.ACK, "Acknowledged");
 			break;
 		case HOME:
@@ -220,9 +220,9 @@ public class Logic {
 	}
 
 	private String undo() {
-		boolean isValid = store.undo();
-		if(isValid){
-			return "Undo Successful";
+		String name = store.undo();
+		if(name != null){
+			return "Undo \""+ name+"\" Successful";
 		} else{
 			return "Nothing to undo";
 		}
@@ -233,32 +233,30 @@ public class Logic {
 		return store.getTaskList();
 	}
 
-	private Task add() {
+	private String add() {
 		/*
 		 * Date date = null; SimpleDateFormat sdf = new SimpleDateFormat(
 		 * "dd-M-yyyy hh:mm"); String date_in_string = sdf.format(new Date());
 		 * try { date = sdf.parse(date_in_string); } catch (ParseException e) {
 		 * // TODO Auto-generated catch block e.printStackTrace(); }
 		 */
-		Task newTask = store.add(taskName, details, startDate, endDate);
-		System.out.println(newTask);
-		if (newTask != null) {
+		String name = store.add(taskName, details, startDate, endDate);
+		System.out.println(name);
+		if (name != null) {
 			System.out.println("Task added");
-			return newTask;
+			return name;
 		} else {
 			return null;
 		}
 	}
 
-	private Task edit(){
+	private String edit(){
 		return store.edit(taskIndex, taskName,details, startDate, endDate);
-		// store.saveFile();
 	}
 
-	private Task delete(){
+	private String delete(){
 		System.out.println("Task deleted");
 		return store.delete(taskIndex);
-		// store.saveFile();
 	}
 
 	private List<Task> search(){
@@ -267,9 +265,8 @@ public class Logic {
 
 	}
 
-	private Task acknowledge(){
+	private String acknowledge(){
 		return store.complete(taskIndex);
-		// store.saveFile();
 	}
 
 }
