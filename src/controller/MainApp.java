@@ -86,6 +86,7 @@ public class MainApp extends Application {
     public void initHelpBox(){
 		helpPopup = new PopupControl();
 		helpPopup.setOpacity(0.9);
+		helpPopup.setAutoHide(true);
 		helpPopup.getScene().setRoot(new HelpBoxController());
     }
    
@@ -103,7 +104,7 @@ public class MainApp extends Application {
 	        	taskList.expand(command.getTaskId());
 	        }
 	        case HELP: {
-	        	helpPopup.show(primaryStage);
+	        	displayHelp();
 	        }
 	        case INVALID: {
 	        	commandBox.setErrorFeedback(command.getMsg());
@@ -116,6 +117,8 @@ public class MainApp extends Application {
 	        }
         }
     }
+    
+
     
     public void parseUserCommand(String userInput) {
     	GuiCommand guiCommand = logic.predictCMD(userInput);
@@ -130,5 +133,11 @@ public class MainApp extends Application {
     	String taskEnd = guiCommand.getTaskEnd();
     	infoPanel.displayTaskInfo(title, taskName, taskDetails, taskStart, taskEnd);
     }
-        
+    
+  //@@author A0125369Y
+    private void displayHelp(){
+    	helpPopup.show(primaryStage);	
+    	helpPopup.setX(primaryStage.getX() + primaryStage.getWidth() / 2 - helpPopup.getWidth() / 2);
+    	helpPopup.setY(primaryStage.getY() + primaryStage.getHeight() / 2 - helpPopup.getHeight() / 2);
+    }        
 }
