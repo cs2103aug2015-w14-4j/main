@@ -20,6 +20,8 @@ public class CommandBoxController extends VBox{
 	@FXML 
 	private Text feedback;
 	@FXML 
+	private Text prediction;
+	@FXML 
 	private TextField commandBox;
 	
 	public CommandBoxController(){
@@ -38,6 +40,7 @@ public class CommandBoxController extends VBox{
 	@FXML
 	public void initialize(){
 		feedback.setText("");
+		prediction.setText("");
 	}
 	
 	@FXML
@@ -73,8 +76,7 @@ public class CommandBoxController extends VBox{
     }
     
     public void setPredictionFeedback(String txt){
-    	feedback.setText(txt);
-    	feedback.setFill(Color.BLUE);
+    	prediction.setText(txt);
+    	prediction.setFill(Color.BLUE);
     }
-    
 }

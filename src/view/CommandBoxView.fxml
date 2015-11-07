@@ -8,13 +8,25 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="81.0" prefWidth="850.0" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text fx:id="feedback" strokeType="OUTSIDE" strokeWidth="0.0" text="This is some text" wrappingWidth="828.6829261779785">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
+      <TextFlow>
+         <children>
+            <Text fx:id="feedback" strokeType="OUTSIDE" strokeWidth="0.0" text="This is feedback text" wrappingWidth="828.6829261779785">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="prediction" strokeType="OUTSIDE" strokeWidth="0.0" text="This is prediction text" wrappingWidth="828.6829261779785">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </TextFlow>
       <TextField fx:id="commandBox" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleUserInput" onKeyReleased="#parseUserInput" prefHeight="51.0" prefWidth="800.0" promptText="Enter your command">
          <effect>
             <SepiaTone>
@@ -36,6 +48,6 @@
       </TextField>
    </children>
    <padding>
-      <Insets left="10.0" right="10.0" />
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
 </fx:root>

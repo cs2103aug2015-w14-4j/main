@@ -149,6 +149,9 @@ public class MainApp extends Application {
     	InfoPanelController ipc = (InfoPanelController) rootLayout.getLeft();
 
     	GuiCommand guiCommand = logic.predictCMD(userInput);
+    	if(!userInput.equals("")){
+    		cbc.setFeedback("");
+    	}
     	cbc.setPredictionFeedback(guiCommand.getMsg());
     	String title = guiCommand.getTitle();
     	String taskName = guiCommand.getTaskName();
