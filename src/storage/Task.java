@@ -31,7 +31,7 @@ public class Task {
 	private boolean isCompleted;
 
 	// Strings
-	private static final String EMPTY = "Empty";
+	private static final String EMPTY = null;
 	private static final String SPACE = "%1$s ";
 	private static final String DATE_FORMAT = "dd MMMM yyyy";
 	private static final String TIME_FORMAT = "hh:mm a";
