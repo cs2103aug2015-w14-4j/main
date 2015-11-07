@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.PopupControl;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -19,7 +20,7 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private Logic logic;
-    private Popup helpPopup;
+    private PopupControl helpPopup;
     private TaskListController taskList;
     private CommandBoxController commandBox;
     private InfoPanelController infoPanel;
@@ -83,8 +84,9 @@ public class MainApp extends Application {
     }
     
     public void initHelpBox(){
-		helpPopup = new Popup();
-		helpPopup.getContent().add(new HelpBoxController());
+		helpPopup = new PopupControl();
+		helpPopup.setOpacity(0.9);
+		helpPopup.getScene().setRoot(new HelpBoxController());
     }
    
     public void refresh(List<Task> listOfTasks){
