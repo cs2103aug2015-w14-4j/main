@@ -1,10 +1,15 @@
 //@@author A0125369Y
 package parser;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import processor.COMMANDS;
 
 public class Predictive {
 
+	private static final String DATE_FORMAT = "dd MMMM yyyy hh:mm a";
+	
 	private static final String ACK_TIP = "Ack/Acknowledge <Item Name> : Marks an item as completed";
 	private static final String ADD_TIP = "Add/Insert <Item Name> -d <Starting Date> <Ending Date> -i <Details>";
 	private static final String COMPLETED_TIP = "Completed : Displays the list of completed items";
@@ -49,10 +54,10 @@ public class Predictive {
 			this.setTaskName(parser.getTaskName());
 			this.setTaskDetails(parser.getDetails());
 			if (parser.getStartDate() != null) {
-				this.setTaskStart(parser.getStartDate().toString());
+				this.setTaskStart(formatDate(parser.getStartDate()));
 			}
 			if (parser.getEndDate() != null) {
-				this.setTaskEnd(parser.getEndDate().toString());
+				this.setTaskEnd(formatDate(parser.getEndDate()));
 			}
 		}
 
@@ -187,5 +192,10 @@ public class Predictive {
 		this.setTaskDetails(null);
 		this.setTaskStart(null);
 		this.setTaskEnd(null);
+	}
+	
+	private String formatDate(Date date){
+		SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+		return dateFormat.format(date);
 	}
 }
