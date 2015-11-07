@@ -97,50 +97,50 @@ public class LogicTest {
 	
 	
 	String inputDel = "delete 1";
+	//Task list now should have 8 items
+	@Test
+	public void testDelete() {
+		GuiCommand outDel1 = l.executeCMD(inputDel);
+		int LD1 = l.getTaskList().size();
+		
+		GuiCommand outDel2 = l.executeCMD(inputDel);
+		int LD2 = l.getTaskList().size();
+		
+		GuiCommand outDel3 = l.executeCMD(inputDel);
+		int LD3 = l.getTaskList().size();
+		
+		GuiCommand outDel4 = l.executeCMD(inputDel);
+		int LD4 = l.getTaskList().size();
+		
+		GuiCommand outDel5 = l.executeCMD(inputDel);
+		int LD5 = l.getTaskList().size();
 	
-//	//Task list now should have 8 items
-//	@Test
-//	public void testDelete() {
-//		GuiCommand outDel1 = l.executeCMD(inputDel);
-//		List<Task> LD1 = outDel1.getListOfTasks();
-//		
-//		GuiCommand outDel2 = l.executeCMD(inputDel);
-//		List<Task> LD2 = outDel1.getListOfTasks();
-//		
-//		GuiCommand outDel3 = l.executeCMD(inputDel);
-//		List<Task> LD3 = outDel1.getListOfTasks();
-//		
-//		GuiCommand outDel4 = l.executeCMD(inputDel);
-//		List<Task> LD4 = outDel1.getListOfTasks();
-//		
-//		GuiCommand outDel5 = l.executeCMD(inputDel);
-//		List<Task> LD5 = outDel1.getListOfTasks();
-//		
-//		GuiCommand outDel6 = l.executeCMD(inputDel);	
-//		List<Task> LD6 = outDel1.getListOfTasks();
-//		
-//		GuiCommand outDel7 = l.executeCMD(inputDel);
-//		List<Task> LD7 = outDel1.getListOfTasks();
-//		
-//		GuiCommand outDel8 = l.executeCMD(inputDel);
-//		List<Task> LD8 = outDel1.getListOfTasks();
-//		
-//		GuiCommand outDel9 = l.executeCMD(inputDel);
-//		List<Task> LD9 = outDel1.getListOfTasks();
-//		
+		GuiCommand outDel6 = l.executeCMD(inputDel);	
+		int LD6 = l.getTaskList().size();
+		
+		GuiCommand outDel7 = l.executeCMD(inputDel);
+		int LD7 = l.getTaskList().size();
+		
+		GuiCommand outDel8 = l.executeCMD(inputDel);
+		int LD8 = l.getTaskList().size();
+		
+		GuiCommand outDel9 = l.executeCMD(inputDel);
+		int LD9 = l.getTaskList().size();
+		
 //		System.out.println(LD1.size());
-//		System.out.println(outDel1.getMsg());
-//		
-//		
-//		assertEquals(LD1.size(), 7);
-//		assertEquals(LD2.size(), 6);
-//		assertEquals(LD3.size(), 5);
-//		assertEquals(LD4.size(), 4);
-//		assertEquals(LD5.size(), 3);
-//		assertEquals(LD6.size(), 2);
-//		assertEquals(LD7.size(), 1);
-//		assertEquals(LD8.size(), 0);
-//	}
+		System.out.println(outDel1.getMsg());
+		
+		
+		assertEquals(LD1, 7);
+		assertEquals(LD2, 6);
+		assertEquals(LD3, 5);
+		assertEquals(LD4, 4);
+		assertEquals(LD5, 3);
+		assertEquals(LD6, 2);
+		assertEquals(LD7, 1);
+		assertEquals(LD8, 0);
+		assertEquals(LD9, 0);
+	}
 	
 		
 
