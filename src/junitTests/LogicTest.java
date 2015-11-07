@@ -16,7 +16,6 @@ import storage.Task;
 
 public class LogicTest {
 	Logic l = new Logic(true);
-	String input = "add \"task1\" 20102015 1000 'detail'";
 	static String details = "detail";
 	static String name = "task1";
 	static Date date;
@@ -31,6 +30,7 @@ public class LogicTest {
 	String inputAdd6 = "add Task date format1 -d 20-3-2016";
 	String inputAdd7 = "add Start date End date -d 02/11/1993 12:10 03/11/1993 16:30";
 	String inputAdd8 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
+	String inputAdd9 = "add";
 	
 	GuiCommand outAdd1 = l.executeCMD(inputAdd1);
 	List<Task> LA1 = outAdd1.getListOfTasks();
@@ -55,7 +55,6 @@ public class LogicTest {
 	
 	GuiCommand outAdd8 = l.executeCMD(inputAdd8);
 	List<Task> LA8 = outAdd8.getListOfTasks();
-	
 	
 	
 	GuiCommand testAdd1 = new GuiCommand(COMMANDS.ADD, "Added Floating task 1", LA1);
@@ -96,11 +95,53 @@ public class LogicTest {
 
 	}
 	
+	
+	String inputDel = "delete 1";
+	
+//	//Task list now should have 8 items
 //	@Test
 //	public void testDelete() {
-//
+//		GuiCommand outDel1 = l.executeCMD(inputDel);
+//		List<Task> LD1 = outDel1.getListOfTasks();
+//		
+//		GuiCommand outDel2 = l.executeCMD(inputDel);
+//		List<Task> LD2 = outDel1.getListOfTasks();
+//		
+//		GuiCommand outDel3 = l.executeCMD(inputDel);
+//		List<Task> LD3 = outDel1.getListOfTasks();
+//		
+//		GuiCommand outDel4 = l.executeCMD(inputDel);
+//		List<Task> LD4 = outDel1.getListOfTasks();
+//		
+//		GuiCommand outDel5 = l.executeCMD(inputDel);
+//		List<Task> LD5 = outDel1.getListOfTasks();
+//		
+//		GuiCommand outDel6 = l.executeCMD(inputDel);	
+//		List<Task> LD6 = outDel1.getListOfTasks();
+//		
+//		GuiCommand outDel7 = l.executeCMD(inputDel);
+//		List<Task> LD7 = outDel1.getListOfTasks();
+//		
+//		GuiCommand outDel8 = l.executeCMD(inputDel);
+//		List<Task> LD8 = outDel1.getListOfTasks();
+//		
+//		GuiCommand outDel9 = l.executeCMD(inputDel);
+//		List<Task> LD9 = outDel1.getListOfTasks();
+//		
+//		System.out.println(LD1.size());
+//		System.out.println(outDel1.getMsg());
+//		
+//		
+//		assertEquals(LD1.size(), 7);
+//		assertEquals(LD2.size(), 6);
+//		assertEquals(LD3.size(), 5);
+//		assertEquals(LD4.size(), 4);
+//		assertEquals(LD5.size(), 3);
+//		assertEquals(LD6.size(), 2);
+//		assertEquals(LD7.size(), 1);
+//		assertEquals(LD8.size(), 0);
 //	}
-//	
+	
 		
 
 }
