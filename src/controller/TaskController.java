@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,6 +25,13 @@ public class TaskController extends TitledPane{
 	private HBox endDate;
 	@FXML 
 	private HBox startDate;
+	
+	@FXML 
+	private Label detailsLabel;
+	@FXML 
+	private Label startDateLabel;
+	@FXML 
+	private Label endDateLabel;
 	
 	@FXML 
 	private Text detailsText;
@@ -94,6 +102,7 @@ public class TaskController extends TitledPane{
 	public void setStartDate(String date){
 		if(date == null){
 			expandedBox.getChildren().remove(startDate);
+			endDateLabel.setText("Date");
 		} else {
 			startDateText.setText(date);
 		}
