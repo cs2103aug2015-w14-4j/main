@@ -1,4 +1,4 @@
-//@@author A0125369Y
+//@@author A0121823R
 package logic;
 
 import java.util.Date;
@@ -93,7 +93,7 @@ public class Logic {
 			if (name == null){
 				c = new GuiCommand(COMMANDS.INVALID, "Task not edited");
 			} else if(taskName == null && details == null && startDate == null && endDate == null){
-				
+				c = new GuiCommand(COMMANDS.INVALID, "Task not deleted");
 			}else {
 				c = new GuiCommand(COMMANDS.EDIT, "Edited "+name, this.getTaskList());
 			}
