@@ -223,6 +223,7 @@ public class Storage {
 	public String edit(int index, String taskName, String details, Date startDate, Date endDate) {
 		if (isValidIndex(index)) {
 			Task currTask = backup(index);
+			String name = taskList.get(index).getName();
 			if (taskName != null) {
 				currTask.setName(taskName);
 			}
@@ -244,7 +245,7 @@ public class Storage {
 				}
 			}
 			this.saveFile();
-			return taskList.get(index).getName();
+			return name;
 		} else {
 			return null;
 		}
