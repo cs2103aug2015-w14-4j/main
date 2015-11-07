@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root text="Task Name" type="TitledPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxWidth="1.7976931348623157E308" minWidth="551.0" prefWidth="551.0" text="Task Name" type="TitledPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
   <content>
-    <AnchorPane>
+    <AnchorPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="549.0">
          <children>
-            <VBox fx:id="expandedBox" layoutX="184.0" layoutY="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox fx:id="expandedBox" layoutX="184.0" layoutY="23.0" minWidth="-Infinity" prefWidth="505.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <HBox fx:id="details">
                      <children>
