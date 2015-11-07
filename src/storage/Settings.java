@@ -15,18 +15,15 @@ package storage;
  */
 
 public class Settings {
-	private String TaskFilePath;
-	private String UserName;
+	private String fileName;
+	private String userName;
 
-	private static final String DEFAULT_FILENAME = "task";
-	private static final String DEFAULT_EXTENSION = "%1$s.json";
-
-	public static final String DEFAULT_FILEPATH = String.format(DEFAULT_EXTENSION, DEFAULT_FILENAME);
+	public static final String DEFAULT_FILENAME = "task";
 
 	/**
 	 * Default constructor for a Task Object.
 	 * <p>
-	 * The default file path is set to <i>"task.json"</i> and the default user
+	 * The default file name is set to <i>"task"</i> and the default user
 	 * name is set to <i>null</i>.
 	 * <p>
 	 * Refer to {@link #Settings(String, String)}.
@@ -41,7 +38,7 @@ public class Settings {
 	 * Takes in the parameters for the file name and user name and sets the file
 	 * path and user names accordingly.
 	 * <p>
-	 * Refer to {@link #setTaskFilePath(String)}, {@link #setUserName(String)}.
+	 * Refer to {@link #getFileName(String)}, {@link #setUserName(String)}.
 	 * 
 	 * @param taskFileName
 	 *            the file name as a String
@@ -49,34 +46,30 @@ public class Settings {
 	 *            the name of the user as a String
 	 */
 	public Settings(String taskFileName, String userName) {
-		this.setTaskFilePath(taskFileName);
+		this.getFileName(taskFileName);
 		this.setUserName(userName);
 	}
 
 	/**
-	 * Method to get the file path
+	 * Method to get the file name
 	 * 
 	 * @return the file path as a String
 	 */
-	public String getTaskFilePath() {
-		return TaskFilePath;
+	public String getFileName() {
+		return fileName;
 	}
 
 	/**
-	 * Method to set the file path
-	 * <p>
-	 * This methods appends the file extension <i>.json</i> at the back of the
-	 * given file name. If the given file name is null, the file path will be
-	 * set to the <i>DEFAULT_FILEPATH</i> which is <i>task.json</i>.
+	 * Method to set the file name
 	 * 
 	 * @param taskFileName
 	 *            the file name as a String
 	 */
-	public void setTaskFilePath(String taskFileName) {
+	public void getFileName(String taskFileName) {
 		if (taskFileName == null) {
 			taskFileName = DEFAULT_FILENAME;
 		}
-		TaskFilePath = String.format(DEFAULT_EXTENSION, taskFileName);
+		fileName = taskFileName;
 	}
 
 	/**
@@ -85,7 +78,7 @@ public class Settings {
 	 * @return the user name as a String
 	 */
 	public String getUserName() {
-		return UserName;
+		return userName;
 	}
 
 	/**
@@ -95,7 +88,7 @@ public class Settings {
 	 *            the user name as a String
 	 */
 	public void setUserName(String userName) {
-		UserName = userName;
+		this.userName = userName;
 	}
 
 }
