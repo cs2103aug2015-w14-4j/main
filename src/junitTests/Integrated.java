@@ -1,3 +1,4 @@
+//@@author A0121823R
 package junitTests;
 
 import static org.junit.Assert.*;
@@ -15,6 +16,8 @@ public class Integrated {
 	
 	static Date date;
 	static Date testD;
+	static Date testSD;
+	static Date testED;
 	static SimpleDateFormat dateVariant1 = new SimpleDateFormat("ddMMMMyyyy");
 	static SimpleDateFormat dateVariant2 = new SimpleDateFormat("ddMMyyyy");
 	static SimpleDateFormat dateVariant3 = new SimpleDateFormat("ddMMMMyyyy hhmm");
@@ -28,7 +31,7 @@ public class Integrated {
 	String inputAdd3 = "add Spee-Do floating task -i -i in details";
 	String inputAdd4 = "add First non floating task -d 31102015 2015 -i testing input details";
 	String inputAdd5 = "add details input before date -i this is input details -d 11-11-2013 16:12";
-	String inputAdd6 = "add Task date format1 -d 20-3-2016 23:20";
+	String inputAdd6 = "add Task date format1 -d 20-3-2016";
 	String inputAdd7 = "add Start date End date -d 02/11/1993 12:10 03/11/1993 16:30";
 	String inputAdd8 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
 
@@ -45,13 +48,24 @@ public class Integrated {
 		}
 		Task outputAdd4 = new Task("First non floating task", "testing input detail", testD);
 		try{
-			testD = dateVariant4.parse("31102015 2015");
+			testD = dateVariant4.parse("11112013 1612");
 		} catch (Exception e){
 			
 		}
-		Task outputAdd5 = new Task("details input before date", "this is input details");
-		Task outputAdd6 = new Task("Floating task 1", "");
-		Task outputAdd7 = new Task("Floating task 1", "");
+		Task outputAdd5 = new Task("details input before date", "this is input details", testD);
+		try{
+			testD = dateVariant2.parse("20032016");
+		} catch (Exception e){
+			
+		}
+		Task outputAdd6 = new Task("Task date format1", testD);
+		try{
+			Date testSD = dateVariant4.parse("20032016");
+			Date testED = ;
+		} catch (Exception e){
+			
+		}
+		Task outputAdd7 = new Task("add Start date End date", "");
 		Task outputAdd8 = new Task("Floating task 1", "");
 		Task outputAdd9 = new Task("Floating task 1", "");
 		
@@ -130,7 +144,8 @@ public class Integrated {
 
 
 /* Current Issues:
- * 
+ * Adding:
+ * 	years must be 4 characters
  * 
  * 
  * 

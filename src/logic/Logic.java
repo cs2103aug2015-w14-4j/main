@@ -1,3 +1,4 @@
+//@@author A0125369Y
 package logic;
 
 import java.util.Date;
@@ -33,7 +34,9 @@ public class Logic {
 	public Logic(boolean test){
 		predictor = new Predictive();
 		store = new Storage(test);
-		userName = store.readSettings();
+		if(test == false){
+			userName = store.readSettings();
+		}
 	}
 	
 	public String getUser(){
@@ -66,7 +69,7 @@ public class Logic {
 			if(name == null){
 				c =new GuiCommand(COMMANDS.INVALID, "Task not added");
 			} else {
-				c = new GuiCommand(COMMANDS.ADD, "Added " + name);
+				c = new GuiCommand(COMMANDS.ADD, "Added " + name, this.getTaskList());
 				logger.info("Logic added " + name);
 			}
 			break;
@@ -76,7 +79,7 @@ public class Logic {
 			if (name == null){
 				c = new GuiCommand(COMMANDS.INVALID, "Task not deleted");
 			} else {
-				c = new GuiCommand(COMMANDS.DELETE, "Deleted "+name);
+				c = new GuiCommand(COMMANDS.DELETE, "Deleted "+name, this.getTaskList());
 				logger.info("Logic deleted " + name);
 			}
 			break;
@@ -92,7 +95,7 @@ public class Logic {
 			} else if(taskName == null && details == null && startDate == null && endDate == null){
 				
 			}else {
-				c = new GuiCommand(COMMANDS.EDIT, "Edited "+name, taskIndex);
+				c = new GuiCommand(COMMANDS.EDIT, "Edited "+name, this.getTaskList());
 			}
 			break;
 		case SEARCH:
@@ -103,7 +106,7 @@ public class Logic {
 		case ACK:
 			taskIndex = parser.getIndex();
 			name = acknowledge();
-			c = new GuiCommand(COMMANDS.ACK, "Acknowledged");
+			c = new GuiCommand(COMMANDS.ACK, "Acknowledged", this.getTaskList());
 			break;
 		case HOME:
 			c = new GuiCommand(COMMANDS.HOME, "Showing Original task list", this.getTaskList());
