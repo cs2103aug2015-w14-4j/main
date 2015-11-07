@@ -5,6 +5,7 @@ import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -31,6 +32,7 @@ public class MainApp extends Application {
         initHelpBox();
         Scene scene = new Scene(rootLayout, 850, 600);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		primaryStage.getIcons().add(new Image("img/speedo.png"));
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
