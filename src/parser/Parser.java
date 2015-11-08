@@ -317,7 +317,7 @@ public class Parser {
 
 	public int getIndex() {
 		String[] temp = inputString.split(" ");
-		if (temp.length < 2) {
+		if (temp.length < 2||getCommand() == COMMANDS.INVALID) {
 			return -1;
 		} else {
 			return index;
