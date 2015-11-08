@@ -5,9 +5,9 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import utilities.ErrorProcessor;
 
 public class CommandBoxController extends VBox{
@@ -18,9 +18,9 @@ public class CommandBoxController extends VBox{
     private MainApp mainApp;
 	
 	@FXML 
-	private Text feedback;
+	private Label feedback;
 	@FXML 
-	private Text prediction;
+	private Label prediction;
 	@FXML 
 	private TextField commandBox;
 	
@@ -77,7 +77,7 @@ public class CommandBoxController extends VBox{
     
     public void setPredictionFeedback(String txt){
     	prediction.setText(txt);
-    	feedback.setId("predictionMsg");
+    	prediction.setId("predictionMsg");
     }
 
 	public void clearFeedback() {

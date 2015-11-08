@@ -8,6 +8,10 @@
 	-fx-font-size: 24;
 }*/
 
+* .label{
+	-fx-font-family: "Questrial";
+}
+
 #rootLayout {
 	-fx-background-color: linear-gradient(#ffffff, #ffffff);
 }
@@ -19,11 +23,16 @@
 #taskListBox {
 	-fx-background-color: linear-gradient(#ffffff, #ffffff);
 	-fx-border-color: white ;
+}
+
+#taskListBox > .label {
+	-fx-font-size: 24;
+	-fx-padding: 20 0 0 0;
 } 
 
 #taskList {
 	-fx-background-color: linear-gradient(#ffffff, #ffffff);
-} 
+}
 
 #commandBox {
 	-fx-background-color: linear-gradient(#ffffff, #ffffff);
@@ -42,18 +51,19 @@
 }
 
 #helpEntry {
-	-fx-font-size: 15.0;
+	-fx-font-size: 25.0;
+	-fx-font-family: "Questrial";
 }
 
-#errorMsg .text {
+#errorMsg {
 	-fx-text-fill: red; 
 }
 
-#successMsg .text {
+#successMsg {
 	-fx-text-fill: green;
 }
 
-#predictionMsg .text {
+#predictionMsg {
 	-fx-text-fill: blue;
 }
 
