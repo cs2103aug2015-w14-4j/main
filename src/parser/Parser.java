@@ -74,6 +74,12 @@ public class Parser {
 		}
 		if(getCommand() == COMMANDS.EDIT&&remaining!=null){
 			taskName = removeSpace(remaining);
+		}else if(getCommand() == COMMANDS.NAME){
+			name = remaining;
+		}else if(getCommand() == COMMANDS.FILEPATH){
+			filePath = remaining;
+		}else if(getCommand() == COMMANDS.SEARCH){
+			searchSentence = remaining;
 		}else{
 			taskName = remaining;
 		}
@@ -344,7 +350,9 @@ public class Parser {
 		details = null;
 		startDate = null;
 		endDate = null;
-		
+		name = null;
+		filePath = null;
+		searchSentence = null;
 	}
 
 	/*
