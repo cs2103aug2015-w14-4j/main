@@ -43,7 +43,7 @@
             </SepiaTone>
          </effect>
          <font>
-            <Font size="20.0" />
+            <Font name="Verdana" size="20.0" />
          </font>
       </TextField>
    </children>

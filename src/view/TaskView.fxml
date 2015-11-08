@@ -25,7 +25,7 @@
                         </Label>
                         <Text fx:id="detailsText" strokeType="OUTSIDE" strokeWidth="0.0" text="hi" wrappingWidth="412.56097412109375">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="Verdana" size="18.0" />
                            </font>
                            <HBox.margin>
                               <Insets top="4.0" />
@@ -45,7 +45,7 @@
                         </Label>
                         <Text fx:id="startDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="31 October 2015 10:00 AM" wrappingWidth="412.56097412109375">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="Verdana" size="18.0" />
                            </font>
                            <HBox.margin>
                               <Insets top="5.0" />
@@ -68,7 +68,7 @@
                         </Label>
                         <Text fx:id="endDateText" strokeType="OUTSIDE" strokeWidth="0.0" text="31 October 2015 9:00 PM" wrappingWidth="412.56097412109375">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="Verdana" size="18.0" />
                            </font>
                            <HBox.margin>
                               <Insets top="5.0" />
@@ -84,6 +84,6 @@
          </children></AnchorPane>
   </content>
    <font>
-      <Font size="27.0" />
+      <Font name="Verdana" size="27.0" />
    </font>
 </fx:root>
