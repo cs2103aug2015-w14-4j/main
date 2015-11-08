@@ -19,7 +19,7 @@ public class HelpBoxController extends VBox{
 	private static final String HOME_TIP = "Home : Displays the original list";
 	private static final String SEARCH_TIP = "Find/Search <Keywords> : Displays the list of items containing the keywords";
 	private static final String NAME_TIP = "Name <User Name> : Changes the user name";
-	private static final String UNDO_TIP = "Undo : Reverts your last changes.";
+	private static final String UNDO_TIP = "Undo: Reverts your last changes.";
 	// private static final String EXPAND_TIP = "";
 	// private static final String EXIT_TIP = "";
 	
@@ -53,6 +53,7 @@ public class HelpBoxController extends VBox{
 	private void createEntry(String text){
 		Text entry = new Text(text);
 		entry.setId("helpEntry");
+		entry.setWrappingWidth(700);
 		this.getChildren().add(entry);
 	}
 }
