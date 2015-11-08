@@ -1,5 +1,5 @@
 //@@author A0125369Y
-package utils;
+package utilities;
 
 /**
  * COMMANDS is a class file that contain the command types.

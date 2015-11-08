@@ -3,7 +3,7 @@ package logic;
 import java.util.List;
 
 import storage.Task;
-import utils.COMMANDS;
+import utilities.COMMANDS;
 
 public class GuiCommand {
 	private COMMANDS cmd;

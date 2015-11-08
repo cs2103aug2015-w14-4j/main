@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import utils.COMMANDS;
+import utilities.COMMANDS;
 
 public class Parser {
 

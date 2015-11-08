@@ -7,7 +7,7 @@ import java.util.Date;
 import org.junit.Test;
 import junit.framework.*;
 import parser.Parser;
-import utils.COMMANDS;
+import utilities.COMMANDS;
 
 public class ParserTest extends TestCase{
 	private static final String input1="add task -d 08112015 1200 09112015 1300 -i detail";

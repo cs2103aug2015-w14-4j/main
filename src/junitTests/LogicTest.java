@@ -12,7 +12,7 @@ import org.junit.Test;
 import logic.GuiCommand;
 import logic.Logic;
 import storage.Task;
-import utils.COMMANDS;
+import utilities.COMMANDS;
 
 public class LogicTest {
 	Logic l = new Logic(true);

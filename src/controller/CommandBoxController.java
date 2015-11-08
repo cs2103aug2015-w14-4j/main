@@ -1,3 +1,4 @@
+//@@author A0124791A
 package controller;
 
 import java.io.IOException;
@@ -7,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import utils.ErrorProcessor;
+import utilities.ErrorProcessor;
 
 public class CommandBoxController extends VBox{
 	

@@ -9,7 +9,7 @@ import parser.Parser;
 import parser.Predictive;
 import storage.Storage;
 import storage.Task;
-import utils.COMMANDS;
+import utilities.COMMANDS;
 
 public class Logic {
 	// Attributes

@@ -1,10 +1,11 @@
+//@@author A0124791A
 package junitTests;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 import parser.Predictive;
 import storage.Storage;
-import utils.COMMANDS;
+import utilities.COMMANDS;
 
 public class PredictiveTest {
 	

@@ -1,5 +1,5 @@
 //@@author A0125369Y
-package utils;
+package utilities;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

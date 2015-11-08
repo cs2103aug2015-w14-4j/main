@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonStreamParser;
 
-import utils.ErrorProcessor;
+import utilities.ErrorProcessor;
 
 /**
  * FileHandler is a class designed to handle all the read/write/save events.

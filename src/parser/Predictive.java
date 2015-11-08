@@ -4,7 +4,7 @@ package parser;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import utils.COMMANDS;
+import utilities.COMMANDS;
 
 public class Predictive {
 
