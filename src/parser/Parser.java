@@ -73,7 +73,11 @@ public class Parser {
 				remaining = null;
 			}
 		}
-		taskName = remaining;
+		if(getCommand() == COMMANDS.EDIT){
+			taskName = removeSpace(remaining);
+		}else{
+			taskName = remaining;
+		}
 		// if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
 		// ||COMPLETED.contains(commandString)){
 		// //this.isIndex(inputsSplitSpace[1]);
@@ -171,21 +175,18 @@ public class Parser {
 	// return text.substring(1);
 	// }
 	//
-	// private String removeSpace(String text) {
-	// String[] inputwithSpace = text.split(" ");
-	// String output = "";
-	// for (int i = 1; i < inputwithSpace.length; i++) {
-	// if (i == 1) {
-	// output = inputwithSpace[1];
-	// } else {
-	// output = output + " " + inputwithSpace[i];
-	// }
-	// }
-	// // System.out.println("input1:"+inputwithSpace[0]);
-	// // System.out.println("input2:"+inputwithSpace[1]);
-	// // System.out.println("output:"+output);
-	// return output;
-	// }
+	 private String removeSpace(String text) {
+		 String[] inputwithSpace = text.split(" ");
+		 String output = "";
+		 for (int i = 1; i < inputwithSpace.length; i++) {
+			 if (i == 1) {
+				 output = inputwithSpace[1];
+			 } else {
+				 output = output + " " + inputwithSpace[i];
+			 }
+		 }
+		 return output;
+	 }
 
 	private void processCommand(String stringCmd) {
 		stringCmd = stringCmd.toLowerCase();
@@ -335,6 +336,16 @@ public class Parser {
 			return index;
 		}
 
+	}
+	
+	public void reset(){
+		command = COMMANDS.INVALID;
+		taskName = null;
+		index = -1;
+		details = null;
+		startDate = null;
+		endDate = null;
+		
 	}
 
 	/*
