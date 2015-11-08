@@ -38,7 +38,7 @@ public class Setting {
 	 * Takes in the parameters for the file name and user name and sets the file
 	 * path and user names accordingly.
 	 * <p>
-	 * Refer to {@link #getFileName(String)}, {@link #setUserName(String)}.
+	 * Refer to {@link #setFileName(String)}, {@link #setUserName(String)}.
 	 * 
 	 * @param taskFileName
 	 *            the file name as a String
@@ -46,7 +46,7 @@ public class Setting {
 	 *            the name of the user as a String
 	 */
 	public Setting(String taskFileName, String userName) {
-		this.getFileName(taskFileName);
+		this.setFileName(taskFileName);
 		this.setUserName(userName);
 	}
 
@@ -65,7 +65,7 @@ public class Setting {
 	 * @param taskFileName
 	 *            the file name as a String
 	 */
-	public void getFileName(String taskFileName) {
+	public void setFileName(String taskFileName) {
 		if (taskFileName == null) {
 			taskFileName = DEFAULT_FILENAME;
 		}

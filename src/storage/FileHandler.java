@@ -141,9 +141,9 @@ public class FileHandler {
 			settings = new Setting();
 		}
 		if (fileName != null) {
-			settings.getFileName(fileName);
+			settings.setFileName(fileName);
 		} else {
-			settings.getFileName(this.fileName);
+			settings.setFileName(this.fileName);
 		}
 		if (userName != null) {
 			settings.setUserName(userName);
