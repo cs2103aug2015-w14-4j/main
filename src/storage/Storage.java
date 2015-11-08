@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Stack;
-
-import utilities.LogProcessor;
+import java.util.logging.Logger;
 
 /**
  * Storage is a class that provides the basic add/remove/delete/edit functions.
@@ -31,7 +30,7 @@ public class Storage {
 	private static final String NULL_ERROR = "Expected non-null Object, Received null Object";
 
 	// Logging, and Log messages
-	private static LogProcessor logger;
+	private static final Logger logger = Logger.getLogger(Storage.class.getName());
 	private static final String TASK_ADDED = "Task added: \"%1$s\"";
 	private static final String TASK_BACKUP = "Backup mode: \"%1$s\"";
 	private static final String TASK_DUPLICATE = "Duplicate task, not added: \"%1$s\"";
@@ -63,7 +62,6 @@ public class Storage {
 	 */
 	public Storage(boolean isTestMode) {
 		this.isTestMode = isTestMode;
-		logger = LogProcessor.getInstance();
 		taskList = new ArrayList<Task>();
 		completedList = new ArrayList<Task>();
 		taskComparator = new TaskComparator();
@@ -145,7 +143,7 @@ public class Storage {
 	 */
 	public String setUser(String userName) {
 		fileHandler.updateSettings(null, userName);
-		logger.log(String.format(NAME_SET, userName));
+		logger.info(String.format(NAME_SET, userName));
 		return fileHandler.getSettings().getUserName();
 	}
 
@@ -163,7 +161,7 @@ public class Storage {
 				searchList.add(task);
 			}
 		}
-		logger.log(String.format(TASK_SEARCH, searchTerm));
+		logger.info(String.format(TASK_SEARCH, searchTerm));
 		return searchList;
 	}
 
@@ -187,10 +185,10 @@ public class Storage {
 			recentChanges.push(newTask);
 			taskList.sort(taskComparator);
 			this.saveFile();
-			logger.log(String.format(TASK_ADDED, name));
+			logger.info(String.format(TASK_ADDED, name));
 			return newTask.getName();
 		} else {
-			logger.log(String.format(TASK_DUPLICATE, name));
+			logger.info(String.format(TASK_DUPLICATE, name));
 			return null;
 		}
 	}
@@ -206,7 +204,7 @@ public class Storage {
 		if (isValidIndex(index)) {
 			recentChanges.push(taskList.get(index));
 			this.saveFile();
-			logger.log(String.format(TASK_DELETED, taskList.get(index).getName()));
+			logger.info(String.format(TASK_DELETED, taskList.get(index).getName()));
 			return taskList.remove(index).getName();
 		} else {
 			return null;
@@ -252,7 +250,7 @@ public class Storage {
 					currTask.setEndDate(endDate);
 				}
 			}
-			logger.log(String.format(TASK_EDITED, name));
+			logger.info(String.format(TASK_EDITED, name));
 			this.saveFile();
 			return name;
 		} else {
@@ -274,7 +272,7 @@ public class Storage {
 			completedList.add(currTask);
 			currTask.setCompleted(true);
 			taskList.remove(index);
-			logger.log(String.format(TASK_ACK, currTask.getName()));
+			logger.info(String.format(TASK_ACK, currTask.getName()));
 			this.saveFile();
 			return currTask.getName();
 		} else {
@@ -303,10 +301,10 @@ public class Storage {
 				}
 			}
 			this.saveFile();
-			logger.log(TASK_UNDO);
+			logger.info(TASK_UNDO);
 			return oldTask.getName();
 		}
-		logger.log(TASK_NO_UNDO);
+		logger.info(TASK_NO_UNDO);
 		return null;
 	}
 
@@ -367,7 +365,7 @@ public class Storage {
 		Task oldTask = this.backupTask(currTask);
 		recentChanges.push(oldTask);
 		assert currTask.getTaskId() == oldTask.getTaskId();
-		logger.log(String.format(TASK_BACKUP, oldTask));
+		logger.info(String.format(TASK_BACKUP, oldTask));
 		return currTask;
 	}
 
