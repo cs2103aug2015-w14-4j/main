@@ -14,7 +14,7 @@ package storage;
  *
  */
 
-public class Settings {
+public class Setting {
 	private String fileName;
 	private String userName;
 
@@ -28,7 +28,7 @@ public class Settings {
 	 * <p>
 	 * Refer to {@link #Settings(String, String)}.
 	 */
-	public Settings() {
+	public Setting() {
 		this(DEFAULT_FILENAME, null);
 	}
 
@@ -45,7 +45,7 @@ public class Settings {
 	 * @param userName
 	 *            the name of the user as a String
 	 */
-	public Settings(String taskFileName, String userName) {
+	public Setting(String taskFileName, String userName) {
 		this.getFileName(taskFileName);
 		this.setUserName(userName);
 	}

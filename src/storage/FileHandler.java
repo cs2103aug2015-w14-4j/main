@@ -31,7 +31,7 @@ import utils.ErrorProcessor;
 public class FileHandler {
 
 	private String fileName;
-	private Settings settings;
+	private Setting settings;
 	private Gson googleJsonBuilder;
 
 	private static final String FILEPATH = "%1$s.json";
@@ -98,7 +98,7 @@ public class FileHandler {
 	 * 
 	 * @return returns the settings that have been saved
 	 */
-	public Settings saveSettings(Settings settings) {
+	public Setting saveSettings(Setting settings) {
 		assert settings != null : NULL_ERROR;
 		String jsonTasks = settingsToJson(settings);
 		writeToFile(SETTINGS_FILE, jsonTasks);
@@ -114,12 +114,12 @@ public class FileHandler {
 	 * 
 	 * @return returns the Settings Object containing the settings
 	 */
-	public Settings getSettings() {
+	public Setting getSettings() {
 		settings = readSettingJson();
 		if (settings != null) {
 			fileName = settings.getFileName();
 		} else {
-			fileName =Settings.DEFAULT_FILENAME;
+			fileName =Setting.DEFAULT_FILENAME;
 		}
 		return settings;
 	}
@@ -136,9 +136,9 @@ public class FileHandler {
 	 *            the user name of the user in String
 	 * @return returns the settings that have been saved
 	 */
-	public Settings updateSettings(String fileName, String userName) {
+	public Setting updateSettings(String fileName, String userName) {
 		if (settings == null) {
-			settings = new Settings();
+			settings = new Setting();
 		}
 		if (fileName != null) {
 			settings.getFileName(fileName);
@@ -168,10 +168,10 @@ public class FileHandler {
 	}
 
 	// Use GSON API to read from settings json file
-	private Settings readSettingJson() {
+	private Setting readSettingJson() {
 		JsonStreamParser jsonReader = JsonReader(SETTINGS_FILE);
 		if (hasNext(jsonReader)) {
-			Settings settingEntry = googleJsonBuilder.fromJson(jsonReader.next(), Settings.class);
+			Setting settingEntry = googleJsonBuilder.fromJson(jsonReader.next(), Setting.class);
 			return settingEntry;
 		}
 		return null;
@@ -226,7 +226,7 @@ public class FileHandler {
 		return jsonString;
 	}
 
-	private String settingsToJson(Settings settings) {
+	private String settingsToJson(Setting settings) {
 		assert settings != null : NULL_ERROR;
 		String jsonString = googleJsonBuilder.toJson(settings);
 		return jsonString;
