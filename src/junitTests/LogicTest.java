@@ -118,32 +118,15 @@ public class LogicTest {
 		String inputAdd8 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
 		String inputAdd9 = "add -i details withough task name";
 		
-		GuiCommand outAdd1 = l.executeCMD(inputAdd1);
-		List<Task> LA1 = outAdd1.getListOfTasks();
-		
-		GuiCommand outAdd2 = l.executeCMD(inputAdd2);
-		List<Task> LA2 = outAdd2.getListOfTasks();
-		
-		GuiCommand outAdd3 = l.executeCMD(inputAdd3);
-		List<Task> LA3 = outAdd3.getListOfTasks();
-		
-		GuiCommand outAdd4 = l.executeCMD(inputAdd4);
-		List<Task> LA4 = outAdd4.getListOfTasks();
-		
-		GuiCommand outAdd5 = l.executeCMD(inputAdd5);
-		List<Task> LA5 = outAdd5.getListOfTasks();
-		
-		GuiCommand outAdd6 = l.executeCMD(inputAdd6);
-		List<Task> LA6 = outAdd6.getListOfTasks();
-		
-		GuiCommand outAdd7 = l.executeCMD(inputAdd7);
-		List<Task> LA7 = outAdd7.getListOfTasks();
-		
-		GuiCommand outAdd8 = l.executeCMD(inputAdd8);
-		List<Task> LA8 = outAdd8.getListOfTasks();
-		
-		GuiCommand outAdd9 = l.executeCMD(inputAdd9);
-		List<Task> LA9 = outAdd9.getListOfTasks();
+		l.executeCMD(inputAdd1);
+		l.executeCMD(inputAdd2);
+		l.executeCMD(inputAdd3);
+		l.executeCMD(inputAdd4);
+		l.executeCMD(inputAdd5);
+		l.executeCMD(inputAdd6);
+		l.executeCMD(inputAdd7);
+		l.executeCMD(inputAdd8);
+		l.executeCMD(inputAdd9);
 		
 		String inputDel = "delete 1";
 		//Task list now should have 8 items
@@ -203,18 +186,18 @@ public class LogicTest {
 		String Add7 = "add Start date End date -d 02/11/1993 12:10 03/11/1993 16:30";
 		String Add8 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
 		
-		GuiCommand out1 = l.executeCMD(Add1);
-		GuiCommand out2= l.executeCMD(Add2);
-		GuiCommand out3= l.executeCMD(Add3);
-		GuiCommand out4 = l.executeCMD(Add4);
-		GuiCommand out5 = l.executeCMD(Add5);
-		GuiCommand out6 = l.executeCMD(Add6);
-		GuiCommand out7 = l.executeCMD(Add7);
-		GuiCommand out8 = l.executeCMD(Add8);
+		l.executeCMD(Add1);
+		l.executeCMD(Add2);
+		l.executeCMD(Add3);
+		l.executeCMD(Add4);
+		l.executeCMD(Add5);
+		l.executeCMD(Add6);
+		l.executeCMD(Add7);
+		l.executeCMD(Add8);
 		
 		String inputEdit1 = "edit 1 -i added details -d 10112015 2000";
-		String inputEdit2 = "edit 2 New Name";
-		String inputEdit3 = "edit 3 Changed name";
+		String inputEdit2 = "edit 1 New Name";
+		String inputEdit3 = "edit 2 Changed name -d Hi";
 		String inputEdit4 = "edit 4";
 
 		GuiCommand editOut1 = l.executeCMD(inputEdit1);
@@ -224,7 +207,6 @@ public class LogicTest {
 		GuiCommand editOut3 = l.executeCMD(inputEdit3);
 		List<Task> LE3 = editOut1.getListOfTasks();
 		GuiCommand editOut4 = l.executeCMD(inputEdit4);
-		List<Task> LE4 = editOut1.getListOfTasks();
 		
 		GuiCommand testEdit1 = new GuiCommand(COMMANDS.EDIT, "Edited Floating task 1", LE1);
 		GuiCommand testEdit2 = new GuiCommand(COMMANDS.EDIT, "Edited Floating task 2 with details", LE2);
@@ -233,7 +215,18 @@ public class LogicTest {
 		
 		
 		assertEquals(editOut1.getCmd(), testEdit1.getCmd());
+		System.out.println("Hi " +editOut1.getMsg());
 		assertEquals(editOut1.getMsg(), testEdit1.getMsg());
+		
+//		assertEquals(editOut2.getCmd(), testEdit2.getCmd());
+//		System.out.println("Hi " +editOut2.getMsg());
+//		assertEquals(editOut2.getMsg(), testEdit2.getMsg());
+		
+		assertEquals(editOut3.getCmd(), testEdit3.getCmd());
+		assertEquals(editOut3.getMsg(), testEdit3.getMsg());
+		
+		assertEquals(editOut4.getCmd(), testEdit4.getCmd());
+		assertEquals(editOut4.getMsg(), testEdit4.getMsg());
 	}
 
 }

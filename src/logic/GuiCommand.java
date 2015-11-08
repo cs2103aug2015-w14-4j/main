@@ -55,9 +55,9 @@ public class GuiCommand {
 		return msg;
 	}
 
-	public Task getTask() {
-		return task;
-	}
+//	public Task getTask() {
+//		return task;
+//	}
 
 	public int getTaskId() {
 		return taskId;
