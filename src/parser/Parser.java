@@ -19,7 +19,6 @@ public class Parser {
 	private String searchSentence;
 	private int index;
 	private String inputString;
-	private String commandString;
 
 	public static final String UNDO = "undo";
 	public static final String NAME = "name";

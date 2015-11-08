@@ -10,16 +10,16 @@ import java.util.Date;
 import org.junit.Test;
 
 import parser.DatePair;
-import parser.DayProcessor;
+import parser.DateParser;
 
-public class DayProcessorTest {
+public class DateParserTest {
 
 	private static final String SPACE = " ";
 	@Test
 	public void testStringToDate() {
 		String dateOne = "12 november 2015";
 		String dateTwo = "13 11 2015";
-		DatePair datePair = DayProcessor.stringToDate(dateOne+SPACE+dateTwo);
+		DatePair datePair = DateParser.stringToDate(dateOne+SPACE+dateTwo);
 
 		Date expectedOne = new Date();
 		Date expectedTwo = new Date();
