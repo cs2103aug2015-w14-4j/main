@@ -73,7 +73,7 @@ public class Parser {
 				remaining = null;
 			}
 		}
-		if(getCommand() == COMMANDS.EDIT){
+		if(getCommand() == COMMANDS.EDIT&&remaining!=null){
 			taskName = removeSpace(remaining);
 		}else{
 			taskName = remaining;
