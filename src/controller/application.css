@@ -3,11 +3,6 @@
     src: url('/font/Questrial-Regular.ttf');
 }
 
-/** .text {
-	-fx-font-family: "Questrial";
-	-fx-font-size: 24;
-}*/
-
 * .label{
 	-fx-font-family: "Questrial";
 }
@@ -22,6 +17,7 @@
 
 #taskDetails {
 	-fx-font-size: 20;
+	-fx-text-fill: #3cb371;
 }
 
 #taskListBox {
@@ -60,15 +56,15 @@
 }
 
 #errorMsg {
-	-fx-text-fill: red; 
+	-fx-text-fill: #FA856E;
 }
 
 #successMsg {
-	-fx-text-fill: green;
+	-fx-text-fill: #8fbc8f;
 }
 
 #predictionMsg {
-	-fx-text-fill: blue;
+	-fx-text-fill: #4682b4;
 }
 
 .title{
@@ -86,15 +82,19 @@
         linear-gradient(#ffd65b, #ffd65b),
         linear-gradient(#ffef84, #ffef84),
         linear-gradient(#ffea6a, #ffea6a),
-        linear-gradient(#ffe657, #ffe657);
-       
+        linear-gradient(#ffe657, #ffe657);      
 }
 
 #taskDueTomorrow .title{
 	-fx-background-color:
+		linear-gradient(#6495ed, #6495ed),
+		linear-gradient(#1e90ff, #1e90ff);
+}
+
+#taskToDo .title{
+	-fx-background-color:
         linear-gradient(C2E7ED, C2E7ED),
         linear-gradient(#e4fbff, #e4fbff);
-	
 }
 
 #taskOverdue .title{
