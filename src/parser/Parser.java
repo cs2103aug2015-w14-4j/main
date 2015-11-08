@@ -160,6 +160,7 @@ public class Parser {
 
 		if (getCommand() == COMMANDS.INVALID) {
 			valid = false;
+			taskName=null;
 		}
 		logger.info("Parsed: " + command + " " + taskName + " " + details + " " + endDate);
 		return valid;
@@ -237,7 +238,15 @@ public class Parser {
 		}
 		return EMPTY;
 	}
-
+	
+	private boolean isRequireIndex(COMMANDS cmd) {
+		if(cmd==COMMANDS.DELETE||cmd==COMMANDS.EDIT||cmd==COMMANDS.ACK){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	// @@author A0125369Y
 	private String checkForDate(String[] input) {
 		String[] inputPieces = input[1].split(DATE_DELIMITER);
@@ -317,7 +326,7 @@ public class Parser {
 
 	public int getIndex() {
 		String[] temp = inputString.split(" ");
-		if (temp.length < 2||getCommand() == COMMANDS.INVALID) {
+		if (temp.length < 2||!isRequireIndex(getCommand())) {
 			return -1;
 		} else {
 			return index;

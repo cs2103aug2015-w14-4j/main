@@ -91,6 +91,8 @@ public class PredictiveTest {
 		predictor.processInput(ADD_NAME_ONLY_INPUT);
 		assertEquals(predictor.getCommand(), COMMANDS.ADD);
 		assertEquals(predictor.getCommandMsg(), ADD_MSG);
+		System.out.println(predictor.getIndex());
+		System.out.println(predictor.getTaskName());
 		assertEquals(predictor.getIndex(), -1);
 		assertEquals(predictor.getTaskName(), "some - Task");
 		assertEquals(predictor.getTaskDetails(), null);
