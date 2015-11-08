@@ -1,6 +1,12 @@
-* {
-	-fx-font-family: "Helvetica";
+@font-face {
+    font-family: Questrial;
+    src: url('/font/Questrial-Regular.ttf');
 }
+
+/** .text {
+	-fx-font-family: "Questrial";
+	-fx-font-size: 24;
+}*/
 
 #rootLayout {
 	-fx-background-color: linear-gradient(#ffffff, #ffffff);
