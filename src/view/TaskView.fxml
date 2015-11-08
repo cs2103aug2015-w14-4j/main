@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="Task Name" type="TitledPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="Task Name" type="TitledPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <content>
     <AnchorPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="549.0">
          <children>
@@ -15,7 +15,7 @@
                <children>
                   <HBox fx:id="details">
                      <children>
-                        <Label fx:id="detailsLabel" text="Details">
+                        <Label fx:id="detailsLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="71.0" text="Info">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -28,14 +28,14 @@
                               <Font size="18.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="20.0" top="5.0" />
+                              <Insets top="4.0" />
                            </HBox.margin>
                         </Text>
                      </children>
                   </HBox>
                   <HBox fx:id="startDate">
                      <children>
-                        <Label fx:id="startDateLabel" text="Start">
+                        <Label fx:id="startDateLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="71.0" text="Start">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -48,7 +48,7 @@
                               <Font size="18.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="42.0" top="5.0" />
+                              <Insets top="5.0" />
                            </HBox.margin>
                         </Text>
                      </children>
@@ -58,7 +58,7 @@
                   </HBox>
                   <HBox fx:id="endDate" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label fx:id="endDateLabel" text="End">
+                        <Label fx:id="endDateLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="71.0" text="End">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -71,7 +71,7 @@
                               <Font size="18.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="52.0" top="5.0" />
+                              <Insets top="5.0" />
                            </HBox.margin>
                         </Text>
                      </children>
