@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class InfoPanelController extends VBox{
 	
@@ -79,9 +78,10 @@ public class InfoPanelController extends VBox{
 	}
 	
 	private void createTaskInfoEntry(String entry, String stringFormat){
-		Text txt = new Text(String.format(stringFormat, entry));
-		txt.setWrappingWidth(240);
-		taskInfo.getChildren().add(txt);
+		Label label = new Label(String.format(stringFormat, entry));
+		label.setMaxWidth(400);
+		label.setId("taskDetails");
+		taskInfo.getChildren().add(label);
 	}
 	
 	public void clearTaskInfo(){

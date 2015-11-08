@@ -9,8 +9,6 @@ import javafx.scene.control.PopupControl;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import logic.GuiCommand;
 import logic.Logic;
@@ -33,7 +31,7 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("Spee-Do");
         initRootLayout();
         initHelpBox();
-        Scene scene = new Scene(rootLayout, 850, 600);
+        Scene scene = new Scene(rootLayout, 950, 600);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.getIcons().add(new Image("img/speedo.png"));
 		primaryStage.setScene(scene);
@@ -137,7 +135,7 @@ public class MainApp extends Application {
     	infoPanel.displayTaskInfo(title, taskName, taskDetails, taskStart, taskEnd);
     }
     
-  //@@author A0125369Y
+    //@@author A0125369Y
     private void displayHelp(){
     	helpPopup.show(primaryStage);	
     	helpPopup.setX(primaryStage.getX() + primaryStage.getWidth() / 2 - helpPopup.getWidth() / 2);
