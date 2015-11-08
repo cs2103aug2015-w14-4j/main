@@ -283,7 +283,7 @@ public class Parser {
 
 	// @@author A0125369Y
 	private void processDate(String dateString) {
-		DatePair datePair = DayProcessor.stringToDate(dateString);
+		DatePair datePair = DateParser.stringToDate(dateString);
 		Date firstDate = datePair.getDateOne();
 		Date secondDate = datePair.getDateTwo();
 		if (firstDate != null && secondDate != null) {

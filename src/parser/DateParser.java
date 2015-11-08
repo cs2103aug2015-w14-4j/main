@@ -1,21 +1,17 @@
 //@@author A0125369Y
 package parser;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DayProcessor {
+public class DateParser {
 	private static SimpleDateFormat dateStringMth;
 	private static SimpleDateFormat dateIntMth;
 	private static SimpleDateFormat dateStringMthTime;
 	private static SimpleDateFormat dateIntMthTime;
 	//private static SimpleDateFormat dateStringMthTimeShort;
 	//private static SimpleDateFormat dateIntMthTimeShort;
-
-	private final static String DAY_OF_THE_WEEK = "EEEE";
-	private final static String TODAYS_DATE = "dd MMMM";
 
 	/*
 	private static final String JAN_STRING = "jan january";
@@ -93,18 +89,6 @@ public class DayProcessor {
 	private static final int TIME_LEN = 4;
 	private static final int DAY_LEN = 2;
 	private static final int YEAR_LEN = 4;
-
-	public static String todayDay() {
-		DateFormat dateFormat = new SimpleDateFormat(DAY_OF_THE_WEEK);
-		Date date = new Date();
-		return dateFormat.format(date);
-	}
-
-	public static String todayDate() {
-		DateFormat dateFormat = new SimpleDateFormat(TODAYS_DATE);
-		Date date = new Date();
-		return dateFormat.format(date);
-	}
 
 	/**
 	 * Method to process a string of 2 or less dates

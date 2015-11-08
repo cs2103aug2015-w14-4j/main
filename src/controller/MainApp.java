@@ -13,7 +13,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import logic.GuiCommand;
 import logic.Logic;
-import parser.DayProcessor;
+import processor.DayProcessor;
 import storage.Task;
 
 public class MainApp extends Application {
