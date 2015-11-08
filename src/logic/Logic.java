@@ -57,7 +57,7 @@ public class Logic {
 		Task t = null;
 		List<Task> list = null;
 
-		String name;
+		String name = null;
 		switch (command) {
 
 		case ADD:
@@ -65,7 +65,9 @@ public class Logic {
 			taskName = parser.getTaskName();
 			startDate = parser.getStartDate();
 			endDate = parser.getEndDate();
+			if(taskName != null){
 			 name = add();
+			}
 			if(name == null){
 				c =new GuiCommand(COMMANDS.INVALID, "Task not added");
 			} else {

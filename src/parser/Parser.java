@@ -53,6 +53,7 @@ public class Parser {
 		// String[] inputsSplitDash = str.split("-");
 		// String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
 		// commandString = inputsSplitSpace[0];
+		str = str.trim().replaceAll(" +", " ");
 		String[] inputPieces = str.split(" ", 2);
 		processCommand(inputPieces[0]);
 
