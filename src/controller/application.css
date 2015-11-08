@@ -1,3 +1,7 @@
+* {
+	-fx-font-family: "Helvetica";
+}
+
 #rootLayout {
 	-fx-background-color: linear-gradient(#ffffff, #ffffff);
 }
