@@ -64,7 +64,7 @@ public class Parser {
 			remaining = inputPieces[1];
 			remaining = remaining.replace(unprocessedDetails, "");
 			remaining = remaining.replace(unprocessedDate, "");
-			remaining = remaining.replaceFirst(unprocessedIndex, "");
+			remaining = remaining.replace(unprocessedIndex, "");
 
 			remaining = remaining.replace(DATE_DELIMITER, "");
 			remaining = remaining.replace(DETAIL_DELIMITER, "");

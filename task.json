@@ -3,19 +3,17 @@
   "name": "Buy eggs for mum",
   "isCompleted": false
 }{
+  "taskId": -940540243,
+  "name": "Task Name",
+  "isCompleted": false
+}{
   "taskId": 704105976,
-  "name": " 2diwje",
+  "name": "Gym",
   "endDate": "Jan 1, 2014 8:00:00 AM",
   "isCompleted": false
 }{
-  "taskId": -940540243,
-  "name": " qwdon2",
-  "details": "dijidn2",
-  "endDate": "Nov 2, 2015 12:00:00 AM",
-  "isCompleted": false
-}{
   "taskId": -1931724113,
-  "name": " dwin4",
+  "name": "Lunch with Jim",
   "details": "@ Macdonalds",
   "endDate": "Nov 2, 2015 12:00:00 AM",
   "isCompleted": false
@@ -30,6 +28,13 @@
   "name": "Meeting with James",
   "endDate": "Nov 3, 2015 8:00:00 AM",
   "isCompleted": false
+}{
+  "taskId": -234476133,
+  "name": "Revision for final paper",
+  "details": "Read chapter 3",
+  "startDate": "Nov 3, 2015 8:00:00 AM",
+  "endDate": "Nov 3, 2015 10:00:00 AM",
+  "isCompleted": true
 }{
   "taskId": -496456646,
   "name": "Surprise Party for Donald",
@@ -141,18 +146,4 @@
   "startDate": "Nov 19, 2015 12:00:00 PM",
   "endDate": "Nov 19, 2015 1:00:00 PM",
   "isCompleted": false
-}{
-  "taskId": -234476133,
-  "name": "Revision for final paper",
-  "details": "Read chapter 3",
-  "startDate": "Nov 3, 2015 8:00:00 AM",
-  "endDate": "Nov 3, 2015 10:00:00 AM",
-  "isCompleted": true
-}{
-  "taskId": -234476133,
-  "name": "Revision for final paper",
-  "details": "Read chapter 3",
-  "startDate": "Nov 3, 2015 8:00:00 AM",
-  "endDate": "Nov 3, 2015 10:00:00 AM",
-  "isCompleted": true
 }
