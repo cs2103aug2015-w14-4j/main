@@ -2,8 +2,8 @@ package logic;
 
 import java.util.List;
 
-import processor.COMMANDS;
 import storage.Task;
+import utils.COMMANDS;
 
 public class GuiCommand {
 	private COMMANDS cmd;

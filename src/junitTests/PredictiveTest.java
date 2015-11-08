@@ -3,8 +3,8 @@ package junitTests;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import parser.Predictive;
-import processor.COMMANDS;
 import storage.Storage;
+import utils.COMMANDS;
 
 public class PredictiveTest {
 	

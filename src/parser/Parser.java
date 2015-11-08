@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import processor.COMMANDS;
+import utils.COMMANDS;
 
 public class Parser {
 
@@ -44,9 +44,8 @@ public class Parser {
 	private static final String EMPTY = "";
 
 	public Parser() {
-
 	}
-
+	
 	// @@author A0125369Y
 	public Boolean parse(String str) {
 		inputString = str;

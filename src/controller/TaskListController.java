@@ -16,8 +16,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
-import processor.ErrorProcessor;
 import storage.Task;
+import utils.ErrorProcessor;
 
 public class TaskListController extends ScrollPane{
 	

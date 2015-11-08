@@ -8,8 +8,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import processor.ErrorProcessor;
 import storage.Task;
+import utils.ErrorProcessor;
 
 public class TaskController extends TitledPane{
 	

@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import logic.GuiCommand;
 import logic.Logic;
-import processor.COMMANDS;
 import storage.Task;
+import utils.COMMANDS;
 
 public class LogicTest {
 	Logic l = new Logic(true);

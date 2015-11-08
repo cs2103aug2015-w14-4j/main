@@ -3,13 +3,13 @@ package logic;
 
 import java.util.Date;
 import java.util.List;
-import processor.COMMANDS;
 import java.util.logging.Logger;
 
 import parser.Parser;
 import parser.Predictive;
 import storage.Storage;
 import storage.Task;
+import utils.COMMANDS;
 
 public class Logic {
 	// Attributes

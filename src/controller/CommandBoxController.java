@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import processor.ErrorProcessor;
+import utils.ErrorProcessor;
 
 public class CommandBoxController extends VBox{
 	
