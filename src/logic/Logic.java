@@ -142,6 +142,9 @@ public class Logic {
 		case INVALID:
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
 			break;
+		case EXIT:
+			System.exit(0);
+			break;
 		default:
 			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
 			break;			

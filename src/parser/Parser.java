@@ -21,19 +21,20 @@ public class Parser {
 	private String inputString;
 	private String commandString;
 
-	public static final String ADD = "add insert";
+	public static final String UNDO = "undo";
+	public static final String NAME = "name";
+	public static final String COMPLETED = "completed";
 	public static final String DELETE = "remove delete";
+	public static final String FILEPATH = "filepath";
+	public static final String SEARCH = "search find";
+	public static final String EXPAND = "expand display show";
+	public static final String ADD = "add insert";
+	public static final String HOME = "home";
+	public static final String HELP = "help";
 	public static final String EDIT = "edit change";
 	public static final String ACK = "ack acknowledge";
-	public static final String SEARCH = "search find";
-	public static final String HOME = "home";
-	public static final String UNDO = "undo";
-	public static final String EXPAND = "expand display show";
-	public static final String COMPLETED = "completed";
-	public static final String HELP = "help";
-	public static final String NAME = "name";
-	public static final String FILEPATH = "filepath";
-
+	public static final String EXIT = "exit";
+	
 	private static final String DATE_DELIMITER = " -d ";
 	private static final String DETAIL_DELIMITER = " -i ";
 	private static final String INT_REGEX = "\\d+";
@@ -216,7 +217,9 @@ public class Parser {
 				command = COMMANDS.NAME;
 			} else if (FILEPATH.matches(stringCmd)) {
 				command = COMMANDS.FILEPATH;
-			} else {
+			} else if (EXIT.matches(stringCmd)) {
+				command = COMMANDS.EXIT;
+			}else {
 				command = COMMANDS.INVALID;
 			}
 		} else {

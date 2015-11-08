@@ -22,7 +22,7 @@ public class Predictive {
 	private static final String UNDO_TIP = "Undo : Reverts your last changes.";
 	// private static final String EXPAND_TIP = "";
 	// private static final String HELP_TIP = "";
-	// private static final String EXIT_TIP = "";
+	private static final String EXIT_TIP = "Exit : Closes the program";
 	private static final String EMPTY = "";
 	
 	private static final String ADD_MSG = "Adding Task...";
@@ -85,6 +85,8 @@ public class Predictive {
 			return NAME_TIP;
 		case UNDO:
 			return UNDO_TIP;
+		case EXIT:
+			return EXIT_TIP;
 		default:
 			return EMPTY;
 		}
@@ -109,8 +111,6 @@ public class Predictive {
 			return COMMANDS.HOME;
 		} else if (Parser.UNDO.contains(stringCmd)) {
 			return COMMANDS.UNDO;
-		} else if (Parser.EXPAND.contains(stringCmd)) {
-			return COMMANDS.EXPAND;
 		} else if (Parser.COMPLETED.contains(stringCmd)) {
 			return COMMANDS.COMPLETED;
 		} else if (Parser.HELP.contains(stringCmd)) {
@@ -119,7 +119,9 @@ public class Predictive {
 			return COMMANDS.NAME;
 		} else if (Parser.FILEPATH.contains(stringCmd)) {
 			return COMMANDS.FILEPATH;
-		} else {
+		} else if (Parser.EXIT.contains(stringCmd)) {
+			return COMMANDS.EXIT;
+		}else {
 			return COMMANDS.INVALID;
 		}
 	}
