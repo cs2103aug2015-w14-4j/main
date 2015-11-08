@@ -256,7 +256,7 @@ public class Storage {
 	 * 
 	 * @param index
 	 *            index of the task to flag as completed
-	 * @return Task that was flagged as complete, if index is not valid, return
+	 * @return nams of task that was flagged as complete, if index is not valid, return
 	 *         null
 	 */
 	public String complete(int index) {

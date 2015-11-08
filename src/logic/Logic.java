@@ -138,14 +138,14 @@ public class Logic {
 			c = new GuiCommand(COMMANDS.HELP, HELP_FEEDBACK);
 			break;
 		case FILEPATH:
-			taskName = parser.getFilePath();
+			String filePath = parser.getFilePath();
 			filePath();
-			c = new GuiCommand(COMMANDS.FILEPATH, String.format(FILEPATH_FEEDBACK, taskName));
+			c = new GuiCommand(COMMANDS.FILEPATH, String.format(FILEPATH_FEEDBACK, filePath));
 			break;
 		case NAME:
-			taskName = parser.getName();
+			name = parser.getName();
 			name();
-			c = new GuiCommand(COMMANDS.FILEPATH, String.format(NAME_FEEDBACK, taskName));
+			c = new GuiCommand(COMMANDS.FILEPATH, String.format(NAME_FEEDBACK, name));
 			break;
 		case EXIT:
 			System.exit(0);

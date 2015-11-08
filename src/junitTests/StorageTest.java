@@ -27,41 +27,48 @@ public class StorageTest {
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, null, date);
-		assertEquals(name, task.getName()); 
-		assertEquals(details, task.getDetails()); 
-		assertEquals(date, task.getEndDate());
+		String taskName = store.add(name, details, null, date);
+		assertEquals(name, taskName); 
 
+		// Checking other variables
+		List<Task> taskList = store.getTaskList();
+		assertEquals(details, taskList.get(0).getDetails());
+		assertEquals(date, taskList.get(0).getEndDate());
+		
 		// Duplicated task
-		Task duplicate = store.add(name, details, null, date);
+		String duplicate = store.add(name, details, null, date);
 		assertEquals(null, duplicate); 
 	}
 
 	@Test
 	public void testDelete() {
 		Storage store = new Storage(true);
+		assert store.getTaskList().isEmpty();
 		
 		// Adding as usual
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, null, date);
+		String taskName = store.add(name, details, null, date);
 		
-		assertEquals(task, store.delete(0));
+		assertEquals(taskName, store.delete(0));
 	}
 
 	@Test
 	public void testUndoDelete() {
 		Storage store = new Storage(true);
+		assert store.getTaskList().isEmpty();
 		
 		// Adding as usual
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, null, date);
+		
+		// Assume that add and delete are working
+		store.add(name, details, null, date);
 		store.delete(0);
-		assertEquals(true, store.undo());
-		assertEquals(task, store.getTaskList().get(0));
+		
+		assertEquals(name, store.undo());
 	}
 
 	@Test
@@ -72,10 +79,12 @@ public class StorageTest {
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, null, date);
+		
+		// Assume that add is working
+		store.add(name, details, null, date);
 		
 		String newName = "new test";
-		assertEquals(newName, store.edit(0, newName, null, null, null).getName());
+		assertEquals(newName, store.edit(0, newName, null, null, null));
 	}
 	
 	@Test
@@ -86,11 +95,14 @@ public class StorageTest {
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, null, date);
+		String taskName = store.add(name, details, null, date);
 		String newName = "new test";
+		
+		// Assume that edit and undo are working
 		store.edit(0, newName, null, null, null);
-		assertEquals(true, store.undo());
-		assertEquals(task, store.getTaskList().get(0));
+		store.undo();
+		
+		assertEquals(taskName, store.getTaskList().get(0).getName());
 	}
 	
 	@Test
@@ -101,8 +113,11 @@ public class StorageTest {
 		Date date = new Date();
 		String name = "test";
 		String details = "task details";
-		Task task = store.add(name, details, null, date);
-		store.complete(0);
+		
+		// Assume that add is working
+		String taskName = store.add(name, details, null, date);
+		
+		assertEquals(taskName, store.complete(0));
 		assertEquals(true, store.getCompletedList().get(0).isCompleted());
 	}
 
@@ -192,15 +207,4 @@ public class StorageTest {
 		assertNotEquals(null, store.edit(2, newName, null, null, null));
 		assertEquals(null, store.edit(3, newName, null, null, null));
 	}
-
-	// @Test
-	// public void testSave() throws ParseException{
-	// //Storage store = new Storage();
-	// SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
-	// String dateInString = "28-09-2015 08:00";
-	// Date date = sdf.parse(dateInString);
-	// String name = "test2";
-	// store.add(name,"test", date);
-	// //assertEquals(true,store.saveFile());
-	// }
 }
