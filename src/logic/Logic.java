@@ -25,7 +25,18 @@ public class Logic {
 	private Predictive predictor;
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 
-	
+	private static final String ADD_FEEDBACK = "Added \"%1$s\"";
+	private static final String DELETE_FEEDBACK = "Deleted \"%1$s\"";
+	private static final String EDIT_FEEDBACK = "Edited \"%1$s\"";
+	private static final String SEARCH_FEEDBACK = "Searching for \"%1$s\"";
+	private static final String ACK_FEEDBACK = "Acknowledged \"%1$s\"";
+	private static final String HOME_FEEDBACK = "Displaying list of incomplete items";
+	private static final String UNDO_FEEDBACK = "Undo \"%1$s\" successful";
+	private static final String COMPLETED_FEEDBACK = "Showing list of completed items";
+	private static final String HELP_FEEDBACK = "";
+	private static final String FILEPATH_FEEDBACK = "Filepath changed to \"%1$s\"";
+	private static final String NAME_FEEDBACK = "Name changed to \"%1$s\"";
+	private static final String INVALID_FEEDBACK = "Invalid command, check help for proper command usage";
 	// Constructor
 	public Logic() {
 		this(false);
@@ -71,7 +82,7 @@ public class Logic {
 			if(name == null){
 				c =new GuiCommand(COMMANDS.INVALID, "Task not added");
 			} else {
-				c = new GuiCommand(COMMANDS.ADD, "Added " + name, this.getTaskList());
+				c = new GuiCommand(COMMANDS.ADD, String.format(ADD_FEEDBACK, name), this.getTaskList());
 				logger.info("Logic added " + name);
 			}
 			break;
@@ -81,7 +92,7 @@ public class Logic {
 			if (name == null){
 				c = new GuiCommand(COMMANDS.INVALID, "Task not deleted");
 			} else {
-				c = new GuiCommand(COMMANDS.DELETE, "Deleted "+name, this.getTaskList());
+				c = new GuiCommand(COMMANDS.DELETE, String.format(DELETE_FEEDBACK, name), this.getTaskList());
 				logger.info("Logic deleted " + name);
 			}
 			break;
@@ -97,21 +108,21 @@ public class Logic {
 			} else if(taskName == null && details == null && startDate == null && endDate == null){
 				c = new GuiCommand(COMMANDS.INVALID, "Task not deleted");
 			}else {
-				c = new GuiCommand(COMMANDS.EDIT, "Edited "+name, this.getTaskList());
+				c = new GuiCommand(COMMANDS.EDIT, String.format(EDIT_FEEDBACK, name), this.getTaskList());
 			}
 			break;
 		case SEARCH:
 			taskName = parser.getSearch();
 			list = search();
-			c = new GuiCommand(COMMANDS.SEARCH, "Searched tasks", list);
+			c = new GuiCommand(COMMANDS.SEARCH, String.format(SEARCH_FEEDBACK, taskName), list);
 			break;
 		case ACK:
 			taskIndex = parser.getIndex();
 			name = acknowledge();
-			c = new GuiCommand(COMMANDS.ACK, "Acknowledged", this.getTaskList());
+			c = new GuiCommand(COMMANDS.ACK, String.format(ACK_FEEDBACK, name), this.getTaskList());
 			break;
 		case HOME:
-			c = new GuiCommand(COMMANDS.HOME, "Showing Original task list", this.getTaskList());
+			c = new GuiCommand(COMMANDS.HOME, HOME_FEEDBACK, this.getTaskList());
 			logger.info("Logic setting home view");
 			break;
 		case UNDO:
@@ -119,36 +130,28 @@ public class Logic {
 			c = new GuiCommand(COMMANDS.UNDO, message, this.getTaskList());
 			logger.info("Logic undo last command");
 			break;
-		case EXPAND:
-			taskIndex = parser.getIndex();
-			int taskId = store.getTaskList().get(taskIndex).getTaskId();
-			c = new GuiCommand(COMMANDS.EXPAND, "Displaying details of task " + taskIndex, taskId);
-			break;
 		case COMPLETED:
 			list = completed();
-			c = new GuiCommand(COMMANDS.COMPLETED, "Showing Completed tasks", list);
+			c = new GuiCommand(COMMANDS.COMPLETED, COMPLETED_FEEDBACK, list);
 			break;
 		case HELP:
-			c = new GuiCommand(COMMANDS.HELP, "Displaying help screen");
+			c = new GuiCommand(COMMANDS.HELP, HELP_FEEDBACK);
 			break;
 		case FILEPATH:
 			taskName = parser.getFilePath();
 			filePath();
-			c = new GuiCommand(COMMANDS.FILEPATH, "Changed Filepath");
+			c = new GuiCommand(COMMANDS.FILEPATH, String.format(FILEPATH_FEEDBACK, taskName));
 			break;
 		case NAME:
 			taskName = parser.getName();
 			name();
-			c = new GuiCommand(COMMANDS.FILEPATH, "Changed Filepath");
-			break;
-		case INVALID:
-			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
+			c = new GuiCommand(COMMANDS.FILEPATH, String.format(NAME_FEEDBACK, taskName));
 			break;
 		case EXIT:
 			System.exit(0);
 			break;
 		default:
-			c = new GuiCommand(COMMANDS.INVALID, "Invalid command");
+			c = new GuiCommand(COMMANDS.INVALID, INVALID_FEEDBACK);
 			break;			
 		}
 		
@@ -230,7 +233,7 @@ public class Logic {
 	private String undo() {
 		String name = store.undo();
 		if(name != null){
-			return "Undo \""+ name+"\" Successful";
+			return String.format(UNDO_FEEDBACK, name);
 		} else{
 			return "Nothing to undo";
 		}
