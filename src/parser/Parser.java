@@ -311,7 +311,8 @@ public class Parser {
 		startDate = firstDate;
 		endDate = secondDate;
 	}
-
+	
+	// @@author A0126232U
 	public COMMANDS getCommand() {
 		return command;
 	}
