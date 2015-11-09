@@ -187,7 +187,7 @@ public class PredictiveTest {
 	public void editWithoutIndex() {
 		Logic logic = initLogic();
 		GuiCommand commandToGui = logic.predictCMD(EDIT_WITHOUT_INDEX_INPUT);
-		assertEquals(commandToGui.getTitle(), EDIT_MSG);
+		assertEquals(commandToGui.getTitle(), null);
 		assertEquals(commandToGui.getTaskName(), null);
 		assertEquals(commandToGui.getTaskDetails(), null);
 		assertEquals(commandToGui.getTaskStart(), null);
@@ -198,7 +198,7 @@ public class PredictiveTest {
 	public void changeWithoutIndex() {
 		Logic logic = initLogic();
 		GuiCommand commandToGui = logic.predictCMD(CHANGE_WITHOUT_INDEX_INPUT);
-		assertEquals(commandToGui.getTitle(), EDIT_MSG);
+		assertEquals(commandToGui.getTitle(), null);
 		assertEquals(commandToGui.getTaskName(), null);
 		assertEquals(commandToGui.getTaskDetails(), null);
 		assertEquals(commandToGui.getTaskStart(), null);
@@ -286,7 +286,7 @@ public class PredictiveTest {
 	public void deleteWithoutIndex() {
 		Logic logic = initLogic();
 		GuiCommand commandToGui = logic.predictCMD(DELETE_WITHOUT_INDEX_INPUT);
-		assertEquals(commandToGui.getTitle(), DELETE_MSG);
+		assertEquals(commandToGui.getTitle(), null);
 		assertEquals(commandToGui.getTaskName(), null);
 		assertEquals(commandToGui.getTaskDetails(), null);
 		assertEquals(commandToGui.getTaskStart(), null);
@@ -297,7 +297,7 @@ public class PredictiveTest {
 	public void removeWithoutIndex() {
 		Logic logic = initLogic();
 		GuiCommand commandToGui = logic.predictCMD(REMOVE_WITHOUT_INDEX_INPUT);
-		assertEquals(commandToGui.getTitle(), DELETE_MSG);
+		assertEquals(commandToGui.getTitle(), null);
 		assertEquals(commandToGui.getTaskName(), null);
 		assertEquals(commandToGui.getTaskDetails(), null);
 		assertEquals(commandToGui.getTaskStart(), null);

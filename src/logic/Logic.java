@@ -162,11 +162,11 @@ public class Logic {
 	public GuiCommand predictCMD(String input){
 		String message = predictor.processInput(input);
 		GuiCommand guiCommand = new GuiCommand(null, message);
-		guiCommand.setTitle(predictor.getCommandMsg());
 		int index = predictor.getIndex();
 		
 		switch (predictor.getCommand()) {
 			case ADD:
+				guiCommand.setTitle(predictor.getCommandMsg());
 				guiCommand.setTaskName(predictor.getTaskName());
 				guiCommand.setTaskDetails(predictor.getTaskDetails());
 				guiCommand.setTaskStart(predictor.getTaskStart());
@@ -174,6 +174,7 @@ public class Logic {
 				break;
 			case DELETE:
 				if(index != -1){
+					guiCommand.setTitle(predictor.getCommandMsg());
 					Task task = store.getTaskList().get(index);
 					guiCommand.setTaskName(task.getName());
 					guiCommand.setTaskDetails(task.getDetails());
@@ -183,6 +184,7 @@ public class Logic {
 				break;
 			case EDIT:
 				if(index != -1){
+					guiCommand.setTitle(predictor.getCommandMsg());
 					Task task = store.getTaskList().get(index);
 					if(predictor.getTaskName() != null){
 						guiCommand.setTaskName(predictor.getTaskName());
