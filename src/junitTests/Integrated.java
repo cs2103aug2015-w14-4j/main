@@ -161,14 +161,15 @@ public class Integrated {
 		Logic logic = new Logic(true);
 		
 		//input test cases to be tested from the logic component
-		String input1 = "add First New task -i new task details -i 02Jan2016";
-		String input2 = "add Second new task to be added in -d 30112015 2030 02122015 0530 "
-				+ "-i task has both start and end date";
-//		String input3 = "edit 2 Third task replacing first task";
-//		String input4 = "delete 1";
+		String input1 = "add First New task -i new task details -d 02Jan2016";
+		String input2 = "add Second new task to be added in -d 30112015 2030 02122015 0530 -i task has both start and end date";
+		String input3 = "edit 2 Third task replacing first task";
+		String input4 = "delete 1";
 		
 		//task list is read from the json file
 		//hence by checking the task list in the GuiCommand, integration test can be conducted
+		
+		//testing input 1 and 2
 		GuiCommand Output1 = logic.executeCMD(input1);
 		List<Task> List1 = Output1.getListOfTasks();
 		int size1 = List1.size();
@@ -177,22 +178,14 @@ public class Integrated {
 		GuiCommand Output2 = logic.executeCMD(input2);
 		List<Task> List2 = Output2.getListOfTasks();
 		int size2 = List2.size();
+		Task task2 = List1.get(0);
 		
-//		GuiCommand Output3 = logic.executeCMD(input3);
-//		List<Task> List3 = Output3.getListOfTasks();
-//		int size3 = List3.size();
-//		
-//		GuiCommand Output4 = logic.executeCMD(input4);
-//		List<Task> List4 = Output4.getListOfTasks();
-//		int size4 = List4.size();
 		
 		
 		//comparing the size of list in file handler after every command
 		assertEquals(size1, 1);
 		assertEquals(size2, 2);
-//		assertEquals(size3, 2);
-//		assertEquals(size4, 1);
-//		
+
 		//creating supposed task information to compare with actual tasks in the list
 		String nameReferee1 = "First New task";
 		String detailsReferee1 = "new task details";
@@ -203,14 +196,49 @@ public class Integrated {
 			
 		}
 		
+		String nameReferee2 = "Second new task to be added in";
+		String detailsReferee2 = "task has both start and end date";
+		Date startDateReferee2 = null;
+		Date endDateReferee2 = null;
+		try{
+			startDateReferee2 = dateVariant4.parse("30112015 2030");
+			endDateReferee2 = dateVariant4.parse("02122015 0530");
+		} catch (Exception e){
+			
+		}
 		
 		//comparing the supposed task information with the actual task information
 		//testing input 1
 		assertEquals(task1.getName(), nameReferee1);
-		System.out.println(task1);
 		assertEquals(task1.getDetails(), detailsReferee1);
 		assertEquals(task1.getEndDate(), dateReferee1);
+	
 		
+		assertEquals(task2.getName(), nameReferee2);
+		System.out.println(task2);
+		assertEquals(task2.getDetails(), detailsReferee2);
+		assertEquals(task2.getStartDate(), startDateReferee2);
+		assertEquals(task2.getEndDate(), endDateReferee2);
+		
+		
+		//testing input 3
+		GuiCommand Output3 = logic.executeCMD(input3);
+		List<Task> List3 = Output3.getListOfTasks();
+		int size3 = List3.size();
+		
+		//compare size of list of tasks. For this case, it should be the same
+		assertEquals(size3, 2);
+		
+		//creating supposed task information to compare with actual tasks in the list
+		
+		
+		//testing input 4
+		GuiCommand Output4 = logic.executeCMD(input4);
+		List<Task> List4 = Output4.getListOfTasks();
+		int size4 = List4.size();
+		
+		//compare size of list of tasks. For this case, it should be the one lesser than previously
+		assertEquals(size4, 1);
 	}
 	
 }
@@ -220,7 +248,7 @@ public class Integrated {
 
 
 /* Current Issues:
- * 
+ * details can not include -i. Meaning a commond cannot have '-i' twice
  * 
  * 
  * 
