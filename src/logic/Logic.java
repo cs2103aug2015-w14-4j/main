@@ -173,7 +173,7 @@ public class Logic {
 				guiCommand.setTaskEnd(predictor.getTaskEnd());
 				break;
 			case DELETE:
-				if(index != -1){
+				if(index != -1 && index < store.getTaskList().size()){
 					guiCommand.setTitle(predictor.getCommandMsg());
 					Task task = store.getTaskList().get(index);
 					guiCommand.setTaskName(task.getName());
@@ -183,7 +183,7 @@ public class Logic {
 				}
 				break;
 			case EDIT:
-				if(index != -1){
+				if(index != -1 && index < store.getTaskList().size()){
 					guiCommand.setTitle(predictor.getCommandMsg());
 					Task task = store.getTaskList().get(index);
 					if(predictor.getTaskName() != null){
