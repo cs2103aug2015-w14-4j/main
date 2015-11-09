@@ -207,13 +207,15 @@ public class Storage {
 	 * @return Task that was deleted, if not deleted, return null
 	 */
 	public String delete(int index) {
+		String name = null;
 		if (isValidIndex(index)) {
 			recentChanges.push(taskList.get(index));
+			 name = taskList.remove(index).getName();
 			this.saveFile();
 			logger.info(String.format(TASK_DELETED, taskList.get(index).getName()));
-			return taskList.remove(index).getName();
+			return name;
 		} else {
-			return null;
+			return name;
 		}
 	}
 
