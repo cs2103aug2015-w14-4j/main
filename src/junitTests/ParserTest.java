@@ -10,6 +10,13 @@ import junit.framework.*;
 import parser.Parser;
 import utilities.COMMANDS;
 
+/**
+ * Test case for parser
+ * 
+ * @author Qianonn
+ *
+ */
+
 public class ParserTest extends TestCase{
 	private static final String input1="add task -d 08112015 1200 09112015 1300 -i detail";
 	private static final String input2="add task -d 08112015 1200 09112015 1300";
@@ -29,12 +36,12 @@ public class ParserTest extends TestCase{
 	private static final String input16="search testing";
 	private Date startDate,endDate;
 	private SimpleDateFormat dateVariant;
-	protected int value1, value2;
 	protected Parser parse;
-	   // assigning the values
+	   
+	/**
+	 * To set up this test
+	 */
 	protected void setUp(){
-		value1=3;
-	  	value2=3;
 	  	parse = new Parser();
 	}
 

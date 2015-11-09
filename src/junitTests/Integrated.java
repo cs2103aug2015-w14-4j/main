@@ -153,6 +153,7 @@ public class Integrated {
 		assertEquals(date4, dateReferee4);
 	}
 	
+	
 	//integration testing begins from the logic component and will test through
 	//the storage component and file handler component.
 	//at the same time, utilises the parser component to break down inputs
@@ -165,6 +166,7 @@ public class Integrated {
 		String input2 = "add Second new task to be added in -d 30112015 2030 02122015 0530 -i task has both start and end date";
 		String input3 = "edit 2 Third task replacing first task";
 		String input4 = "delete 1";
+		String input5 = "undo";
 		
 		//task list is read from the json file
 		//hence by checking the task list in the GuiCommand, integration test can be conducted
@@ -265,15 +267,91 @@ public class Integrated {
 		} catch (Exception e){
 			
 		}
-		//comparing input 3
+		//comparing input 4
 		assertEquals(task4.getName(), nameReferee4);
 		assertEquals(task4.getDetails(), detailsReferee4);
 		assertEquals(task4.getEndDate(), dateReferee4);
+		
+		
+		
+		//testing input 5*****************
+		GuiCommand Output5 = logic.executeCMD(input5);
+		List<Task> List5 = Output5.getListOfTasks();
+		Task task5 = List5.get(1);
+		int size5 = List5.size();
+		
+		//compare size of list of tasks. For this case, it should be the same
+		assertEquals(size3, 2);
+		
+		//creating supposed task information to compare with actual tasks in the list
+		String nameReferee5 = "Third task replacing first task";
+		String detailsReferee5 = "new task details";
+		Date dateReferee5 = null;
+		try{
+			dateReferee5 = dateVariant2.parse("02012016");
+		} catch (Exception e){
+			
+		}
+		//comparing input 5
+		assertEquals(task5.getName(), nameReferee5);
+		assertEquals(task5.getDetails(), detailsReferee5);
+		assertEquals(task5.getEndDate(), dateReferee5);
 	}
 	
 	//testing for the list of completed tasks
 	@Test
 	public void completedTaskIntegrationTest(){
+		Logic logic = new Logic(true);
+		
+		//input test cases to be tested from the logic component
+		String input1 = "add First New task -i new task details -d 02Jan2016";
+		String input2 = "add Second new task -d 30112016 2030 02122016 0530 -i task has both start and end date";
+		String input3 = "add Third new task to the list";
+		String input4 = "ack 1";
+		String input5 = "ack 1";
+		String input6 = "ack 1";
+		
+		//adding new tasks to be acknowledged by executing input 1 - 3
+		logic.executeCMD(input1);
+		logic.executeCMD(input2);
+		logic.executeCMD(input3);
+		
+		//Saving task list of uncompleted task list
+		List<Task> uncompletedTasks = logic.getTaskList();
+		
+		//checking size of uncompleted list
+		assertTrue(uncompletedTasks.size() == 3);
+		
+		
+		//***** input 4 ***************
+		//acknowledging the first task and getting completed task list
+		logic.executeCMD(input4);
+		GuiCommand complete = logic.executeCMD("completed");
+		List<Task> completedTasks1 = complete.getListOfTasks(); 
+		
+		//checking size of completed and uncompleted task lists
+		assertTrue(uncompletedTasks.size() == 2);
+		assertTrue(completedTasks1.size() == 1);
+		
+		
+		//***** input 5 ***************
+		//acknowledging the first task and getting completed task list
+		logic.executeCMD(input5);
+		List<Task> completedTasks2 = complete.getListOfTasks(); 
+		
+		//checking size of completed and uncompleted task lists
+		assertTrue(uncompletedTasks.size() == 1);
+		assertTrue(completedTasks2.size() == 2);
+		
+		
+		//***** input 6 ***************
+		//acknowledging the first task and getting completed task list
+		logic.executeCMD(input6);
+		List<Task> completedTasks3 = complete.getListOfTasks(); 
+		
+		//checking size of completed and uncompleted task lists
+		assertTrue(uncompletedTasks.size() == 0);
+		assertTrue(completedTasks3.size() == 3);
 		
 	}
 	
