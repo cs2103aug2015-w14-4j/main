@@ -31,7 +31,7 @@ public class Integrated {
 	//*************testing add function
 	@Test
 	public void testAdd() {
-		//input
+		//a string of user inputs for adding functions
 		String inputAdd1 = "add Floating task 1";
 		String inputAdd2 = "add Floating task 2 with details -i details";
 		String inputAdd3 = "add Spee-Do floating task -i -i in details";
@@ -39,18 +39,17 @@ public class Integrated {
 		String inputAdd5 = "add Start date End date -d 02/11/1993 12:10 03/11/1993 16:30";
 		String inputAdd6 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
 		
-		//output
 		
 		try{
 			date = dateVariant1.parse("02Jan2015");
 		} catch (Exception e){
 				
 		}
-		//test start
+		//creating new Logic and Parser class objects for testing
 		Logic logic = new Logic(true);
 		Parser parser = new Parser();
 		
-		//input 1*****
+		//executing string input 1*****
 		parser.parse(inputAdd1);
 		GuiCommand testOutput1 = logic.executeCMD(inputAdd1);
 		COMMANDS cmd1 = parser.getCommand();
@@ -58,24 +57,24 @@ public class Integrated {
 		String detail1 = parser.getDetails();		
 		List<Task> L1 = testOutput1.getListOfTasks();
 		
-		//supposed outcome
+		//creating a GuiCommand and relevant information types to compare
+		// with Parser and Logic
 		GuiCommand testReferee1 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 1\"", L1);
 		COMMANDS cmdReferee1 = COMMANDS.ADD;
 		String nameReferee1 = "Floating task 1";
 		String detailReferee1 = null;
 		
 	
-		//assert
+		//Comparing the generated supped information with the generated information from the
+		//execution of the logic and parser
 		assertEquals(testOutput1.getCmd(), testReferee1.getCmd());
-		System.out.println(testOutput1.getMsg());
-		System.out.println(testReferee1.getMsg());
 		assertEquals(testOutput1.getMsg(), testReferee1.getMsg());
 		assertEquals(name1, nameReferee1);
 		assertEquals(cmd1, cmdReferee1);
 		assertEquals(detail1, detailReferee1);
 		
 		
-		//input 2*****
+		//input 2****
 		parser.parse(inputAdd2);
 		GuiCommand testOutput2 = logic.executeCMD(inputAdd2);
 		COMMANDS cmd2 = parser.getCommand();
@@ -90,7 +89,7 @@ public class Integrated {
 		String detailReferee2 = "details";
 		
 	
-		//assert
+		//Comparing the information types
 		assertEquals(testOutput2.getCmd(), testReferee2.getCmd());
 		assertEquals(testOutput2.getMsg(), testReferee2.getMsg());
 		assertEquals(name2, nameReferee2);
@@ -112,7 +111,7 @@ public class Integrated {
 		String detailReferee3 = "-i in details";
 		
 	
-		//assert
+		//comparing the information types with supposed output results
 		assertEquals(testOutput3.getCmd(), testReferee3.getCmd());
 		assertEquals(testOutput3.getMsg(), testReferee3.getMsg());
 		assertEquals(name3, nameReferee3);
@@ -142,7 +141,7 @@ public class Integrated {
 		}
 		
 	
-		//assert
+		//comparing the information types with supposed output results
 		assertEquals(testOutput4.getCmd(), testReferee4.getCmd());
 		assertEquals(testOutput4.getMsg(), testReferee4.getMsg());
 		assertEquals(name4, nameReferee4);
@@ -157,6 +156,8 @@ public class Integrated {
 	//integration testing begins from the logic component and will test through
 	//the storage component and file handler component.
 	//at the same time, utilises the parser component to break down inputs
+	//by begining the testing from the logic component and checking with the task list,
+	// we will be able to test
 	@Test
 	public void testIntegration(){
 		Logic logic = new Logic(true);
