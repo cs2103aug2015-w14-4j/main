@@ -19,6 +19,7 @@ public class Parser {
 	private String searchSentence;
 	private int index;
 	private String inputString;
+	private boolean errorIndex = false;
 
 	public static final String UNDO = "undo";
 	public static final String NAME = "name";
@@ -70,7 +71,7 @@ public class Parser {
 				remaining = null;
 			}
 		}
-		if (getCommand() == COMMANDS.EDIT && remaining != null) {
+		if (getCommand() == COMMANDS.EDIT && remaining != null && !errorIndex) {
 			taskName = removeSpace(remaining);
 		} else if (getCommand() == COMMANDS.NAME) {
 			name = remaining;
@@ -78,6 +79,12 @@ public class Parser {
 			filePath = remaining;
 		} else if (getCommand() == COMMANDS.SEARCH) {
 			searchSentence = remaining;
+		} else if (getCommand() == COMMANDS.DELETE||getCommand() == COMMANDS.ACK||getCommand() == COMMANDS.EXPAND) {
+			taskName = null;
+		} else if (errorIndex) {
+			taskName = null;
+			errorIndex = false;
+			System.out.println("error");
 		} else {
 			taskName = remaining;
 		}
@@ -238,9 +245,17 @@ public class Parser {
 			String possibleIndex = input[1];
 			String[] indexPiece = possibleIndex.split(" ");
 			if (indexPiece[0].matches(INT_REGEX)) {
-				index = Integer.parseInt(indexPiece[0]);
-				index--;
-				return indexPiece[0];
+				try{
+					index = Integer.parseInt(indexPiece[0]);
+					index--;
+					return indexPiece[0];
+				}catch(NumberFormatException e){
+					errorIndex = true;
+				}
+			}else{
+				if(command == COMMANDS.EDIT){
+					return indexPiece[0];
+				}
 			}
 		}
 		index = -1;
