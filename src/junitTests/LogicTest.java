@@ -34,42 +34,42 @@ public class LogicTest {
 		
 		//Output from test cases
 		GuiCommand outAdd1 = l.executeCMD(inputAdd1);
-		List<Task> LA1 = outAdd1.getListOfTasks();
+		List<Task> listAdd1 = outAdd1.getListOfTasks();
 		
 		GuiCommand outAdd2 = l.executeCMD(inputAdd2);
-		List<Task> LA2 = outAdd2.getListOfTasks();
+		List<Task> listAdd2 = outAdd2.getListOfTasks();
 		
 		GuiCommand outAdd3 = l.executeCMD(inputAdd3);
-		List<Task> LA3 = outAdd3.getListOfTasks();
+		List<Task> listAdd3 = outAdd3.getListOfTasks();
 		
 		GuiCommand outAdd4 = l.executeCMD(inputAdd4);
-		List<Task> LA4 = outAdd4.getListOfTasks();
+		List<Task> listAdd4 = outAdd4.getListOfTasks();
 		
 		GuiCommand outAdd5 = l.executeCMD(inputAdd5);
-		List<Task> LA5 = outAdd5.getListOfTasks();
+		List<Task> listAdd5 = outAdd5.getListOfTasks();
 		
 		GuiCommand outAdd6 = l.executeCMD(inputAdd6);
-		List<Task> LA6 = outAdd6.getListOfTasks();
+		List<Task> listAdd6 = outAdd6.getListOfTasks();
 		
 		GuiCommand outAdd7 = l.executeCMD(inputAdd7);
-		List<Task> LA7 = outAdd7.getListOfTasks();
+		List<Task> listAdd7 = outAdd7.getListOfTasks();
 		
 		GuiCommand outAdd8 = l.executeCMD(inputAdd8);
-		List<Task> LA8 = outAdd8.getListOfTasks();
+		List<Task> listAdd8 = outAdd8.getListOfTasks();
 		
 		GuiCommand outAdd9 = l.executeCMD(inputAdd9);
-		List<Task> LA9 = outAdd9.getListOfTasks();
+		List<Task> listAdd9 = outAdd9.getListOfTasks();
 		
 		//Supposed test outputs
-		GuiCommand testAdd1 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 1\"", LA1);
-		GuiCommand testAdd2 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 2 with details\"", LA2);
-		GuiCommand testAdd3 = new GuiCommand(COMMANDS.ADD, "Added \"Spee-Do floating task\"", LA3);
-		GuiCommand testAdd4 = new GuiCommand(COMMANDS.ADD, "Added \"First non floating task\"", LA4);
-		GuiCommand testAdd5 = new GuiCommand(COMMANDS.ADD, "Added \"details input before date\"", LA5);
-		GuiCommand testAdd6 = new GuiCommand(COMMANDS.ADD, "Added \"Task date format1\"", LA6);
-		GuiCommand testAdd7 = new GuiCommand(COMMANDS.ADD, "Added \"Start date End date\"", LA7);
-		GuiCommand testAdd8 = new GuiCommand(COMMANDS.ADD, "Added \"End date before start date\"", LA8);
-		GuiCommand testAdd9 = new GuiCommand(COMMANDS.ADD, "Added \"-i details withough task name\"", LA9);
+		GuiCommand testAdd1 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 1\"", listAdd1);
+		GuiCommand testAdd2 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 2 with details\"", listAdd2);
+		GuiCommand testAdd3 = new GuiCommand(COMMANDS.ADD, "Added \"Spee-Do floating task\"", listAdd3);
+		GuiCommand testAdd4 = new GuiCommand(COMMANDS.ADD, "Added \"First non floating task\"", listAdd4);
+		GuiCommand testAdd5 = new GuiCommand(COMMANDS.ADD, "Added \"details input before date\"", listAdd5);
+		GuiCommand testAdd6 = new GuiCommand(COMMANDS.ADD, "Added \"Task date format1\"", listAdd6);
+		GuiCommand testAdd7 = new GuiCommand(COMMANDS.ADD, "Added \"Start date End date\"", listAdd7);
+		GuiCommand testAdd8 = new GuiCommand(COMMANDS.ADD, "Added \"End date before start date\"", listAdd8);
+		GuiCommand testAdd9 = new GuiCommand(COMMANDS.ADD, "Added \"-i details withough task name\"", listAdd9);
 		
 		
 		//comparing test outputs with supposed test outputs
@@ -133,43 +133,43 @@ public class LogicTest {
 		
 		//output from test cases and remaining size of task list
 		GuiCommand outDel1 = l.executeCMD(inputDel);
-		int LD1 = l.getTaskList().size();
+		int listDelete1 = l.getTaskList().size();
 		
 		l.executeCMD(inputDel);
-		int LD2 = l.getTaskList().size();
+		int listDelete2 = l.getTaskList().size();
 		
 		l.executeCMD(inputDel);
-		int LD3 = l.getTaskList().size();
+		int listDelete3 = l.getTaskList().size();
 		
 		l.executeCMD(inputDel);
-		int LD4 = l.getTaskList().size();
+		int listDelete4 = l.getTaskList().size();
 		
 		l.executeCMD(inputDel);
-		int LD5 = l.getTaskList().size();
+		int listDelete5 = l.getTaskList().size();
 	
 		l.executeCMD(inputDel);	
-		int LD6 = l.getTaskList().size();
+		int listDelete6 = l.getTaskList().size();
 		
 		l.executeCMD(inputDel);
-		int LD7 = l.getTaskList().size();
+		int listDelete7 = l.getTaskList().size();
 		
 		l.executeCMD(inputDel);
-		int LD8 = l.getTaskList().size();
+		int listDelete8 = l.getTaskList().size();
 		
 		l.executeCMD(inputDel);
-		int LD9 = l.getTaskList().size();
+		int listDelete9 = l.getTaskList().size();
 		
 		
 		//checking list size
-		assertEquals(LD1, 8);
-		assertEquals(LD2, 7);
-		assertEquals(LD3, 6);
-		assertEquals(LD4, 5);
-		assertEquals(LD5, 4);
-		assertEquals(LD6, 3);
-		assertEquals(LD7, 2);
-		assertEquals(LD8, 1);
-		assertEquals(LD9, 0);
+		assertEquals(listDelete1, 8);
+		assertEquals(listDelete2, 7);
+		assertEquals(listDelete3, 6);
+		assertEquals(listDelete4, 5);
+		assertEquals(listDelete5, 4);
+		assertEquals(listDelete6, 3);
+		assertEquals(listDelete7, 2);
+		assertEquals(listDelete8, 1);
+		assertEquals(listDelete9, 0);
 	}
 	
 	
@@ -269,3 +269,8 @@ public class LogicTest {
 		assertEquals(size3, 4);
 	}
 }
+
+/*
+Current Issues:
+
+*/
