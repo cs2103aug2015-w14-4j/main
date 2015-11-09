@@ -36,11 +36,13 @@ public class Parser {
 	
 	private static final String DATE_DELIMITER = " -d ";
 	private static final String DETAIL_DELIMITER = " -i ";
+	private static final String DUAL_DELIMITER = " -d | -i ";
 	private static final String INT_REGEX = "\\d+";
 	private static final String BOUNDARY = ".*\\b%1$s\\b.*";
 
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
 	private static final String EMPTY = "";
+	private static final int INVALID_INDEX = -1;
 
 	public Parser() {
 	}
@@ -58,16 +60,11 @@ public class Parser {
 
 		String remaining = null;
 		if (inputPieces.length == 2) {
-			String unprocessedDetails = processDetails(inputPieces);
-			String unprocessedIndex = processIndex(inputPieces);
-			String unprocessedDate = checkForDate(inputPieces);
-			remaining = inputPieces[1];
-			remaining = remaining.replace(unprocessedDetails, "");
-			remaining = remaining.replace(unprocessedDate, "");
-			remaining = remaining.replaceFirst(unprocessedIndex, "");
-
-			remaining = remaining.replace(DATE_DELIMITER, "");
-			remaining = remaining.replace(DETAIL_DELIMITER, "");
+			processDetails(inputPieces);
+			processIndex(inputPieces);
+			checkForDate(inputPieces);
+			String[] remainingPieces = inputPieces[1].split(DUAL_DELIMITER);
+			remaining = remainingPieces[0];
 			if (remaining.trim().length() == 0) {
 				remaining = null;
 			}
@@ -235,17 +232,19 @@ public class Parser {
 	}
 
 	// @@author A0125369Y
-	private String processIndex(String[] input) {
+	private void processIndex(String[] input) {
 		if (input.length > 1) {
 			String possibleIndex = input[1];
 			String[] indexPiece = possibleIndex.split(" ");
 			if (indexPiece[0].matches(INT_REGEX)) {
 				index = Integer.parseInt(indexPiece[0]);
 				index--;
-				return indexPiece[0];
+			} else {
+				index = INVALID_INDEX;
 			}
+		} else {
+			index = INVALID_INDEX;	
 		}
-		return EMPTY;
 	}
 	
 	private boolean isRequireIndex(COMMANDS cmd) {
@@ -257,20 +256,18 @@ public class Parser {
 	}
 	
 	// @@author A0125369Y
-	private String checkForDate(String[] input) {
+	private void checkForDate(String[] input) {
 		String[] inputPieces = input[1].split(DATE_DELIMITER);
 		if (inputPieces.length == 2) {
 			String[] datePieces = inputPieces[1].split(DETAIL_DELIMITER);
 			processDate(datePieces[0]);
-			return datePieces[0];
 		} else {
 			// Invalid Format
-			return EMPTY;
 		}
 	}
 
 	// @@author A0125369Y
-	private String processDetails(String[] input) {
+	private void processDetails(String[] input) {
 		String[] inputPieces = input[1].split(DETAIL_DELIMITER);
 		if (inputPieces.length == 2) {
 			String[] detailPieces = inputPieces[1].split(DATE_DELIMITER);
@@ -279,10 +276,9 @@ public class Parser {
 			} else {
 				details = null;
 			}
-			return details;
 		} else {
 			// Invalid Format
-			return EMPTY;
+			details = null;
 		}
 	}
 
