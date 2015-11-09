@@ -1,3 +1,4 @@
+// @@author A0126232U
 package parser;
 
 import java.text.ParseException;
@@ -48,7 +49,7 @@ public class Parser {
 	public Parser() {
 	}
 
-	// @@author A0125369Y
+	
 	public Boolean parse(String str) {
 		inputString = str;
 		Boolean valid = true;
@@ -84,7 +85,7 @@ public class Parser {
 		} else if (errorIndex) {
 			taskName = null;
 			errorIndex = false;
-			System.out.println("error");
+			//System.out.println("error");
 		} else {
 			taskName = remaining;
 		}
@@ -239,7 +240,6 @@ public class Parser {
 		logger.info("Command: " + command);
 	}
 
-	// @@author A0125369Y
 	private String processIndex(String[] input) {
 		if (input.length > 1) {
 			String possibleIndex = input[1];
