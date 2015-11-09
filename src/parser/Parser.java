@@ -67,7 +67,7 @@ public class Parser {
 	private static final String SPACE_DELIMITER = " +";
 
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
-	private static final String PARSED = "Parsed: \"%1$s\" \"%2$s\" \"%3$s\" \"%4$s\" \"%5$s\"";
+	private static final String PARSED = "Parsed: \"%1$s\" \"%2$s\" \"%3$s\" \"%4$s\" \"%5$s\" \"%6$s\"";
 	private static final String EMPTY = "";
 	private static final String SPACE = " ";
 	
@@ -88,7 +88,7 @@ public class Parser {
 		String remaining = splitInput(str);
 		valid = checkCommand(valid, remaining);
 		valid = isValidDelim(str);
-		logger.info(String.format(PARSED, command, taskName, details, startDate, endDate));
+		logger.info(String.format(PARSED, command, taskName, details, startDate, endDate, index));
 		return valid;
 	}
 
@@ -226,6 +226,7 @@ public class Parser {
 					errorIndex = true;
 				}
 			} else {
+				index = -1;
 				if (command == COMMANDS.EDIT) {
 					return indexPiece[0];
 				}
