@@ -2,13 +2,9 @@
 package junitTests;
 
 import static org.junit.Assert.*;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import org.junit.Test;
-
 import logic.GuiCommand;
 import logic.Logic;
 import storage.Task;
@@ -25,6 +21,7 @@ public class LogicTest {
 	//*************************Testing Add****************************************************
 	@Test
 	public void testAdd() {
+		//Input test cases
 		String inputAdd1 = "add Floating task 1";
 		String inputAdd2 = "add Floating task 2 with details -i detail";
 		String inputAdd3 = "add Spee-Do floating task -i -i in details";
@@ -35,6 +32,7 @@ public class LogicTest {
 		String inputAdd8 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
 		String inputAdd9 = "add -i details withough task name";
 		
+		//Output from test cases
 		GuiCommand outAdd1 = l.executeCMD(inputAdd1);
 		List<Task> LA1 = outAdd1.getListOfTasks();
 		
@@ -62,6 +60,7 @@ public class LogicTest {
 		GuiCommand outAdd9 = l.executeCMD(inputAdd9);
 		List<Task> LA9 = outAdd9.getListOfTasks();
 		
+		//Supposed test outputs
 		GuiCommand testAdd1 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 1\"", LA1);
 		GuiCommand testAdd2 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 2 with details\"", LA2);
 		GuiCommand testAdd3 = new GuiCommand(COMMANDS.ADD, "Added \"Spee-Do floating task\"", LA3);
@@ -73,11 +72,12 @@ public class LogicTest {
 		GuiCommand testAdd9 = new GuiCommand(COMMANDS.ADD, "Added \"-i details withough task name\"", LA9);
 		
 		
+		//comparing test outputs with supposed test outputs
 		assertEquals(outAdd1.getCmd(), testAdd1.getCmd());
 		assertEquals(outAdd1.getMsg(), testAdd1.getMsg());
 		
-//		assertEquals(outAdd2.getCmd(), testAdd2.getCmd());
-//		assertEquals(outAdd2.getMsg(), testAdd2.getMsg());
+		assertEquals(outAdd2.getCmd(), testAdd2.getCmd());
+		assertEquals(outAdd2.getMsg(), testAdd2.getMsg());
 		
 		
 		assertEquals(outAdd3.getCmd(), testAdd3.getCmd());
@@ -131,6 +131,7 @@ public class LogicTest {
 		String inputDel = "delete 1";
 		//Task list now should have 8 items
 		
+		//output from test cases and remaining size of task list
 		GuiCommand outDel1 = l.executeCMD(inputDel);
 		int LD1 = l.getTaskList().size();
 		
@@ -158,9 +159,8 @@ public class LogicTest {
 		l.executeCMD(inputDel);
 		int LD9 = l.getTaskList().size();
 		
-		System.out.println(outDel1.getMsg());
 		
-		
+		//checking list size
 		assertEquals(LD1, 8);
 		assertEquals(LD2, 7);
 		assertEquals(LD3, 6);
@@ -228,5 +228,9 @@ public class LogicTest {
 		assertEquals(editOut4.getCmd(), testEdit4.getCmd());
 		assertEquals(editOut4.getMsg(), testEdit4.getMsg());
 	}
-
+	
+	@Test
+	public void testSearch(){
+		
+	}
 }

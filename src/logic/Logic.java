@@ -217,6 +217,7 @@ public class Logic {
 		return guiCommand;
 	}
 	
+	//@@author A0121823R
 	private void name() {
 		store.setUser(taskName);
 		
