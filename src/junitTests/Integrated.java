@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import org.junit.Test;
 import logic.GuiCommand;
 import logic.Logic;
@@ -16,23 +15,18 @@ import utilities.COMMANDS;
 
 
 public class Integrated {
+	private static Date date;
+	private static Date testD;
+	private static Date testSD;
+	private static Date testED;
+	private static SimpleDateFormat dateVariant1 = new SimpleDateFormat("ddMMMMyyyy");
+	private static SimpleDateFormat dateVariant2 = new SimpleDateFormat("ddMMyyyy");
+	private static SimpleDateFormat dateVariant3 = new SimpleDateFormat("ddMMMMyyyy hhmm");
+	private static SimpleDateFormat dateVariant4 = new SimpleDateFormat("ddMMyyyy hhmm");
 	
-	@Test
-	public void testIntegration(){
-		Logic logic = new Logic(true);
-		
-		//checking task list as list is read from the json file
-		
-	}
 	
-//	private static Date date;
-//	private static Date testD;
-//	private static Date testSD;
-//	private static Date testED;
-//	private static SimpleDateFormat dateVariant1 = new SimpleDateFormat("ddMMMMyyyy");
-//	private static SimpleDateFormat dateVariant2 = new SimpleDateFormat("ddMMyyyy");
-//	private static SimpleDateFormat dateVariant3 = new SimpleDateFormat("ddMMMMyyyy hhmm");
-//	private static SimpleDateFormat dateVariant4 = new SimpleDateFormat("ddMMyyyy hhmm");
+//	//The following tests will be testing the functionality of both logic and parser functions to ensure
+//	//Both components are working under the sasme input
 //	
 //	//*************testing add function
 //	@Test
@@ -59,7 +53,7 @@ public class Integrated {
 //		//input 1*****
 //		parser.parse(inputAdd1);
 //		GuiCommand testOutput1 = logic.executeCMD(inputAdd1);
-//		COMMANDS c1 = parser.getCommand();
+//		COMMANDS cmd1 = parser.getCommand();
 //		String name1 = parser.getTaskName();
 //		String detail1 = parser.getDetails();		
 //		List<Task> L1 = testOutput1.getListOfTasks();
@@ -77,20 +71,20 @@ public class Integrated {
 //		System.out.println(testReferee1.getMsg());
 //		assertEquals(testOutput1.getMsg(), testReferee1.getMsg());
 //		assertEquals(name1, nameReferee1);
-//		assertEquals(c1, cmdReferee1);
+//		assertEquals(cmd1, cmdReferee1);
 //		assertEquals(detail1, detailReferee1);
 //		
 //		
 //		//input 2*****
 //		parser.parse(inputAdd2);
 //		GuiCommand testOutput2 = logic.executeCMD(inputAdd2);
-//		COMMANDS c2 = parser.getCommand();
+//		COMMANDS cmd2 = parser.getCommand();
 //		String name2 = parser.getTaskName();
 //		String detail2 = parser.getDetails();		
-//		List<Task> L2 = testOutput2.getListOfTasks();
+//		List<Task> list2 = testOutput2.getListOfTasks();
 //		
 //		//supposed outcome
-//		GuiCommand testReferee2 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 2 with details\"", L2);
+//		GuiCommand testReferee2 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 2 with details\"", list2);
 //		COMMANDS cmdReferee2 = COMMANDS.ADD;
 //		String nameReferee2 = "Floating task 2 with details";
 //		String detailReferee2 = "details";
@@ -100,19 +94,19 @@ public class Integrated {
 //		assertEquals(testOutput2.getCmd(), testReferee2.getCmd());
 //		assertEquals(testOutput2.getMsg(), testReferee2.getMsg());
 //		assertEquals(name2, nameReferee2);
-//		assertEquals(c2, cmdReferee1);
+//		assertEquals(cmd2, cmdReferee1);
 //		assertEquals(detail2, detailReferee2);
 //		
 //		//input 3*****
 //		parser.parse(inputAdd3);
 //		GuiCommand testOutput3 = logic.executeCMD(inputAdd3);
-//		COMMANDS c3 = parser.getCommand();
+//		COMMANDS cmd3 = parser.getCommand();
 //		String name3 = parser.getTaskName();
 //		String detail3 = parser.getDetails();		
-//		List<Task> L3 = testOutput3.getListOfTasks();
+//		List<Task> list3 = testOutput3.getListOfTasks();
 //		
 //		//supposed outcome
-//		GuiCommand testReferee3 = new GuiCommand(COMMANDS.ADD, "Added \"Spee-Do floating task\"", L3);
+//		GuiCommand testReferee3 = new GuiCommand(COMMANDS.ADD, "Added \"Spee-Do floating task\"", list3);
 //		COMMANDS cmdReferee3 = COMMANDS.ADD;
 //		String nameReferee3 = "Spee-Do floating task";
 //		String detailReferee3 = "-i in details";
@@ -122,21 +116,21 @@ public class Integrated {
 //		assertEquals(testOutput3.getCmd(), testReferee3.getCmd());
 //		assertEquals(testOutput3.getMsg(), testReferee3.getMsg());
 //		assertEquals(name3, nameReferee3);
-//		assertEquals(c3, cmdReferee3);
+//		assertEquals(cmd3, cmdReferee3);
 //		assertEquals(detail3, detailReferee3);
 //		
 //		
 //		//input 4*****
 //		parser.parse(inputAdd4);
 //		GuiCommand testOutput4 = logic.executeCMD(inputAdd4);
-//		COMMANDS c4 = parser.getCommand();
+//		COMMANDS cmd4 = parser.getCommand();
 //		String name4 = parser.getTaskName();
 //		String detail4 = parser.getDetails();
 //		Date date4 = parser.getEndDate();
-//		List<Task> L4 = testOutput4.getListOfTasks();
+//		List<Task> list4 = testOutput4.getListOfTasks();
 //		
 //		//supposed outcome
-//		GuiCommand testReferee4 = new GuiCommand(COMMANDS.ADD, "Added \"First non floating task\"", L4);
+//		GuiCommand testReferee4 = new GuiCommand(COMMANDS.ADD, "Added \"First non floating task\"", list4);
 //		COMMANDS cmdReferee4 = COMMANDS.ADD;
 //		String nameReferee4 = "First non floating task";
 //		String detailReferee4 = "testing input details";
@@ -152,58 +146,72 @@ public class Integrated {
 //		assertEquals(testOutput4.getCmd(), testReferee4.getCmd());
 //		assertEquals(testOutput4.getMsg(), testReferee4.getMsg());
 //		assertEquals(name4, nameReferee4);
-//		assertEquals(c4, cmdReferee4);
+//		assertEquals(cmd4, cmdReferee4);
 //		System.out.println(detail4);
 //		System.out.println(detailReferee4);
 //		assertEquals(detail4, detailReferee4);
 //		assertEquals(date4, dateReferee4);
 //	}
-//
-//	
-//	@Test
-//	public void testDelete() {
-//		//*************testing delete function
-//		String inputDelete1 = "delete 1";
-//		String inputDelete2 = "delete 2";
-//		String inputDelete3 = "delete 7";
-//		String inputDelete4 = "delete 20";
-//		
-//		Task outputDelete1 = new Task("Buy eggs for mum",null, null, null);
-//		//Task outputDelete2 = ;
-//		//Task outputDelete3 = ;
 	
-//		//checking number of tasks left is one less than original
-//		Logic logic = new Logic(true);
-//		GuiCommand testOutput = logic.executeCMD(inputDelete1);
+	//integration testing begins from the logic component and will test through
+	//the storage component and file handler component.
+	//at the same time, utilises the parser component to break down inputs
+	@Test
+	public void testIntegration(){
+		Logic logic = new Logic(true);
+		
+		//input test cases to be tested from the logic component
+		String input1 = "add First New task -i new task details -i 02Jan2016";
+		String input2 = "add Second new task to be added in -d 30112015 2030 02122015 0530 "
+				+ "-i task has both start and end date";
+//		String input3 = "edit 2 Third task replacing first task";
+//		String input4 = "delete 1";
+		
+		//task list is read from the json file
+		//hence by checking the task list in the GuiCommand, integration test can be conducted
+		GuiCommand Output1 = logic.executeCMD(input1);
+		List<Task> List1 = Output1.getListOfTasks();
+		int size1 = List1.size();
+		Task task1 = List1.get(0);
+		
+		GuiCommand Output2 = logic.executeCMD(input2);
+		List<Task> List2 = Output2.getListOfTasks();
+		int size2 = List2.size();
+		
+//		GuiCommand Output3 = logic.executeCMD(input3);
+//		List<Task> List3 = Output3.getListOfTasks();
+//		int size3 = List3.size();
 //		
-//		//supposed outcome should return guiCommand for output
-//		GuiCommand testReferee = new GuiCommand(COMMANDS.DELETE, "Deleted the task", outputDelete1);
+//		GuiCommand Output4 = logic.executeCMD(input4);
+//		List<Task> List4 = Output4.getListOfTasks();
+//		int size4 = List4.size();
+		
+		
+		//comparing the size of list in file handler after every command
+		assertEquals(size1, 1);
+		assertEquals(size2, 2);
+//		assertEquals(size3, 2);
+//		assertEquals(size4, 1);
 //		
-//		//assert
-//		System.out.println(testOutput.getTask().getDetails());
-//		System.out.println(testOutput.getMsg());
-//		System.out.println(testOutput.getTask().getName());
-//		System.out.println(testOutput.getTask().getFullEndDateString());
-//		System.out.println(testOutput.getTask().getEndDateString());
-//		System.out.println(testOutput.getTask().getEndTimeString());
-//		assertEquals(testOutput.getCmd(), testReferee.getCmd());
-//		assertEquals(testOutput.getMsg(), testReferee.getMsg());
-//		assertEquals(testOutput.getTask().getName(), testReferee.getTask().getName());
-//		assertEquals(testOutput.getTask().getDetails(), testReferee.getTask().getDetails());
-//		assertEquals(testOutput.getTask().getEndDate(), testReferee.getTask().getEndDate());
-//		assertEquals(testOutput.getTask().getStartDate(), testReferee.getTask().getStartDate());
-//	}
-//	
-//	
-//	//*******************testing search function
-//	
-//	
-//	@Test
-//	public void testSearch(){
-//		//check if the searched task list length is coherent
-//		String inputDelete1 = "delete 1";
-//		
-//	}
+		//creating supposed task information to compare with actual tasks in the list
+		String nameReferee1 = "First New task";
+		String detailsReferee1 = "new task details";
+		Date dateReferee1 = null;
+		try{
+			dateReferee1 = dateVariant2.parse("02012016");
+		} catch (Exception e){
+			
+		}
+		
+		
+		//comparing the supposed task information with the actual task information
+		//testing input 1
+		assertEquals(task1.getName(), nameReferee1);
+		System.out.println(task1);
+		assertEquals(task1.getDetails(), detailsReferee1);
+		assertEquals(task1.getEndDate(), dateReferee1);
+		
+	}
 	
 }
 
@@ -212,7 +220,7 @@ public class Integrated {
 
 
 /* Current Issues:
- * Adding:
+ * 
  * 
  * 
  * 
