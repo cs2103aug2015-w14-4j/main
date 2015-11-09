@@ -99,7 +99,11 @@ public class MainApp extends Application {
 		helpPopup.getScene().setRoot(new HelpBoxController());
     }
     
-    // initializes the dialog box that prompts for the user's name
+    /**
+	 * Initializes the dialog box that prompts for the user's name
+	 * @return the dialog box 
+	 * 
+	 */ 
     private TextInputDialog initPromptDialogBox(){
 		TextInputDialog dialog = new TextInputDialog("Your Name");
 		dialog.setTitle(TITLE_TEXT);
@@ -172,12 +176,12 @@ public class MainApp extends Application {
     		commandBox.clearFeedback();
     	}
     	commandBox.setPredictionFeedback(guiCommand.getMsg());
-    	String title = guiCommand.getTitle();
-    	String taskName = guiCommand.getTaskName();
-    	String taskDetails = guiCommand.getTaskDetails();
-    	String taskStart = guiCommand.getTaskStart();
-    	String taskEnd = guiCommand.getTaskEnd();
-    	infoPanel.displayTaskInfo(title, taskName, taskDetails, taskStart, taskEnd);
+
+    	infoPanel.displayTaskInfo(guiCommand.getTitle(), 
+    							  guiCommand.getTaskName(), 
+    							  guiCommand.getTaskDetails(), 
+    							  guiCommand.getTaskStart(), 
+    							  guiCommand.getTaskEnd());
     }
     
     //@@author A0125369Y
