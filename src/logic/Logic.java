@@ -99,7 +99,7 @@ public class Logic {
 			}
 			break;
 		case SEARCH:
-			taskName = parser.getTaskName();
+			taskName = parser.getSearch();
 			list = search();
 			c = new GuiCommand(COMMANDS.SEARCH, "Searched tasks", list);
 			break;
@@ -130,12 +130,12 @@ public class Logic {
 			c = new GuiCommand(COMMANDS.HELP, "Displaying help screen");
 			break;
 		case FILEPATH:
-			taskName = parser.getTaskName();
+			taskName = parser.getFilePath();
 			filePath();
 			c = new GuiCommand(COMMANDS.FILEPATH, "Changed Filepath");
 			break;
 		case NAME:
-			taskName = parser.getTaskName();
+			taskName = parser.getName();
 			name();
 			c = new GuiCommand(COMMANDS.FILEPATH, "Changed Filepath");
 			break;
