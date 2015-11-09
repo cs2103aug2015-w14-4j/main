@@ -31,44 +31,13 @@ public class Integrated {
 	public void testAdd() {
 		//input
 		String inputAdd1 = "add Floating task 1";
-		String inputAdd2 = "add Floating task 2 with details -i detail";
+		String inputAdd2 = "add Floating task 2 with details -i details";
 		String inputAdd3 = "add Spee-Do floating task -i -i in details";
 		String inputAdd4 = "add First non floating task -d 31102015 2015 -i testing input details";
-		String inputAdd5 = "add details input before date -i this is input details -d 11-11-2013 16:12";
-//		String inputAdd6 = "add Task date format1 -d 20-3-2016";
-//		String inputAdd7 = "add Start date End date -d 02/11/1993 12:10 03/11/1993 16:30";
-//		String inputAdd8 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
+		String inputAdd5 = "add Start date End date -d 02/11/1993 12:10 03/11/1993 16:30";
+		String inputAdd6 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
 		
 		//output
-		Task outputAdd1 = new Task("Floating task 1", null, null, null);
-		Task outputAdd2 = new Task("Floating task 2 with details", "-i in details");
-		Task outputAdd3 = new Task("Spee-Do floating task", "adding a task");
-		try{
-			testD = dateVariant4.parse("31102015 2015");
-		} catch (Exception e){
-			
-		}
-		Task outputAdd4 = new Task("First non floating task", "testing input detail", testD);
-		try{
-			testD = dateVariant4.parse("11112013 1612");
-		} catch (Exception e){
-			
-		}
-		Task outputAdd5 = new Task("details input before date", "this is input details", testD);
-		try{
-			testD = dateVariant2.parse("20032016");
-		} catch (Exception e){
-			
-		}
-		Task outputAdd6 = new Task("Task date format1", testD);
-		try{
-			Date testD = dateVariant4.parse("20032016");
-		} catch (Exception e){
-			
-		}
-		Task outputAdd7 = new Task("add Start date End date", "");
-		Task outputAdd8 = new Task("Floating task 1", "");
-		Task outputAdd9 = new Task("Floating task 1", "");
 		
 		try{
 			date = dateVariant1.parse("02Jan2015");
@@ -121,12 +90,10 @@ public class Integrated {
 	
 		//assert
 		assertEquals(testOutput2.getCmd(), testReferee2.getCmd());
-		System.out.println(testOutput2.getMsg());
-		System.out.println(testReferee2.getMsg());
 		assertEquals(testOutput2.getMsg(), testReferee2.getMsg());
-		assertEquals(name2, nameReferee1);
+		assertEquals(name2, nameReferee2);
 		assertEquals(c2, cmdReferee1);
-		assertEquals(detail2, detailReferee1);
+		assertEquals(detail2, detailReferee2);
 		
 		//input 3*****
 		parser.parse(inputAdd3);
@@ -145,12 +112,43 @@ public class Integrated {
 	
 		//assert
 		assertEquals(testOutput3.getCmd(), testReferee3.getCmd());
-		System.out.println(testOutput3.getMsg());
-		System.out.println(testReferee3.getMsg());
 		assertEquals(testOutput3.getMsg(), testReferee3.getMsg());
 		assertEquals(name3, nameReferee3);
 		assertEquals(c3, cmdReferee3);
 		assertEquals(detail3, detailReferee3);
+		
+		
+		//input 4*****
+		parser.parse(inputAdd4);
+		GuiCommand testOutput4 = logic.executeCMD(inputAdd4);
+		COMMANDS c4 = parser.getCommand();
+		String name4 = parser.getTaskName();
+		String detail4 = parser.getDetails();
+		Date date4 = parser.getEndDate();
+		List<Task> L4 = testOutput4.getListOfTasks();
+		
+		//supposed outcome
+		GuiCommand testReferee4 = new GuiCommand(COMMANDS.ADD, "Added \"First non floating task\"", L4);
+		COMMANDS cmdReferee4 = COMMANDS.ADD;
+		String nameReferee4 = "First non floating task";
+		String detailReferee4 = "testing input details";
+		Date dateReferee4 = null;
+		try{
+			dateReferee4 = dateVariant4.parse("31102015 2015");
+		} catch (Exception e){
+			
+		}
+		
+	
+		//assert
+		assertEquals(testOutput4.getCmd(), testReferee4.getCmd());
+		assertEquals(testOutput4.getMsg(), testReferee4.getMsg());
+		assertEquals(name4, nameReferee4);
+		assertEquals(c4, cmdReferee4);
+		System.out.println(detail4);
+		System.out.println(detailReferee4);
+		assertEquals(detail4, detailReferee4);
+		assertEquals(date4, dateReferee4);
 	}
 
 	
@@ -206,7 +204,7 @@ public class Integrated {
 
 /* Current Issues:
  * Adding:
- * 	if "details" is in the title, it will be converted to "s"
+ * 
  * 
  * 
  * 
