@@ -231,6 +231,41 @@ public class LogicTest {
 	
 	@Test
 	public void testSearch(){
+		//adding tasks to task list for searching
+		String Add1 = "add Floating task 1";
+		String Add2 = "add Floating task 2 with details -i detail";
+		String Add3 = "add Spee-Do floating task -i -i in details";
+		String Add4 = "add First non floating task -d 31102015 2015 -i testing input details";
+		String Add5 = "add details input before date -i this is input details -d 11-11-2013 16:12";
+		String Add6 = "add Task date format1 -d 20-3-2016";
+		String Add7 = "add Start date End date -d 02/11/1993 12:10 03/11/1993 16:30";
+		String Add8 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
 		
+		l.executeCMD(Add1);
+		l.executeCMD(Add2);
+		l.executeCMD(Add3);
+		l.executeCMD(Add4);
+		l.executeCMD(Add5);
+		l.executeCMD(Add6);
+		l.executeCMD(Add7);
+		l.executeCMD(Add8);
+		
+		//search input test cases
+		String inputSearch1 = "search task";
+		String inputSearch2 = "search date";
+		String inputSearch3 = "search details";
+		
+		//applying the test cases
+		GuiCommand output1 = l.executeCMD(inputSearch1);
+		int size1 = output1.getListOfTasks().size();
+		GuiCommand output2 = l.executeCMD(inputSearch2);
+		int size2 = output2.getListOfTasks().size();
+		GuiCommand output3 = l.executeCMD(inputSearch3);
+		int size3 = output3.getListOfTasks().size();
+		
+		//checking the search accurace by comparing with number of tasks searched
+		assertEquals(size1, 5);
+		assertEquals(size2, 4);
+		assertEquals(size3, 4);
 	}
 }

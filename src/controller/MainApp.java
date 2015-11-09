@@ -17,9 +17,28 @@ import utilities.DayProcessor;
 
 public class MainApp extends Application {
     
-    private Stage primaryStage;
-    private BorderPane rootLayout;
+    // ================================================================
+    // Window Properties
+    // ================================================================
+	private static final String CSS_PATH = "application.css";
+	private static final String ICON_PATH = "img/speedo.png";
+	private static final String WINDOW_TITLE = "Spee-Do";
+	private static final int WINDOW_WIDTH = 950;
+	private static final int WINDOW_HEIGHT = 600;
+	
+    // ================================================================
+    // Dialog box for user's name
+    // ================================================================
+	private static final String TITLE_TEXT = "Welcome!";
+    private static final String HEADER_TEXT = "It seems be your first time here.";
+    private static final String CONTENT_TEXT = "Please enter your name:";
+    
+    // ================================================================
+    // Fields
+    // ================================================================
     private Logic logic;
+	private Stage primaryStage;
+	private BorderPane rootLayout;
     private PopupControl helpPopup;
     private TaskListController taskList;
     private CommandBoxController commandBox;
@@ -27,13 +46,14 @@ public class MainApp extends Application {
         
 	@Override
 	public void start(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Spee-Do");
         initRootLayout();
         initHelpBox();
-        Scene scene = new Scene(rootLayout, 950, 600);
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		primaryStage.getIcons().add(new Image("img/speedo.png"));
+        Scene scene = new Scene(rootLayout, WINDOW_WIDTH, WINDOW_HEIGHT);
+		scene.getStylesheets().add(getClass().getResource(CSS_PATH).toExternalForm());
+		
+		this.primaryStage = primaryStage;
+        primaryStage.setTitle(WINDOW_TITLE);
+		primaryStage.getIcons().add(new Image(ICON_PATH));
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -43,60 +63,84 @@ public class MainApp extends Application {
 	}
 	
     /**
-     * Initializes the root layout.
+     * Initializes the root layout
+     * Logic is instantiated here
+     * All the controllers will be instantiated here and set as children of rootLayout
+     * User will be asked to enter their name here if it is their first time using the application
      */
-    public void initRootLayout() {
+    private void initRootLayout() {
+    	logic = new Logic();
+    	
     	rootLayout = new BorderPane();
     	rootLayout.setId("rootLayout");
-    	logic = new Logic();
 		
-		// sets up the list of tasks to display
 		taskList = new TaskListController();
     	taskList.loadTaskList(logic.getTaskList());
     	rootLayout.setCenter(taskList);
     	
-    	// sets up the command box
     	commandBox = new CommandBoxController();
     	commandBox.setMainApp(this);
     	rootLayout.setBottom(commandBox);
     	
 		promptForUserName();
 
-    	// sets up the info panel
     	infoPanel = new InfoPanelController(logic.getUser(), 
-    			DayProcessor.todayDay(), 
-    			DayProcessor.todayDate(), 
-    			taskList.getNumOfTaskDue());
+    										DayProcessor.todayDay(), 
+    										DayProcessor.todayDate(), 
+    										taskList.getNumOfTaskDue());
     	rootLayout.setLeft(infoPanel);
     }
-    
-    public void promptForUserName(){
-    	while(logic.getUser() == null){ 		
-    		TextInputDialog dialog = new TextInputDialog("Your Name");
-    		dialog.setTitle("Welcome!");
-    		dialog.setHeaderText("It seems be your first time here.");
-    		dialog.setContentText("Please enter your name:");
-
-    		Optional<String> result = dialog.showAndWait();
-    		if (result.isPresent()){
-    		    logic.setSettings(result.get(), null);
-    		}
-    	}
-    }
-    
-    public void initHelpBox(){
+        
+    // initializes the help box
+    private void initHelpBox(){
 		helpPopup = new PopupControl();
 		helpPopup.setOpacity(0.9);
 		helpPopup.setAutoHide(true);
 		helpPopup.getScene().setRoot(new HelpBoxController());
     }
-   
-    public void refresh(List<Task> listOfTasks){
+    
+    // initializes the dialog box that prompts for the user's name
+    private TextInputDialog initPromptDialogBox(){
+		TextInputDialog dialog = new TextInputDialog("Your Name");
+		dialog.setTitle(TITLE_TEXT);
+		dialog.setHeaderText(HEADER_TEXT);
+		dialog.setContentText(CONTENT_TEXT);
+		return dialog;
+    }
+    
+    /**
+	 * Prompts the user for their name if it is their first time using the application
+	 * A name has to be given in order to continue 
+	 */
+    private void promptForUserName(){
+    	while(logic.getUser() == null){ 		
+    		TextInputDialog dialog = initPromptDialogBox();
+    		Optional<String> name = dialog.showAndWait();
+    		if (name.isPresent()){
+    		    logic.setSettings(name.get(), null);
+    		}
+    	}
+    }
+    
+    /**
+	 * Refresh the InfoPanel and loads a list of Task 
+	 * @param listOfTasks
+	 *            list of tasks that is to be loaded
+	 */
+    private void refresh(List<Task> listOfTasks){
     	taskList.loadTaskList(listOfTasks);
     	infoPanel.setUserName(logic.getUser());
     	infoPanel.setTaskDue(taskList.getNumOfTaskDue());
     }
-    
+	
+    /**
+	 * Takes in input that the user enters into command box and calls Logic's executeCMD
+	 * The GUI will update itself according to the GuiCommand returned 
+	 * By default, the GUI will refresh itself and set the feedback message
+	 * 
+	 * @param userInput
+	 *            input that the user enters into command box
+	 */
     public void handleUserCommand(String userInput) {
         GuiCommand command = logic.executeCMD(userInput);
         switch(command.getCmd()){
@@ -114,7 +158,14 @@ public class MainApp extends Application {
 	        }
         }
     }
-        
+    
+    /**
+	 * Takes in input that the user enters into command box and calls Logic's predictCMD
+	 * The GUI will update the InfoPanel and feedback according to what the user is typing
+	 * 
+	 * @param userInput
+	 *            input that the user enters into command box
+	 */
     public void parseUserCommand(String userInput) {
     	GuiCommand guiCommand = logic.predictCMD(userInput);
     	if(!userInput.equals("")){

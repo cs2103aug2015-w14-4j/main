@@ -6,8 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
-
 import utilities.COMMANDS;
+
+/**
+ * Parser is a class to split one input string 
+ * into command, task name, index, detail, date, ........
+ * 
+ * @author Qianonn
+ *
+ */
 
 public class Parser {
 
@@ -53,42 +60,12 @@ public class Parser {
 	public Boolean parse(String str) {
 		inputString = str;
 		Boolean valid = true;
+		String remaining = splitInput(str);
+		valid = checkCommand(valid, remaining);
 		// String[] inputsSplitDash = str.split("-");
 		// String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
 		// commandString = inputsSplitSpace[0];
-		str = str.trim().replaceAll(" +", " ");
-		String[] inputPieces = str.split(" ", 2);
-		processCommand(inputPieces[0]);
-
-		String remaining = null;
-		if (inputPieces.length == 2) {
-			processDetails(inputPieces);
-			String unprocessedIndex = processIndex(inputPieces);
-			checkForDate(inputPieces);
-			String[] remainingPieces = inputPieces[1].split(DUAL_DELIMITER);
-			remaining = remainingPieces[0];
-			remaining = remaining.replaceFirst(unprocessedIndex, "");
-			if (remaining.trim().length() == 0) {
-				remaining = null;
-			}
-		}
-		if (getCommand() == COMMANDS.EDIT && remaining != null && !errorIndex) {
-			taskName = removeSpace(remaining);
-		} else if (getCommand() == COMMANDS.NAME) {
-			name = remaining;
-		} else if (getCommand() == COMMANDS.FILEPATH) {
-			filePath = remaining;
-		} else if (getCommand() == COMMANDS.SEARCH) {
-			searchSentence = remaining;
-		} else if (getCommand() == COMMANDS.DELETE||getCommand() == COMMANDS.ACK||getCommand() == COMMANDS.EXPAND) {
-			taskName = null;
-		} else if (errorIndex) {
-			taskName = null;
-			errorIndex = false;
-			//System.out.println("error");
-		} else {
-			taskName = remaining;
-		}
+		
 		// if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
 		// ||COMPLETED.contains(commandString)){
 		// //this.isIndex(inputsSplitSpace[1]);
@@ -174,11 +151,54 @@ public class Parser {
 		// }
 		// }
 
+		logger.info("Parsed: " + command + " " + taskName + " " + details + " " + endDate);
+		return valid;
+	}
+
+
+	private String splitInput(String str) {
+		str = str.trim().replaceAll(" +", " ");
+		String[] inputPieces = str.split(" ", 2);
+		processCommand(inputPieces[0]);
+
+		String remaining = null;
+		if (inputPieces.length == 2) {
+			processDetails(inputPieces);
+			String unprocessedIndex = processIndex(inputPieces);
+			checkForDate(inputPieces);
+			String[] remainingPieces = inputPieces[1].split(DUAL_DELIMITER);
+			remaining = remainingPieces[0];
+			remaining = remaining.replaceFirst(unprocessedIndex, "");
+			if (remaining.trim().length() == 0) {
+				remaining = null;
+			}
+		}
+		return remaining;
+	}
+
+
+	private Boolean checkCommand(Boolean valid, String remaining) {
+		if (getCommand() == COMMANDS.EDIT && remaining != null && !errorIndex) {
+			taskName = removeSpace(remaining);
+		} else if (getCommand() == COMMANDS.NAME) {
+			name = remaining;
+		} else if (getCommand() == COMMANDS.FILEPATH) {
+			filePath = remaining;
+		} else if (getCommand() == COMMANDS.SEARCH) {
+			searchSentence = remaining;
+		} else if (getCommand() == COMMANDS.DELETE||getCommand() == COMMANDS.ACK||getCommand() == COMMANDS.EXPAND) {
+			taskName = null;
+		} else if (errorIndex) {
+			taskName = null;
+			errorIndex = false;
+			//System.out.println("error");
+		} else {
+			taskName = remaining;
+		}
 		if (getCommand() == COMMANDS.INVALID) {
 			valid = false;
 			taskName = null;
 		}
-		logger.info("Parsed: " + command + " " + taskName + " " + details + " " + endDate);
 		return valid;
 	}
 
@@ -313,7 +333,8 @@ public class Parser {
 		System.out.println(firstDate);
 		System.out.println(secondDate);
 	}
-
+	
+	// @@author A0126232U
 	public COMMANDS getCommand() {
 		return command;
 	}
