@@ -8,8 +8,6 @@ import utilities.COMMANDS;
 
 public class Predictive {
 
-	private static final String DATE_FORMAT = "dd MMMM yyyy hh:mm a";
-	
 	private static final String ACK_TIP = "Ack/Acknowledge <Item Name> : Marks an item as completed";
 	private static final String ADD_TIP = "Add/Insert <Item Name> -d <Starting Date> <Ending Date> -i <Details>";
 	private static final String COMPLETED_TIP = "Completed : Displays the list of completed items";
@@ -20,8 +18,6 @@ public class Predictive {
 	private static final String SEARCH_TIP = "Find/Search <Keywords> : Displays the list of items containing the keywords";
 	private static final String NAME_TIP = "Name <User Name> : Changes the user name";
 	private static final String UNDO_TIP = "Undo : Reverts your last changes.";
-	// private static final String EXPAND_TIP = "";
-	// private static final String HELP_TIP = "";
 	private static final String EXIT_TIP = "Exit : Closes the program";
 	private static final String EMPTY = "";
 	
@@ -34,8 +30,8 @@ public class Predictive {
 	private String commandMsg;
 	private String taskName;
 	private String taskDetails;
-	private String taskStart;
-	private String taskEnd;
+	private Date taskStart;
+	private Date taskEnd;
 
 	public Predictive() {
 
@@ -54,10 +50,10 @@ public class Predictive {
 			this.setTaskName(parser.getTaskName());
 			this.setTaskDetails(parser.getDetails());
 			if (parser.getStartDate() != null) {
-				this.setTaskStart(formatDate(parser.getStartDate()));
+				this.setTaskStart(parser.getStartDate());
 			}
 			if (parser.getEndDate() != null) {
-				this.setTaskEnd(formatDate(parser.getEndDate()));
+				this.setTaskEnd(parser.getEndDate());
 			}
 		}
 
@@ -139,8 +135,7 @@ public class Predictive {
 	}
 
 	public String getTaskName() {
-		String returnValue = taskName;
-		return returnValue;
+		return taskName;
 	}
 
 	private void setTaskName(String taskName) {
@@ -148,30 +143,27 @@ public class Predictive {
 	}
 
 	public String getTaskDetails() {
-		String returnValue = taskDetails;
-		return returnValue;
+		return taskDetails;
 	}
 
 	private void setTaskDetails(String taskDetails) {
 		this.taskDetails = taskDetails;
 	}
 
-	public String getTaskStart() {
-		String returnValue = taskStart;
-		return returnValue;
+	public Date getTaskStart() {
+		return taskStart;
 	}
 
-	private void setTaskStart(String taskStart) {
-		this.taskStart = taskStart;
+	private void setTaskStart(Date date) {
+		this.taskStart = date;
 	}
 
-	public String getTaskEnd() {
-		String returnValue = taskEnd;
-		return returnValue;
+	public Date getTaskEnd() {
+		return taskEnd;
 	}
 
-	private void setTaskEnd(String taskEnd) {
-		this.taskEnd = taskEnd;
+	private void setTaskEnd(Date date) {
+		this.taskEnd = date;
 	}
 	
 	private void setCommand(COMMANDS cmd) {
@@ -194,10 +186,5 @@ public class Predictive {
 		this.setTaskDetails(null);
 		this.setTaskStart(null);
 		this.setTaskEnd(null);
-	}
-	
-	private String formatDate(Date date){
-		SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-		return dateFormat.format(date);
 	}
 }

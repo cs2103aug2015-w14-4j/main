@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Stack;
 import java.util.logging.Logger;
 
+import parser.DatePair;
+import utilities.DayProcessor;
+
 /**
  * Storage is a class that provides the basic add/remove/delete/edit functions.
  * <p>
@@ -240,15 +243,14 @@ public class Storage {
 				currTask.setStartDate(startDate);
 			}
 			if (endDate != null) {
-				if (currTask.getStartDate() != null) {
-					if (currTask.getStartDate().after(endDate)) {
-						Date tempDate = currTask.getStartDate();
-						currTask.setEndDate(tempDate);
-						currTask.setStartDate(endDate);
-					}
-				} else {
-					currTask.setEndDate(endDate);
+				startDate = currTask.getStartDate();
+				if(startDate != null){
+					DatePair orderedDate = DayProcessor.orderDate(startDate, endDate);
+					startDate = orderedDate.getDateOne();
+					endDate = orderedDate.getDateTwo();
+					currTask.setStartDate(startDate);
 				}
+				currTask.setEndDate(endDate);
 			}
 			logger.info(String.format(TASK_EDITED, name));
 			this.saveFile();

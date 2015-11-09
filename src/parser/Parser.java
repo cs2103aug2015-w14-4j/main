@@ -310,6 +310,8 @@ public class Parser {
 		}
 		startDate = firstDate;
 		endDate = secondDate;
+		System.out.println(firstDate);
+		System.out.println(secondDate);
 	}
 
 	public COMMANDS getCommand() {

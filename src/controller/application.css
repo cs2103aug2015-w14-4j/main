@@ -15,6 +15,14 @@
 	-fx-background-color: linear-gradient(#ffffff, #ffffff);
 }
 
+#infoPanel > #day {
+	-fx-font-family: "Verdana-Bold";
+}
+
+#infoPanel > #due {
+	-fx-font-family: "Verdana-Italic";
+}
+
 #taskDetails {
 	-fx-font-size: 20;
 	-fx-text-fill: #3cb371;

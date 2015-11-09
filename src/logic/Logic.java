@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import parser.DatePair;
 import parser.Parser;
 import parser.Predictive;
 import storage.Storage;
 import storage.Task;
 import utilities.COMMANDS;
+import utilities.DayProcessor;
 
 public class Logic {
 	// Attributes
@@ -169,8 +171,8 @@ public class Logic {
 				guiCommand.setTitle(predictor.getCommandMsg());
 				guiCommand.setTaskName(predictor.getTaskName());
 				guiCommand.setTaskDetails(predictor.getTaskDetails());
-				guiCommand.setTaskStart(predictor.getTaskStart());
-				guiCommand.setTaskEnd(predictor.getTaskEnd());
+				guiCommand.setTaskStart(DayProcessor.formatDate(predictor.getTaskStart()));
+				guiCommand.setTaskEnd(DayProcessor.formatDate(predictor.getTaskEnd()));
 				break;
 			case DELETE:
 				if(index != -1 && index < store.getTaskList().size()){
@@ -198,17 +200,22 @@ public class Logic {
 						guiCommand.setTaskDetails(task.getDetails());
 					}
 					
+					Date startDate;
+					Date endDate;
 					if(predictor.getTaskStart() != null){
-						guiCommand.setTaskStart(predictor.getTaskStart());
+						startDate = predictor.getTaskStart();
 					} else {
-						guiCommand.setTaskStart(task.getStartDateString());
+						startDate = task.getStartDate();
 					}
 					
 					if(predictor.getTaskEnd() != null){
-						guiCommand.setTaskEnd(predictor.getTaskEnd());
+						endDate = predictor.getTaskEnd();
 					} else {
-						guiCommand.setTaskEnd(task.getEndDateString());
+						endDate = task.getEndDate();
 					}
+					DatePair orderedDate = DayProcessor.orderDate(startDate, endDate);
+					guiCommand.setTaskStart(DayProcessor.formatDate(orderedDate.getDateOne()));
+					guiCommand.setTaskEnd(DayProcessor.formatDate(orderedDate.getDateTwo()));
 				}
 				break;
 			default:

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root id="infoPanel" alignment="CENTER" maxHeight="500.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="350.0" type="VBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="infoPanel" alignment="CENTER" maxHeight="500.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="350.0" type="VBox" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<Label fx:id="userName" alignment="CENTER" contentDisplay="CENTER" text="Hi Barny" textAlignment="CENTER">
          <font>
@@ -17,7 +17,7 @@
             <Insets />
          </VBox.margin>
       </Label>
-		<Label fx:id="todayDay" alignment="CENTER" contentDisplay="CENTER" text="day" textAlignment="CENTER" wrapText="true">
+		<Label id="day" fx:id="todayDay" alignment="CENTER" contentDisplay="CENTER" text="day" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="System Bold" size="50.0" />
          </font>
@@ -27,7 +27,7 @@
             <Font size="40.0" />
          </font>
       </Label>
-		<Label fx:id="numTasksDue" alignment="CENTER" text="3 Tasks Due" textAlignment="CENTER">
+		<Label id="due" fx:id="numTasksDue" alignment="CENTER" text="3 Tasks Due" textAlignment="CENTER">
          <font>
             <Font name="System Italic" size="40.0" />
          </font>
