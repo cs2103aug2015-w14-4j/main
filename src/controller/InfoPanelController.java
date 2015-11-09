@@ -1,3 +1,4 @@
+//@@author A0124791A
 package controller;
 
 import java.io.IOException;
@@ -5,19 +6,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import utilities.DayProcessor;
+import utilities.ErrorProcessor;
 
+/**
+ * InfoPanelController controls the info panel which displays the user's name and today's date
+ * It also provides a preview of the task being added, deleted or edited 
+ *
+ */
 public class InfoPanelController extends VBox{
 	
+    // ================================================================
+    // FXML
+    // ================================================================
 	private static final String FXML_PATH = "/view/InfoPanelView.fxml";
-	
-	private static final String WELCOME_MESSAGE = "Hi %s";
-	private static final String TASK_DUE_MESSAGE = "%d Task(s) due";
-	
-	private static final String TASK_NAME_DISPLAY = "NAME: %s";
-	private static final String TASK_DETAIL_DISPLAY = "INFO: %s";
-	private static final String TASK_START_DISPLAY = "START: %s";
-	private static final String TASK_END_DISPLAY = "END: %s";
-	
+		
 	@FXML 
 	private Label userName;
 	@FXML 
@@ -27,9 +30,23 @@ public class InfoPanelController extends VBox{
 	@FXML 
 	private Label numTasksDue;
 	@FXML 
-	private VBox taskInfo;
+	private VBox taskPreview;
+	
+    // ================================================================
+    // Format of panel messages
+    // ================================================================
+	private static final String WELCOME_MESSAGE = "Hi %s";
+	private static final String TASK_DUE_MESSAGE = "%d Task(s) due";
+	
+    // ================================================================
+    // Format of task preview
+    // ================================================================
+	private static final String TASK_NAME_DISPLAY = "NAME: %s";
+	private static final String TASK_DETAIL_DISPLAY = "INFO: %s";
+	private static final String TASK_START_DISPLAY = "START: %s";
+	private static final String TASK_END_DISPLAY = "END: %s";
 		
-	public InfoPanelController(String user, String day, String date, int numTasks){
+	public InfoPanelController(String user, int numTasks){
 		FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(FXML_PATH));
         loader.setRoot(this);
@@ -37,28 +54,32 @@ public class InfoPanelController extends VBox{
         try {
         	loader.load();
 		} catch (IOException e) {
-			System.out.println(e);
+			ErrorProcessor.alert(e.toString());
 		}
-    	setUserName(user);
-    	todayDay.setText(day);
-    	todayDate.setText(date);
-    	setTaskDue(numTasks);
+        setUserName(user);
+        setTaskDue(numTasks);
 	}
-	
-	public void setUserName(String userName){
-		this.userName.setText(String.format(WELCOME_MESSAGE, userName));
-	}
-	
-	public void setTaskDue(int numTasks){
-		numTasksDue.setText(String.format(TASK_DUE_MESSAGE, numTasks));
-	}
-	
-	
-	/*
-	 * All code beyond this point deals with the prediction
-	 * */
 		
-	public void displayTaskInfo(String title, String taskName, String taskDetails, String taskStart, String taskEnd){
+	@FXML
+    public void initialize() {
+    	refreshDate();
+    }
+	
+    /**
+	 * Updates the task preview
+	 * 
+	 * @param title
+	 *            title of the preview (i.e. add, delete, edit)
+	 * @param taskName
+	 *            name of the task to be previewed
+	 * @param taskDetails
+	 *            details of the task to be previewed
+	 * @param taskStart
+	 *            start time of the task to be previewed
+	 * @param taskEnd
+	 *            end time of the task to be previewed
+	 */
+	public void displayTaskPreview(String title, String taskName, String taskDetails, String taskStart, String taskEnd){
 		clearTaskInfo();
 		if(title != null){
 			createTaskInfoEntry(title, "%s");
@@ -77,14 +98,40 @@ public class InfoPanelController extends VBox{
 		}
 	}
 	
+    /**
+	 * Adds a preview entry to be displayed
+	 * 
+	 * @param entry
+	 *            text to be displayed
+	 * @param stringFormat
+	 *            format of the text
+	 */
 	private void createTaskInfoEntry(String entry, String stringFormat){
 		Label label = new Label(String.format(stringFormat, entry));
 		label.setMaxWidth(400);
 		label.setId("taskDetails");
-		taskInfo.getChildren().add(label);
+		taskPreview.getChildren().add(label);
 	}
 	
-	public void clearTaskInfo(){
-		taskInfo.getChildren().clear();
+	private void clearTaskInfo(){
+		taskPreview.getChildren().clear();
+	}
+	
+	private void refreshDate(){
+		todayDay.setText(DayProcessor.todayDay());
+    	todayDate.setText(DayProcessor.todayDate());
 	}	
+	
+    // ================================================================
+    // Setter methods
+    // ================================================================
+	public void setUserName(String userName){
+		this.userName.setText(String.format(WELCOME_MESSAGE, userName));
+		refreshDate();
+	}
+	
+	public void setTaskDue(int numTasks){
+		numTasksDue.setText(String.format(TASK_DUE_MESSAGE, numTasks));
+		refreshDate();
+	}
 }

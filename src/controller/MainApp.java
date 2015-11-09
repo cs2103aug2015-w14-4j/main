@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import logic.GuiCommand;
 import logic.Logic;
 import storage.Task;
-import utilities.DayProcessor;
 
 public class MainApp extends Application {
     
@@ -84,10 +83,7 @@ public class MainApp extends Application {
     	
 		promptForUserName();
 
-    	infoPanel = new InfoPanelController(logic.getUser(), 
-    										DayProcessor.todayDay(), 
-    										DayProcessor.todayDate(), 
-    										taskList.getNumOfTaskDue());
+    	infoPanel = new InfoPanelController(logic.getUser(), taskList.getNumOfTaskDue());
     	rootLayout.setLeft(infoPanel);
     }
         
@@ -177,7 +173,7 @@ public class MainApp extends Application {
     	}
     	commandBox.setPredictionFeedback(guiCommand.getMsg());
 
-    	infoPanel.displayTaskInfo(guiCommand.getTitle(), 
+    	infoPanel.displayTaskPreview(guiCommand.getTitle(), 
     							  guiCommand.getTaskName(), 
     							  guiCommand.getTaskDetails(), 
     							  guiCommand.getTaskStart(), 
