@@ -119,6 +119,7 @@ public class TaskListController extends ScrollPane {
 	 *            task to be checked
 	 */
 	private void generateLabel(Task task) {
+		System.out.println(task.due());
 		if (task.due() == Task.NODATE && !isTaskType[Task.NODATE]) {
 			addLabel(NODATE_LABEL, Task.NODATE);
 		} else if (task.due() == Task.OVERDUE && !isTaskType[Task.OVERDUE]) {

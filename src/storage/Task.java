@@ -42,7 +42,6 @@ public class Task {
 	public static final int TODAY = 2;
 	public static final int TOMORROW = 3;
 	public static final int UPCOMING = 4;
-	public static final int OTHERS = 5;
 
 	private static final int DAYS_IN_YEAR = 365;
 	private static final int ZERO_DAYS = 0;
@@ -384,7 +383,7 @@ public class Task {
 			} else if (diff == ONE_DAY) {
 				return TOMORROW;
 			} else {
-				return OTHERS;
+				return UPCOMING;
 			}
 		} else {
 			return NODATE;
