@@ -10,8 +10,17 @@ import utilities.COMMANDS;
 import utilities.DatePair;
 
 /**
- * Parser is a class to split one input string 
- * into command, task name, index, detail, date, ........
+ * Parser receive input string from Logic and Predictive then
+ * split the input string into several parameter 
+ * @param command: command split from input string in COMMANDS
+ * @param taskName: task name split from input string in string
+ * @param startDate: starting date get from input string in Date
+ * @param endDate: deadline get from input string in Date
+ * @param details: details split from input string in string 
+ * @param name: user name get from input string in string
+ * @param filePath: directory get from input string in string
+ * @param searchSentence: searched string get from input string in string 
+ * @param index: index number of the task
  * 
  * @author Qianonn
  *
@@ -53,7 +62,10 @@ public class Parser {
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
 	private static final String EMPTY = "";
 	private static final int INVALID_INDEX = -1;
-
+	
+	/**
+	 * Default constructor for a Parser Object.
+	 */
 	public Parser() {
 	}
 
@@ -63,95 +75,6 @@ public class Parser {
 		Boolean valid = true;
 		String remaining = splitInput(str);
 		valid = checkCommand(valid, remaining);
-		// String[] inputsSplitDash = str.split("-");
-		// String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
-		// commandString = inputsSplitSpace[0];
-		
-		// if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
-		// ||COMPLETED.contains(commandString)){
-		// //this.isIndex(inputsSplitSpace[1]);
-		// }else if(NAME.contains(commandString)){
-		// for (int i = 1; i < inputsSplitSpace.length; i++) {
-		// name = name + " " + inputsSplitSpace[i];
-		// }
-		// name = removeSpace(name);
-		// }else if(FILEPATH.contains(commandString)){
-		// for (int i = 1; i < inputsSplitSpace.length; i++) {
-		// filePath = filePath + " " + inputsSplitSpace[i];
-		// }
-		// filePath = removeSpace(filePath);
-		// }else if(SEARCH.contains(commandString)){
-		// for (int i = 1; i < inputsSplitSpace.length; i++) {
-		// searchSentence = searchSentence + " " + inputsSplitSpace[i];
-		// }
-		// searchSentence = removeSpace(searchSentence);
-		// }else{
-		// for (int i = 1; i < inputsSplitSpace.length; i++) {
-		// taskName = taskName + " " + inputsSplitSpace[i];
-		// }
-		// if (EDIT.contains(commandString)) {
-		// if (inputsSplitSpace.length > 1) {
-		// //this.isIndex(inputsSplitSpace[1]);
-		// taskName = "";
-		// for (int i = 2; i < inputsSplitSpace.length; i++) {
-		// taskName = taskName + " " + inputsSplitSpace[i];
-		// }
-		// }
-		// }
-		// if (inputsSplitSpace.length > 1) {
-		// if (taskName.equals("")) {
-		// taskName = null;
-		// } else {
-		// taskName = removeSpace(taskName);
-		// }
-		//
-		// }
-		// if (inputsSplitDash.length == 1) {
-		// startDate = null;
-		// endDate = null;
-		// details = null;
-		// if (inputsSplitSpace.length == 2) {
-		// this.isIndex(inputsSplitSpace[1]);
-		// }
-		// } else if (inputsSplitDash.length == 2) {
-		// if (inputsSplitDash[1].charAt(0) == 'd' ||
-		// inputsSplitDash[1].charAt(0) == 'D') {
-		// String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
-		// processDate(correctInfo);
-		// details = null;
-		// } else if (inputsSplitDash[1].charAt(0) == 'i' ||
-		// inputsSplitDash[0].charAt(0) == 'I') {
-		// startDate = null;
-		// endDate = null;
-		// details = removeSpace(removeFirst(inputsSplitDash[1]));
-		// } else {
-		// startDate = null;
-		// endDate = null;
-		// details = null;
-		// }
-		// } else {
-		// if ((inputsSplitDash[1].charAt(0) == 'd' ||
-		// inputsSplitDash[1].charAt(0) == 'D')
-		// && (inputsSplitDash[2].charAt(0) == 'i' ||
-		// inputsSplitDash[2].charAt(0) == 'I')) {
-		// String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
-		// processDate(correctInfo);
-		// details = removeSpace(removeFirst(inputsSplitDash[2]));
-		// } else if ((inputsSplitDash[1].charAt(0) == 'i' ||
-		// inputsSplitDash[1].charAt(0) == 'I')
-		// && (inputsSplitDash[2].charAt(0) == 'd' ||
-		// inputsSplitDash[2].charAt(0) == 'D')) {
-		// String correctInfo = removeSpace(removeFirst(inputsSplitDash[2]));
-		// processDate(correctInfo);
-		// details = removeSpace(removeFirst(inputsSplitDash[1]));
-		// } else {
-		// startDate = null;
-		// endDate = null;
-		// details = null;
-		// }
-		// }
-		// }
-
 		logger.info("Parsed: " + command + " " + taskName + " " + details + " " + endDate);
 		return valid;
 	}
@@ -331,8 +254,6 @@ public class Parser {
 		}
 		startDate = firstDate;
 		endDate = secondDate;
-		System.out.println(firstDate);
-		System.out.println(secondDate);
 	}
 	
 	// @@author A0126232U
@@ -476,5 +397,94 @@ public class Parser {
 	 * secondDate = null; } logger.info("Date: " + dateString); if (identity ==
 	 * 0) { return firstDate; } else { return secondDate; } }
 	 */
-
+	//public boolean parse(String str){
+		// String[] inputsSplitDash = str.split("-");
+				// String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
+				// commandString = inputsSplitSpace[0];
+				
+				// if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
+				// ||COMPLETED.contains(commandString)){
+				// //this.isIndex(inputsSplitSpace[1]);
+				// }else if(NAME.contains(commandString)){
+				// for (int i = 1; i < inputsSplitSpace.length; i++) {
+				// name = name + " " + inputsSplitSpace[i];
+				// }
+				// name = removeSpace(name);
+				// }else if(FILEPATH.contains(commandString)){
+				// for (int i = 1; i < inputsSplitSpace.length; i++) {
+				// filePath = filePath + " " + inputsSplitSpace[i];
+				// }
+				// filePath = removeSpace(filePath);
+				// }else if(SEARCH.contains(commandString)){
+				// for (int i = 1; i < inputsSplitSpace.length; i++) {
+				// searchSentence = searchSentence + " " + inputsSplitSpace[i];
+				// }
+				// searchSentence = removeSpace(searchSentence);
+				// }else{
+				// for (int i = 1; i < inputsSplitSpace.length; i++) {
+				// taskName = taskName + " " + inputsSplitSpace[i];
+				// }
+				// if (EDIT.contains(commandString)) {
+				// if (inputsSplitSpace.length > 1) {
+				// //this.isIndex(inputsSplitSpace[1]);
+				// taskName = "";
+				// for (int i = 2; i < inputsSplitSpace.length; i++) {
+				// taskName = taskName + " " + inputsSplitSpace[i];
+				// }
+				// }
+				// }
+				// if (inputsSplitSpace.length > 1) {
+				// if (taskName.equals("")) {
+				// taskName = null;
+				// } else {
+				// taskName = removeSpace(taskName);
+				// }
+				//
+				// }
+				// if (inputsSplitDash.length == 1) {
+				// startDate = null;
+				// endDate = null;
+				// details = null;
+				// if (inputsSplitSpace.length == 2) {
+				// this.isIndex(inputsSplitSpace[1]);
+				// }
+				// } else if (inputsSplitDash.length == 2) {
+				// if (inputsSplitDash[1].charAt(0) == 'd' ||
+				// inputsSplitDash[1].charAt(0) == 'D') {
+				// String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
+				// processDate(correctInfo);
+				// details = null;
+				// } else if (inputsSplitDash[1].charAt(0) == 'i' ||
+				// inputsSplitDash[0].charAt(0) == 'I') {
+				// startDate = null;
+				// endDate = null;
+				// details = removeSpace(removeFirst(inputsSplitDash[1]));
+				// } else {
+				// startDate = null;
+				// endDate = null;
+				// details = null;
+				// }
+				// } else {
+				// if ((inputsSplitDash[1].charAt(0) == 'd' ||
+				// inputsSplitDash[1].charAt(0) == 'D')
+				// && (inputsSplitDash[2].charAt(0) == 'i' ||
+				// inputsSplitDash[2].charAt(0) == 'I')) {
+				// String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
+				// processDate(correctInfo);
+				// details = removeSpace(removeFirst(inputsSplitDash[2]));
+				// } else if ((inputsSplitDash[1].charAt(0) == 'i' ||
+				// inputsSplitDash[1].charAt(0) == 'I')
+				// && (inputsSplitDash[2].charAt(0) == 'd' ||
+				// inputsSplitDash[2].charAt(0) == 'D')) {
+				// String correctInfo = removeSpace(removeFirst(inputsSplitDash[2]));
+				// processDate(correctInfo);
+				// details = removeSpace(removeFirst(inputsSplitDash[1]));
+				// } else {
+				// startDate = null;
+				// endDate = null;
+				// details = null;
+				// }
+				// }
+				// }
+	//}
 }
