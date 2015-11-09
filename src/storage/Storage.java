@@ -215,7 +215,7 @@ public class Storage {
 	 * Method to edit a task
 	 * 
 	 * @param index
-	 *            index of the task to flag as completed
+	 *            index of the task to edit
 	 * @param taskName
 	 *            the new string to replace the previous name
 	 * @param details
@@ -224,7 +224,7 @@ public class Storage {
 	 *            the new starting date to replace the previous starting date
 	 * @param endDate
 	 *            the new ending date to replace the previous ending date
-	 * @return Task that was edited, if index is not valid, return null
+	 * @return the old name of the edited task, if index is not valid, return null
 	 */
 	public String edit(int index, String taskName, String details, Date startDate, Date endDate) {
 		if (isValidIndex(index)) {

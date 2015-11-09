@@ -84,7 +84,9 @@ public class StorageTest {
 		store.add(name, details, null, date);
 		
 		String newName = "new test";
-		assertEquals(newName, store.edit(0, newName, null, null, null));
+		store.edit(0, newName, null, null, null);
+		String editedName = store.getTaskList().get(0).getName();
+		assertEquals(newName, editedName);
 	}
 	
 	@Test
@@ -167,6 +169,12 @@ public class StorageTest {
 			System.out.println(task);
 		}
 		assertEquals(0, searchList.size());
+		
+		searchList = store.search("october");
+		for (Task task : searchList) {
+			System.out.println(task);
+		}
+		assertEquals(2, searchList.size());
 	}
 
 
