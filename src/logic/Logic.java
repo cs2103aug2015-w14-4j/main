@@ -148,8 +148,8 @@ public class Logic {
 				break;
 			case NAME:
 				name = parser.getName();
-				name();
-				c = new GuiCommand(COMMANDS.FILEPATH, String.format(NAME_FEEDBACK, name));
+				name(name);
+				c = new GuiCommand(COMMANDS.NAME, String.format(NAME_FEEDBACK, name), this.getTaskList());
 				break;
 			case EXIT:
 				System.exit(0);
@@ -228,8 +228,8 @@ public class Logic {
 	}
 
 	// @@author A0121823R
-	private void name() {
-		store.setUser(taskName);
+	private void name(String name) {
+		store.setUser(name);
 
 	}
 
