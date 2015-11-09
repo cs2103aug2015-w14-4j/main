@@ -109,7 +109,7 @@ public class TaskListController extends ScrollPane {
 	 */
 	private void addTask(Task task, int index) {
 		listOfTask.add(new TaskController(task, index));
-		if (task.due() == Task.TODAY) {
+		if (task.due() == Task.TODAY && !task.isCompleted()) {
 			numOfTaskDue++;
 		}
 	}
