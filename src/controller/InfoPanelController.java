@@ -10,9 +10,13 @@ import utilities.DayProcessor;
 import utilities.ErrorProcessor;
 
 /**
- * InfoPanelController controls the info panel which displays the user's name and today's date
- * It also provides a preview of the task being added, deleted or edited 
+ * InfoPanelController controls the information panel 
+ * <p>
+ * It displays the user's name and today's date
+ * It provides a preview of the task being added, deleted or edited 
  *
+ * @author Hongchao
+ * 
  */
 public class InfoPanelController extends VBox{
 	

@@ -17,10 +17,13 @@ import storage.Task;
 import utilities.ErrorProcessor;
 
 /**
- * TaskListController manages the display of the list of user Task(s) The user
- * can scroll vertically when the number of Tasks to display is larger than the
- * display area Scrolling horizontally can only be done with keyboard and is
- * only allowed when the Task has a name that exceeds the display
+ * TaskListController manages the display of the list of user Task(s) 
+ * <p>
+ * The user can scroll vertically when the number of tasks to display is larger than the display area 
+ * Scrolling horizontally can only be done with keyboard and is only allowed when the Task has a 
+ * name that exceeds the display
+ *
+ * @author Hongchao
  *
  */
 

@@ -14,9 +14,13 @@ import utilities.ErrorProcessor;
 
 /**
  * TaskController controls how each individual task is displayed
+ * <p>
  * A user can click on any task to open up a drop-down with the task details
  * There are no getter methods in this class, as there is no need to access any of the fields in the class
- * TaskController is usually reloaded after each user command when the task list gets refreshed in MainApp  
+ * TaskController is usually reloaded after each user command when the task list gets refreshed in MainApp,
+ * hence there is no instance where we have to access each individual task 
+ * 
+ *  @author Hongchao
  *
  */
 public class TaskController extends TitledPane{
@@ -58,7 +62,6 @@ public class TaskController extends TitledPane{
 	// ================================================================
     // Fields
     // ================================================================
-	private int taskId;
 	private int taskIndex;
 	
 	public TaskController(Task task, int index){
@@ -88,7 +91,6 @@ public class TaskController extends TitledPane{
 	 *            index of the task
 	 */
 	private void initTask(Task task, int index){
-        setTaskId(task.getTaskId());
     	setTaskIndex(index);
 		setName(task.getName());
         setDetails(task.getDetails());
@@ -154,11 +156,7 @@ public class TaskController extends TitledPane{
 	private void setEndDate(String date){
 		endDateText.setText(date);
 	}
-	
-	private void setTaskId(int id){
-		taskId = id;
-	}
-		
+			
 	private void setTaskIndex(int index){
 		taskIndex = index;
 	}

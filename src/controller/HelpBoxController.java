@@ -8,9 +8,12 @@ import javafx.scene.text.Text;
 import utilities.ErrorProcessor;
 
 /**
- * HelpBoxController controls the help menu which displays to the user all possible commands that 
- * can be used 
+ * HelpBoxController controls the help menu
+ * <p> 
+ * It displays to the user all possible commands that can be used 
  *
+ * @author Hongchao
+ * 
  */
 public class HelpBoxController extends VBox{
 	

@@ -14,6 +14,14 @@ import logic.GuiCommand;
 import logic.Logic;
 import storage.Task;
 
+/**
+ * MainApp is the starting point of the application 
+ * <p>
+ * It initializes the components that the user interacts with  
+ *
+ * @author Hongchao
+ * 
+ */
 public class MainApp extends Application {
     
     // ================================================================
@@ -110,7 +118,8 @@ public class MainApp extends Application {
     
     /**
 	 * Prompts the user for their name if it is their first time using the application
-	 * A name has to be given in order to continue 
+	 * A name has to be given in order to continue
+	 *  
 	 */
     private void promptForUserName(){
     	while(logic.getUser() == null){ 		
@@ -126,6 +135,7 @@ public class MainApp extends Application {
 	 * Refresh the InfoPanel and loads a list of Task 
 	 * @param listOfTasks
 	 *            list of tasks that is to be loaded
+	 *            
 	 */
     private void refresh(List<Task> listOfTasks){
     	taskList.loadTaskList(listOfTasks);
@@ -140,6 +150,7 @@ public class MainApp extends Application {
 	 * 
 	 * @param userInput
 	 *            input that the user enters into command box
+	 *            
 	 */
     public void handleUserCommand(String userInput) {
         GuiCommand command = logic.executeCMD(userInput);
@@ -161,10 +172,11 @@ public class MainApp extends Application {
     
     /**
 	 * Takes in input that the user enters into command box and calls Logic's predictCMD
-	 * The GUI will update the InfoPanel and feedback according to what the user is typing
+	 * The GUI will dynamically update the InfoPanel and feedback according to what the user is typing
 	 * 
 	 * @param userInput
 	 *            input that the user enters into command box
+	 *            
 	 */
     public void parseUserCommand(String userInput) {
     	GuiCommand guiCommand = logic.predictCMD(userInput);
