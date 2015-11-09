@@ -106,7 +106,7 @@ public class Logic {
 			if (name == null){
 				c = new GuiCommand(COMMANDS.INVALID, "Task not edited");
 			} else if(taskName == null && details == null && startDate == null && endDate == null){
-				c = new GuiCommand(COMMANDS.INVALID, "Task not deleted");
+				c = new GuiCommand(COMMANDS.INVALID, "Task not edited");
 			}else {
 				c = new GuiCommand(COMMANDS.EDIT, String.format(EDIT_FEEDBACK, name), this.getTaskList());
 			}

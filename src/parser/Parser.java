@@ -33,7 +33,7 @@ public class Parser {
 	public static final String EDIT = "edit change";
 	public static final String ACK = "ack acknowledge";
 	public static final String EXIT = "exit";
-	
+
 	private static final String DATE_DELIMITER = " -d ";
 	private static final String DETAIL_DELIMITER = " -i ";
 	private static final String DUAL_DELIMITER = " -d | -i ";
@@ -46,7 +46,7 @@ public class Parser {
 
 	public Parser() {
 	}
-	
+
 	// @@author A0125369Y
 	public Boolean parse(String str) {
 		inputString = str;
@@ -61,23 +61,24 @@ public class Parser {
 		String remaining = null;
 		if (inputPieces.length == 2) {
 			processDetails(inputPieces);
-			processIndex(inputPieces);
+			String unprocessedIndex = processIndex(inputPieces);
 			checkForDate(inputPieces);
 			String[] remainingPieces = inputPieces[1].split(DUAL_DELIMITER);
 			remaining = remainingPieces[0];
+			remaining = remaining.replaceFirst(unprocessedIndex, "");
 			if (remaining.trim().length() == 0) {
 				remaining = null;
 			}
 		}
-		if(getCommand() == COMMANDS.EDIT&&remaining!=null){
+		if (getCommand() == COMMANDS.EDIT && remaining != null) {
 			taskName = removeSpace(remaining);
-		}else if(getCommand() == COMMANDS.NAME){
+		} else if (getCommand() == COMMANDS.NAME) {
 			name = remaining;
-		}else if(getCommand() == COMMANDS.FILEPATH){
+		} else if (getCommand() == COMMANDS.FILEPATH) {
 			filePath = remaining;
-		}else if(getCommand() == COMMANDS.SEARCH){
+		} else if (getCommand() == COMMANDS.SEARCH) {
 			searchSentence = remaining;
-		}else{
+		} else {
 			taskName = remaining;
 		}
 		// if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
@@ -167,7 +168,7 @@ public class Parser {
 
 		if (getCommand() == COMMANDS.INVALID) {
 			valid = false;
-			taskName=null;
+			taskName = null;
 		}
 		logger.info("Parsed: " + command + " " + taskName + " " + details + " " + endDate);
 		return valid;
@@ -177,18 +178,18 @@ public class Parser {
 	// return text.substring(1);
 	// }
 	//
-	 private String removeSpace(String text) {
-		 String[] inputwithSpace = text.split(" ");
-		 String output = "";
-		 for (int i = 1; i < inputwithSpace.length; i++) {
-			 if (i == 1) {
-				 output = inputwithSpace[1];
-			 } else {
-				 output = output + " " + inputwithSpace[i];
-			 }
-		 }
-		 return output;
-	 }
+	private String removeSpace(String text) {
+		String[] inputwithSpace = text.split(" ");
+		String output = "";
+		for (int i = 1; i < inputwithSpace.length; i++) {
+			if (i == 1) {
+				output = inputwithSpace[1];
+			} else {
+				output = output + " " + inputwithSpace[i];
+			}
+		}
+		return output;
+	}
 
 	private void processCommand(String stringCmd) {
 		stringCmd = stringCmd.toLowerCase();
@@ -222,7 +223,7 @@ public class Parser {
 				command = COMMANDS.FILEPATH;
 			} else if (EXIT.matches(stringCmd)) {
 				command = COMMANDS.EXIT;
-			}else {
+			} else {
 				command = COMMANDS.INVALID;
 			}
 		} else {
@@ -232,29 +233,27 @@ public class Parser {
 	}
 
 	// @@author A0125369Y
-	private void processIndex(String[] input) {
+	private String processIndex(String[] input) {
 		if (input.length > 1) {
 			String possibleIndex = input[1];
 			String[] indexPiece = possibleIndex.split(" ");
 			if (indexPiece[0].matches(INT_REGEX)) {
 				index = Integer.parseInt(indexPiece[0]);
 				index--;
-			} else {
-				index = INVALID_INDEX;
+				return indexPiece[0];
 			}
-		} else {
-			index = INVALID_INDEX;	
 		}
+		return null;
 	}
-	
+
 	private boolean isRequireIndex(COMMANDS cmd) {
-		if(cmd==COMMANDS.DELETE||cmd==COMMANDS.EDIT||cmd==COMMANDS.ACK){
+		if (cmd == COMMANDS.DELETE || cmd == COMMANDS.EDIT || cmd == COMMANDS.ACK) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	
+
 	// @@author A0125369Y
 	private void checkForDate(String[] input) {
 		String[] inputPieces = input[1].split(DATE_DELIMITER);
@@ -331,15 +330,15 @@ public class Parser {
 
 	public int getIndex() {
 		String[] temp = inputString.split(" ");
-		if (temp.length < 2||!isRequireIndex(getCommand())) {
+		if (temp.length < 2 || !isRequireIndex(getCommand())) {
 			return -1;
 		} else {
 			return index;
 		}
 
 	}
-	
-	public void reset(){
+
+	public void reset() {
 		command = COMMANDS.INVALID;
 		taskName = null;
 		index = -1;
