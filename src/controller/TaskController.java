@@ -12,10 +12,19 @@ import javafx.scene.text.Text;
 import storage.Task;
 import utilities.ErrorProcessor;
 
+/**
+ * TaskController controls how each individual task is displayed
+ * A user can click on any task to open up a drop-down with the task details
+ * There are no getter methods in this class, as there is no need to access any of the fields in the class
+ * TaskController is usually reloaded after each user command when the task list gets refreshed in MainApp  
+ *
+ */
 public class TaskController extends TitledPane{
 	
+	// ================================================================
+    // FXML
+    // ================================================================
 	private static final String FXML_PATH = "/view/TaskView.fxml";
-	private static final String TASK_NAME_DISPLAY = "%d. %s";
 	
 	@FXML 
 	private VBox expandedBox;
@@ -41,18 +50,25 @@ public class TaskController extends TitledPane{
 	@FXML 
 	private Text endDateText;
 	
+	// ================================================================
+    // Format of task name displayed
+    // ================================================================
+	private static final String TASK_NAME_DISPLAY = "%d. %s";
+	
+	// ================================================================
+    // Fields
+    // ================================================================
 	private int taskId;
 	private int taskIndex;
 	
 	public TaskController(Task task, int index){
-        try {
+		try {
         	FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(FXML_PATH));
             loader.setRoot(this);
             loader.setController(this);
         	loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			ErrorProcessor.alert(e.toString());
 		}
         initTask(task, index);
@@ -63,6 +79,14 @@ public class TaskController extends TitledPane{
         this.setExpanded(false);
     }
 	
+	/**
+	 * Initializes a TaskController instance according to the Task object provided
+	 * 
+	 * @param task
+	 *            task which the TaskController is modeled after
+	 * @param index
+	 *            index of the task
+	 */
 	private void initTask(Task task, int index){
         setTaskId(task.getTaskId());
     	setTaskIndex(index);
@@ -73,6 +97,12 @@ public class TaskController extends TitledPane{
         applyStyling(task);
 	}
 	
+	/**
+	 * Checks the type of task and applies the relevant styling to it's corresponding TaskController
+	 * 
+	 * @param task
+	 *            task that the style is applied to
+	 */
 	private void applyStyling(Task task){
         if(task.isCompleted()){
         	this.setId("taskCompleted");
@@ -88,14 +118,19 @@ public class TaskController extends TitledPane{
         	if(task.getDetails() == null){
         		this.setCollapsible(false);
         	}
+        	expandedBox.getChildren().remove(endDate);
         }
 	}
 	
-	public void setName(String name){
+	// ================================================================
+    // Setter methods
+    // ================================================================
+	
+	private void setName(String name){
 		this.setText(String.format(TASK_NAME_DISPLAY, taskIndex, name));
 	}
 	
-	public void setDetails(String text){
+	private void setDetails(String text){
 		if(text == null){
 			expandedBox.getChildren().remove(details);
 		} else {
@@ -103,7 +138,11 @@ public class TaskController extends TitledPane{
 		}
 	}
 	
-	public void setStartDate(String date){
+	/**
+	 * When there is no start date, the start date label is removed and the end date label is 
+	 * renamed to "Date"
+	 */
+	private void setStartDate(String date){
 		if(date == null){
 			expandedBox.getChildren().remove(startDate);
 			endDateLabel.setText("Date");
@@ -112,20 +151,15 @@ public class TaskController extends TitledPane{
 		}
 	}
 	
-	public void setEndDate(String d){
-		endDateText.setText(d);
+	private void setEndDate(String date){
+		endDateText.setText(date);
 	}
 	
-	public void setTaskId(int id){
+	private void setTaskId(int id){
 		taskId = id;
 	}
-	
-	public int getTaskId(){
-		return taskId;
-	}
-	
-	public void setTaskIndex(int index){
+		
+	private void setTaskIndex(int index){
 		taskIndex = index;
 	}
-	
 }
