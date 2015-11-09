@@ -143,8 +143,8 @@ public class Logic {
 				break;
 			case FILEPATH:
 				String filePath = parser.getFilePath();
-				filePath();
-				c = new GuiCommand(COMMANDS.FILEPATH, String.format(FILEPATH_FEEDBACK, filePath));
+				filePath(filePath);
+				c = new GuiCommand(COMMANDS.FILEPATH, String.format(FILEPATH_FEEDBACK, filePath), this.getTaskList());
 				break;
 			case NAME:
 				name = parser.getName();
@@ -233,8 +233,8 @@ public class Logic {
 
 	}
 
-	private void filePath() {
-		store.setSettings(this.getUser(), taskName);
+	private void filePath(String filePath) {
+		store.setSettings(this.getUser(), filePath);
 
 	}
 

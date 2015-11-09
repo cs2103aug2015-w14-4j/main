@@ -103,6 +103,7 @@ public class Storage {
 	public String readFile() {
 		if (!isTestMode) {
 			taskList = fileHandler.readTasks();
+			completedList.clear();
 			this.shiftCompleted();
 		}
 		return null;
