@@ -14,7 +14,7 @@ import utilities.COMMANDS;
 
 
 
-public class Integrated {
+public class IntegrationTest {
 	private static SimpleDateFormat dateVariant2 = new SimpleDateFormat("ddMMyyyy");
 	private static SimpleDateFormat dateVariant4 = new SimpleDateFormat("ddMMyyyy hhmm");
 	
