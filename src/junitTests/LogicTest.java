@@ -2,7 +2,6 @@
 package junitTests;
 
 import static org.junit.Assert.*;
-import java.util.Date;
 import java.util.List;
 import org.junit.Test;
 import logic.GuiCommand;
@@ -57,7 +56,6 @@ public class LogicTest {
 		List<Task> listAdd8 = outAdd8.getListOfTasks();
 		
 		GuiCommand outAdd9 = logic.executeCMD(inputAdd9);
-		List<Task> listAdd9 = outAdd9.getListOfTasks();
 		
 		//Generating supposed test outputs to compare with the output tests
 		//In this case, GuiCommand object is created to compare the informations in the object
@@ -118,7 +116,6 @@ public class LogicTest {
 		String inputAdd6 = "add Task date format1 -d 20-3-2016";
 		String inputAdd7 = "add Start date End date -d 02/11/1993 12:10 03/11/1993 16:30";
 		String inputAdd8 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
-		String inputAdd9 = "add -i details withough task name";
 		
 		//added task first into the task lists in storage
 		logic.executeCMD(inputAdd1);
@@ -129,7 +126,6 @@ public class LogicTest {
 		logic.executeCMD(inputAdd6);
 		logic.executeCMD(inputAdd7);
 		logic.executeCMD(inputAdd8);
-		logic.executeCMD(inputAdd9);
 		
 		//String of user input to delete a task
 		String inputDel = "delete 1";
@@ -137,7 +133,7 @@ public class LogicTest {
 		
 		
 		//generating output from test cases and also checking remaining size of task list
-		GuiCommand outDel1 = logic.executeCMD(inputDel);
+		logic.executeCMD(inputDel);
 		int listDelete1 = logic.getTaskList().size();
 		
 		logic.executeCMD(inputDel);
@@ -168,14 +164,14 @@ public class LogicTest {
 		//checking list size
 		//the size of remaining tasks should keep decreasing
 		//as each delete will delete a single task from the list
-		assertEquals(listDelete1, 8);
-		assertEquals(listDelete2, 7);
-		assertEquals(listDelete3, 6);
-		assertEquals(listDelete4, 5);
-		assertEquals(listDelete5, 4);
-		assertEquals(listDelete6, 3);
-		assertEquals(listDelete7, 2);
-		assertEquals(listDelete8, 1);
+		assertEquals(listDelete1, 7);
+		assertEquals(listDelete2, 6);
+		assertEquals(listDelete3, 5);
+		assertEquals(listDelete4, 4);
+		assertEquals(listDelete5, 3);
+		assertEquals(listDelete6, 2);
+		assertEquals(listDelete7, 1);
+		assertEquals(listDelete8, 0);
 		assertEquals(listDelete9, 0);
 	}
 	
@@ -206,7 +202,7 @@ public class LogicTest {
 		//a list of user input to edit current tasks in the list
 		String inputEdit1 = "edit 1 -i added details -d 10112015 2000";
 		String inputEdit2 = "edit 1 New Name";
-		String inputEdit3 = "edit 2 Changed name -d Hi";
+		String inputEdit3 = "edit 2 Changed name -i Hi";
 		String inputEdit4 = "edit 4";
 		
 		//executing the user input and storing the GuiCommand object to refer to
