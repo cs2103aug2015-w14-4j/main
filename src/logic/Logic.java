@@ -13,6 +13,15 @@ import utilities.COMMANDS;
 import utilities.DatePair;
 import utilities.DayProcessor;
 
+/**
+ * @author Donald
+ * Logic is dependent on both the storage and parser component
+ * When the GUI sends a user input to the Logic via the Logic.executeCommand(String input)
+ * method, the component will send the input to Parser to be parsed and receive relevant information
+ * to be used to create a GuiCommand object to inform the GUI display of the status of the task command.
+ * When parser returns the information, Logic will also instructs the Storage component based on the
+ * COMMANDS type received from parser.
+ */
 public class Logic {
 	//Basic attributes used for creating a GuiCommand object
 	//from execution of command
@@ -28,6 +37,8 @@ public class Logic {
 	private Predictive predictor;
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 
+	//Feedback is used to facilitate in forming the message String to be returned to
+	//the GUI in the GuiCommand object.
 	private static final String ADD_FEEDBACK = "Added \"%1$s\"";
 	private static final String DELETE_FEEDBACK = "Deleted \"%1$s\"";
 	private static final String EDIT_FEEDBACK = "Edited \"%1$s\"";
@@ -41,11 +52,14 @@ public class Logic {
 	private static final String NAME_FEEDBACK = "Name changed to \"%1$s\"";
 	private static final String INVALID_FEEDBACK = "Invalid command, check help for proper command usage";
 
-	// Constructor
+
 	public Logic() {
 		this(false);
 	}
-
+	
+	//Constructor with a true boolean parameter will set the Logic class object into
+	//creating a new independent storage only which will not save the activities of the commands used
+	//this is to facilitate Logic testing
 	public Logic(boolean test) {
 		predictor = new Predictive();
 		store = new Storage(test);
@@ -54,16 +68,26 @@ public class Logic {
 		}
 	}
 
+	//Returns the user name of the application
 	public String getUser() {
 		userName = store.readSettings();
 		return userName;
 	}
-
+	
+	//this method will allow the user to set his/her own name as well as creating a new
+	//personal .json text file
 	public void setSettings(String userName, String filePath) {
 		store.setSettings(userName, filePath);
 	}
 
-	// Methods
+	/**This method is responsible in communicating between the GUI and Parser component.
+	 * when GUI uses this method to send the user input to the Logic component, it will
+	 * run the String of inputs to through the Parser and then performs the relevant
+	 * methods accordingly based of the COMMANDS type received.
+	 * An Invalid command will simply return an GuiCommand with the Invalid command message
+	 * to be returned to GUI. When parser does not receive a proper USER input, the method assumes
+	 * invalid command by default.
+	 */
 	public GuiCommand executeCMD(String s) {
 		parser = new Parser();
 		Boolean valid = parser.parse(s);
@@ -229,21 +253,28 @@ public class Logic {
 	}
 
 	// @@author A0121823R
+	//sets the name of the user to be reflected in GUI's information panel
+	//also sets the name to file handler
 	private void name(String name) {
 		store.setUser(name);
 
 	}
-
+	
+	//sets filepath of the user according to the input String
 	private void filePath(String filePath) {
 		store.setSettings(this.getUser(), filePath);
 
 	}
 
+	//returns a list of tasks that are marked as completed/ acknowledged
 	private List<Task> completed() {
 		List<Task> list = store.getCompletedList();
 		return list;
 	}
-
+	
+	//instructs the storage to undo the action dones
+	//as well as returning a message of success/ failure
+	//in the GuiCommand object
 	private String undo() {
 		String name = store.undo();
 		if (name != null) {
@@ -253,18 +284,14 @@ public class Logic {
 		}
 	}
 
+	//returns the list of uncompleted task stored in the file hanlder
 	public List<Task> getTaskList() {
 		// TODO Auto-generated method stub
 		return store.getTaskList();
 	}
 
+	//Sends the relevant tasks information to storage component to create a new task
 	private String add() {
-		/*
-		 * Date date = null; SimpleDateFormat sdf = new SimpleDateFormat(
-		 * "dd-M-yyyy hh:mm"); String date_in_string = sdf.format(new Date());
-		 * try { date = sdf.parse(date_in_string); } catch (ParseException e) {
-		 * // TODO Auto-generated catch block e.printStackTrace(); }
-		 */
 		String name = store.add(taskName, details, startDate, endDate);
 		System.out.println(name);
 		if (name != null) {
@@ -275,21 +302,25 @@ public class Logic {
 		}
 	}
 
+	//Sends the relevant tasks information and task list index to storage component to edit a task
 	private String edit() {
 		return store.edit(taskIndex, taskName, details, startDate, endDate);
 	}
 
+	//Sends the task list index to storage to delate a task
 	private String delete() {
 		System.out.println("Task deleted");
 		return store.delete(taskIndex);
 	}
 
+	//sends a string of search keyword to store and retrieves a list of searched tasks
 	private List<Task> search() {
 		List<Task> list = store.search(taskName);
 		return list;
 
 	}
-
+	
+	//acknowledges the task by its index
 	private String acknowledge() {
 		return store.complete(taskIndex);
 	}
