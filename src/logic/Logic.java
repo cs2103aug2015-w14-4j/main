@@ -14,7 +14,8 @@ import utilities.DatePair;
 import utilities.DayProcessor;
 
 public class Logic {
-	// Attributes
+	//Basic attributes used for creating a GuiCommand object
+	//from execution of command
 	private Storage store;
 	private Parser parser;
 	private COMMANDS command;
