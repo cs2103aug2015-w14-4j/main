@@ -10,18 +10,27 @@ import utilities.COMMANDS;
 import utilities.DatePair;
 
 /**
- * Parser receive input string from Logic and Predictive then
- * split the input string into several parameter 
+ * Parser receive input string from Logic and Predictive then split the input
+ * string into several parameter
  * 
- * @param command: command split from input string in COMMANDS
- * @param taskName: task name split from input string in string
- * @param startDate: starting date get from input string in Date
- * @param endDate: deadline get from input string in Date
- * @param details: details split from input string in string 
- * @param name: user name get from input string in string
- * @param filePath: directory get from input string in string
- * @param searchSentence: searched string get from input string in string 
- * @param index: index number of the task
+ * @param command:
+ *            command split from input string in COMMANDS
+ * @param taskName:
+ *            task name split from input string in string
+ * @param startDate:
+ *            starting date get from input string in Date
+ * @param endDate:
+ *            deadline get from input string in Date
+ * @param details:
+ *            details split from input string in string
+ * @param name:
+ *            user name get from input string in string
+ * @param filePath:
+ *            directory get from input string in string
+ * @param searchSentence:
+ *            searched string get from input string in string
+ * @param index:
+ *            index number of the task
  * 
  * @author Qianonn
  *
@@ -63,7 +72,7 @@ public class Parser {
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
 	private static final String EMPTY = "";
 	private static final int INVALID_INDEX = -1;
-	
+
 	/**
 	 * Default constructor for a Parser Object.
 	 */
@@ -72,6 +81,7 @@ public class Parser {
 
 	/**
 	 * Method to parse the string into several parameter
+	 * 
 	 * @return true if command is not invalid
 	 */
 	public Boolean parse(String str) {
@@ -79,12 +89,16 @@ public class Parser {
 		Boolean valid = true;
 		String remaining = splitInput(str);
 		valid = checkCommand(valid, remaining);
+		valid = isValidDelim(str);
 		logger.info("Parsed: " + command + " " + taskName + " " + details + " " + endDate);
 		return valid;
 	}
 
+
+
 	/**
 	 * Method to split the input string into several part
+	 * 
 	 * @return a string after splitting
 	 */
 	private String splitInput(String str) {
@@ -108,7 +122,9 @@ public class Parser {
 	}
 
 	/**
-	 * Method to check the corresponding command and set the corresponding parameter   
+	 * Method to check the corresponding command and set the corresponding
+	 * parameter
+	 * 
 	 * @return true if command is not invalid
 	 */
 	private Boolean checkCommand(Boolean valid, String remaining) {
@@ -120,12 +136,12 @@ public class Parser {
 			filePath = remaining;
 		} else if (getCommand() == COMMANDS.SEARCH) {
 			searchSentence = remaining;
-		} else if (getCommand() == COMMANDS.DELETE||getCommand() == COMMANDS.ACK||getCommand() == COMMANDS.EXPAND) {
+		} else if (getCommand() == COMMANDS.DELETE || getCommand() == COMMANDS.ACK || getCommand() == COMMANDS.EXPAND) {
 			taskName = null;
 		} else if (errorIndex) {
 			taskName = null;
 			errorIndex = false;
-			//System.out.println("error");
+			// System.out.println("error");
 		} else {
 			taskName = remaining;
 		}
@@ -137,7 +153,8 @@ public class Parser {
 	}
 
 	/**
-	 * Method to remove the first space of the string   
+	 * Method to remove the first space of the string
+	 * 
 	 * @return the string after remove the first space
 	 */
 	private String removeSpace(String text) {
@@ -152,9 +169,9 @@ public class Parser {
 		}
 		return output;
 	}
-	
+
 	/**
-	 * Method to set the command to corresponding command get from input string   
+	 * Method to set the command to corresponding command get from input string
 	 */
 	private void processCommand(String stringCmd) {
 		stringCmd = stringCmd.toLowerCase();
@@ -196,9 +213,10 @@ public class Parser {
 		}
 		logger.info("Command: " + command);
 	}
-	
+
 	/**
-	 * Method set the index number 
+	 * Method set the index number
+	 * 
 	 * @return the index number as a string
 	 */
 	private String processIndex(String[] input) {
@@ -206,15 +224,15 @@ public class Parser {
 			String possibleIndex = input[1];
 			String[] indexPiece = possibleIndex.split(" ");
 			if (indexPiece[0].matches(INT_REGEX)) {
-				try{
+				try {
 					index = Integer.parseInt(indexPiece[0]);
 					index--;
 					return indexPiece[0];
-				}catch(NumberFormatException e){
+				} catch (NumberFormatException e) {
 					errorIndex = true;
 				}
-			}else{
-				if(command == COMMANDS.EDIT){
+			} else {
+				if (command == COMMANDS.EDIT) {
 					return indexPiece[0];
 				}
 			}
@@ -222,10 +240,11 @@ public class Parser {
 		index = -1;
 		return EMPTY;
 	}
-	
+
 	/**
-	 * Method to check whether this command require index number or not
-	 * only delete,edit,ack need index number  
+	 * Method to check whether this command require index number or not only
+	 * delete,edit,ack need index number
+	 * 
 	 * @return true if commands is delete,ack or edit
 	 */
 	private boolean isRequireIndex(COMMANDS cmd) {
@@ -236,10 +255,34 @@ public class Parser {
 		}
 	}
 
-	// @@author A0125369Y
+	//@@author A0125369Y
 	/**
-	 * Method to check the format of the string input
-	 * DATE_DELIMITER=-d
+	 * Method to check if the delimiters are entered correctly
+	 * <p>
+	 * This method check that the number of delimiters are correct. There can
+	 * only be at most one "<i>-i</i>" and one "<i>-d</i>". This method also
+	 * checks that a valid date exists if "<i>-d</i>" is used, and a valid
+	 * detail string exists if "<i>-i</i>" is used.
+	 * 
+	 * @return a string after splitting
+	 */
+	private Boolean isValidDelim(String input) {
+		Boolean valid = true;
+		if (input.contains(DATE_DELIMITER)) {
+			if (this.getStartDate() == null && this.getEndDate() == null || input.split(DATE_DELIMITER).length > 2) {
+				valid = false;
+			}
+		}
+		if (input.contains(DETAIL_DELIMITER)) {
+			if (this.getDetails() == null || input.split(DETAIL_DELIMITER).length > 2) {
+				valid = false;
+			}
+		}
+		return valid;
+	}
+	
+	/**
+	 * Method to check the format of the string input DATE_DELIMITER=-d
 	 * DETAIL_DELIMITER=-i
 	 */
 	private void checkForDate(String[] input) {
@@ -288,7 +331,7 @@ public class Parser {
 		startDate = firstDate;
 		endDate = secondDate;
 	}
-	
+
 	// @@author A0126232U
 	/**
 	 * Method to get the command
@@ -297,7 +340,7 @@ public class Parser {
 	public COMMANDS getCommand() {
 		return command;
 	}
-	
+
 	/**
 	 * Method to get the task name
 	 * 
@@ -305,7 +348,7 @@ public class Parser {
 	public String getTaskName() {
 		return taskName;
 	}
-	
+
 	/**
 	 * Method to get the start date
 	 * 
@@ -313,7 +356,7 @@ public class Parser {
 	public Date getStartDate() {
 		return startDate;
 	}
-	
+
 	/**
 	 * Method to get the deadline
 	 * 
@@ -321,7 +364,7 @@ public class Parser {
 	public Date getEndDate() {
 		return endDate;
 	}
-	
+
 	/**
 	 * Method to get the details from input string
 	 * 
@@ -329,7 +372,7 @@ public class Parser {
 	public String getDetails() {
 		return details;
 	}
-	
+
 	/**
 	 * Method to get the user name
 	 * 
@@ -337,7 +380,7 @@ public class Parser {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * Method to get the file path
 	 * 
@@ -345,7 +388,7 @@ public class Parser {
 	public String getFilePath() {
 		return filePath;
 	}
-	
+
 	/**
 	 * Method to get the search details
 	 * 
@@ -353,7 +396,7 @@ public class Parser {
 	public String getSearch() {
 		return searchSentence;
 	}
-	
+
 	/**
 	 * Method to get the correct index
 	 * 
@@ -367,7 +410,7 @@ public class Parser {
 		}
 
 	}
-	
+
 	/**
 	 * Method to reset all parameter
 	 * 
@@ -384,8 +427,7 @@ public class Parser {
 		searchSentence = null;
 	}
 	/**
-	 * Previous method to parse the string into several part 
-	 * Not used now
+	 * Previous method to parse the string into several part Not used now
 	 */
 	/*
 	 * private String removeExtras(String text) { String input =
@@ -474,104 +516,104 @@ public class Parser {
 	 * 0) { return firstDate; } else { return secondDate; } }
 	 */
 	/**
-	 * Previous version of parse method, not used now   
+	 * Previous version of parse method, not used now
 	 */
-	//public boolean parse(String str){
-		// String[] inputsSplitDash = str.split("-");
-				// String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
-				// commandString = inputsSplitSpace[0];
-				
-				// if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
-				// ||COMPLETED.contains(commandString)){
-				// //this.isIndex(inputsSplitSpace[1]);
-				// }else if(NAME.contains(commandString)){
-				// for (int i = 1; i < inputsSplitSpace.length; i++) {
-				// name = name + " " + inputsSplitSpace[i];
-				// }
-				// name = removeSpace(name);
-				// }else if(FILEPATH.contains(commandString)){
-				// for (int i = 1; i < inputsSplitSpace.length; i++) {
-				// filePath = filePath + " " + inputsSplitSpace[i];
-				// }
-				// filePath = removeSpace(filePath);
-				// }else if(SEARCH.contains(commandString)){
-				// for (int i = 1; i < inputsSplitSpace.length; i++) {
-				// searchSentence = searchSentence + " " + inputsSplitSpace[i];
-				// }
-				// searchSentence = removeSpace(searchSentence);
-				// }else{
-				// for (int i = 1; i < inputsSplitSpace.length; i++) {
-				// taskName = taskName + " " + inputsSplitSpace[i];
-				// }
-				// if (EDIT.contains(commandString)) {
-				// if (inputsSplitSpace.length > 1) {
-				// //this.isIndex(inputsSplitSpace[1]);
-				// taskName = "";
-				// for (int i = 2; i < inputsSplitSpace.length; i++) {
-				// taskName = taskName + " " + inputsSplitSpace[i];
-				// }
-				// }
-				// }
-				// if (inputsSplitSpace.length > 1) {
-				// if (taskName.equals("")) {
-				// taskName = null;
-				// } else {
-				// taskName = removeSpace(taskName);
-				// }
-				//
-				// }
-				// if (inputsSplitDash.length == 1) {
-				// startDate = null;
-				// endDate = null;
-				// details = null;
-				// if (inputsSplitSpace.length == 2) {
-				// this.isIndex(inputsSplitSpace[1]);
-				// }
-				// } else if (inputsSplitDash.length == 2) {
-				// if (inputsSplitDash[1].charAt(0) == 'd' ||
-				// inputsSplitDash[1].charAt(0) == 'D') {
-				// String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
-				// processDate(correctInfo);
-				// details = null;
-				// } else if (inputsSplitDash[1].charAt(0) == 'i' ||
-				// inputsSplitDash[0].charAt(0) == 'I') {
-				// startDate = null;
-				// endDate = null;
-				// details = removeSpace(removeFirst(inputsSplitDash[1]));
-				// } else {
-				// startDate = null;
-				// endDate = null;
-				// details = null;
-				// }
-				// } else {
-				// if ((inputsSplitDash[1].charAt(0) == 'd' ||
-				// inputsSplitDash[1].charAt(0) == 'D')
-				// && (inputsSplitDash[2].charAt(0) == 'i' ||
-				// inputsSplitDash[2].charAt(0) == 'I')) {
-				// String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
-				// processDate(correctInfo);
-				// details = removeSpace(removeFirst(inputsSplitDash[2]));
-				// } else if ((inputsSplitDash[1].charAt(0) == 'i' ||
-				// inputsSplitDash[1].charAt(0) == 'I')
-				// && (inputsSplitDash[2].charAt(0) == 'd' ||
-				// inputsSplitDash[2].charAt(0) == 'D')) {
-				// String correctInfo = removeSpace(removeFirst(inputsSplitDash[2]));
-				// processDate(correctInfo);
-				// details = removeSpace(removeFirst(inputsSplitDash[1]));
-				// } else {
-				// startDate = null;
-				// endDate = null;
-				// details = null;
-				// }
-				// }
-				// }
-	//}
-	
-		/**
-		 * Method to remove the first character of the string   
-		 */ 
-		//private String removeFirst(String text) {
-		// return text.substring(1);
-		// }
-		//
+	// public boolean parse(String str){
+	// String[] inputsSplitDash = str.split("-");
+	// String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
+	// commandString = inputsSplitSpace[0];
+
+	// if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
+	// ||COMPLETED.contains(commandString)){
+	// //this.isIndex(inputsSplitSpace[1]);
+	// }else if(NAME.contains(commandString)){
+	// for (int i = 1; i < inputsSplitSpace.length; i++) {
+	// name = name + " " + inputsSplitSpace[i];
+	// }
+	// name = removeSpace(name);
+	// }else if(FILEPATH.contains(commandString)){
+	// for (int i = 1; i < inputsSplitSpace.length; i++) {
+	// filePath = filePath + " " + inputsSplitSpace[i];
+	// }
+	// filePath = removeSpace(filePath);
+	// }else if(SEARCH.contains(commandString)){
+	// for (int i = 1; i < inputsSplitSpace.length; i++) {
+	// searchSentence = searchSentence + " " + inputsSplitSpace[i];
+	// }
+	// searchSentence = removeSpace(searchSentence);
+	// }else{
+	// for (int i = 1; i < inputsSplitSpace.length; i++) {
+	// taskName = taskName + " " + inputsSplitSpace[i];
+	// }
+	// if (EDIT.contains(commandString)) {
+	// if (inputsSplitSpace.length > 1) {
+	// //this.isIndex(inputsSplitSpace[1]);
+	// taskName = "";
+	// for (int i = 2; i < inputsSplitSpace.length; i++) {
+	// taskName = taskName + " " + inputsSplitSpace[i];
+	// }
+	// }
+	// }
+	// if (inputsSplitSpace.length > 1) {
+	// if (taskName.equals("")) {
+	// taskName = null;
+	// } else {
+	// taskName = removeSpace(taskName);
+	// }
+	//
+	// }
+	// if (inputsSplitDash.length == 1) {
+	// startDate = null;
+	// endDate = null;
+	// details = null;
+	// if (inputsSplitSpace.length == 2) {
+	// this.isIndex(inputsSplitSpace[1]);
+	// }
+	// } else if (inputsSplitDash.length == 2) {
+	// if (inputsSplitDash[1].charAt(0) == 'd' ||
+	// inputsSplitDash[1].charAt(0) == 'D') {
+	// String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
+	// processDate(correctInfo);
+	// details = null;
+	// } else if (inputsSplitDash[1].charAt(0) == 'i' ||
+	// inputsSplitDash[0].charAt(0) == 'I') {
+	// startDate = null;
+	// endDate = null;
+	// details = removeSpace(removeFirst(inputsSplitDash[1]));
+	// } else {
+	// startDate = null;
+	// endDate = null;
+	// details = null;
+	// }
+	// } else {
+	// if ((inputsSplitDash[1].charAt(0) == 'd' ||
+	// inputsSplitDash[1].charAt(0) == 'D')
+	// && (inputsSplitDash[2].charAt(0) == 'i' ||
+	// inputsSplitDash[2].charAt(0) == 'I')) {
+	// String correctInfo = removeSpace(removeFirst(inputsSplitDash[1]));
+	// processDate(correctInfo);
+	// details = removeSpace(removeFirst(inputsSplitDash[2]));
+	// } else if ((inputsSplitDash[1].charAt(0) == 'i' ||
+	// inputsSplitDash[1].charAt(0) == 'I')
+	// && (inputsSplitDash[2].charAt(0) == 'd' ||
+	// inputsSplitDash[2].charAt(0) == 'D')) {
+	// String correctInfo = removeSpace(removeFirst(inputsSplitDash[2]));
+	// processDate(correctInfo);
+	// details = removeSpace(removeFirst(inputsSplitDash[1]));
+	// } else {
+	// startDate = null;
+	// endDate = null;
+	// details = null;
+	// }
+	// }
+	// }
+	// }
+
+	/**
+	 * Method to remove the first character of the string
+	 */
+	// private String removeFirst(String text) {
+	// return text.substring(1);
+	// }
+	//
 }
