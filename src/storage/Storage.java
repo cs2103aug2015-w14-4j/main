@@ -133,7 +133,9 @@ public class Storage {
 	 * @return the current user name
 	 */
 	public void setSettings(String userName, String filePath) {
-		fileHandler.updateSettings(filePath, userName);
+		if(fileHandler.isUpdateSettings(filePath, userName)){
+			recentChanges.clear();
+		}
 		this.readFile();
 	}
 
@@ -146,7 +148,7 @@ public class Storage {
 	 * @return the current user name
 	 */
 	public String setUser(String userName) {
-		fileHandler.updateSettings(null, userName);
+		fileHandler.isUpdateSettings(null, userName);
 		logger.info(String.format(NAME_SET, userName));
 		return fileHandler.getSettings().getUserName();
 	}

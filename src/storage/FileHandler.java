@@ -134,21 +134,26 @@ public class FileHandler {
 	 *            name of settings file
 	 * @param userName
 	 *            the user name of the user in String
-	 * @return returns the settings that have been saved
+	 * @return returns true if the filePath has been changed
 	 */
-	public Setting updateSettings(String fileName, String userName) {
+	public boolean isUpdateSettings(String fileName, String userName) {
+		boolean isFileUnchanged = false;
 		if (settings == null) {
 			settings = new Setting();
 		}
 		if (fileName != null) {
-			settings.setFileName(fileName);
+			if(fileName != settings.getFileName()){
+				settings.setFileName(fileName);
+				isFileUnchanged = true;
+			}
 		} else {
 			settings.setFileName(this.fileName);
 		}
 		if (userName != null) {
 			settings.setUserName(userName);
 		}
-		return this.saveSettings(settings);
+		this.saveSettings(settings);
+		return isFileUnchanged;
 
 	}
 
