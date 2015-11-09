@@ -27,7 +27,7 @@ public class Predictive {
 	
 	private static final String ADD_MSG = "Adding Task...";
 	private static final String EDIT_MSG = "Editing Task...";
-	private static final String DELETE_MSG = "Deleting Task...";
+	private static final String DELETE_MSG = "Delete Task?";
 	
 	private COMMANDS command;
 	private int index;
