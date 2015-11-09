@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import utilities.DatePair;
+
 public class DayProcessor {
 
 	private final static String DAY_OF_THE_WEEK = "EEEE";
@@ -24,8 +26,12 @@ public class DayProcessor {
 	}
 	
 	public static String formatDate(Date date){
+		if(date != null){
 		SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 		return dateFormat.format(date);
+		} else {
+			return null;
+		}
 	}
 	
 	public static DatePair orderDate(Date date1, Date date2){
