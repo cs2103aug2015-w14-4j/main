@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.logging.Logger;
 
-import parser.DatePair;
+import utilities.DatePair;
 import utilities.DayProcessor;
 
 /**

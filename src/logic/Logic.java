@@ -5,12 +5,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-import parser.DatePair;
 import parser.Parser;
 import parser.Predictive;
 import storage.Storage;
 import storage.Task;
 import utilities.COMMANDS;
+import utilities.DatePair;
 import utilities.DayProcessor;
 
 public class Logic {

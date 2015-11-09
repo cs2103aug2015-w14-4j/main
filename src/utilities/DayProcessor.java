@@ -5,8 +5,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import parser.DatePair;
-
 public class DayProcessor {
 
 	private final static String DAY_OF_THE_WEEK = "EEEE";

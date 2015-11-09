@@ -9,8 +9,8 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import parser.DatePair;
 import parser.DateParser;
+import utilities.DatePair;
 
 public class DateParserTest {
 

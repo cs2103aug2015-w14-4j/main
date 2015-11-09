@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 import utilities.COMMANDS;
+import utilities.DatePair;
 
 /**
  * Parser is a class to split one input string 

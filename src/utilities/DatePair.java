@@ -1,5 +1,5 @@
 //@@author A0125369Y
-package parser;
+package utilities;
 
 import java.util.Date;
 
