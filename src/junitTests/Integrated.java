@@ -15,13 +15,7 @@ import utilities.COMMANDS;
 
 
 public class Integrated {
-	private static Date date;
-	private static Date testD;
-	private static Date testSD;
-	private static Date testED;
-	private static SimpleDateFormat dateVariant1 = new SimpleDateFormat("ddMMMMyyyy");
 	private static SimpleDateFormat dateVariant2 = new SimpleDateFormat("ddMMyyyy");
-	private static SimpleDateFormat dateVariant3 = new SimpleDateFormat("ddMMMMyyyy hhmm");
 	private static SimpleDateFormat dateVariant4 = new SimpleDateFormat("ddMMyyyy hhmm");
 	
 	
@@ -36,15 +30,7 @@ public class Integrated {
 		String inputAdd2 = "add Floating task 2 with details -i details";
 		String inputAdd3 = "add Spee-Do floating task -i -i in details";
 		String inputAdd4 = "add First non floating task -d 31102015 2015 -i testing input details";
-		String inputAdd5 = "add Start date End date -d 02/11/1993 12:10 03/11/1993 16:30";
-		String inputAdd6 = "add End date before start date -d 03/11/1993 10:10 02/11/1993 10:10";
 		
-		
-		try{
-			date = dateVariant1.parse("02Jan2015");
-		} catch (Exception e){
-				
-		}
 		//creating new Logic and Parser class objects for testing
 		Logic logic = new Logic(true);
 		Parser parser = new Parser();
@@ -84,7 +70,6 @@ public class Integrated {
 		
 		//supposed output test information from user input 2
 		GuiCommand testReferee2 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 2 with details\"", list2);
-		COMMANDS cmdReferee2 = COMMANDS.ADD;
 		String nameReferee2 = "Floating task 2 with details";
 		String detailReferee2 = "details";
 		
@@ -286,7 +271,6 @@ public class Integrated {
 		GuiCommand Output5 = logic.executeCMD(input5);
 		List<Task> List5 = Output5.getListOfTasks();
 		Task task5 = List5.get(1);
-		int size5 = List5.size();
 		
 		//compare size of list of tasks. For this case, it should be the same
 		assertEquals(size3, 2);
