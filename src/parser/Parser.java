@@ -243,7 +243,8 @@ public class Parser {
 				return indexPiece[0];
 			}
 		}
-		return null;
+		index = -1;
+		return EMPTY;
 	}
 
 	private boolean isRequireIndex(COMMANDS cmd) {
