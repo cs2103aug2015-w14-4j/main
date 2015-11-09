@@ -5,11 +5,23 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import utilities.ErrorProcessor;
 
+/**
+ * HelpBoxController controls the help menu which displays to the user all possible commands that 
+ * can be used 
+ *
+ */
 public class HelpBoxController extends VBox{
 	
+	// ================================================================
+    // FXML
+    // ================================================================
 	private static final String FXML_PATH = "/view/HelpBoxView.fxml";
 	
+	// ================================================================
+    // Help messages
+    // ================================================================
 	private static final String ADD_TIP = "Add/Insert <Item Name> -d <Starting Date> <Ending Date> -i <Details>";
 	private static final String ADD_DETAILS = "This command adds a new item to the list.\n";
 	private static final String ACK_TIP = "Ack/Acknowledge <Item Name> : Marks an item as completed";
@@ -30,8 +42,6 @@ public class HelpBoxController extends VBox{
 	private static final String NAME_DETAILS = "\n";
 	private static final String UNDO_TIP = "Undo: Reverts your last changes.";
 	private static final String UNDO_DETAILS = "\n";
-	// private static final String EXPAND_TIP = "";
-	// private static final String EXIT_TIP = "";
 
 	public HelpBoxController(){
         try {
@@ -41,7 +51,7 @@ public class HelpBoxController extends VBox{
             loader.setController(this);
         	loader.load();
 		} catch (IOException e) {
-			System.out.println(e);
+			ErrorProcessor.alert(e.toString());
 		}
         initHelpEntry();
         this.setId("helpBox");
