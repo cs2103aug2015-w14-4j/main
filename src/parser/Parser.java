@@ -286,9 +286,9 @@ public class Parser {
 	 * DETAIL_DELIMITER=-i
 	 */
 	private void checkForDate(String[] input) {
-		String[] inputPieces = input[1].split(DATE_DELIMITER);
+		String[] inputPieces = input[1].split(DATE_DELIMITER, 2);
 		if (inputPieces.length == 2) {
-			String[] datePieces = inputPieces[1].split(DETAIL_DELIMITER);
+			String[] datePieces = inputPieces[1].split(DETAIL_DELIMITER, 2);
 			processDate(datePieces[0]);
 		} else {
 			// Invalid Format
@@ -300,9 +300,9 @@ public class Parser {
 	 * 
 	 */
 	private void processDetails(String[] input) {
-		String[] inputPieces = input[1].split(DETAIL_DELIMITER);
+		String[] inputPieces = input[1].split(DETAIL_DELIMITER, 2);
 		if (inputPieces.length == 2) {
-			String[] detailPieces = inputPieces[1].split(DATE_DELIMITER);
+			String[] detailPieces = inputPieces[1].split(DATE_DELIMITER, 2);
 			if (detailPieces[0].trim().length() > 0) {
 				details = detailPieces[0];
 			} else {
