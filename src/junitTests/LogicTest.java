@@ -211,16 +211,16 @@ public class LogicTest {
 		GuiCommand testEdit1 = new GuiCommand(COMMANDS.EDIT, "Edited \"Floating task 1\"", LE1);
 		GuiCommand testEdit2 = new GuiCommand(COMMANDS.EDIT, "Edited \"Floating task 2 with details\"", LE2);
 		GuiCommand testEdit3 = new GuiCommand(COMMANDS.EDIT, "Edited \"Spee-Do floating task\"", LE3);
-		GuiCommand testEdit4 = new GuiCommand(COMMANDS.INVALID, "Task not deleted");
+		GuiCommand testEdit4 = new GuiCommand(COMMANDS.INVALID, "Task not edited");
 		
 		
 		assertEquals(editOut1.getCmd(), testEdit1.getCmd());
 		System.out.println("Hi " +editOut1.getMsg());
 		assertEquals(editOut1.getMsg(), testEdit1.getMsg());
 		
-//		assertEquals(editOut2.getCmd(), testEdit2.getCmd());
-//		System.out.println("Hi " +editOut2.getMsg());
-//		assertEquals(editOut2.getMsg(), testEdit2.getMsg());
+		assertEquals(editOut2.getCmd(), testEdit2.getCmd());
+		System.out.println("Hi " +editOut2.getMsg());
+		assertEquals(editOut2.getMsg(), testEdit2.getMsg());
 		
 		assertEquals(editOut3.getCmd(), testEdit3.getCmd());
 		assertEquals(editOut3.getMsg(), testEdit3.getMsg());
