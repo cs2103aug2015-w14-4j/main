@@ -12,6 +12,7 @@ import utilities.DatePair;
 /**
  * Parser receive input string from Logic and Predictive then
  * split the input string into several parameter 
+ * 
  * @param command: command split from input string in COMMANDS
  * @param taskName: task name split from input string in string
  * @param startDate: starting date get from input string in Date
@@ -236,6 +237,11 @@ public class Parser {
 	}
 
 	// @@author A0125369Y
+	/**
+	 * Method to check the format of the string input
+	 * DATE_DELIMITER=-d
+	 * DETAIL_DELIMITER=-i
+	 */
 	private void checkForDate(String[] input) {
 		String[] inputPieces = input[1].split(DATE_DELIMITER);
 		if (inputPieces.length == 2) {
@@ -246,7 +252,10 @@ public class Parser {
 		}
 	}
 
-	// @@author A0125369Y
+	/**
+	 * Method to set correct details from input string
+	 * 
+	 */
 	private void processDetails(String[] input) {
 		String[] inputPieces = input[1].split(DETAIL_DELIMITER);
 		if (inputPieces.length == 2) {
@@ -262,7 +271,10 @@ public class Parser {
 		}
 	}
 
-	// @@author A0125369Y
+	/**
+	 * Method to set correct date from input string
+	 * 
+	 */
 	private void processDate(String dateString) {
 		DatePair datePair = DateParser.stringToDate(dateString);
 		Date firstDate = datePair.getDateOne();
@@ -278,38 +290,74 @@ public class Parser {
 	}
 	
 	// @@author A0126232U
+	/**
+	 * Method to get the command
+	 * 
+	 */
 	public COMMANDS getCommand() {
 		return command;
 	}
-
+	
+	/**
+	 * Method to get the task name
+	 * 
+	 */
 	public String getTaskName() {
 		return taskName;
 	}
-
+	
+	/**
+	 * Method to get the start date
+	 * 
+	 */
 	public Date getStartDate() {
 		return startDate;
 	}
-
+	
+	/**
+	 * Method to get the deadline
+	 * 
+	 */
 	public Date getEndDate() {
 		return endDate;
 	}
-
+	
+	/**
+	 * Method to get the details from input string
+	 * 
+	 */
 	public String getDetails() {
 		return details;
 	}
-
+	
+	/**
+	 * Method to get the user name
+	 * 
+	 */
 	public String getName() {
 		return name;
 	}
-
+	
+	/**
+	 * Method to get the file path
+	 * 
+	 */
 	public String getFilePath() {
 		return filePath;
 	}
-
+	
+	/**
+	 * Method to get the search details
+	 * 
+	 */
 	public String getSearch() {
 		return searchSentence;
 	}
-
+	
+	/**
+	 * Method to get the correct index
+	 * 
+	 */
 	public int getIndex() {
 		String[] temp = inputString.split(" ");
 		if (temp.length < 2 || !isRequireIndex(getCommand())) {
@@ -319,7 +367,11 @@ public class Parser {
 		}
 
 	}
-
+	
+	/**
+	 * Method to reset all parameter
+	 * 
+	 */
 	public void reset() {
 		command = COMMANDS.INVALID;
 		taskName = null;
@@ -331,7 +383,10 @@ public class Parser {
 		filePath = null;
 		searchSentence = null;
 	}
-	
+	/**
+	 * Previous method to parse the string into several part 
+	 * Not used now
+	 */
 	/*
 	 * private String removeExtras(String text) { String input =
 	 * text.replace(details, ""); input = input.replace(taskName, ""); input =
