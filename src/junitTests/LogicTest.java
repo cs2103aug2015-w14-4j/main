@@ -62,15 +62,15 @@ public class LogicTest {
 		GuiCommand outAdd9 = l.executeCMD(inputAdd9);
 		List<Task> LA9 = outAdd9.getListOfTasks();
 		
-		GuiCommand testAdd1 = new GuiCommand(COMMANDS.ADD, "Added Floating task 1", LA1);
-		GuiCommand testAdd2 = new GuiCommand(COMMANDS.ADD, "Added Floating task 2 with details", LA2);
-		GuiCommand testAdd3 = new GuiCommand(COMMANDS.ADD, "Added Spee-Do floating task", LA3);
-		GuiCommand testAdd4 = new GuiCommand(COMMANDS.ADD, "Added First non floating task", LA4);
-		GuiCommand testAdd5 = new GuiCommand(COMMANDS.ADD, "Added details input before date", LA5);
-		GuiCommand testAdd6 = new GuiCommand(COMMANDS.ADD, "Added Task date format1", LA6);
-		GuiCommand testAdd7 = new GuiCommand(COMMANDS.ADD, "Added Start date End date", LA7);
-		GuiCommand testAdd8 = new GuiCommand(COMMANDS.ADD, "Added End date before start date", LA8);
-		GuiCommand testAdd9 = new GuiCommand(COMMANDS.ADD, "Added -i details withough task name", LA9);
+		GuiCommand testAdd1 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 1\"", LA1);
+		GuiCommand testAdd2 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 2 with details\"", LA2);
+		GuiCommand testAdd3 = new GuiCommand(COMMANDS.ADD, "Added \"Spee-Do floating task\"", LA3);
+		GuiCommand testAdd4 = new GuiCommand(COMMANDS.ADD, "Added \"First non floating task\"", LA4);
+		GuiCommand testAdd5 = new GuiCommand(COMMANDS.ADD, "Added \"details input before date\"", LA5);
+		GuiCommand testAdd6 = new GuiCommand(COMMANDS.ADD, "Added \"Task date format1\"", LA6);
+		GuiCommand testAdd7 = new GuiCommand(COMMANDS.ADD, "Added \"Start date End date\"", LA7);
+		GuiCommand testAdd8 = new GuiCommand(COMMANDS.ADD, "Added \"End date before start date\"", LA8);
+		GuiCommand testAdd9 = new GuiCommand(COMMANDS.ADD, "Added \"-i details withough task name\"", LA9);
 		
 		
 		assertEquals(outAdd1.getCmd(), testAdd1.getCmd());
@@ -208,9 +208,9 @@ public class LogicTest {
 		List<Task> LE3 = editOut1.getListOfTasks();
 		GuiCommand editOut4 = l.executeCMD(inputEdit4);
 		
-		GuiCommand testEdit1 = new GuiCommand(COMMANDS.EDIT, "Edited Floating task 1", LE1);
-		GuiCommand testEdit2 = new GuiCommand(COMMANDS.EDIT, "Edited Floating task 2 with details", LE2);
-		GuiCommand testEdit3 = new GuiCommand(COMMANDS.EDIT, "Edited Spee-Do floating task", LE3);
+		GuiCommand testEdit1 = new GuiCommand(COMMANDS.EDIT, "Edited \"Floating task 1\"", LE1);
+		GuiCommand testEdit2 = new GuiCommand(COMMANDS.EDIT, "Edited \"Floating task 2 with details\"", LE2);
+		GuiCommand testEdit3 = new GuiCommand(COMMANDS.EDIT, "Edited \"Spee-Do floating task\"", LE3);
 		GuiCommand testEdit4 = new GuiCommand(COMMANDS.INVALID, "Task not deleted");
 		
 		

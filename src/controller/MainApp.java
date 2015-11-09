@@ -98,12 +98,8 @@ public class MainApp extends Application {
     }
     
     public void handleUserCommand(String userInput) {
-        // Command was entered, do something...
         GuiCommand command = logic.executeCMD(userInput);
         switch(command.getCmd()){
-	        case EXPAND: {
-	        	taskList.expand(command.getTaskId());
-	        }
 	        case HELP: {
 	        	displayHelp();
 	        }
@@ -118,9 +114,7 @@ public class MainApp extends Application {
 	        }
         }
     }
-    
-
-    
+        
     public void parseUserCommand(String userInput) {
     	GuiCommand guiCommand = logic.predictCMD(userInput);
     	if(!userInput.equals("")){
