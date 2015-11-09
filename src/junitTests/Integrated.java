@@ -74,7 +74,7 @@ public class Integrated {
 		assertEquals(detail1, detailReferee1);
 		
 		
-		//input 2****
+		//Logic and Parser now evaluates user input 2****
 		parser.parse(inputAdd2);
 		GuiCommand testOutput2 = logic.executeCMD(inputAdd2);
 		COMMANDS cmd2 = parser.getCommand();
@@ -82,21 +82,22 @@ public class Integrated {
 		String detail2 = parser.getDetails();		
 		List<Task> list2 = testOutput2.getListOfTasks();
 		
-		//supposed outcome
+		//supposed output test information from user input 2
 		GuiCommand testReferee2 = new GuiCommand(COMMANDS.ADD, "Added \"Floating task 2 with details\"", list2);
 		COMMANDS cmdReferee2 = COMMANDS.ADD;
 		String nameReferee2 = "Floating task 2 with details";
 		String detailReferee2 = "details";
 		
 	
-		//Comparing the information types
+		//Comparing the information types between supposed output test and logic and parser
+		// generated test cases
 		assertEquals(testOutput2.getCmd(), testReferee2.getCmd());
 		assertEquals(testOutput2.getMsg(), testReferee2.getMsg());
 		assertEquals(name2, nameReferee2);
 		assertEquals(cmd2, cmdReferee1);
 		assertEquals(detail2, detailReferee2);
 		
-		//input 3*****
+		//Logic and Parser now evaluates user input 3*****
 		parser.parse(inputAdd3);
 		GuiCommand testOutput3 = logic.executeCMD(inputAdd3);
 		COMMANDS cmd3 = parser.getCommand();
@@ -104,7 +105,7 @@ public class Integrated {
 		String detail3 = parser.getDetails();		
 		List<Task> list3 = testOutput3.getListOfTasks();
 		
-		//supposed outcome
+		//supposed output test information from user input 3
 		GuiCommand testReferee3 = new GuiCommand(COMMANDS.ADD, "Added \"Spee-Do floating task\"", list3);
 		COMMANDS cmdReferee3 = COMMANDS.ADD;
 		String nameReferee3 = "Spee-Do floating task";
@@ -119,7 +120,9 @@ public class Integrated {
 		assertEquals(detail3, detailReferee3);
 		
 		
-		//input 4*****
+		//Logic and parser evaluates input 4*****
+		//gets the relevant information such as GuiCommand object
+		// date, details, and task lists
 		parser.parse(inputAdd4);
 		GuiCommand testOutput4 = logic.executeCMD(inputAdd4);
 		COMMANDS cmd4 = parser.getCommand();
@@ -128,7 +131,7 @@ public class Integrated {
 		Date date4 = parser.getEndDate();
 		List<Task> list4 = testOutput4.getListOfTasks();
 		
-		//supposed outcome
+		//created supposed outcome from test input 4
 		GuiCommand testReferee4 = new GuiCommand(COMMANDS.ADD, "Added \"First non floating task\"", list4);
 		COMMANDS cmdReferee4 = COMMANDS.ADD;
 		String nameReferee4 = "First non floating task";
@@ -175,6 +178,9 @@ public class Integrated {
 		
 		
 		//testing input 1 and 2 ******************
+		//size of task list recorded
+		//task also retrieved to compare the informations of the task objects
+		//to ensure that storage component correctly stores the task information
 		GuiCommand Output1 = logic.executeCMD(input1);
 		List<Task> List1 = Output1.getListOfTasks();
 		int size1 = List1.size();
@@ -187,6 +193,7 @@ public class Integrated {
 		
 	
 		//comparing the size of list in file handler after every command
+		//the number of completed and uncompleted tasks should be coherent
 		assertEquals(size1, 1);
 		assertEquals(size2, 2);
 
@@ -212,7 +219,7 @@ public class Integrated {
 		}
 		
 		//comparing the supposed task information with the actual task information
-		//comparing input 1
+		//comparing output from input1 test case with manual created information
 		assertEquals(task1.getName(), nameReferee1);
 		assertEquals(task1.getDetails(), detailsReferee1);
 		assertEquals(task1.getEndDate(), dateReferee1);
@@ -305,6 +312,10 @@ public class Integrated {
 		Logic logic = new Logic(true);
 		
 		//input test cases to be tested from the logic component
+		//first 3 user input test cases adds 3 different tasks into the the tasks list
+		//next 3 user input will test the acknowledgement of the task
+		//when the task is acknowledged, the size of uncompleted task list --
+		//while size of completed task list will ++
 		String input1 = "add First New task -i new task details -d 02Jan2016";
 		String input2 = "add Second new task -d 30112016 2030 02122016 0530 -i task has both start and end date";
 		String input3 = "add Third new task to the list";
@@ -330,7 +341,8 @@ public class Integrated {
 		GuiCommand complete = logic.executeCMD("completed");
 		List<Task> completedTasks1 = complete.getListOfTasks(); 
 		
-		//checking size of completed and uncompleted task lists
+		//comparing the size of list in file handler after every command
+		//the number of completed and uncompleted tasks should be coherent
 		assertTrue(uncompletedTasks.size() == 2);
 		assertTrue(completedTasks1.size() == 1);
 		
