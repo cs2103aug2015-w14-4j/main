@@ -69,7 +69,10 @@ public class Parser {
 	public Parser() {
 	}
 
-	
+	/**
+	 * Method to parse the string into several parameter
+	 * @return true if command is not invalid
+	 */
 	public Boolean parse(String str) {
 		inputString = str;
 		Boolean valid = true;
@@ -79,7 +82,10 @@ public class Parser {
 		return valid;
 	}
 
-
+	/**
+	 * Method to split the input string into several part
+	 * @return a string after splitting
+	 */
 	private String splitInput(String str) {
 		str = str.trim().replaceAll(" +", " ");
 		String[] inputPieces = str.split(" ", 2);
@@ -100,7 +106,10 @@ public class Parser {
 		return remaining;
 	}
 
-
+	/**
+	 * Method to check the corresponding command and set the corresponding parameter   
+	 * @return true if command is not invalid
+	 */
 	private Boolean checkCommand(Boolean valid, String remaining) {
 		if (getCommand() == COMMANDS.EDIT && remaining != null && !errorIndex) {
 			taskName = removeSpace(remaining);
@@ -126,10 +135,10 @@ public class Parser {
 		return valid;
 	}
 
-	// private String removeFirst(String text) {
-	// return text.substring(1);
-	// }
-	//
+	/**
+	 * Method to remove the first space of the string   
+	 * @return the string after remove the first space
+	 */
 	private String removeSpace(String text) {
 		String[] inputwithSpace = text.split(" ");
 		String output = "";
@@ -142,7 +151,10 @@ public class Parser {
 		}
 		return output;
 	}
-
+	
+	/**
+	 * Method to set the command to corresponding command get from input string   
+	 */
 	private void processCommand(String stringCmd) {
 		stringCmd = stringCmd.toLowerCase();
 		stringCmd = stringCmd.trim();
@@ -183,7 +195,11 @@ public class Parser {
 		}
 		logger.info("Command: " + command);
 	}
-
+	
+	/**
+	 * Method set the index number 
+	 * @return the index number as a string
+	 */
 	private String processIndex(String[] input) {
 		if (input.length > 1) {
 			String possibleIndex = input[1];
@@ -205,7 +221,12 @@ public class Parser {
 		index = -1;
 		return EMPTY;
 	}
-
+	
+	/**
+	 * Method to check whether this command require index number or not
+	 * only delete,edit,ack need index number  
+	 * @return true if commands is delete,ack or edit
+	 */
 	private boolean isRequireIndex(COMMANDS cmd) {
 		if (cmd == COMMANDS.DELETE || cmd == COMMANDS.EDIT || cmd == COMMANDS.ACK) {
 			return true;
@@ -310,7 +331,7 @@ public class Parser {
 		filePath = null;
 		searchSentence = null;
 	}
-
+	
 	/*
 	 * private String removeExtras(String text) { String input =
 	 * text.replace(details, ""); input = input.replace(taskName, ""); input =
@@ -396,6 +417,9 @@ public class Parser {
 	 * (ParseException e) { System.out.println("4"); firstDate = null;
 	 * secondDate = null; } logger.info("Date: " + dateString); if (identity ==
 	 * 0) { return firstDate; } else { return secondDate; } }
+	 */
+	/**
+	 * Previous version of parse method, not used now   
 	 */
 	//public boolean parse(String str){
 		// String[] inputsSplitDash = str.split("-");
@@ -487,4 +511,12 @@ public class Parser {
 				// }
 				// }
 	//}
+	
+		/**
+		 * Method to remove the first character of the string   
+		 */ 
+		//private String removeFirst(String text) {
+		// return text.substring(1);
+		// }
+		//
 }
