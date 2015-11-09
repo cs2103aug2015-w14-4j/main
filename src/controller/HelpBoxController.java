@@ -44,7 +44,7 @@ public class HelpBoxController extends VBox{
 	private static final String NAME_TIP = "Name <User Name> : Changes the user name";
 	private static final String NAME_DETAILS = "\n";
 	private static final String UNDO_TIP = "Undo: Reverts your last changes.";
-	private static final String UNDO_DETAILS = "\n";
+	private static final String UNDO_DETAILS = "";
 
 	public HelpBoxController(){
         try {

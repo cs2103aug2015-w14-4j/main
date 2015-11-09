@@ -98,7 +98,7 @@ public class MainApp extends Application {
     // initializes the help box
     private void initHelpBox(){
 		helpPopup = new PopupControl();
-		helpPopup.setOpacity(0.9);
+		helpPopup.setOpacity(1);
 		helpPopup.setAutoHide(true);
 		helpPopup.getScene().setRoot(new HelpBoxController());
     }
