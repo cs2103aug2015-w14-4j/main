@@ -334,7 +334,7 @@ public class Parser {
 
 	// @@author A0126232U
 	/**
-	 * Method to get the command
+	 * Method to return the command
 	 * 
 	 */
 	public COMMANDS getCommand() {
@@ -342,7 +342,7 @@ public class Parser {
 	}
 
 	/**
-	 * Method to get the task name
+	 * Method to return the task name
 	 * 
 	 */
 	public String getTaskName() {
@@ -350,7 +350,7 @@ public class Parser {
 	}
 
 	/**
-	 * Method to get the start date
+	 * Method to return the start date
 	 * 
 	 */
 	public Date getStartDate() {
@@ -358,7 +358,7 @@ public class Parser {
 	}
 
 	/**
-	 * Method to get the deadline
+	 * Method to return the deadline
 	 * 
 	 */
 	public Date getEndDate() {
@@ -366,7 +366,7 @@ public class Parser {
 	}
 
 	/**
-	 * Method to get the details from input string
+	 * Method to return the details from input string
 	 * 
 	 */
 	public String getDetails() {
@@ -374,7 +374,7 @@ public class Parser {
 	}
 
 	/**
-	 * Method to get the user name
+	 * Method to return the user name
 	 * 
 	 */
 	public String getName() {
@@ -382,7 +382,7 @@ public class Parser {
 	}
 
 	/**
-	 * Method to get the file path
+	 * Method to return the file path
 	 * 
 	 */
 	public String getFilePath() {
@@ -390,7 +390,7 @@ public class Parser {
 	}
 
 	/**
-	 * Method to get the search details
+	 * Method to return the search details
 	 * 
 	 */
 	public String getSearch() {
@@ -398,7 +398,7 @@ public class Parser {
 	}
 
 	/**
-	 * Method to get the correct index
+	 * Method to return the correct index
 	 * 
 	 */
 	public int getIndex() {
