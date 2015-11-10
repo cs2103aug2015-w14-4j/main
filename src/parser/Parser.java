@@ -125,7 +125,11 @@ public class Parser {
 	 */
 	private Boolean checkCommand(Boolean valid, String remaining) {
 		if (getCommand() == COMMANDS.EDIT && remaining != null && !errorIndex) {
-			taskName = removeSpace(remaining);
+			if(index<0){
+				taskName = null;
+			}else{
+				taskName = removeSpace(remaining);
+			}
 		} else if (getCommand() == COMMANDS.NAME) {
 			name = remaining;
 		} else if (getCommand() == COMMANDS.FILEPATH) {

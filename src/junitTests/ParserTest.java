@@ -27,7 +27,7 @@ public class ParserTest extends TestCase{
 	private static final String input8="edit 3 newtask -d 09112015 1300";
 	private static final String input9="edit 3 -i newdetail";
 	private static final String input10="edit 1475091874590147124727490273597517174";
-	private static final String input11="edit -1";
+	private static final String input11="edit -2 hello";
 	private static final String input12="delete -1";
 	private static final String input13="delete ewfoiwen";
 	private static final String input14="name testing";
