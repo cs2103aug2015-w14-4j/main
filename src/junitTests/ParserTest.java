@@ -1,7 +1,6 @@
 //@@author A0126232U
 package junitTests;
 
-import static org.junit.Assert.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,10 +47,10 @@ public class ParserTest extends TestCase{
 	@Test
 	public void testAdd() throws ParseException {
 		parse.parse(input1);
-		//print();
 		dateVariant = new SimpleDateFormat("ddMMyyyy hhmm");
 		startDate=dateVariant.parse("08112015 1200");
 		endDate=dateVariant.parse("09112015 1300");
+		
 	    assertTrue(parse.getCommand().equals(COMMANDS.ADD));
 	    assertTrue(parse.getTaskName().equals("task"));
 	    assertTrue(parse.getStartDate().equals(startDate));
@@ -59,6 +58,7 @@ public class ParserTest extends TestCase{
 	    assertTrue(parse.getDetails().equals("detail"));
 	    assertTrue(parse.getIndex()==-1);
 	    parse.reset();
+	    
 	    parse.parse(input2);
 	    assertTrue(parse.getCommand().equals(COMMANDS.ADD));
 	    assertTrue(parse.getTaskName().equals("task"));
@@ -67,6 +67,7 @@ public class ParserTest extends TestCase{
 	    assertTrue(parse.getDetails()==null);
 	    assertTrue(parse.getIndex()==-1);
 	    parse.reset();
+	    
 	    parse.parse(input3);
 	    assertTrue(parse.getCommand().equals(COMMANDS.ADD));
 	    assertTrue(parse.getTaskName().equals("task"));
@@ -75,6 +76,7 @@ public class ParserTest extends TestCase{
 	    assertTrue(parse.getDetails()==null);
 	    assertTrue(parse.getIndex()==-1);
 	    parse.reset();
+	    
 	    parse.parse(input4);
 	    assertTrue(parse.getCommand().equals(COMMANDS.ADD));
 	    assertTrue(parse.getTaskName().equals("task"));
@@ -83,6 +85,7 @@ public class ParserTest extends TestCase{
 	    assertTrue(parse.getDetails()==null);
 	    assertTrue(parse.getIndex()==-1);
 	    parse.reset();
+	    
 	    parse.parse(input5);
 	    assertTrue(parse.getCommand().equals(COMMANDS.ADD));
 	    assertTrue(parse.getTaskName()==null);
@@ -92,6 +95,96 @@ public class ParserTest extends TestCase{
 	    assertTrue(parse.getIndex()==-1);
 	}
 
+	@Test
+	public void testEdit() throws ParseException {
+		dateVariant = new SimpleDateFormat("ddMMyyyy hhmm");
+		startDate=dateVariant.parse("08112015 1200");
+		endDate=dateVariant.parse("09112015 1300");
+		
+		parse.parse(input6);
+		assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
+	    assertTrue(parse.getTaskName().equals("newtask"));
+	    assertTrue(parse.getStartDate().equals(startDate));
+	    assertTrue(parse.getEndDate().equals(endDate));
+	    assertTrue(parse.getDetails().equals("newdetail"));
+	    assertTrue(parse.getIndex()==2);
+	    parse.reset();
+	    
+	    parse.parse(input7);
+	    assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
+	    assertTrue(parse.getTaskName().equals("newtask"));
+	    assertTrue(parse.getStartDate().equals(startDate));
+	    assertTrue(parse.getEndDate().equals(endDate));
+	    assertTrue(parse.getDetails()==null);
+	    assertTrue(parse.getIndex()==2);
+	    parse.reset();
+	    
+	    parse.parse(input8);
+	    assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
+	    assertTrue(parse.getTaskName().equals("newtask"));
+	    assertTrue(parse.getStartDate()==null);
+	    assertTrue(parse.getEndDate().equals(endDate));
+	    assertTrue(parse.getDetails()==null);
+	    assertTrue(parse.getIndex()==2);
+	    parse.reset();
+	    
+	    parse.parse(input9);
+	    assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
+	    assertTrue(parse.getTaskName()==null);
+	    assertTrue(parse.getStartDate()==null);
+	    assertTrue(parse.getEndDate()==null);
+	    assertTrue(parse.getDetails().equals("newdetail"));
+	    assertTrue(parse.getIndex()==2);
+	    parse.reset();
+	    
+	    parse.parse(input10);
+	    assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
+	    assertTrue(parse.getTaskName()==null);
+	    assertTrue(parse.getStartDate()==null);
+	    assertTrue(parse.getEndDate()==null);
+	    assertTrue(parse.getDetails()==null);
+	    assertTrue(parse.getIndex()==-1);
+	    parse.reset();
+	    
+	    parse.parse(input11);
+	    assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
+	    assertTrue(parse.getTaskName()==null);
+	    assertTrue(parse.getStartDate()==null);
+	    assertTrue(parse.getEndDate()==null);
+	    assertTrue(parse.getDetails()==null);
+	    assertTrue(parse.getIndex()==-1);
+	}
+	
+	@Test
+	public void testDelete() {
+		parse.parse(input12);
+	    assertTrue(parse.getCommand().equals(COMMANDS.DELETE));
+	    assertTrue(parse.getIndex()==-1);
+	    parse.reset();
+	    
+	    parse.parse(input13);
+	    assertTrue(parse.getCommand().equals(COMMANDS.DELETE));
+	    assertTrue(parse.getIndex()==-1);
+	    parse.reset();
+	    
+	    parse.parse(input14);
+	    assertTrue(parse.getCommand().equals(COMMANDS.NAME));
+	    assertTrue(parse.getIndex()==-1);
+	    assertTrue(parse.getName().equals("testing"));
+	    parse.reset();
+	    
+	    parse.parse(input15);
+	    assertTrue(parse.getCommand().equals(COMMANDS.FILEPATH));
+	    assertTrue(parse.getIndex()==-1);
+	    assertTrue(parse.getFilePath().equals("testing"));
+	    parse.reset();
+	    
+	    parse.parse(input16);
+	    assertTrue(parse.getCommand().equals(COMMANDS.SEARCH));
+	    assertTrue(parse.getIndex()==-1);
+	    assertTrue(parse.getSearch().equals("testing"));
+	}
+	/*
 	private void print() {
 		System.out.println("command "+parse.getCommand());
 		System.out.println("taskname "+parse.getTaskName());
@@ -103,92 +196,5 @@ public class ParserTest extends TestCase{
 		System.out.println("name "+parse.getName());
 		System.out.println("filepath "+parse.getFilePath());
 	}
-	
-	@Test
-	public void testEdit() throws ParseException {
-		dateVariant = new SimpleDateFormat("ddMMyyyy hhmm");
-		startDate=dateVariant.parse("08112015 1200");
-		endDate=dateVariant.parse("09112015 1300");
-		parse.parse(input6);
-		assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
-	    assertTrue(parse.getTaskName().equals("newtask"));
-	    assertTrue(parse.getStartDate().equals(startDate));
-	    assertTrue(parse.getEndDate().equals(endDate));
-	    assertTrue(parse.getDetails().equals("newdetail"));
-	    assertTrue(parse.getIndex()==2);
-	    parse.reset();
-	    parse.parse(input7);
-	    assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
-	    assertTrue(parse.getTaskName().equals("newtask"));
-	    assertTrue(parse.getStartDate().equals(startDate));
-	    assertTrue(parse.getEndDate().equals(endDate));
-	    assertTrue(parse.getDetails()==null);
-	    assertTrue(parse.getIndex()==2);
-	    parse.reset();
-	    parse.parse(input8);
-	    assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
-	    assertTrue(parse.getTaskName().equals("newtask"));
-	    assertTrue(parse.getStartDate()==null);
-	    assertTrue(parse.getEndDate().equals(endDate));
-	    assertTrue(parse.getDetails()==null);
-	    assertTrue(parse.getIndex()==2);
-	    parse.reset();
-	    parse.parse(input9);
-	    assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
-	    assertTrue(parse.getTaskName()==null);
-	    assertTrue(parse.getStartDate()==null);
-	    assertTrue(parse.getEndDate()==null);
-	    assertTrue(parse.getDetails().equals("newdetail"));
-	    assertTrue(parse.getIndex()==2);
-	    parse.reset();
-	    parse.parse(input10);
-	    assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
-	    assertTrue(parse.getTaskName()==null);
-	    assertTrue(parse.getStartDate()==null);
-	    assertTrue(parse.getEndDate()==null);
-	    assertTrue(parse.getDetails()==null);
-	    assertTrue(parse.getIndex()==-1);
-	    //print();
-	    parse.reset();
-	    parse.parse(input11);
-	    assertTrue(parse.getCommand().equals(COMMANDS.EDIT));
-	    assertTrue(parse.getTaskName()==null);
-	    assertTrue(parse.getStartDate()==null);
-	    assertTrue(parse.getEndDate()==null);
-	    assertTrue(parse.getDetails()==null);
-	    assertTrue(parse.getIndex()==-1);
-	    //print();
-	}
-	
-	@Test
-	public void testDelete() {
-		parse.parse(input12);
-	    assertTrue(parse.getCommand().equals(COMMANDS.DELETE));
-	    assertTrue(parse.getIndex()==-1);
-	    //print();
-	    parse.reset();
-	    parse.parse(input13);
-	    assertTrue(parse.getCommand().equals(COMMANDS.DELETE));
-	    assertTrue(parse.getIndex()==-1);
-	    //print();
-	    parse.reset();
-	    parse.parse(input14);
-	    assertTrue(parse.getCommand().equals(COMMANDS.NAME));
-	    assertTrue(parse.getIndex()==-1);
-	    assertTrue(parse.getName().equals("testing"));
-	    //print();
-	    parse.reset();
-	    parse.parse(input15);
-	    assertTrue(parse.getCommand().equals(COMMANDS.FILEPATH));
-	    assertTrue(parse.getIndex()==-1);
-	    assertTrue(parse.getFilePath().equals("testing"));
-	    //print();
-	    parse.reset();
-	    parse.parse(input16);
-	    assertTrue(parse.getCommand().equals(COMMANDS.SEARCH));
-	    assertTrue(parse.getIndex()==-1);
-	    assertTrue(parse.getSearch().equals("testing"));
-	    //print();
-	}
-
+	*/
 }

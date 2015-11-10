@@ -1,9 +1,6 @@
 // @@author A0126232U
 package parser;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 import utilities.COMMANDS;
@@ -71,7 +68,6 @@ public class Parser {
 
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
 	private static final String EMPTY = "";
-	private static final int INVALID_INDEX = -1;
 
 	/**
 	 * Default constructor for a Parser Object.

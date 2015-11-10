@@ -68,7 +68,7 @@ public class Logic {
 		Boolean valid = parser.parse(s);
 		command = parser.getCommand();
 		GuiCommand c = new GuiCommand(COMMANDS.INVALID, INVALID_FEEDBACK);
-		Task t = null;
+		
 		List<Task> list = null;
 
 		String name = null;
