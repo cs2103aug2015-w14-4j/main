@@ -70,12 +70,8 @@ public class Parser {
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
 	private static final String PARSED = "Parsed: \"%1$s\" \"%2$s\" \"%3$s\" \"%4$s\" \"%5$s\"";
 	private static final String EMPTY = "";
-<<<<<<< HEAD
-=======
 	private static final String SPACE = " ";
-	private static final int INVALID_INDEX = -1;
->>>>>>> origin/master
-
+	
 	/**
 	 * Default constructor for a Parser Object.
 	 */
