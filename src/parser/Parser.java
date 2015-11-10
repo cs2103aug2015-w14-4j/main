@@ -52,7 +52,6 @@ public class Parser {
 	public static final String DELETE = "remove delete";
 	public static final String FILEPATH = "filepath";
 	public static final String SEARCH = "search find";
-	public static final String EXPAND = "expand display show";
 	public static final String ADD = "add insert";
 	public static final String HOME = "home";
 	public static final String HELP = "help";
@@ -190,8 +189,6 @@ public class Parser {
 				command = COMMANDS.HOME;
 			} else if (UNDO.matches(stringCmd)) {
 				command = COMMANDS.UNDO;
-			} else if (EXPAND.matches(stringCmd)) {
-				command = COMMANDS.EXPAND;
 			} else if (COMPLETED.matches(stringCmd)) {
 				command = COMMANDS.COMPLETED;
 			} else if (HELP.matches(stringCmd)) {
@@ -520,7 +517,7 @@ public class Parser {
 	// String[] inputsSplitSpace = inputsSplitDash[0].split(" ");
 	// commandString = inputsSplitSpace[0];
 
-	// if(DELETE.contains(commandString)||ACK.contains(commandString)||EXPAND.contains(commandString)
+	// if(DELETE.contains(commandString)||ACK.contains(commandString)
 	// ||COMPLETED.contains(commandString)){
 	// //this.isIndex(inputsSplitSpace[1]);
 	// }else if(NAME.contains(commandString)){
