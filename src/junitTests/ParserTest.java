@@ -32,7 +32,7 @@ public class ParserTest extends TestCase{
 	private static final String input13="delete ewfoiwen";
 	private static final String input14="name testing";
 	private static final String input15="filepath testing";
-	private static final String input16="search testing";
+	private static final String input16="search 12345";
 	private Date startDate,endDate;
 	private SimpleDateFormat dateVariant;
 	protected Parser parse;
@@ -182,7 +182,8 @@ public class ParserTest extends TestCase{
 	    parse.parse(input16);
 	    assertTrue(parse.getCommand().equals(COMMANDS.SEARCH));
 	    assertTrue(parse.getIndex()==-1);
-	    assertTrue(parse.getSearch().equals("testing"));
+	    assertTrue(parse.getSearch().equals("12345"));
+	    //print();
 	}
 	/*
 	private void print() {

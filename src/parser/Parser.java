@@ -101,7 +101,6 @@ public class Parser {
 		str = str.trim().replaceAll(SPACE_DELIMITER, SPACE);
 		String[] inputPieces = str.split(SPACE, 2);
 		processCommand(inputPieces[0]);
-
 		String remaining = null;
 		if (inputPieces.length == 2) {
 			processDetails(inputPieces);
@@ -225,7 +224,11 @@ public class Parser {
 				try {
 					index = Integer.parseInt(indexPiece[0]);
 					index--;
-					return indexPiece[0];
+					if(command == COMMANDS.SEARCH){
+						return EMPTY;
+					}else{
+						return indexPiece[0];
+					}
 				} catch (NumberFormatException e) {
 					errorIndex = true;
 				}
