@@ -47,7 +47,6 @@ public class Task {
 	private static final int DAYS_IN_YEAR = 365;
 	private static final int ZERO_DAYS = 0;
 	private static final int ONE_DAY = 1;
-	private static final int ONE_WEEK = 8;
 
 	// *************************************** CONSTRUCTOR
 	/**
@@ -384,8 +383,6 @@ public class Task {
 				return TODAY;
 			} else if (diff == ONE_DAY) {
 				return TOMORROW;
-			} else if (diff < ONE_WEEK) {
-				return UPCOMING;
 			} else {
 				return OTHERS;
 			}

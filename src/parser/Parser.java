@@ -65,9 +65,16 @@ public class Parser {
 	private static final String DUAL_DELIMITER = " -d | -i ";
 	private static final String INT_REGEX = "\\d+";
 	private static final String BOUNDARY = ".*\\b%1$s\\b.*";
+	private static final String SPACE_DELIMITER = " +";
 
 	private static final Logger logger = Logger.getLogger(Parser.class.getName());
+	private static final String PARSED = "Parsed: \"%1$s\" \"%2$s\" \"%3$s\" \"%4$s\" \"%5$s\"";
 	private static final String EMPTY = "";
+<<<<<<< HEAD
+=======
+	private static final String SPACE = " ";
+	private static final int INVALID_INDEX = -1;
+>>>>>>> origin/master
 
 	/**
 	 * Default constructor for a Parser Object.
@@ -86,11 +93,9 @@ public class Parser {
 		String remaining = splitInput(str);
 		valid = checkCommand(valid, remaining);
 		valid = isValidDelim(str);
-		logger.info("Parsed: " + command + " " + taskName + " " + details + " " + endDate);
+		logger.info(String.format(PARSED, command, taskName, details, startDate, endDate));
 		return valid;
 	}
-
-
 
 	/**
 	 * Method to split the input string into several part
@@ -98,8 +103,8 @@ public class Parser {
 	 * @return a string after splitting
 	 */
 	private String splitInput(String str) {
-		str = str.trim().replaceAll(" +", " ");
-		String[] inputPieces = str.split(" ", 2);
+		str = str.trim().replaceAll(SPACE_DELIMITER, SPACE);
+		String[] inputPieces = str.split(SPACE, 2);
 		processCommand(inputPieces[0]);
 
 		String remaining = null;
@@ -109,7 +114,7 @@ public class Parser {
 			checkForDate(inputPieces);
 			String[] remainingPieces = inputPieces[1].split(DUAL_DELIMITER);
 			remaining = remainingPieces[0];
-			remaining = remaining.replaceFirst(unprocessedIndex, "");
+			remaining = remaining.replaceFirst(unprocessedIndex, EMPTY);
 			if (remaining.trim().length() == 0) {
 				remaining = null;
 			}
@@ -132,7 +137,7 @@ public class Parser {
 			filePath = remaining;
 		} else if (getCommand() == COMMANDS.SEARCH) {
 			searchSentence = remaining;
-		} else if (getCommand() == COMMANDS.DELETE || getCommand() == COMMANDS.ACK || getCommand() == COMMANDS.EXPAND) {
+		} else if (getCommand() == COMMANDS.DELETE || getCommand() == COMMANDS.ACK) {
 			taskName = null;
 		} else if (errorIndex) {
 			taskName = null;
@@ -251,7 +256,7 @@ public class Parser {
 		}
 	}
 
-	//@@author A0125369Y
+	// @@author A0125369Y
 	/**
 	 * Method to check if the delimiters are entered correctly
 	 * <p>
@@ -276,7 +281,7 @@ public class Parser {
 		}
 		return valid;
 	}
-	
+
 	/**
 	 * Method to check the format of the string input DATE_DELIMITER=-d
 	 * DETAIL_DELIMITER=-i
